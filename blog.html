@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文章 - 计划李</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/blog.css">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="nav">
+        <div class="container">
+            <div class="nav-content">
+                <a href="index.html" class="logo">计划李</a>
+                <ul class="nav-links">
+                    <li><a href="index.html">首页</a></li>
+                    <li><a href="blog.html">文章</a></li>
+                    <li><a href="about.html">关于</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 文章列表 -->
+    <section class="blog-section">
+        <div class="container">
+            <h1 class="page-title">所有文章</h1>
+            
+            <!-- 分类筛选 -->
+            <div class="categories">
+                <button class="category-btn active" data-category="all">全部</button>
+                <button class="category-btn" data-category="career">职业发展</button>
+                <button class="category-btn" data-category="ai">AI应用</button>
+                <button class="category-btn" data-category="investment">投资思考</button>
+                <button class="category-btn" data-category="personal">个人成长</button>
+            </div>
+
+            <!-- 搜索框 -->
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="搜索文章...">
+            </div>
+
+            <!-- 文章列表 -->
+            <div class="blog-grid" id="blogGrid">
+                <article class="blog-card" data-category="career">
+                    <div class="blog-tag">职业发展</div>
+                    <h2 class="blog-title">离开体制内的五年反思</h2>
+                    <p class="blog-excerpt">
+                        2020年7月进入政府部门，2025年3月正式离职。这五年的经历让我深刻理解了体制内工作的优势与局限。
+                        离开不是逃避，而是为了追寻更适合自己的发展道路...
+                    </p>
+                    <div class="blog-meta">
+                        <span class="blog-date">2025-03-15</span>
+                        <span class="blog-read">5分钟阅读</span>
+                    </div>
+                    <a href="article1.html" class="read-more">阅读全文 →</a>
+                </article>
+
+                <article class="blog-card" data-category="ai">
+                    <div class="blog-tag">AI应用</div>
+                    <h2 class="blog-title">AI驱动的职业规划工具开发实践</h2>
+                    <p class="blog-excerpt">
+                        作为GCDF持证者，我尝试将Claude、ChatGPT等AI工具整合到职业咨询流程中。
+                        从简历优化到面试准备，AI正在改变传统职业规划的方式...
+                    </p>
+                    <div class="blog-meta">
+                        <span class="blog-date">2025-02-20</span>
+                        <span class="blog-read">8分钟阅读</span>
+                    </div>
+                    <a href="#" class="read-more">阅读全文 →</a>
+                </article>
+
+                <article class="blog-card" data-category="investment">
+                    <div class="blog-tag">投资思考</div>
+                    <h2 class="blog-title">科技股投资：从P/E比率到基本面分析</h2>
+                    <p class="blog-excerpt">
+                        投资IREN、CIFR、腾讯、小米等科技股的过程中，我逐渐理解了财务指标背后的商业逻辑。
+                        P/E比率不是唯一标准，理解公司业务才是关键...
+                    </p>
+                    <div class="blog-meta">
+                        <span class="blog-date">2025-01-10</span>
+                        <span class="blog-read">12分钟阅读</span>
+                    </div>
+                    <a href="#" class="read-more">阅读全文 →</a>
+                </article>
+
+                <article class="blog-card" data-category="ai">
+                    <div class="blog-tag">AI应用</div>
+                    <h2 class="blog-title">多个AI订阅的实用价值评估</h2>
+                    <p class="blog-excerpt">
+                        同时订阅Claude、ChatGPT、Gemini、Perplexity是否必要？
+                        经过几个月的使用，我总结了各个平台的优势场景和实用技巧...
+                    </p>
+                    <div class="blog-meta">
+                        <span class="blog-date">2024-12-05</span>
+                        <span class="blog-read">7分钟阅读</span>
+                    </div>
+                    <a href="#" class="read-more">阅读全文 →</a>
+                </article>
+
+                <article class="blog-card" data-category="personal">
+                    <div class="blog-tag">个人成长</div>
+                    <h2 class="blog-title">从Notion到Flomo：我的知识管理演进</h2>
+                    <p class="blog-excerpt">
+                        曾经沉迷于复杂的Notion系统，最终发现简单的Flomo更适合日常记录。
+                        工具不在于功能强大，而在于是否真正使用...
+                    </p>
+                    <div class="blog-meta">
+                        <span class="blog-date">2024-11-20</span>
+                        <span class="blog-read">6分钟阅读</span>
+                    </div>
+                    <a href="#" class="read-more">阅读全文 →</a>
+                </article>
+
+                <article class="blog-card" data-category="career">
+                    <div class="blog-tag">职业发展</div>
+                    <h2 class="blog-title">GCDF认证：职业规划师的必备技能</h2>
+                    <p class="blog-excerpt">
+                        获得GCDF证书后，我为6-7位前同事提供了职业转型咨询。
+                        这段经历让我理解了专业职业规划的价值和方法论...
+                    </p>
+                    <div class="blog-meta">
+                        <span class="blog-date">2024-10-15</span>
+                        <span class="blog-read">10分钟阅读</span>
+                    </div>
+                    <a href="#" class="read-more">阅读全文 →</a>
+                </article>
+
+                <article class="blog-card" data-category="personal">
+                    <div class="blog-tag">个人成长</div>
+                    <h2 class="blog-title">骑行减重：20磅的改变之旅</h2>
+                    <p class="blog-excerpt">
+                        通过坚持骑行，我在几个月内减重近20磅。这不仅是身体的改变，
+                        更是意志力和习惯养成的过程...
+                    </p>
+                    <div class="blog-meta">
+                        <span class="blog-date">2024-09-08</span>
+                        <span class="blog-read">5分钟阅读</span>
+                    </div>
+                    <a href="#" class="read-more">阅读全文 →</a>
+                </article>
+
+                <article class="blog-card" data-category="investment">
+                    <div class="blog-tag">投资思考</div>
+                    <h2 class="blog-title">能源存储技术与投资机会</h2>
+                    <p class="blog-excerpt">
+                        深入研究IREN等公司让我了解到能源存储技术的发展前景。
+                        技术革新往往带来投资机会，但需要深入理解其商业模式...
+                    </p>
+                    <div class="blog-meta">
+                        <span class="blog-date">2024-08-22</span>
+                        <span class="blog-read">15分钟阅读</span>
+                    </div>
+                    <a href="#" class="read-more">阅读全文 →</a>
+                </article>
+
+                <article class="blog-card" data-category="personal">
+                    <div class="blog-tag">个人成长</div>
+                    <h2 class="blog-title">活在当下：从目的导向到体验当下</h2>
+                    <p class="blog-excerpt">
+                        长期的目的导向思维让我忽略了当下的体验。通过反思和调整，
+                        我开始学会享受过程而不只是追求结果...
+                    </p>
+                    <div class="blog-meta">
+                        <span class="blog-date">2024-07-30</span>
+                        <span class="blog-read">8分钟阅读</span>
+                    </div>
+                    <a href="#" class="read-more">阅读全文 →</a>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2025 计划李. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="https://zhihu.com" target="_blank">知乎</a>
+                    <a href="https://github.com" target="_blank">GitHub</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="scripts/blog.js"></script>
+</body>
+</html>
