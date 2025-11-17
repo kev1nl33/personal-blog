@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """
-Notion 博客同步脚本
-从 Notion Database 读取文章并生成 HTML
+Notion 博客同步脚本（完整版）
+从 Notion Database 读取文章并生成 HTML，同时更新文章列表
 """
 
 import os
+import re
 import requests
 from datetime import datetime
 
@@ -100,6 +101,9 @@ def rich_text_to_html(rich_text):
     html = ''
     for text in rich_text:
         content = text['plain_text']
+        # HTML 转义
+        content = content.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
+        
         annotations = text.get('annotations', {})
         
         if annotations.get('bold'):
@@ -202,113 +206,194 @@ def generate_article_html(article_data):
     
     return template.format(**article_data)
 
-def update_blog_list(articles):
-    """更新 blog.html 中的文章列表"""
-    # 这里需要读取 blog.html 模板并更新文章卡片
-    # 简化版本：生成文章卡片 HTML
-    cards_html = ''
-    
-    for article in articles:
-        card = f'''                <article class="blog-card" data-category="{article['category_en']}">
+def generate_blog_card(article):
+    """生成单个文章卡片 HTML"""
+    return f'''                <article class="blog-card" data-category="{article['category_en']}">
                     <div class="blog-tag">{article['category']}</div>
                     <h2 class="blog-title">{article['title']}</h2>
                     <p class="blog-excerpt">{article['excerpt']}</p>
                     <div class="blog-meta">
-                        <span class="blog-date">{article['date']}</span>
+                        <span class="blog-date">{article['date_short']}</span>
                         <span class="blog-read">{article['read_time']}分钟阅读</span>
                     </div>
                     <a href="{article['url']}.html" class="read-more">阅读全文 →</a>
                 </article>
 
 '''
-        cards_html += card
-    
-    return cards_html
+
+def update_blog_html(articles):
+    """更新 blog.html 的文章列表"""
+    try:
+        with open('blog.html', 'r', encoding='utf-8') as f:
+            content = f.read()
+        
+        # 生成所有文章卡片
+        cards_html = ''.join([generate_blog_card(article) for article in articles])
+        
+        # 替换文章列表部分
+        # 查找 <div class="blog-grid" id="blogGrid"> 到下一个 </div> 之间的内容
+        pattern = r'(<div class="blog-grid" id="blogGrid">)(.*?)(</div>\s*</div>\s*</section>)'
+        replacement = r'\1\n' + cards_html + r'            \3'
+        
+        new_content = re.sub(pattern, replacement, content, flags=re.DOTALL)
+        
+        with open('blog.html', 'w', encoding='utf-8') as f:
+            f.write(new_content)
+        
+        print("✅ blog.html 更新成功")
+        return True
+    except Exception as e:
+        print(f"❌ 更新 blog.html 失败: {e}")
+        return False
+
+def update_index_html(articles):
+    """更新 index.html 的精选文章"""
+    try:
+        with open('index.html', 'r', encoding='utf-8') as f:
+            content = f.read()
+        
+        # 只取前3篇文章作为精选
+        featured = articles[:3]
+        
+        cards_html = ''
+        for article in featured:
+            cards_html += f'''                <article class="article-card">
+                    <div class="article-tag">{article['category']}</div>
+                    <h3 class="article-title">{article['title']}</h3>
+                    <p class="article-excerpt">{article['excerpt'][:50]}...</p>
+                    <div class="article-meta">
+                        <span class="article-date">{article['date_short']}</span>
+                        <span class="article-read">{article['read_time']}分钟阅读</span>
+                    </div>
+                </article>
+
+'''
+        
+        # 替换精选文章部分
+        pattern = r'(<div class="articles-grid">)(.*?)(</div>\s*</div>\s*</section>\s*<!-- 关于简介 -->)'
+        replacement = r'\1\n' + cards_html + r'            \3'
+        
+        new_content = re.sub(pattern, replacement, content, flags=re.DOTALL)
+        
+        with open('index.html', 'w', encoding='utf-8') as f:
+            f.write(new_content)
+        
+        print("✅ index.html 更新成功")
+        return True
+    except Exception as e:
+        print(f"❌ 更新 index.html 失败: {e}")
+        return False
 
 def main():
     """主函数"""
-    print("开始从 Notion 同步文章...")
+    print("🚀 开始从 Notion 同步文章...")
     
     # 查询数据库
-    pages = query_database()
-    print(f"找到 {len(pages)} 篇已发布文章")
+    try:
+        pages = query_database()
+        print(f"📚 找到 {len(pages)} 篇已发布文章")
+    except Exception as e:
+        print(f"❌ 查询 Notion 数据库失败: {e}")
+        return
     
     articles = []
     
     for page in pages:
-        # 提取文章信息
-        properties = page['properties']
-        title = get_property_value(properties, '标题')
-        category = get_property_value(properties, '分类')
-        date = get_property_value(properties, '发布日期')
-        excerpt = get_property_value(properties, '摘要')
-        read_time = get_property_value(properties, '阅读时间')
-        url = get_property_value(properties, 'URL')
-        
-        print(f"处理文章: {title}")
-        
-        # 获取文章内容
-        blocks = get_page_content(page['id'])
-        content_html = ''
-        
-        in_list = False
-        list_type = None
-        
-        for block in blocks:
-            block_type = block['type']
+        try:
+            # 提取文章信息
+            properties = page['properties']
+            title = get_property_value(properties, '标题')
+            category = get_property_value(properties, '分类')
+            date = get_property_value(properties, '发布日期')
+            excerpt = get_property_value(properties, '摘要')
+            read_time = get_property_value(properties, '阅读时间')
+            url = get_property_value(properties, 'URL')
             
-            # 处理列表
-            if block_type in ['bulleted_list_item', 'numbered_list_item']:
-                if not in_list:
-                    list_type = 'ul' if block_type == 'bulleted_list_item' else 'ol'
-                    content_html += f'<{list_type}>\n'
-                    in_list = True
-                content_html += block_to_html(block)
+            if not url:
+                print(f"⚠️  跳过文章 '{title}': 缺少 URL")
+                continue
+            
+            print(f"📝 处理文章: {title}")
+            
+            # 获取文章内容
+            blocks = get_page_content(page['id'])
+            content_html = ''
+            
+            in_list = False
+            list_type = None
+            
+            for block in blocks:
+                block_type = block['type']
+                
+                # 处理列表
+                if block_type in ['bulleted_list_item', 'numbered_list_item']:
+                    if not in_list:
+                        list_type = 'ul' if block_type == 'bulleted_list_item' else 'ol'
+                        content_html += f'<{list_type}>\n'
+                        in_list = True
+                    content_html += block_to_html(block)
+                else:
+                    if in_list:
+                        content_html += f'</{list_type}>\n'
+                        in_list = False
+                    content_html += block_to_html(block)
+            
+            if in_list:
+                content_html += f'</{list_type}>\n'
+            
+            # 格式化日期
+            if date:
+                try:
+                    date_obj = datetime.fromisoformat(date.replace('Z', '+00:00'))
+                    formatted_date = date_obj.strftime('%Y年%m月%d日')
+                    formatted_date_short = date_obj.strftime('%Y-%m-%d')
+                except:
+                    formatted_date = datetime.now().strftime('%Y年%m月%d日')
+                    formatted_date_short = datetime.now().strftime('%Y-%m-%d')
             else:
-                if in_list:
-                    content_html += f'</{list_type}>\n'
-                    in_list = False
-                content_html += block_to_html(block)
-        
-        if in_list:
-            content_html += f'</{list_type}>\n'
-        
-        # 格式化日期
-        if date:
-            date_obj = datetime.fromisoformat(date.replace('Z', '+00:00'))
-            formatted_date = date_obj.strftime('%Y年%m月%d日')
-        else:
-            formatted_date = datetime.now().strftime('%Y年%m月%d日')
-        
-        # 准备文章数据
-        article_data = {
-            'title': title,
-            'category': category,
-            'category_en': CATEGORY_MAP.get(category, 'personal'),
-            'date': formatted_date,
-            'excerpt': excerpt,
-            'read_time': read_time,
-            'url': url,
-            'content': content_html
-        }
-        
-        articles.append(article_data)
-        
-        # 生成文章 HTML
-        article_html = generate_article_html(article_data)
-        
-        # 保存文章
-        filename = f'{url}.html'
-        with open(filename, 'w', encoding='utf-8') as f:
-            f.write(article_html)
-        print(f"已生成: {filename}")
+                formatted_date = datetime.now().strftime('%Y年%m月%d日')
+                formatted_date_short = datetime.now().strftime('%Y-%m-%d')
+            
+            # 准备文章数据
+            article_data = {
+                'title': title,
+                'category': category,
+                'category_en': CATEGORY_MAP.get(category, 'personal'),
+                'date': formatted_date,
+                'date_short': formatted_date_short,
+                'excerpt': excerpt or '暂无摘要',
+                'read_time': read_time,
+                'url': url,
+                'content': content_html
+            }
+            
+            articles.append(article_data)
+            
+            # 生成文章 HTML
+            article_html = generate_article_html(article_data)
+            
+            # 保存文章
+            filename = f'{url}.html'
+            with open(filename, 'w', encoding='utf-8') as f:
+                f.write(article_html)
+            print(f"  ✅ 已生成: {filename}")
+            
+        except Exception as e:
+            print(f"  ❌ 处理文章失败: {e}")
+            continue
     
-    # 更新 blog.html
-    print("更新文章列表...")
-    blog_cards = update_blog_list(articles)
-    print("文章列表卡片已生成")
-    print("\n同步完成！")
-    print(f"共生成 {len(articles)} 篇文章")
+    if articles:
+        # 更新文章列表页
+        print("\n📋 更新文章列表...")
+        update_blog_html(articles)
+        
+        # 更新首页
+        print("🏠 更新首页...")
+        update_index_html(articles)
+        
+        print(f"\n🎉 同步完成！共生成 {len(articles)} 篇文章")
+    else:
+        print("\n⚠️  没有文章需要同步")
 
 if __name__ == '__main__':
     main()
