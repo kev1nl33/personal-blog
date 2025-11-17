@@ -1,0 +1,50 @@
+name: Sync from Notion and Deploy
+
+on:
+  # 每天自动运行一次（UTC 时间 00:00，即北京时间 08:00）
+  schedule:
+    - cron: '0 0 * * *'
+  
+  # 也可以手动触发
+  workflow_dispatch:
+  
+  # 当推送到 main 分支时也触发
+  push:
+    branches: [ main ]
+
+jobs:
+  sync-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 检出代码
+      uses: actions/checkout@v3
+    
+    - name: 设置 Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+    
+    - name: 安装依赖
+      run: |
+        pip install requests
+    
+    - name: 从 Notion 同步文章
+      env:
+        NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+        NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
+      run: |
+        python sync_notion.py
+    
+    - name: 提交更改
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add .
+        git diff --quiet && git diff --staged --quiet || git commit -m "Auto sync from Notion [$(date +'%Y-%m-%d %H:%M:%S')]"
+    
+    - name: 推送更改
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: main
