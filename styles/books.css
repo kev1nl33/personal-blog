@@ -207,6 +207,39 @@
     color: var(--text-secondary);
 }
 
+/* 书籍链接容器 */
+.book-links {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-sm);
+    padding-top: var(--spacing-sm);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* 读书笔记链接 */
+.book-notes-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.8rem 1.5rem;
+    background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: var(--transition);
+    text-align: center;
+    justify-content: center;
+}
+
+.book-notes-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 212, 255, 0.3);
+}
+
+/* 豆瓣链接 */
 .book-link {
     color: var(--accent);
     text-decoration: none;
@@ -216,6 +249,7 @@
     display: inline-flex;
     align-items: center;
     gap: 0.3rem;
+    justify-content: center;
 }
 
 .book-link:hover {

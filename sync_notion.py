@@ -451,10 +451,21 @@ def generate_book_card(book):
     if book.get('date'):
         date_html = f'<span class="book-date">📅 {book["date"]}</span>'
 
+    # 笔记链接（如果有）
+    notes_link_html = ''
+    if book.get('notes_url'):
+        notes_link_html = f'<a href="{book["notes_url"]}" class="book-notes-link">📝 查看读书笔记</a>'
+
     # 豆瓣链接（如果有）
-    link_html = ''
+    douban_link_html = ''
     if book.get('douban_url'):
-        link_html = f'<a href="{book["douban_url"]}" target="_blank" class="book-link">豆瓣链接 →</a>'
+        douban_link_html = f'<a href="{book["douban_url"]}" target="_blank" class="book-link">豆瓣链接 →</a>'
+
+    # 组合底部链接
+    link_html = ''
+    if notes_link_html or douban_link_html:
+        links = [link for link in [notes_link_html, douban_link_html] if link]
+        link_html = ''.join(links)
 
     # 数据属性，用于筛选
     tags_data = ','.join(book.get('tags', []))
@@ -466,7 +477,8 @@ def generate_book_card(book):
                     {f'<div class="book-tags">{tags_html}</div>' if tags_html else ''}
                     {f'<p class="book-recommendation">{book["recommendation"]}</p>' if book.get('recommendation') else ''}
                     {notes_html}
-                    {f'<div class="book-footer">{date_html}{link_html}</div>' if (date_html or link_html) else ''}
+                    {f'<div class="book-footer">{date_html}</div>' if date_html else ''}
+                    {f'<div class="book-links">{link_html}</div>' if link_html else ''}
                 </article>
 
 '''
@@ -520,6 +532,52 @@ def update_books_html(books_by_status):
         return False
 
 
+def notion_url_to_local(notion_url):
+    """将 Notion 页面 URL 转换为本地 HTML 文件路径"""
+    if not notion_url:
+        return ''
+
+    # 从 Notion URL 中提取页面 ID
+    # Notion URL 格式: https://www.notion.so/page-title-<page-id>
+    # 或: https://www.notion.so/<workspace>/page-title-<page-id>
+    try:
+        # 提取最后的 page-id 部分（32位十六进制）
+        import re
+        match = re.search(r'([a-f0-9]{32})', notion_url)
+        if match:
+            page_id = match.group(1)
+            # 查询博客文章数据库，找到对应的 URL
+            # 这里我们假设笔记链接指向的是博客文章
+            return convert_notion_page_to_local_url(page_id)
+    except Exception as e:
+        print(f"  ⚠️  URL 转换失败: {e}")
+
+    # 如果转换失败，返回空字符串
+    return ''
+
+
+def convert_notion_page_to_local_url(page_id):
+    """根据 Notion 页面 ID 查找本地 URL"""
+    try:
+        # 查询博客文章数据库
+        pages = query_database()
+
+        for page in pages:
+            # 获取页面 ID（移除所有连字符）
+            notion_page_id = page['id'].replace('-', '')
+
+            if notion_page_id == page_id:
+                # 找到匹配的页面，返回其 URL
+                properties = page['properties']
+                url = get_property_value(properties, 'URL')
+                return url if url else ''
+
+    except Exception as e:
+        print(f"  ⚠️  查询页面失败: {e}")
+
+    return ''
+
+
 def sync_reading_list():
     """同步阅读书单"""
     print("\n📚 开始同步阅读书单...")
@@ -552,6 +610,7 @@ def sync_reading_list():
             notes = get_property_value(properties, '阅读笔记')
             date = get_property_value(properties, '完成日期')
             douban_url = get_property_value(properties, '豆瓣链接')
+            notes_link = get_property_value(properties, '笔记链接')
 
             if not title:
                 print(f"⚠️  跳过书籍: 缺少书名")
@@ -566,6 +625,13 @@ def sync_reading_list():
                 except:
                     formatted_date = date
 
+            # 转换笔记链接
+            local_notes_url = ''
+            if notes_link:
+                local_notes_url = notion_url_to_local(notes_link)
+                if local_notes_url:
+                    print(f"  🔗 笔记链接转换成功: {local_notes_url}")
+
             book_data = {
                 'title': title,
                 'author': author or '未知',
@@ -575,7 +641,8 @@ def sync_reading_list():
                 'recommendation': recommendation,
                 'notes': notes,
                 'date': formatted_date,
-                'douban_url': douban_url
+                'douban_url': douban_url,
+                'notes_url': local_notes_url
             }
 
             # 添加到对应状态的列表
