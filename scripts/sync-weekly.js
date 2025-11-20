@@ -182,9 +182,59 @@ function getPropertyValue(properties, propName) {
 }
 
 /**
+ * 生成TOC数据
+ */
+function generateTOC(contentHtml) {
+    const h2Regex = /<h2[^>]*>(.*?)<\/h2>/g;
+    const toc = [];
+    let match;
+    let index = 1;
+
+    while ((match = h2Regex.exec(contentHtml)) !== null) {
+        toc.push({
+            id: `section-${index}`,
+            title: match[1].replace(/<[^>]*>/g, ''), // 移除HTML标签
+            level: 2
+        });
+        index++;
+    }
+
+    return toc;
+}
+
+/**
+ * 为内容添加章节ID
+ */
+function addSectionIds(contentHtml) {
+    let index = 1;
+    return contentHtml.replace(/<h2([^>]*)>/g, () => {
+        return `<h2 id="section-${index++}"$1>`;
+    });
+}
+
+/**
  * 生成周刊详情页 HTML
  */
-function generateWeeklyDetailHtml(weeklyData) {
+function generateWeeklyDetailHtml(weeklyData, prevWeekly, nextWeekly) {
+    const tocData = generateTOC(weeklyData.content);
+    const contentWithIds = addSectionIds(weeklyData.content);
+
+    const tocHtml = tocData.map(item =>
+        `<li><a href="#${item.id}">${item.title}</a></li>`
+    ).join('\n                    ');
+
+    const prevLink = prevWeekly ?
+        `<a href="${prevWeekly.url}.html" class="nav-btn prev">
+                    <span class="nav-label">← 上一期</span>
+                    <span class="nav-title">${prevWeekly.title}</span>
+                </a>` : '';
+
+    const nextLink = nextWeekly ?
+        `<a href="${nextWeekly.url}.html" class="nav-btn next">
+                    <span class="nav-label">下一期 →</span>
+                    <span class="nav-title">${nextWeekly.title}</span>
+                </a>` : '';
+
     return `<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -200,7 +250,12 @@ function generateWeeklyDetailHtml(weeklyData) {
         <div class="container">
             <div class="nav-content">
                 <a href="index.html" class="logo">计划李</a>
-                <ul class="nav-links">
+                <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="菜单">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <ul class="nav-links" id="navLinks">
                     <li><a href="index.html">首页</a></li>
                     <li><a href="blog.html">文章</a></li>
                     <li><a href="weekly.html" class="active">周刊</a></li>
@@ -209,6 +264,9 @@ function generateWeeklyDetailHtml(weeklyData) {
             </div>
         </div>
     </nav>
+
+    <!-- 阅读进度条 -->
+    <div class="reading-progress" id="readingProgress"></div>
 
     <!-- 周刊内容 -->
     <article class="weekly-container">
@@ -221,12 +279,27 @@ function generateWeeklyDetailHtml(weeklyData) {
                 </div>
             </div>
 
+            ${tocData.length > 0 ? `<!-- 文章目录 -->
+            <aside class="toc-container" id="tocContainer">
+                <div class="toc-title">
+                    目录
+                    <span class="toc-toggle" id="tocToggle">▼</span>
+                </div>
+                <ul class="toc-list" id="tocList">
+                    ${tocHtml}
+                </ul>
+            </aside>` : ''}
+
             <div class="weekly-content">
-                ${weeklyData.content}
+                ${contentWithIds}
             </div>
 
             <div class="weekly-nav">
-                <a href="weekly.html" class="btn btn-secondary">返回周刊列表</a>
+                ${prevLink}
+                ${nextLink}
+                <div class="back-to-list">
+                    <a href="weekly.html" class="btn btn-secondary">返回周刊列表</a>
+                </div>
             </div>
         </div>
     </article>
@@ -243,6 +316,93 @@ function generateWeeklyDetailHtml(weeklyData) {
             </div>
         </div>
     </footer>
+
+    <script src="scripts/main.js"></script>
+    <script>
+        // 阅读进度条
+        const readingProgress = document.getElementById('readingProgress');
+        window.addEventListener('scroll', () => {
+            const windowHeight = window.innerHeight;
+            const documentHeight = document.documentElement.scrollHeight - windowHeight;
+            const scrollTop = window.scrollY;
+            const progress = (scrollTop / documentHeight) * 100;
+            readingProgress.style.width = progress + '%';
+        });
+
+        // TOC 折叠功能
+        const tocToggle = document.getElementById('tocToggle');
+        const tocContainer = document.getElementById('tocContainer');
+
+        if (tocToggle && tocContainer) {
+            tocToggle.addEventListener('click', () => {
+                tocContainer.classList.toggle('collapsed');
+                tocToggle.textContent = tocContainer.classList.contains('collapsed') ? '▶' : '▼';
+            });
+        }
+
+        // TOC 高亮当前章节
+        const sections = document.querySelectorAll('.weekly-content h2[id]');
+        const tocLinks = document.querySelectorAll('.toc-list a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (scrollY >= sectionTop - 100) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            tocLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // 代码块添加复制按钮
+        document.querySelectorAll('pre').forEach(pre => {
+            const button = document.createElement('button');
+            button.className = 'code-copy-btn';
+            button.textContent = '复制';
+
+            button.addEventListener('click', async () => {
+                const code = pre.querySelector('code');
+                const text = code ? code.textContent : pre.textContent;
+
+                try {
+                    await navigator.clipboard.writeText(text);
+                    button.textContent = '已复制!';
+                    button.classList.add('copied');
+
+                    setTimeout(() => {
+                        button.textContent = '复制';
+                        button.classList.remove('copied');
+                    }, 2000);
+                } catch (err) {
+                    button.textContent = '复制失败';
+                    setTimeout(() => {
+                        button.textContent = '复制';
+                    }, 2000);
+                }
+            });
+
+            pre.style.position = 'relative';
+            pre.appendChild(button);
+        });
+
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
 </body>
 </html>`;
 }
@@ -251,17 +411,26 @@ function generateWeeklyDetailHtml(weeklyData) {
  * 生成周刊列表页 HTML
  */
 function generateWeeklyListHtml(weeklies) {
-    const weeklyCards = weeklies.map(weekly => `
-                <article class="weekly-card">
-                    <div class="weekly-issue-badge">第 ${weekly.issue} 期</div>
+    // 区分编程周刊和成长周刊
+    const weeklyCards = weeklies.map(weekly => {
+        const type = weekly.title.includes('编程') ? 'programming' : 'growth';
+        const badgeClass = type === 'programming' ? 'programming' : 'growth';
+
+        return `
+                <article class="weekly-card" data-type="${type}">
+                    <div class="weekly-issue-badge ${badgeClass}">第 ${weekly.issue} 期</div>
                     <h2 class="weekly-card-title">${weekly.title}</h2>
                     <p class="weekly-excerpt">${weekly.excerpt || '点击查看详情...'}</p>
                     <div class="weekly-card-meta">
                         <span class="weekly-card-date">${weekly.date_short}</span>
                     </div>
                     <a href="${weekly.url}.html" class="read-more">阅读周刊 →</a>
-                </article>
-`).join('\n');
+                </article>`;
+    }).join('\n');
+
+    // 计算数量
+    const programmingCount = weeklies.filter(w => w.title.includes('编程')).length;
+    const growthCount = weeklies.filter(w => w.title.includes('成长')).length;
 
     return `<!DOCTYPE html>
 <html lang="zh-CN">
@@ -278,7 +447,12 @@ function generateWeeklyListHtml(weeklies) {
         <div class="container">
             <div class="nav-content">
                 <a href="index.html" class="logo">计划李</a>
-                <ul class="nav-links">
+                <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="菜单">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <ul class="nav-links" id="navLinks">
                     <li><a href="index.html">首页</a></li>
                     <li><a href="blog.html">文章</a></li>
                     <li><a href="weekly.html" class="active">周刊</a></li>
@@ -293,14 +467,34 @@ function generateWeeklyListHtml(weeklies) {
         <div class="container">
             <h1 class="page-title">周刊</h1>
             <p class="page-description">每周分享值得关注的内容和思考</p>
+
+            <!-- 筛选按钮 -->
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">
+                    全部 <span class="filter-count">(${weeklies.length})</span>
+                </button>
+                <button class="filter-btn" data-filter="programming">
+                    💻 编程周刊 <span class="filter-count">(${programmingCount})</span>
+                </button>
+                <button class="filter-btn" data-filter="growth">
+                    🌱 成长周刊 <span class="filter-count">(${growthCount})</span>
+                </button>
+            </div>
         </div>
     </section>
 
     <!-- 周刊列表 -->
     <section class="weekly-list">
         <div class="container">
-            <div class="weekly-grid">
+            <div class="weekly-grid" id="weeklyGrid">
 ${weeklyCards}
+            </div>
+
+            <!-- 空状态提示 -->
+            <div class="empty-state" id="emptyState" style="display: none;">
+                <div class="empty-icon">📭</div>
+                <p class="empty-text">暂无周刊内容</p>
+                <p class="empty-hint">敬请期待下一期精彩内容</p>
             </div>
         </div>
     </section>
@@ -317,6 +511,45 @@ ${weeklyCards}
             </div>
         </div>
     </footer>
+
+    <script src="scripts/main.js"></script>
+    <script>
+        // 筛选功能
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const weeklyCards = document.querySelectorAll('.weekly-card');
+        const weeklyGrid = document.getElementById('weeklyGrid');
+        const emptyState = document.getElementById('emptyState');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const filter = button.dataset.filter;
+
+                // 更新按钮激活状态
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+
+                // 筛选卡片
+                let visibleCount = 0;
+                weeklyCards.forEach(card => {
+                    if (filter === 'all' || card.dataset.type === filter) {
+                        card.style.display = 'flex';
+                        visibleCount++;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+
+                // 显示/隐藏空状态
+                if (visibleCount === 0) {
+                    weeklyGrid.style.display = 'none';
+                    emptyState.style.display = 'block';
+                } else {
+                    weeklyGrid.style.display = 'grid';
+                    emptyState.style.display = 'none';
+                }
+            });
+        });
+    </script>
 </body>
 </html>`;
 }
@@ -411,14 +644,6 @@ async function main() {
 
                 weeklies.push(weeklyData);
 
-                // 生成周刊详情页
-                const weeklyHtml = generateWeeklyDetailHtml(weeklyData);
-
-                // 保存周刊文件
-                const filename = `${url}.html`;
-                fs.writeFileSync(filename, weeklyHtml, 'utf8');
-                console.log(`  ✅ 已生成: ${filename}`);
-
             } catch (error) {
                 console.error(`  ❌ 处理周刊失败: ${error.message}`);
                 continue;
@@ -426,6 +651,21 @@ async function main() {
         }
 
         if (weeklies.length > 0) {
+            // 生成周刊详情页（需要上一期和下一期信息）
+            console.log('\n📝 生成周刊详情页...');
+            for (let i = 0; i < weeklies.length; i++) {
+                const weeklyData = weeklies[i];
+                const prevWeekly = i < weeklies.length - 1 ? weeklies[i + 1] : null; // 前一期（期数更小）
+                const nextWeekly = i > 0 ? weeklies[i - 1] : null; // 后一期（期数更大）
+
+                const weeklyHtml = generateWeeklyDetailHtml(weeklyData, prevWeekly, nextWeekly);
+
+                // 保存周刊文件
+                const filename = `${weeklyData.url}.html`;
+                fs.writeFileSync(filename, weeklyHtml, 'utf8');
+                console.log(`  ✅ 已生成: ${filename}`);
+            }
+
             // 生成周刊列表页
             console.log('\n📋 生成周刊列表页...');
             const listHtml = generateWeeklyListHtml(weeklies);
