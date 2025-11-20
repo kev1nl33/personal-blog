@@ -220,6 +220,12 @@ body {
     gap: var(--spacing-md);
 }
 
+.article-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
 .article-card {
     background: var(--bg-card);
     border-radius: var(--border-radius);
@@ -229,7 +235,7 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.article-card:hover {
+.article-card-link:hover .article-card {
     transform: translateY(-5px);
     border-color: var(--accent);
     box-shadow: 0 10px 40px rgba(0, 212, 255, 0.2);
