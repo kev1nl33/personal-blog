@@ -23,11 +23,16 @@
         </div>
     </nav>
 
-    <!-- 页面标题 -->
-    <section class="page-header">
+    <!-- 页面头部 -->
+    <section class="weekly-page-header">
         <div class="container">
-            <h1 class="page-title">周刊</h1>
-            <p class="page-description">每周分享值得关注的内容和思考</p>
+            <h1 class="weekly-main-title">📬 周刊</h1>
+            <p class="weekly-subtitle">每周精选编程技巧与个人成长洞见</p>
+            <div class="weekly-filter-buttons">
+                <button class="filter-btn active" data-filter="all">全部</button>
+                <button class="filter-btn" data-filter="programming">💻 编程周刊</button>
+                <button class="filter-btn" data-filter="growth">🌱 成长周刊</button>
+            </div>
         </div>
     </section>
 
@@ -36,69 +41,129 @@
         <div class="container">
             <div class="weekly-grid">
 
-                <article class="weekly-card">
-                    <div class="weekly-issue-badge">第 3 期</div>
-                    <h2 class="weekly-card-title">成长周刊 #3</h2>
-                    <p class="weekly-excerpt">纳瓦尔精选对话、正视失败的意义、认知与行动的平衡</p>
-                    <div class="weekly-card-meta">
-                        <span class="weekly-card-date">2025-11-20</span>
+                <article class="weekly-card" data-type="programming">
+                    <div class="weekly-card-header">
+                        <div class="weekly-type-badge type-programming">
+                            <span class="type-icon">💻</span>
+                            <span class="type-text">编程周刊</span>
+                        </div>
+                        <div class="weekly-date-range">2025年11月20日</div>
                     </div>
-                    <a href="weekly-3.html" class="read-more">阅读周刊 →</a>
-                </article>
-
-
-                <article class="weekly-card">
-                    <div class="weekly-issue-badge">第 3 期</div>
-                    <h2 class="weekly-card-title">编程周刊 #3</h2>
-                    <p class="weekly-excerpt">AI编程流程思考、免费资源汇总网站、GPT-5能力提升技巧</p>
-                    <div class="weekly-card-meta">
-                        <span class="weekly-card-date">2025-11-20</span>
-                    </div>
-                    <a href="weekly-3.html" class="read-more">阅读周刊 →</a>
-                </article>
-
-
-                <article class="weekly-card">
-                    <div class="weekly-issue-badge">第 2 期</div>
-                    <h2 class="weekly-card-title">成长周刊 #2</h2>
-                    <p class="weekly-excerpt">三步快速掌握任何技能、阅读方法论实践、真实达成目标的反思</p>
-                    <div class="weekly-card-meta">
-                        <span class="weekly-card-date">2025-11-20</span>
-                    </div>
-                    <a href="weekly-2.html" class="read-more">阅读周刊 →</a>
-                </article>
-
-
-                <article class="weekly-card">
-                    <div class="weekly-issue-badge">第 2 期</div>
-                    <h2 class="weekly-card-title">编程周刊 #2</h2>
-                    <p class="weekly-excerpt">AI时代找到正确需求的方法、全球最大真实数据集网站、SORA提示词</p>
-                    <div class="weekly-card-meta">
-                        <span class="weekly-card-date">2025-11-20</span>
-                    </div>
-                    <a href="weekly-2.html" class="read-more">阅读周刊 →</a>
-                </article>
-
-
-                <article class="weekly-card">
-                    <div class="weekly-issue-badge">第 1 期</div>
-                    <h2 class="weekly-card-title">成长周刊 #1</h2>
-                    <p class="weekly-excerpt">极简主义思维、对抗本能获得成功、终极目标与自由时间、NPC原则</p>
-                    <div class="weekly-card-meta">
-                        <span class="weekly-card-date">2025-11-20</span>
-                    </div>
-                    <a href="weekly-1.html" class="read-more">阅读周刊 →</a>
-                </article>
-
-
-                <article class="weekly-card">
-                    <div class="weekly-issue-badge">第 1 期</div>
                     <h2 class="weekly-card-title">编程周刊 #1</h2>
                     <p class="weekly-excerpt">Codex CLI vs Claude Code对比、独立开发者穷鬼套餐、vibe coding实用prompt</p>
-                    <div class="weekly-card-meta">
-                        <span class="weekly-card-date">2025-11-20</span>
+                    <div class="weekly-card-footer">
+                        <div class="weekly-card-meta">
+                            <span class="weekly-issue-info">第 1 期</span>
+                            <span class="separator">•</span>
+                            <span class="weekly-highlights">精选 6 条</span>
+                        </div>
+                        <a href="weekly-1.html" class="weekly-card-link">阅读周刊 →</a>
                     </div>
-                    <a href="weekly-1.html" class="read-more">阅读周刊 →</a>
+                </article>
+
+
+                <article class="weekly-card" data-type="growth">
+                    <div class="weekly-card-header">
+                        <div class="weekly-type-badge type-growth">
+                            <span class="type-icon">🌱</span>
+                            <span class="type-text">成长周刊</span>
+                        </div>
+                        <div class="weekly-date-range">2025年11月20日</div>
+                    </div>
+                    <h2 class="weekly-card-title">成长周刊 #1</h2>
+                    <p class="weekly-excerpt">极简主义思维、对抗本能获得成功、终极目标与自由时间、NPC原则</p>
+                    <div class="weekly-card-footer">
+                        <div class="weekly-card-meta">
+                            <span class="weekly-issue-info">第 1 期</span>
+                            <span class="separator">•</span>
+                            <span class="weekly-highlights">精选 5 条</span>
+                        </div>
+                        <a href="weekly-1.html" class="weekly-card-link">阅读周刊 →</a>
+                    </div>
+                </article>
+
+
+                <article class="weekly-card" data-type="programming">
+                    <div class="weekly-card-header">
+                        <div class="weekly-type-badge type-programming">
+                            <span class="type-icon">💻</span>
+                            <span class="type-text">编程周刊</span>
+                        </div>
+                        <div class="weekly-date-range">2025年11月20日</div>
+                    </div>
+                    <h2 class="weekly-card-title">编程周刊 #2</h2>
+                    <p class="weekly-excerpt">AI时代找到正确需求的方法、全球最大真实数据集网站、SORA提示词</p>
+                    <div class="weekly-card-footer">
+                        <div class="weekly-card-meta">
+                            <span class="weekly-issue-info">第 2 期</span>
+                            <span class="separator">•</span>
+                            <span class="weekly-highlights">精选 1 条</span>
+                        </div>
+                        <a href="weekly-2.html" class="weekly-card-link">阅读周刊 →</a>
+                    </div>
+                </article>
+
+
+                <article class="weekly-card" data-type="growth">
+                    <div class="weekly-card-header">
+                        <div class="weekly-type-badge type-growth">
+                            <span class="type-icon">🌱</span>
+                            <span class="type-text">成长周刊</span>
+                        </div>
+                        <div class="weekly-date-range">2025年11月20日</div>
+                    </div>
+                    <h2 class="weekly-card-title">成长周刊 #2</h2>
+                    <p class="weekly-excerpt">三步快速掌握任何技能、阅读方法论实践、真实达成目标的反思</p>
+                    <div class="weekly-card-footer">
+                        <div class="weekly-card-meta">
+                            <span class="weekly-issue-info">第 2 期</span>
+                            <span class="separator">•</span>
+                            <span class="weekly-highlights">精选 3 条</span>
+                        </div>
+                        <a href="weekly-2.html" class="weekly-card-link">阅读周刊 →</a>
+                    </div>
+                </article>
+
+
+                <article class="weekly-card" data-type="programming">
+                    <div class="weekly-card-header">
+                        <div class="weekly-type-badge type-programming">
+                            <span class="type-icon">💻</span>
+                            <span class="type-text">编程周刊</span>
+                        </div>
+                        <div class="weekly-date-range">2025年11月20日</div>
+                    </div>
+                    <h2 class="weekly-card-title">编程周刊 #3</h2>
+                    <p class="weekly-excerpt">AI编程流程思考、免费资源汇总网站、GPT-5能力提升技巧</p>
+                    <div class="weekly-card-footer">
+                        <div class="weekly-card-meta">
+                            <span class="weekly-issue-info">第 3 期</span>
+                            <span class="separator">•</span>
+                            <span class="weekly-highlights">精选 5 条</span>
+                        </div>
+                        <a href="weekly-3.html" class="weekly-card-link">阅读周刊 →</a>
+                    </div>
+                </article>
+
+
+                <article class="weekly-card" data-type="growth">
+                    <div class="weekly-card-header">
+                        <div class="weekly-type-badge type-growth">
+                            <span class="type-icon">🌱</span>
+                            <span class="type-text">成长周刊</span>
+                        </div>
+                        <div class="weekly-date-range">2025年11月20日</div>
+                    </div>
+                    <h2 class="weekly-card-title">成长周刊 #3</h2>
+                    <p class="weekly-excerpt">纳瓦尔精选对话、正视失败的意义、认知与行动的平衡</p>
+                    <div class="weekly-card-footer">
+                        <div class="weekly-card-meta">
+                            <span class="weekly-issue-info">第 3 期</span>
+                            <span class="separator">•</span>
+                            <span class="weekly-highlights">精选 3 条</span>
+                        </div>
+                        <a href="weekly-3.html" class="weekly-card-link">阅读周刊 →</a>
+                    </div>
                 </article>
 
             </div>
@@ -117,5 +182,33 @@
             </div>
         </div>
     </footer>
+
+    <!-- 筛选功能脚本 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const weeklyCards = document.querySelectorAll('.weekly-card');
+
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const filter = this.getAttribute('data-filter');
+
+                    // 更新按钮状态
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+
+                    // 筛选卡片
+                    weeklyCards.forEach(card => {
+                        if (filter === 'all') {
+                            card.style.display = 'flex';
+                        } else {
+                            const cardType = card.getAttribute('data-type');
+                            card.style.display = cardType === filter ? 'flex' : 'none';
+                        }
+                    });
+                });
+            });
+        });
+    </script>
 </body>
 </html>
