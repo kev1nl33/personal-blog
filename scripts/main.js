@@ -30,16 +30,13 @@ document.addEventListener('DOMContentLoaded', function() {
         lastScroll = currentScroll;
     });
 
-    // 文章卡片悬停效果增强
-    const articleCards = document.querySelectorAll('.article-card');
-    
-    articleCards.forEach(card => {
-        card.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-8px) scale(1.02)';
-        });
-        
-        card.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0) scale(1)';
+    // 文章卡片点击跳转
+    const articleCardLinks = document.querySelectorAll('.article-card-link');
+
+    articleCardLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            // 链接默认行为已经处理跳转，这里可以添加额外的动画或统计
+            console.log('Navigating to:', this.href);
         });
     });
 
