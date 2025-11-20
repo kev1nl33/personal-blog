@@ -1,18 +1,63 @@
 /* 周刊页面样式 */
 
-/* 页面头部 */
-.page-header {
+/* ==================== 页面头部 ==================== */
+.weekly-page-header {
     padding: var(--spacing-xl) 0 var(--spacing-lg);
     text-align: center;
 }
 
-.page-description {
-    color: var(--text-secondary);
-    font-size: 1.1rem;
-    margin-top: var(--spacing-sm);
+.weekly-main-title {
+    font-size: 3.5rem;
+    margin-bottom: var(--spacing-sm);
+    background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 700;
 }
 
-/* 周刊列表 */
+.weekly-subtitle {
+    color: var(--text-secondary);
+    font-size: 1.2rem;
+    margin-bottom: var(--spacing-lg);
+    line-height: 1.6;
+}
+
+/* 筛选按钮组 */
+.weekly-filter-buttons {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    flex-wrap: wrap;
+    margin-top: var(--spacing-md);
+}
+
+.filter-btn {
+    padding: 0.6rem 1.5rem;
+    background: var(--bg-card);
+    color: var(--text-secondary);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 25px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: var(--transition);
+    font-weight: 500;
+}
+
+.filter-btn:hover {
+    border-color: var(--accent);
+    color: var(--text-primary);
+    transform: translateY(-2px);
+}
+
+.filter-btn.active {
+    background: linear-gradient(135deg, rgba(0, 212, 255, 0.2), rgba(138, 43, 226, 0.2));
+    border-color: var(--accent);
+    color: var(--text-primary);
+    box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+}
+
+/* ==================== 周刊列表 ==================== */
 .weekly-list {
     padding: var(--spacing-lg) 0 var(--spacing-xl);
     min-height: 60vh;
@@ -20,65 +65,158 @@
 
 .weekly-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-    gap: var(--spacing-md);
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-lg);
 }
 
+/* ==================== 卡片样式 ==================== */
 .weekly-card {
     background: var(--bg-card);
     border-radius: var(--border-radius);
-    padding: var(--spacing-md);
+    padding: var(--spacing-lg);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    transition: var(--transition);
+    transition: all 0.3s ease;
     display: flex;
     flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+
+.weekly-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--gradient-1), var(--gradient-2));
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
 .weekly-card:hover {
-    transform: translateY(-5px);
-    border-color: var(--accent);
-    box-shadow: 0 15px 50px rgba(0, 212, 255, 0.2);
+    transform: translateY(-4px);
+    border-color: rgba(0, 212, 255, 0.5);
+    box-shadow: 0 20px 60px rgba(0, 212, 255, 0.25);
 }
 
-.weekly-issue-badge {
-    display: inline-block;
-    padding: 0.4rem 1rem;
-    background: rgba(138, 43, 226, 0.2);
-    color: #9d6fff;
+.weekly-card:hover::before {
+    opacity: 1;
+}
+
+/* 卡片头部 */
+.weekly-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-md);
+    gap: var(--spacing-sm);
+}
+
+/* 类型标签 */
+.weekly-type-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 1rem;
     border-radius: 20px;
     font-size: 0.85rem;
-    margin-bottom: var(--spacing-sm);
-    width: fit-content;
+    font-weight: 600;
+    border: 1px solid;
+    white-space: nowrap;
+}
+
+.type-programming {
+    background: rgba(59, 130, 246, 0.2);
+    color: #60a5fa;
+    border-color: rgba(59, 130, 246, 0.3);
+}
+
+.type-growth {
+    background: rgba(16, 185, 129, 0.2);
+    color: #34d399;
+    border-color: rgba(16, 185, 129, 0.3);
+}
+
+.type-icon {
+    font-size: 1rem;
+}
+
+.type-text {
+    font-size: 0.85rem;
+}
+
+/* 日期范围 */
+.weekly-date-range {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+/* 卡片标题 */
+.weekly-card-title {
+    font-size: 1.8rem;
+    margin-bottom: var(--spacing-md);
+    color: var(--text-primary);
+    line-height: 1.4;
     font-weight: 600;
 }
 
-.weekly-card-title {
-    font-size: 1.6rem;
-    margin-bottom: var(--spacing-sm);
-    color: var(--text-primary);
-    line-height: 1.4;
-}
-
+/* 摘要 */
 .weekly-excerpt {
     color: var(--text-secondary);
     margin-bottom: var(--spacing-md);
     line-height: 1.7;
     flex-grow: 1;
+    font-size: 1rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* 卡片底部 */
+.weekly-card-footer {
+    padding-top: var(--spacing-md);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--spacing-sm);
 }
 
 .weekly-card-meta {
     display: flex;
+    align-items: center;
     gap: var(--spacing-sm);
     font-size: 0.9rem;
     color: var(--text-secondary);
-    margin-bottom: var(--spacing-sm);
 }
 
-.weekly-card-date {
+.weekly-issue-info,
+.weekly-highlights {
     color: var(--text-secondary);
 }
 
-/* 周刊详情页 */
+.separator {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+.weekly-card-link {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 500;
+    transition: var(--transition);
+    white-space: nowrap;
+}
+
+.weekly-card-link:hover {
+    color: var(--gradient-2);
+    text-decoration: underline;
+}
+
+/* ==================== 周刊详情页 ==================== */
 .weekly-container {
     padding: var(--spacing-xl) 0;
     min-height: 80vh;
@@ -233,14 +371,80 @@
     text-align: center;
 }
 
-/* 响应式设计 */
+/* ==================== 旧样式兼容 ==================== */
+/* 保留旧的页面头部样式，以防某些地方还在使用 */
+.page-header {
+    padding: var(--spacing-xl) 0 var(--spacing-lg);
+    text-align: center;
+}
+
+.page-description {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    margin-top: var(--spacing-sm);
+}
+
+.weekly-issue-badge {
+    display: inline-block;
+    padding: 0.4rem 1rem;
+    background: rgba(138, 43, 226, 0.2);
+    color: #9d6fff;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    margin-bottom: var(--spacing-sm);
+    width: fit-content;
+    font-weight: 600;
+}
+
+.weekly-card-date {
+    color: var(--text-secondary);
+}
+
+.read-more {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.read-more:hover {
+    color: var(--gradient-2);
+    text-decoration: underline;
+}
+
+/* ==================== 响应式设计 ==================== */
+@media (max-width: 1200px) {
+    .weekly-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
 @media (max-width: 768px) {
-    .page-title {
-        font-size: 2rem;
+    .weekly-main-title {
+        font-size: 2.5rem;
+    }
+
+    .weekly-subtitle {
+        font-size: 1rem;
     }
 
     .weekly-grid {
         grid-template-columns: 1fr;
+    }
+
+    .weekly-card-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .weekly-card-title {
+        font-size: 1.5rem;
+    }
+
+    .weekly-card-footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacing-sm);
     }
 
     .weekly-title {
@@ -261,5 +465,33 @@
 
     .weekly-content h4 {
         font-size: 1.2rem;
+    }
+
+    .filter-btn {
+        font-size: 0.9rem;
+        padding: 0.5rem 1.2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .weekly-main-title {
+        font-size: 2rem;
+    }
+
+    .weekly-filter-buttons {
+        gap: 0.5rem;
+    }
+
+    .filter-btn {
+        font-size: 0.85rem;
+        padding: 0.4rem 1rem;
+    }
+
+    .weekly-card {
+        padding: var(--spacing-md);
+    }
+
+    .weekly-card-title {
+        font-size: 1.3rem;
     }
 }
