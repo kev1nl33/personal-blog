@@ -151,6 +151,20 @@ function blockToHtml(block) {
         case 'code':
             return `<pre><code>${plainText(block.code.rich_text)}</code></pre>\n`;
 
+        case 'video':
+            const videoUrl = block.video.external?.url || block.video.file?.url;
+            if (videoUrl) {
+                // 如果是 YouTube 链接，转换为嵌入式播放器
+                if (videoUrl.includes('youtu')) {
+                    const videoId = videoUrl.match(/(?:youtu\.be\/|youtube\.com\/watch\?v=)([^&]+)/)?.[1];
+                    if (videoId) {
+                        return `<div class="video-embed"><iframe src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe></div>\n`;
+                    }
+                }
+                return `<video controls src="${videoUrl}"></video>\n`;
+            }
+            return '';
+
         default:
             return '';
     }
