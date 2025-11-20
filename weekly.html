@@ -28,16 +28,29 @@
         <div class="container">
             <h1 class="page-title">周刊</h1>
             <p class="page-description">每周分享值得关注的内容和思考</p>
+
+            <!-- 筛选按钮 -->
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">
+                    全部 <span class="filter-count">(6)</span>
+                </button>
+                <button class="filter-btn" data-filter="programming">
+                    💻 编程周刊 <span class="filter-count">(3)</span>
+                </button>
+                <button class="filter-btn" data-filter="growth">
+                    🌱 成长周刊 <span class="filter-count">(3)</span>
+                </button>
+            </div>
         </div>
     </section>
 
     <!-- 周刊列表 -->
     <section class="weekly-list">
         <div class="container">
-            <div class="weekly-grid">
+            <div class="weekly-grid" id="weeklyGrid">
 
-                <article class="weekly-card">
-                    <div class="weekly-issue-badge">第 3 期</div>
+                <article class="weekly-card" data-type="growth">
+                    <div class="weekly-issue-badge growth">第 3 期</div>
                     <h2 class="weekly-card-title">成长周刊 #3</h2>
                     <p class="weekly-excerpt">纳瓦尔精选对话、正视失败的意义、认知与行动的平衡</p>
                     <div class="weekly-card-meta">
@@ -47,8 +60,8 @@
                 </article>
 
 
-                <article class="weekly-card">
-                    <div class="weekly-issue-badge">第 3 期</div>
+                <article class="weekly-card" data-type="programming">
+                    <div class="weekly-issue-badge programming">第 3 期</div>
                     <h2 class="weekly-card-title">编程周刊 #3</h2>
                     <p class="weekly-excerpt">AI编程流程思考、免费资源汇总网站、GPT-5能力提升技巧</p>
                     <div class="weekly-card-meta">
@@ -58,8 +71,8 @@
                 </article>
 
 
-                <article class="weekly-card">
-                    <div class="weekly-issue-badge">第 2 期</div>
+                <article class="weekly-card" data-type="growth">
+                    <div class="weekly-issue-badge growth">第 2 期</div>
                     <h2 class="weekly-card-title">成长周刊 #2</h2>
                     <p class="weekly-excerpt">三步快速掌握任何技能、阅读方法论实践、真实达成目标的反思</p>
                     <div class="weekly-card-meta">
@@ -69,8 +82,8 @@
                 </article>
 
 
-                <article class="weekly-card">
-                    <div class="weekly-issue-badge">第 2 期</div>
+                <article class="weekly-card" data-type="programming">
+                    <div class="weekly-issue-badge programming">第 2 期</div>
                     <h2 class="weekly-card-title">编程周刊 #2</h2>
                     <p class="weekly-excerpt">AI时代找到正确需求的方法、全球最大真实数据集网站、SORA提示词</p>
                     <div class="weekly-card-meta">
@@ -80,8 +93,8 @@
                 </article>
 
 
-                <article class="weekly-card">
-                    <div class="weekly-issue-badge">第 1 期</div>
+                <article class="weekly-card" data-type="growth">
+                    <div class="weekly-issue-badge growth">第 1 期</div>
                     <h2 class="weekly-card-title">成长周刊 #1</h2>
                     <p class="weekly-excerpt">极简主义思维、对抗本能获得成功、终极目标与自由时间、NPC原则</p>
                     <div class="weekly-card-meta">
@@ -91,8 +104,8 @@
                 </article>
 
 
-                <article class="weekly-card">
-                    <div class="weekly-issue-badge">第 1 期</div>
+                <article class="weekly-card" data-type="programming">
+                    <div class="weekly-issue-badge programming">第 1 期</div>
                     <h2 class="weekly-card-title">编程周刊 #1</h2>
                     <p class="weekly-excerpt">Codex CLI vs Claude Code对比、独立开发者穷鬼套餐、vibe coding实用prompt</p>
                     <div class="weekly-card-meta">
@@ -101,6 +114,13 @@
                     <a href="weekly-1.html" class="read-more">阅读周刊 →</a>
                 </article>
 
+            </div>
+
+            <!-- 空状态提示 -->
+            <div class="empty-state" id="emptyState" style="display: none;">
+                <div class="empty-icon">📭</div>
+                <p class="empty-text">暂无周刊内容</p>
+                <p class="empty-hint">敬请期待下一期精彩内容</p>
             </div>
         </div>
     </section>
@@ -117,5 +137,43 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        // 筛选功能
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const weeklyCards = document.querySelectorAll('.weekly-card');
+        const weeklyGrid = document.getElementById('weeklyGrid');
+        const emptyState = document.getElementById('emptyState');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const filter = button.dataset.filter;
+
+                // 更新按钮激活状态
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+
+                // 筛选卡片
+                let visibleCount = 0;
+                weeklyCards.forEach(card => {
+                    if (filter === 'all' || card.dataset.type === filter) {
+                        card.style.display = 'flex';
+                        visibleCount++;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+
+                // 显示/隐藏空状态
+                if (visibleCount === 0) {
+                    weeklyGrid.style.display = 'none';
+                    emptyState.style.display = 'block';
+                } else {
+                    weeklyGrid.style.display = 'grid';
+                    emptyState.style.display = 'none';
+                }
+            });
+        });
+    </script>
 </body>
 </html>
