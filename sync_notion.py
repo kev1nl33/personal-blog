@@ -164,6 +164,7 @@ def generate_article_html(article_data):
                 <ul class="nav-links">
                     <li><a href="index.html">首页</a></li>
                     <li><a href="blog.html">文章</a></li>
+                    <li><a href="weekly.html">周刊</a></li>
                     <li><a href="about.html">关于</a></li>
                 </ul>
             </div>
