@@ -26,7 +26,8 @@ CATEGORY_MAP = {
     '职业发展': 'career',
     'AI应用': 'ai',
     '投资思考': 'investment',
-    '个人成长': 'personal'
+    '个人成长': 'personal',
+    '读书笔记': 'reading'
 }
 
 def query_database():
