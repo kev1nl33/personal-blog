@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>书单 - 计划李</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/books.css">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="nav">
+        <div class="container">
+            <div class="nav-content">
+                <a href="index.html" class="logo">计划李</a>
+                <ul class="nav-links">
+                    <li><a href="index.html">首页</a></li>
+                    <li><a href="blog.html">文章</a></li>
+                    <li><a href="weekly.html">周刊</a></li>
+                    <li><a href="books.html" class="active">书单</a></li>
+                    <li><a href="about.html">关于</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 页面头部 -->
+    <section class="books-header">
+        <div class="container">
+            <h1 class="page-title">📚 阅读书单</h1>
+            <p class="page-subtitle">记录阅读旅程，分享知识见解</p>
+
+            <!-- 类型筛选 -->
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">全部</button>
+                <button class="filter-btn" data-filter="认知提升">认知提升</button>
+                <button class="filter-btn" data-filter="创业商业">创业商业</button>
+                <button class="filter-btn" data-filter="心理学">心理学</button>
+                <button class="filter-btn" data-filter="技术编程">技术编程</button>
+                <button class="filter-btn" data-filter="投资理财">投资理财</button>
+                <button class="filter-btn" data-filter="阅读方法">阅读方法</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 已读书籍 -->
+    <section class="books-section">
+        <div class="container">
+            <h2 class="section-title">
+                <span class="status-icon">✅</span>
+                已读
+            </h2>
+            <div class="books-grid" id="readBooks">
+                <!-- 示例数据 - 将在运行 sync_notion.py 后自动替换 -->
+                <article class="book-card" data-tags="认知提升,个人成长">
+                    <h3 class="book-title">认知觉醒</h3>
+                    <p class="book-author">作者：周岭</p>
+                    <div class="book-rating">
+                        <span class="star">⭐</span>
+                        <span class="star">⭐</span>
+                        <span class="star">⭐</span>
+                        <span class="star">⭐</span>
+                        <span class="star">⭐</span>
+                    </div>
+                    <div class="book-tags">
+                        <span class="book-tag">认知提升</span>
+                    </div>
+                    <p class="book-recommendation">这本书帮助我理解了成功者为什么能对抗本能，从学习编程到坚持运动，我逐渐体会到：与其逃避困难，不如拥抱失败，把它变成成功的积累。</p>
+                    <div class="book-notes">
+                        <div class="book-notes-title">💡 阅读笔记</div>
+                        真正的成长来自于对抗本能的舒适区，拥抱学习区的挑战。
+                    </div>
+                    <div class="book-footer">
+                        <span class="book-date">📅 2025-11-15</span>
+                        <a href="https://book.douban.com/subject/35193035/" target="_blank" class="book-link">豆瓣链接 →</a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- 在读书籍 -->
+    <section class="books-section">
+        <div class="container">
+            <h2 class="section-title">
+                <span class="status-icon">📖</span>
+                在读
+            </h2>
+            <div class="books-grid" id="readingBooks">
+                <!-- 示例数据 - 将在运行 sync_notion.py 后自动替换 -->
+                <article class="book-card" data-tags="投资理财">
+                    <h3 class="book-title">聪明的投资者</h3>
+                    <p class="book-author">作者：本杰明·格雷厄姆</p>
+                    <div class="book-tags">
+                        <span class="book-tag">投资理财</span>
+                    </div>
+                    <p class="book-recommendation">价值投资的经典之作，巴菲特推荐的投资圣经。学习如何从基本面分析企业价值。</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- 想读书籍 -->
+    <section class="books-section">
+        <div class="container">
+            <h2 class="section-title">
+                <span class="status-icon">📝</span>
+                想读
+            </h2>
+            <div class="books-grid" id="wantToReadBooks">
+                <!-- 示例数据 - 将在运行 sync_notion.py 后自动替换 -->
+                <article class="book-card" data-tags="技术编程">
+                    <h3 class="book-title">代码大全</h3>
+                    <p class="book-author">作者：Steve McConnell</p>
+                    <div class="book-tags">
+                        <span class="book-tag">技术编程</span>
+                    </div>
+                    <p class="book-recommendation">软件开发的百科全书，想系统学习编程最佳实践。</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2025 计划李. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="https://zhihu.com" target="_blank">知乎</a>
+                    <a href="https://github.com" target="_blank">GitHub</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="scripts/books.js"></script>
+</body>
+</html>
