@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>书单预览 - 新UI设计</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/books.css">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="nav">
+        <div class="container">
+            <div class="nav-content">
+                <a href="index.html" class="logo">计划李</a>
+                <ul class="nav-links">
+                    <li><a href="index.html">首页</a></li>
+                    <li><a href="blog.html">文章</a></li>
+                    <li><a href="weekly.html">周刊</a></li>
+                    <li><a href="books.html" class="active">书单</a></li>
+                    <li><a href="about.html">关于</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 页面头部 -->
+    <section class="books-header">
+        <div class="container">
+            <h1 class="page-title">📚 阅读书单（新UI预览）</h1>
+            <p class="page-subtitle">网格布局 + 封面图展示</p>
+
+            <!-- 类型筛选 -->
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">全部</button>
+                <button class="filter-btn" data-filter="认知提升">认知提升</button>
+                <button class="filter-btn" data-filter="创业商业">创业商业</button>
+                <button class="filter-btn" data-filter="心理学">心理学</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 示例：有封面图的书籍 -->
+    <section class="books-section">
+        <div class="container">
+            <h2 class="section-title">
+                <span class="status-icon">✅</span>
+                示例展示（带封面图）
+            </h2>
+            <div class="books-grid">
+                <!-- 示例卡片1：有封面图 -->
+                <article class="book-card" data-tags="心理学,认知提升">
+                    <div class="book-cover">
+                        <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400&h=600&fit=crop" alt="示例书籍1" class="book-cover-img" loading="lazy">
+                    </div>
+                    <div class="book-content">
+                        <h3 class="book-title">被讨厌的勇气</h3>
+                        <p class="book-author">作者：岸见一郎 古贺史健</p>
+                        <div class="book-rating"><span class="star">⭐</span><span class="star">⭐</span><span class="star">⭐</span><span class="star">⭐</span><span class="star">⭐</span></div>
+                        <div class="book-tags"><span class="book-tag">心理学</span><span class="book-tag">认知提升</span></div>
+                        <p class="book-recommendation">书中指出人可借由目的论改变自己，一切烦恼皆源于人际关系，拥有被讨厌的勇气，才能摆脱他人评价的束缚，活出真实的自我。</p>
+                        <div class="book-links"><a href="#" class="book-notes-link">📝 查看读书笔记</a></div>
+                    </div>
+                </article>
+
+                <!-- 示例卡片2：无封面图，显示占位符 -->
+                <article class="book-card" data-tags="创业商业,认知提升">
+                    <div class="book-cover">
+                        <div class="book-cover-placeholder">
+                            <div class="book-cover-placeholder-icon">📖</div>
+                            <div class="book-cover-placeholder-title">每周工作四小时</div>
+                        </div>
+                    </div>
+                    <div class="book-content">
+                        <h3 class="book-title">每周工作四小时</h3>
+                        <p class="book-author">作者：蒂莫西·费里斯</p>
+                        <div class="book-tags"><span class="book-tag">创业商业</span><span class="book-tag">认知提升</span></div>
+                        <p class="book-recommendation">探讨如何通过优化工作方式，实现更高效的生活与时间自由</p>
+                    </div>
+                </article>
+
+                <!-- 示例卡片3：有封面图 -->
+                <article class="book-card" data-tags="认知提升">
+                    <div class="book-cover">
+                        <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?w=400&h=600&fit=crop" alt="示例书籍3" class="book-cover-img" loading="lazy">
+                    </div>
+                    <div class="book-content">
+                        <h3 class="book-title">认知觉醒</h3>
+                        <p class="book-author">作者：周岭</p>
+                        <div class="book-rating"><span class="star">⭐</span><span class="star">⭐</span><span class="star">⭐</span><span class="star">⭐</span></div>
+                        <div class="book-tags"><span class="book-tag">认知提升</span></div>
+                        <p class="book-recommendation">本书聚焦大脑构造、潜意识等认知领域内容，提供7大底层概念、20个成长关键词，助力读者突破思维与行动困境。</p>
+                    </div>
+                </article>
+
+                <!-- 示例卡片4：有封面图 -->
+                <article class="book-card" data-tags="心理学">
+                    <div class="book-cover">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=600&fit=crop" alt="示例书籍4" class="book-cover-img" loading="lazy">
+                    </div>
+                    <div class="book-content">
+                        <h3 class="book-title">当下的力量</h3>
+                        <p class="book-author">作者：埃克哈特·托利</p>
+                        <div class="book-rating"><span class="star">⭐</span><span class="star">⭐</span><span class="star">⭐</span><span class="star">⭐</span><span class="star">⭐</span></div>
+                        <div class="book-tags"><span class="book-tag">心理学</span></div>
+                        <p class="book-recommendation">关于活在当下、超越思维的心灵指南</p>
+                    </div>
+                </article>
+
+                <!-- 示例卡片5：无封面图 -->
+                <article class="book-card" data-tags="认知提升,阅读方法">
+                    <div class="book-cover">
+                        <div class="book-cover-placeholder">
+                            <div class="book-cover-placeholder-icon">📖</div>
+                            <div class="book-cover-placeholder-title">如何阅读一本书</div>
+                        </div>
+                    </div>
+                    <div class="book-content">
+                        <h3 class="book-title">如何阅读一本书</h3>
+                        <p class="book-author">作者：莫提默·J·艾德勒</p>
+                        <div class="book-rating"><span class="star">⭐</span><span class="star">⭐</span><span class="star">⭐</span><span class="star">⭐</span></div>
+                        <div class="book-tags"><span class="book-tag">阅读方法</span><span class="book-tag">认知提升</span></div>
+                        <p class="book-recommendation">系统总结了四个层次的阅读方法，包括基础阅读、检视阅读、分析阅读和主题阅读。</p>
+                    </div>
+                </article>
+
+                <!-- 示例卡片6：有封面图 -->
+                <article class="book-card" data-tags="创业商业">
+                    <div class="book-cover">
+                        <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&h=600&fit=crop" alt="示例书籍6" class="book-cover-img" loading="lazy">
+                    </div>
+                    <div class="book-content">
+                        <h3 class="book-title">一人公司</h3>
+                        <p class="book-author">作者：Paul Jarvis</p>
+                        <div class="book-rating"><span class="star">⭐</span><span class="star">⭐</span><span class="star">⭐</span><span class="star">⭐</span></div>
+                        <div class="book-tags"><span class="book-tag">创业商业</span></div>
+                        <p class="book-recommendation">主张企业不必盲目追求增长，而应保持小而灵活，以自己的生活为中心来经营事业。</p>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2025 计划李. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="https://zhihu.com" target="_blank">知乎</a>
+                    <a href="https://github.com" target="_blank">GitHub</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="scripts/books.js"></script>
+</body>
+</html>

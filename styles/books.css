@@ -1,4 +1,4 @@
-/* 书单页面样式 - 列表式设计 */
+/* 书单页面样式 - 网格布局设计（封面图展示） */
 
 /* 页面头部 */
 .books-header {
@@ -73,59 +73,124 @@
     font-size: 1.3rem;
 }
 
-/* 书籍列表 - 改为列表式 */
+/* 书籍网格布局 - 响应式多列 */
 .books-grid {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-sm);
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-md);
 }
 
-/* 书籍卡片 - 紧凑列表项 */
+/* 书籍卡片 - 垂直卡片，封面图为主 */
 .book-card {
     background: var(--bg-card);
-    border-radius: 10px;
-    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: 12px;
     border: 1px solid rgba(255, 255, 255, 0.08);
     transition: var(--transition);
-    display: grid;
-    grid-template-columns: 1fr auto;
-    grid-template-rows: auto auto;
-    gap: 0.3rem var(--spacing-md);
-    align-items: center;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 .book-card:hover {
     border-color: var(--accent);
-    background: rgba(255, 255, 255, 0.03);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 212, 255, 0.2);
+}
+
+/* 书籍封面容器 */
+.book-cover {
+    width: 100%;
+    aspect-ratio: 2/3;
+    overflow: hidden;
+    background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(157, 78, 221, 0.1));
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.book-cover-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.book-card:hover .book-cover-img {
+    transform: scale(1.05);
+}
+
+/* 封面占位符（无图片时显示） */
+.book-cover-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-md);
+    text-align: center;
+    background: linear-gradient(135deg, rgba(0, 212, 255, 0.15), rgba(157, 78, 221, 0.15));
+}
+
+.book-cover-placeholder-icon {
+    font-size: 3rem;
+    margin-bottom: var(--spacing-xs);
+    opacity: 0.6;
+}
+
+.book-cover-placeholder-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.3;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* 书籍内容区域 */
+.book-content {
+    padding: var(--spacing-sm);
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
 }
 
 /* 书籍标题 */
 .book-title {
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: 600;
     color: var(--text-primary);
-    margin: 0;
-    grid-column: 1;
-    grid-row: 1;
+    margin: 0 0 0.4rem 0;
+    line-height: 1.3;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 2.6em;
 }
 
 /* 作者 */
 .book-author {
     color: var(--text-secondary);
-    font-size: 0.85rem;
-    margin: 0;
-    grid-column: 1;
-    grid-row: 2;
+    font-size: 0.8rem;
+    margin: 0 0 0.5rem 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
-/* 评分 - 放右侧 */
+/* 评分 */
 .book-rating {
     display: flex;
-    gap: 0.1rem;
-    font-size: 0.9rem;
-    grid-column: 2;
-    grid-row: 1 / 3;
-    align-self: center;
+    gap: 0.15rem;
+    font-size: 0.85rem;
+    margin-bottom: 0.5rem;
 }
 
 .star {
@@ -136,56 +201,57 @@
 .book-tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.4rem;
-    grid-column: 1 / -1;
-    margin-top: 0.3rem;
+    gap: 0.3rem;
+    margin-bottom: 0.5rem;
 }
 
 .book-tag {
     display: inline-block;
-    padding: 0.2rem 0.6rem;
+    padding: 0.15rem 0.5rem;
     background: rgba(0, 212, 255, 0.1);
     color: var(--accent);
-    border-radius: 12px;
-    font-size: 0.75rem;
+    border-radius: 10px;
+    font-size: 0.7rem;
 }
 
-/* 推荐理由 - 默认折叠，hover 显示 */
+/* 推荐理由 */
 .book-recommendation {
     color: var(--text-secondary);
     line-height: 1.5;
-    font-size: 0.9rem;
-    grid-column: 1 / -1;
-    margin-top: 0.5rem;
+    font-size: 0.8rem;
+    margin-top: auto;
     padding-top: 0.5rem;
     border-top: 1px solid rgba(255, 255, 255, 0.05);
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
 
 .book-card:hover .book-recommendation {
-    -webkit-line-clamp: unset;
+    -webkit-line-clamp: 6;
 }
 
 /* 书籍链接容器 */
 .book-links {
-    grid-column: 1 / -1;
     margin-top: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
 }
 
 /* 读书笔记链接 */
 .book-notes-link {
     display: inline-flex;
     align-items: center;
-    gap: 0.4rem;
-    padding: 0.4rem 0.8rem;
+    justify-content: center;
+    gap: 0.3rem;
+    padding: 0.4rem 0.6rem;
     background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
     color: white;
     text-decoration: none;
     border-radius: 6px;
-    font-size: 0.85rem;
+    font-size: 0.75rem;
     font-weight: 500;
     transition: var(--transition);
 }
@@ -195,16 +261,15 @@
     box-shadow: 0 4px 12px rgba(0, 212, 255, 0.3);
 }
 
-/* 阅读笔记 */
+/* 阅读笔记（内联） */
 .book-notes {
     color: var(--text-secondary);
     line-height: 1.5;
     padding: var(--spacing-xs);
     background: rgba(255, 255, 255, 0.02);
     border-radius: 6px;
-    font-size: 0.85rem;
+    font-size: 0.75rem;
     border-left: 2px solid var(--accent);
-    grid-column: 1 / -1;
     margin-top: 0.5rem;
 }
 
@@ -212,7 +277,7 @@
     font-weight: 600;
     color: var(--accent);
     margin-bottom: 0.3rem;
-    font-size: 0.8rem;
+    font-size: 0.7rem;
 }
 
 /* 空状态 */
@@ -220,6 +285,7 @@
     text-align: center;
     padding: var(--spacing-lg);
     color: var(--text-secondary);
+    grid-column: 1 / -1;
 }
 
 .empty-state-icon {
@@ -238,20 +304,20 @@
 }
 
 /* 响应式设计 */
+@media (min-width: 1200px) {
+    .books-grid {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    }
+}
+
 @media (max-width: 768px) {
     .page-title {
         font-size: 2rem;
     }
 
-    .book-card {
-        grid-template-columns: 1fr;
-        gap: 0.3rem;
-    }
-
-    .book-rating {
-        grid-column: 1;
-        grid-row: auto;
-        justify-self: start;
+    .books-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: var(--spacing-sm);
     }
 
     .filter-buttons {
@@ -266,18 +332,43 @@
     .section-title {
         font-size: 1.3rem;
     }
+
+    .book-title {
+        font-size: 0.9rem;
+    }
+
+    .book-author {
+        font-size: 0.75rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .books-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-xs);
+    }
+
+    .book-content {
+        padding: 0.4rem;
+    }
+
+    .book-title {
+        font-size: 0.85rem;
+    }
 }
 
 /* 动画 */
 @keyframes fadeIn {
     from {
         opacity: 0;
+        transform: translateY(10px);
     }
     to {
         opacity: 1;
+        transform: translateY(0);
     }
 }
 
 .book-card {
-    animation: fadeIn 0.3s ease-in-out;
+    animation: fadeIn 0.4s ease-in-out;
 }
