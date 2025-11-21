@@ -216,10 +216,17 @@ def generate_article_html(article_data):
 
 def generate_blog_card(article):
     """生成单个文章卡片 HTML"""
-    return f'''                <article class="blog-card" data-category="{article['category_en']}">
+    # 生成标签HTML
+    tags_data = ','.join(article.get('tags', []))
+    tags_html = ''
+    if article.get('tags'):
+        tags_html = '<div class="blog-tags">' + ''.join([f'<span class="blog-item-tag">{tag}</span>' for tag in article['tags']]) + '</div>'
+
+    return f'''                <article class="blog-card" data-category="{article['category_en']}" data-tags="{tags_data}">
                     <div class="blog-tag">{article['category']}</div>
                     <h2 class="blog-title">{article['title']}</h2>
                     <p class="blog-excerpt">{article['excerpt']}</p>
+                    {tags_html}
                     <div class="blog-meta">
                         <span class="blog-date">{article['date_short']}</span>
                         <span class="blog-read">{article['read_time']}分钟阅读</span>
@@ -234,20 +241,36 @@ def update_blog_html(articles):
     try:
         with open('blog.html', 'r', encoding='utf-8') as f:
             content = f.read()
-        
+
+        # 收集所有唯一标签
+        all_tags = set()
+        for article in articles:
+            for tag in article.get('tags', []):
+                all_tags.add(tag)
+
+        # 生成标签筛选按钮HTML
+        tags_buttons_html = '<button class="tag-btn active" data-tag="all">全部标签</button>'
+        for tag in sorted(all_tags):
+            tags_buttons_html += f'<button class="tag-btn" data-tag="{tag}">{tag}</button>'
+
+        # 替换标签筛选区域
+        tag_pattern = r'(<div class="tag-filters" id="tagFilters">)(.*?)(</div>)'
+        if re.search(tag_pattern, content, flags=re.DOTALL):
+            content = re.sub(tag_pattern, r'\1\n                ' + tags_buttons_html + r'\n            \3', content, flags=re.DOTALL)
+
         # 生成所有文章卡片
         cards_html = ''.join([generate_blog_card(article) for article in articles])
-        
+
         # 替换文章列表部分
         # 查找 <div class="blog-grid" id="blogGrid"> 到下一个 </div> 之间的内容
         pattern = r'(<div class="blog-grid" id="blogGrid">)(.*?)(</div>\s*</div>\s*</section>)'
         replacement = r'\1\n' + cards_html + r'            \3'
-        
+
         new_content = re.sub(pattern, replacement, content, flags=re.DOTALL)
-        
+
         with open('blog.html', 'w', encoding='utf-8') as f:
             f.write(new_content)
-        
+
         print("✅ blog.html 更新成功")
         return True
     except Exception as e:
@@ -312,6 +335,7 @@ def main():
             properties = page['properties']
             title = get_property_value(properties, '标题')
             category = get_property_value(properties, '分类')
+            tags = get_property_value(properties, '标签')  # 从Notion获取标签(multi_select)
             date = get_property_value(properties, '发布日期')
             excerpt = get_property_value(properties, '摘要')
             read_time = get_property_value(properties, '阅读时间')
@@ -363,10 +387,13 @@ def main():
                 formatted_date_short = datetime.now().strftime('%Y-%m-%d')
             
             # 准备文章数据
+            # 处理tags - 如果是列表则保持，否则转为空列表
+            tags_list = tags if isinstance(tags, list) else []
             article_data = {
                 'title': title,
                 'category': category,
                 'category_en': CATEGORY_MAP.get(category, 'personal'),
+                'tags': tags_list,
                 'date': formatted_date,
                 'date_short': formatted_date_short,
                 'excerpt': excerpt or '暂无摘要',

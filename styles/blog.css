@@ -46,6 +46,54 @@
     border-color: var(--accent);
 }
 
+/* 标签筛选 */
+.tag-filters {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-xs);
+    margin-bottom: var(--spacing-md);
+    flex-wrap: wrap;
+}
+
+.tag-btn {
+    padding: 0.4rem 1rem;
+    background: var(--bg-card);
+    color: var(--text-secondary);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    cursor: pointer;
+    transition: var(--transition);
+    font-size: 0.85rem;
+    font-family: inherit;
+}
+
+.tag-btn:hover {
+    border-color: var(--gradient-2);
+    color: var(--text-primary);
+}
+
+.tag-btn.active {
+    background: var(--gradient-2);
+    color: white;
+    border-color: var(--gradient-2);
+}
+
+/* 文章标签 */
+.blog-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: var(--spacing-sm);
+}
+
+.blog-item-tag {
+    padding: 0.2rem 0.6rem;
+    background: rgba(139, 92, 246, 0.2);
+    color: var(--gradient-2);
+    border-radius: 10px;
+    font-size: 0.75rem;
+}
+
 /* 搜索框 */
 .search-box {
     max-width: 600px;
