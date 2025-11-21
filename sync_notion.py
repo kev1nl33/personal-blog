@@ -209,6 +209,7 @@ def generate_article_html(article_data):
             </div>
         </div>
     </footer>
+    <script src="scripts/main.js"></script>
 </body>
 </html>'''
     

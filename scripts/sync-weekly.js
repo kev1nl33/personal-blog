@@ -258,6 +258,7 @@ function generateWeeklyDetailHtml(weeklyData) {
             </div>
         </div>
     </footer>
+    <script src="scripts/main.js"></script>
 </body>
 </html>`;
 }

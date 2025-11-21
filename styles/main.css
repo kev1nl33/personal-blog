@@ -356,3 +356,67 @@ body {
 ::-webkit-scrollbar-thumb:hover {
     background: var(--accent-hover);
 }
+
+/* 回到顶部按钮 */
+.back-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background: var(--bg-card);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: var(--transition);
+    z-index: 999;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.back-to-top:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    transform: translateY(-5px);
+}
+
+.back-to-top::before {
+    content: '↑';
+    font-size: 1.5rem;
+    color: var(--text-primary);
+}
+
+.back-to-top:hover::before {
+    color: white;
+}
+
+/* 阅读进度条 */
+.reading-progress-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: transparent;
+    z-index: 1001;
+    pointer-events: none;
+}
+
+.reading-progress-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--gradient-1), var(--gradient-2));
+    transition: width 0.1s ease;
+    box-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+}

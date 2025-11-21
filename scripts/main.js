@@ -1,5 +1,5 @@
 // 主页交互效果
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // 平滑滚动
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
@@ -17,16 +17,16 @@ document.addEventListener('DOMContentLoaded', function() {
     // 导航栏滚动效果
     let lastScroll = 0;
     const nav = document.querySelector('.nav');
-    
+
     window.addEventListener('scroll', () => {
         const currentScroll = window.pageYOffset;
-        
+
         if (currentScroll <= 0) {
             nav.style.boxShadow = 'none';
         } else {
             nav.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.5)';
         }
-        
+
         lastScroll = currentScroll;
     });
 
@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const articleCardLinks = document.querySelectorAll('.article-card-link');
 
     articleCardLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
+        link.addEventListener('click', function (e) {
             // 链接默认行为已经处理跳转，这里可以添加额外的动画或统计
             console.log('Navigating to:', this.href);
         });
@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const text = typingText.textContent;
         typingText.textContent = '';
         let i = 0;
-        
+
         function typeWriter() {
             if (i < text.length) {
                 typingText.textContent += text.charAt(i);
@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 setTimeout(typeWriter, 50);
             }
         }
-        
+
         // 延迟启动打字效果
         setTimeout(typeWriter, 500);
     }
@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function() {
         rootMargin: '0px 0px -50px 0px'
     };
 
-    const observer = new IntersectionObserver(function(entries) {
+    const observer = new IntersectionObserver(function (entries) {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.style.opacity = '1';
@@ -81,6 +81,51 @@ document.addEventListener('DOMContentLoaded', function() {
         el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
         observer.observe(el);
     });
+
+    // --- 新增功能：回到顶部 & 阅读进度条 ---
+
+    // 1. 创建元素
+    const body = document.body;
+
+    // 创建进度条
+    const progressContainer = document.createElement('div');
+    progressContainer.className = 'reading-progress-container';
+    const progressBar = document.createElement('div');
+    progressBar.className = 'reading-progress-bar';
+    progressContainer.appendChild(progressBar);
+    body.appendChild(progressContainer);
+
+    // 创建回到顶部按钮
+    const backToTopBtn = document.createElement('div');
+    backToTopBtn.className = 'back-to-top';
+    backToTopBtn.title = '回到顶部';
+    body.appendChild(backToTopBtn);
+
+    // 2. 监听滚动事件
+    window.addEventListener('scroll', () => {
+        const currentScroll = window.pageYOffset;
+        const windowHeight = window.innerHeight;
+        const documentHeight = document.documentElement.scrollHeight;
+
+        // 更新进度条
+        const scrollPercent = (currentScroll / (documentHeight - windowHeight)) * 100;
+        progressBar.style.width = `${Math.min(100, Math.max(0, scrollPercent))}%`;
+
+        // 控制回到顶部按钮显示
+        if (currentScroll > 500) {
+            backToTopBtn.classList.add('visible');
+        } else {
+            backToTopBtn.classList.remove('visible');
+        }
+    });
+
+    // 3. 回到顶部点击事件
+    backToTopBtn.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
 });
 
 // 添加鼠标跟随光效（可选，增强科技感）
@@ -89,11 +134,11 @@ document.addEventListener('mousemove', (e) => {
     if (hero) {
         const x = e.clientX / window.innerWidth;
         const y = e.clientY / window.innerHeight;
-        
+
         hero.style.background = `
             radial-gradient(circle at ${x * 100}% ${y * 100}%, 
             rgba(0, 212, 255, 0.15), transparent 50%),
-            radial-gradient(circle at ${(1-x) * 100}% ${(1-y) * 100}%, 
+            radial-gradient(circle at ${(1 - x) * 100}% ${(1 - y) * 100}%, 
             rgba(123, 47, 247, 0.15), transparent 50%)
         `;
     }
