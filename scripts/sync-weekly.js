@@ -218,6 +218,7 @@ function generateWeeklyDetailHtml(weeklyData) {
                     <li><a href="index.html">首页</a></li>
                     <li><a href="blog.html">文章</a></li>
                     <li><a href="weekly.html" class="active">周刊</a></li>
+                    <li><a href="books.html">书单</a></li>
                     <li><a href="about.html">关于</a></li>
                 </ul>
             </div>
@@ -338,6 +339,7 @@ function generateWeeklyListHtml(weeklies) {
                     <li><a href="index.html">首页</a></li>
                     <li><a href="blog.html">文章</a></li>
                     <li><a href="weekly.html" class="active">周刊</a></li>
+                    <li><a href="books.html">书单</a></li>
                     <li><a href="about.html">关于</a></li>
                 </ul>
             </div>
