@@ -707,7 +707,16 @@ def sync_reading_list():
             date = get_property_value(properties, '完成日期')
             douban_url = get_property_value(properties, '豆瓣链接')
             notes_link = get_property_value(properties, '笔记链接')
-            cover_url = get_property_value(properties, '封面图')  # 提取封面图
+
+            # 提取封面图 - 优先从字段获取,其次从页面封面获取
+            cover_url = get_property_value(properties, '封面图')
+            if not cover_url and book.get('cover'):
+                # 从页面封面获取
+                cover = book['cover']
+                if cover.get('type') == 'external':
+                    cover_url = cover.get('external', {}).get('url', '')
+                elif cover.get('type') == 'file':
+                    cover_url = cover.get('file', {}).get('url', '')
 
             if not title:
                 print(f"⚠️  跳过书籍: 缺少书名")
