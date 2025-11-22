@@ -1,0 +1,92 @@
+/* 移动端优化CSS */
+
+/* 超小屏幕 (<576px) */
+@media (max-width: 575px) {
+    .container {
+        padding: 0 1rem;
+    }
+
+    .hero-title {
+        font-size: 1.8rem;
+    }
+
+    .nav-links {
+        gap: 0.5rem;
+        font-size: 0.9rem;
+    }
+
+    .blog-grid,
+    .articles-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .search-btn {
+        padding: 0.3rem 0.6rem;
+        font-size: 1rem;
+    }
+}
+
+/* 小屏幕 (576px - 768px) */
+@media (min-width: 576px) and (max-width: 767px) {
+    .blog-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* 中等屏幕 (768px - 992px) */
+@media (min-width: 768px) and (max-width: 991px) {
+    .blog-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* 触摸优化 */
+@media (hover: none) and (pointer: coarse) {
+    /* 增大可点击区域 */
+    .nav-links a,
+    .btn,
+    button {
+        min-height: 44px;
+        min-width: 44px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* 移除hover效果 */
+    .article-card:hover,
+    .blog-card:hover {
+        transform: none;
+    }
+
+    /* 使用active状态替代hover */
+    .btn:active {
+        transform: scale(0.95);
+    }
+}
+
+/* 横屏模式优化 */
+@media (max-height: 500px) and (orientation: landscape) {
+    .hero {
+        min-height: auto;
+        padding: 2rem 0;
+    }
+
+    .hero-title {
+        font-size: 1.5rem;
+    }
+
+    .search-modal-content {
+        top: 5%;
+        max-height: 90vh;
+    }
+}
+
+/* 减少动画以提高性能 */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
