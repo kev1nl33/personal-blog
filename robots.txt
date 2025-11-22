@@ -1,0 +1,11 @@
+# robots.txt for 计划李的个人博客
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://kev1nl33.github.io/personal-blog/sitemap.xml
+
+# 禁止访问的路径（如果有）
+Disallow: /scripts/
+Disallow: /*.json$

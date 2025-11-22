@@ -163,12 +163,53 @@ def get_property_value(properties, prop_name):
 
 def generate_article_html(article_data):
     """生成文章 HTML"""
+    # 生成关键词（基于分类和标签）
+    keywords = [article_data['category']]
+    if article_data.get('tags'):
+        keywords.extend(article_data['tags'])
+    keywords.extend(['计划李', 'Kevin', '个人博客', '职业规划', 'GCDF'])
+    keywords_str = ', '.join(keywords)
+
+    # 生成描述（使用摘要，限制长度）
+    description = article_data.get('excerpt', '')[:160]
+
+    # 生成文章URL（用于OG标签）
+    article_url = f"https://kev1nl33.github.io/personal-blog/{article_data['url']}.html"
+
     template = '''<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{title} - 计划李</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="{description}">
+    <meta name="keywords" content="{keywords}">
+    <meta name="author" content="计划李 (Kevin)">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="zh-CN">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="{title}">
+    <meta property="og:description" content="{description}">
+    <meta property="og:url" content="{article_url}">
+    <meta property="og:site_name" content="计划李的个人博客">
+    <meta property="og:locale" content="zh_CN">
+    <meta property="article:author" content="计划李">
+    <meta property="article:published_time" content="{date_short}">
+    <meta property="article:section" content="{category}">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="{title}">
+    <meta name="twitter:description" content="{description}">
+    <meta name="twitter:creator" content="@计划李">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="{article_url}">
+
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/article.css">
 </head>
@@ -221,6 +262,10 @@ def generate_article_html(article_data):
         </div>
     </footer>
     <script src="scripts/main.js"></script>
+    <script src="scripts/search.js"></script>
+    <script src="scripts/toc.js"></script>
+    <script src="scripts/theme.js"></script>
+    <script src="scripts/recommendations.js"></script>
 </body>
 </html>'''
     
@@ -401,6 +446,17 @@ def main():
             # 准备文章数据
             # 处理tags - 如果是列表则保持，否则转为空列表
             tags_list = tags if isinstance(tags, list) else []
+
+            # 生成关键词
+            keywords = [category] + tags_list + ['计划李', 'Kevin', '个人博客', '职业规划', 'GCDF']
+            keywords_str = ', '.join(keywords)
+
+            # 生成描述
+            description = (excerpt or '暂无摘要')[:160]
+
+            # 生成文章URL
+            article_url = f"https://kev1nl33.github.io/personal-blog/{url}.html"
+
             article_data = {
                 'title': title,
                 'category': category,
@@ -411,7 +467,10 @@ def main():
                 'excerpt': excerpt or '暂无摘要',
                 'read_time': read_time,
                 'url': url,
-                'content': content_html
+                'content': content_html,
+                'keywords': keywords_str,
+                'description': description,
+                'article_url': article_url
             }
             
             articles.append(article_data)
