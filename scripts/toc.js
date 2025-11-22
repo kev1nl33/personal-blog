@@ -355,19 +355,32 @@ class TableOfContents {
             }
 
             /* 为文章内容添加布局，使TOC在侧边 */
-            @media (min-width: 1400px) {
+            @media (min-width: 1200px) {
                 .article-container {
+                    max-width: 1200px !important;
+                }
+
+                .article-container .container {
                     display: grid;
                     grid-template-columns: 250px 1fr;
                     gap: 2rem;
                     align-items: start;
                 }
 
+                .article-header,
+                .article-footer,
+                .related-articles {
+                    grid-column: 1 / -1;
+                }
+
                 .toc-container {
-                    order: -1;
+                    grid-column: 1;
+                    position: sticky;
+                    top: 100px;
                 }
 
                 .article-content {
+                    grid-column: 2;
                     min-width: 0; /* 防止溢出 */
                 }
             }
