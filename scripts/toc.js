@@ -356,15 +356,20 @@ class TableOfContents {
 
             /* 为文章内容添加布局，使TOC在侧边 */
             @media (min-width: 1400px) {
-                .article-container {
+                .article-container .container {
                     display: grid;
                     grid-template-columns: 250px 1fr;
                     gap: 2rem;
                     align-items: start;
+                    max-width: 1400px;
                 }
 
                 .toc-container {
                     order: -1;
+                }
+
+                .article-header {
+                    grid-column: 1 / -1;
                 }
 
                 .article-content {
