@@ -147,6 +147,17 @@ def get_property_value(properties, prop_name):
         return prop.get('checkbox', False)
     elif prop_type == 'url':
         return prop.get('url', '')
+    elif prop_type == 'files':
+        # 处理文件类型（如封面图）
+        files = prop.get('files', [])
+        if files and len(files) > 0:
+            # 返回第一个文件的URL
+            file = files[0]
+            if file.get('type') == 'external':
+                return file.get('external', {}).get('url', '')
+            elif file.get('type') == 'file':
+                return file.get('file', {}).get('url', '')
+        return ''
 
     return ''
 
@@ -456,58 +467,55 @@ def query_reading_list():
 
 
 def generate_book_card(book):
-    """生成单个书籍卡片 HTML"""
+    """生成单个书籍卡片 HTML（带封面图的网格布局）"""
+    # 数据属性，用于筛选
+    tags_data = ','.join(book.get('tags', []))
+
+    # 封面图HTML
+    cover_url = book.get('cover_url', '')
+    if cover_url:
+        cover_html = f'''<div class="book-cover">
+                        <img src="{cover_url}" alt="{book['title']}" class="book-cover-img" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\\'book-cover-placeholder\\'><div class=\\'book-cover-placeholder-icon\\'>📖</div><div class=\\'book-cover-placeholder-title\\'>{book['title']}</div></div>'">
+                    </div>'''
+    else:
+        # 无封面图时显示占位符
+        cover_html = f'''<div class="book-cover">
+                        <div class="book-cover-placeholder">
+                            <div class="book-cover-placeholder-icon">📖</div>
+                            <div class="book-cover-placeholder-title">{book['title']}</div>
+                        </div>
+                    </div>'''
+
     # 生成评分星星
     rating = book.get('rating', '')
     stars = ''.join(['<span class="star">⭐</span>' for _ in range(rating.count('⭐'))])
+    rating_html = f'<div class="book-rating">{stars}</div>' if stars else ''
 
     # 生成类型标签
     tags_html = ''
     if book.get('tags'):
-        tags_html = ''.join([f'<span class="book-tag">{tag}</span>' for tag in book['tags']])
+        tags_html = '<div class="book-tags">' + ''.join([f'<span class="book-tag">{tag}</span>' for tag in book['tags']]) + '</div>'
 
-    # 阅读笔记（如果有）
-    notes_html = ''
-    if book.get('notes'):
-        notes_html = f'''
-                    <div class="book-notes">
-                        <div class="book-notes-title">💡 阅读笔记</div>
-                        {book['notes']}
-                    </div>'''
-
-    # 完成日期（如果有）
-    date_html = ''
-    if book.get('date'):
-        date_html = f'<span class="book-date">📅 {book["date"]}</span>'
+    # 推荐理由
+    recommendation_html = ''
+    if book.get('recommendation'):
+        recommendation_html = f'<p class="book-recommendation">{book["recommendation"]}</p>'
 
     # 笔记链接（如果有）
-    notes_link_html = ''
+    links_html = ''
     if book.get('notes_url'):
-        notes_link_html = f'<a href="{book["notes_url"]}" class="book-notes-link">📝 查看读书笔记</a>'
-
-    # 豆瓣链接（如果有）
-    douban_link_html = ''
-    if book.get('douban_url'):
-        douban_link_html = f'<a href="{book["douban_url"]}" target="_blank" class="book-link">豆瓣链接 →</a>'
-
-    # 组合底部链接
-    link_html = ''
-    if notes_link_html or douban_link_html:
-        links = [link for link in [notes_link_html, douban_link_html] if link]
-        link_html = ''.join(links)
-
-    # 数据属性，用于筛选
-    tags_data = ','.join(book.get('tags', []))
+        links_html = f'<div class="book-links"><a href="{book["notes_url"]}" class="book-notes-link">📝 查看读书笔记</a></div>'
 
     return f'''                <article class="book-card" data-tags="{tags_data}">
-                    <h3 class="book-title">{book['title']}</h3>
-                    <p class="book-author">作者：{book['author']}</p>
-                    {f'<div class="book-rating">{stars}</div>' if stars else ''}
-                    {f'<div class="book-tags">{tags_html}</div>' if tags_html else ''}
-                    {f'<p class="book-recommendation">{book["recommendation"]}</p>' if book.get('recommendation') else ''}
-                    {notes_html}
-                    {f'<div class="book-footer">{date_html}</div>' if date_html else ''}
-                    {f'<div class="book-links">{link_html}</div>' if link_html else ''}
+                    {cover_html}
+                    <div class="book-content">
+                        <h3 class="book-title">{book['title']}</h3>
+                        <p class="book-author">作者：{book['author']}</p>
+                        {rating_html}
+                        {tags_html}
+                        {recommendation_html}
+                        {links_html}
+                    </div>
                 </article>
 
 '''
@@ -640,6 +648,7 @@ def sync_reading_list():
             date = get_property_value(properties, '完成日期')
             douban_url = get_property_value(properties, '豆瓣链接')
             notes_link = get_property_value(properties, '笔记链接')
+            cover_url = get_property_value(properties, '封面图')  # 提取封面图
 
             if not title:
                 print(f"⚠️  跳过书籍: 缺少书名")
@@ -671,14 +680,15 @@ def sync_reading_list():
                 'notes': notes,
                 'date': formatted_date,
                 'douban_url': douban_url,
-                'notes_url': local_notes_url
+                'notes_url': local_notes_url,
+                'cover_url': cover_url  # 添加封面图URL
             }
 
             # 添加到对应状态的列表
             if status in books_by_status:
                 books_by_status[status].append(book_data)
 
-            print(f"  ✅ 处理书籍: {title} ({status})")
+            print(f"  ✅ 处理书籍: {title} ({status}){' [有封面]' if cover_url else ''}")
 
         except Exception as e:
             print(f"  ❌ 处理书籍失败: {e}")
