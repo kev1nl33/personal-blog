@@ -19,42 +19,15 @@
 .weekly-subtitle {
     color: var(--text-secondary);
     font-size: 1.2rem;
-    margin-bottom: var(--spacing-lg);
+    margin-bottom: var(--spacing-sm);
     line-height: 1.6;
 }
 
-/* 筛选按钮组 */
-.weekly-filter-buttons {
-    display: flex;
-    justify-content: center;
-    gap: var(--spacing-sm);
-    flex-wrap: wrap;
-    margin-top: var(--spacing-md);
-}
-
-.filter-btn {
-    padding: 0.6rem 1.5rem;
-    background: var(--bg-card);
+.weekly-description {
     color: var(--text-secondary);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 25px;
-    font-size: 0.95rem;
-    cursor: pointer;
-    transition: var(--transition);
-    font-weight: 500;
-}
-
-.filter-btn:hover {
-    border-color: var(--accent);
-    color: var(--text-primary);
-    transform: translateY(-2px);
-}
-
-.filter-btn.active {
-    background: linear-gradient(135deg, rgba(0, 212, 255, 0.2), rgba(138, 43, 226, 0.2));
-    border-color: var(--accent);
-    color: var(--text-primary);
-    box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+    font-size: 1rem;
+    opacity: 0.8;
+    line-height: 1.6;
 }
 
 /* ==================== 周刊列表 ==================== */
@@ -63,9 +36,11 @@
     min-height: 60vh;
 }
 
-.weekly-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+.weekly-timeline {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
     gap: var(--spacing-lg);
 }
 
@@ -113,37 +88,17 @@
     gap: var(--spacing-sm);
 }
 
-/* 类型标签 */
-.weekly-type-badge {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    padding: 0.5rem 1rem;
-    border-radius: 20px;
-    font-size: 0.85rem;
+/* 期数标签 */
+.weekly-issue-badge {
+    display: inline-block;
+    padding: 0.5rem 1.2rem;
+    background: linear-gradient(135deg, rgba(0, 212, 255, 0.2), rgba(138, 43, 226, 0.2));
+    color: var(--accent);
+    border-radius: 25px;
+    font-size: 0.9rem;
     font-weight: 600;
-    border: 1px solid;
+    border: 1px solid rgba(0, 212, 255, 0.3);
     white-space: nowrap;
-}
-
-.type-programming {
-    background: rgba(59, 130, 246, 0.2);
-    color: #60a5fa;
-    border-color: rgba(59, 130, 246, 0.3);
-}
-
-.type-growth {
-    background: rgba(16, 185, 129, 0.2);
-    color: #34d399;
-    border-color: rgba(16, 185, 129, 0.3);
-}
-
-.type-icon {
-    font-size: 1rem;
-}
-
-.type-text {
-    font-size: 0.85rem;
 }
 
 /* 日期范围 */
@@ -152,6 +107,36 @@
     font-size: 0.9rem;
     font-weight: 500;
     white-space: nowrap;
+}
+
+/* 主题标签 */
+.weekly-topics {
+    display: flex;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+    flex-wrap: wrap;
+}
+
+.topic-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.4rem 0.9rem;
+    border-radius: 15px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border: 1px solid;
+}
+
+.tag-programming {
+    background: rgba(59, 130, 246, 0.15);
+    color: #60a5fa;
+    border-color: rgba(59, 130, 246, 0.3);
+}
+
+.tag-growth {
+    background: rgba(16, 185, 129, 0.15);
+    color: #34d399;
+    border-color: rgba(16, 185, 129, 0.3);
 }
 
 /* 卡片标题 */
@@ -413,12 +398,6 @@
 }
 
 /* ==================== 响应式设计 ==================== */
-@media (max-width: 1200px) {
-    .weekly-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
 @media (max-width: 768px) {
     .weekly-main-title {
         font-size: 2.5rem;
@@ -428,8 +407,12 @@
         font-size: 1rem;
     }
 
-    .weekly-grid {
-        grid-template-columns: 1fr;
+    .weekly-description {
+        font-size: 0.9rem;
+    }
+
+    .weekly-timeline {
+        max-width: 100%;
     }
 
     .weekly-card-header {
@@ -466,25 +449,11 @@
     .weekly-content h4 {
         font-size: 1.2rem;
     }
-
-    .filter-btn {
-        font-size: 0.9rem;
-        padding: 0.5rem 1.2rem;
-    }
 }
 
 @media (max-width: 480px) {
     .weekly-main-title {
         font-size: 2rem;
-    }
-
-    .weekly-filter-buttons {
-        gap: 0.5rem;
-    }
-
-    .filter-btn {
-        font-size: 0.85rem;
-        padding: 0.4rem 1rem;
     }
 
     .weekly-card {
@@ -493,5 +462,15 @@
 
     .weekly-card-title {
         font-size: 1.3rem;
+    }
+
+    .weekly-issue-badge {
+        font-size: 0.85rem;
+        padding: 0.4rem 1rem;
+    }
+
+    .topic-tag {
+        font-size: 0.8rem;
+        padding: 0.3rem 0.7rem;
     }
 }
