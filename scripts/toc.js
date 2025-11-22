@@ -342,30 +342,37 @@ class TableOfContents {
                 max-height: 0 !important;
             }
 
-            /* 移动端适配 */
-            @media (max-width: 768px) {
+            /* 移动端和平板适配 */
+            @media (max-width: 1199px) {
                 .toc-container {
                     position: static;
                     margin-bottom: 1.5rem;
                 }
 
                 .toc-nav {
+                    max-height: 400px;
+                }
+            }
+
+            @media (max-width: 768px) {
+                .toc-nav {
                     max-height: 300px;
                 }
             }
 
-            /* 为文章内容添加布局，使TOC在侧边 */
-            @media (min-width: 1400px) {
+            /* 桌面端侧边栏布局 */
+            @media (min-width: 1200px) {
                 .article-container .container {
                     display: grid;
-                    grid-template-columns: 250px 1fr;
-                    gap: 2rem;
+                    grid-template-columns: 280px 1fr;
+                    gap: 3rem;
                     align-items: start;
                     max-width: 1400px;
                 }
 
                 .toc-container {
                     order: -1;
+                    margin-bottom: 0;
                 }
 
                 .article-header {
@@ -373,7 +380,8 @@ class TableOfContents {
                 }
 
                 .article-content {
-                    min-width: 0; /* 防止溢出 */
+                    min-width: 0;
+                    max-width: 800px;
                 }
             }
         `;
