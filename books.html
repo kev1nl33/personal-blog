@@ -30,6 +30,58 @@
             <h1 class="page-title">📚 阅读书单</h1>
             <p class="page-subtitle">记录阅读旅程，分享知识见解</p>
 
+            <!-- 阅读统计面板 -->
+            <div class="stats-panel">
+                <div class="stat-card">
+                    <div class="stat-icon">📚</div>
+                    <div class="stat-content">
+                        <div class="stat-value" id="totalBooks">0</div>
+                        <div class="stat-label">总书籍</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">✅</div>
+                    <div class="stat-content">
+                        <div class="stat-value" id="readBooks">0</div>
+                        <div class="stat-label">已读完</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">📖</div>
+                    <div class="stat-content">
+                        <div class="stat-value" id="readingBooks">0</div>
+                        <div class="stat-label">阅读中</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">📝</div>
+                    <div class="stat-content">
+                        <div class="stat-value" id="wantToReadBooks">0</div>
+                        <div class="stat-label">想要读</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 搜索和排序控制 -->
+            <div class="controls-bar">
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="搜索书名、作者..." class="search-input">
+                    <span class="search-icon">🔍</span>
+                </div>
+                <div class="sort-box">
+                    <label for="sortSelect" class="sort-label">排序：</label>
+                    <select id="sortSelect" class="sort-select">
+                        <option value="default">默认顺序</option>
+                        <option value="title-asc">书名 A-Z</option>
+                        <option value="title-desc">书名 Z-A</option>
+                        <option value="rating-desc">评分从高到低</option>
+                        <option value="rating-asc">评分从低到高</option>
+                        <option value="date-desc">最近完成</option>
+                        <option value="date-asc">最早完成</option>
+                    </select>
+                </div>
+            </div>
+
             <!-- 类型筛选 -->
             <div class="filter-buttons">
                 <button class="filter-btn active" data-filter="all">全部</button>
@@ -51,7 +103,7 @@
                 已读
             </h2>
             <div class="books-grid" id="readBooks">
-                <article class="book-card" data-tags="心理学,认知提升">
+                <article class="book-card" data-tags="心理学,认知提升" data-title="被讨厌的勇气" data-author="岸见一郎 古贺史健" data-rating="5" data-date="2024-12-15">
                     <div class="book-cover">
                         <div class="book-cover-placeholder">
                             <div class="book-cover-placeholder-icon">📖</div>
@@ -80,7 +132,7 @@
                 在读
             </h2>
             <div class="books-grid" id="readingBooks">
-                <article class="book-card" data-tags="创业商业,认知提升">
+                <article class="book-card" data-tags="创业商业,认知提升" data-title="每周工作四小时" data-author="蒂莫西·费里斯" data-rating="0" data-date="">
                     <div class="book-cover">
                         <div class="book-cover-placeholder">
                             <div class="book-cover-placeholder-icon">📖</div>
@@ -90,10 +142,10 @@
                     <div class="book-content">
                         <h3 class="book-title">每周工作四小时</h3>
                         <p class="book-author">作者：蒂莫西·费里斯</p>
-                        
+
                         <div class="book-tags"><span class="book-tag">创业商业</span><span class="book-tag">认知提升</span></div>
                         <p class="book-recommendation">探讨如何通过优化工作方式，实现更高效的生活与时间自由</p>
-                        
+
                     </div>
                 </article>
 
