@@ -527,8 +527,12 @@ def query_reading_list():
 
 def generate_book_card(book):
     """生成单个书籍卡片 HTML（带封面图的网格布局）"""
-    # 数据属性，用于筛选
+    # 数据属性，用于筛选、搜索和排序
     tags_data = ','.join(book.get('tags', []))
+    title_data = book.get('title', '')
+    author_data = book.get('author', '未知')
+    rating_num = book.get('rating', '').count('⭐')  # 评分数字，用于排序
+    date_data = book.get('date', '')  # 完成日期
 
     # 封面图HTML
     cover_url = book.get('cover_url', '')
@@ -565,7 +569,7 @@ def generate_book_card(book):
     if book.get('notes_url'):
         links_html = f'<div class="book-links"><a href="{book["notes_url"]}" class="book-notes-link">📝 查看读书笔记</a></div>'
 
-    return f'''                <article class="book-card" data-tags="{tags_data}">
+    return f'''                <article class="book-card" data-tags="{tags_data}" data-title="{title_data}" data-author="{author_data}" data-rating="{rating_num}" data-date="{date_data}">
                     {cover_html}
                     <div class="book-content">
                         <h3 class="book-title">{book['title']}</h3>
@@ -674,6 +678,41 @@ def convert_notion_page_to_local_url(page_id):
     return ''
 
 
+def fetch_douban_cover(douban_url):
+    """从豆瓣页面抓取封面图URL"""
+    if not douban_url:
+        return ''
+
+    try:
+        import time
+        time.sleep(0.5)  # 避免请求过快
+
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+        }
+        response = requests.get(douban_url, headers=headers, timeout=10)
+        response.raise_for_status()
+
+        # 使用正则表达式提取封面图URL
+        import re
+        # 豆瓣图书页面的封面图通常在 <img ... src="xxx" ... /> 标签中
+        match = re.search(r'<img[^>]*src="(https://img\d*\.doubanio\.com/[^"]+)"[^>]*alt="[^"]*封面"', response.text)
+        if not match:
+            # 尝试另一种模式
+            match = re.search(r'<img[^>]*src="(https://img\d*\.doubanio\.com/view/subject/[^"]+\.jpg)"', response.text)
+
+        if match:
+            cover_url = match.group(1)
+            # 转换为较大尺寸的图片
+            cover_url = cover_url.replace('/s/', '/l/').replace('/m/', '/l/')
+            print(f"  ✅ 从豆瓣获取封面: {cover_url[:50]}...")
+            return cover_url
+    except Exception as e:
+        print(f"  ⚠️  从豆瓣获取封面失败: {e}")
+
+    return ''
+
+
 def sync_reading_list():
     """同步阅读书单"""
     print("\n📚 开始同步阅读书单...")
@@ -708,7 +747,7 @@ def sync_reading_list():
             douban_url = get_property_value(properties, '豆瓣链接')
             notes_link = get_property_value(properties, '笔记链接')
 
-            # 提取封面图 - 优先从字段获取,其次从页面封面获取
+            # 提取封面图 - 优先从字段获取,其次从页面封面获取,最后从豆瓣抓取
             cover_url = get_property_value(properties, '封面图')
             if not cover_url and book.get('cover'):
                 # 从页面封面获取
@@ -717,6 +756,11 @@ def sync_reading_list():
                     cover_url = cover.get('external', {}).get('url', '')
                 elif cover.get('type') == 'file':
                     cover_url = cover.get('file', {}).get('url', '')
+
+            # 如果仍然没有封面图，尝试从豆瓣链接获取
+            if not cover_url and douban_url:
+                print(f"  🔍 尝试从豆瓣获取封面: {title}")
+                cover_url = fetch_douban_cover(douban_url)
 
             if not title:
                 print(f"⚠️  跳过书籍: 缺少书名")
