@@ -1,17 +1,15 @@
-/* 博客页面样式 */
+/* 博客页面样式 - Farnam Street 风格 */
 .blog-section {
     padding: var(--spacing-xl) 0;
     min-height: 80vh;
 }
 
 .page-title {
-    font-size: 3rem;
+    font-size: var(--font-large);
     text-align: center;
     margin-bottom: var(--spacing-lg);
-    background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--text-primary);
+    font-weight: 700;
 }
 
 /* 分类筛选 */
@@ -25,25 +23,25 @@
 
 .category-btn {
     padding: 0.6rem 1.5rem;
-    background: var(--bg-card);
+    background: var(--bg-primary);
     color: var(--text-secondary);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 25px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-pill);
     cursor: pointer;
-    transition: var(--transition);
+    transition: all 0.2s ease;
     font-size: 0.95rem;
     font-family: inherit;
 }
 
 .category-btn:hover {
-    border-color: var(--accent);
+    border-color: var(--primary-color);
     color: var(--text-primary);
 }
 
 .category-btn.active {
-    background: var(--accent);
+    background: var(--primary-color);
     color: white;
-    border-color: var(--accent);
+    border-color: var(--primary-color);
 }
 
 /* 标签筛选 */
@@ -57,25 +55,25 @@
 
 .tag-btn {
     padding: 0.4rem 1rem;
-    background: var(--bg-card);
+    background: var(--bg-primary);
     color: var(--text-secondary);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--border-color);
     border-radius: 15px;
     cursor: pointer;
-    transition: var(--transition);
+    transition: all 0.2s ease;
     font-size: 0.85rem;
     font-family: inherit;
 }
 
 .tag-btn:hover {
-    border-color: var(--gradient-2);
+    border-color: var(--primary-color);
     color: var(--text-primary);
 }
 
 .tag-btn.active {
-    background: var(--gradient-2);
+    background: var(--primary-color);
     color: white;
-    border-color: var(--gradient-2);
+    border-color: var(--primary-color);
 }
 
 /* 文章标签 */
@@ -88,9 +86,9 @@
 
 .blog-item-tag {
     padding: 0.2rem 0.6rem;
-    background: rgba(139, 92, 246, 0.2);
-    color: var(--gradient-2);
-    border-radius: 10px;
+    background: var(--bg-secondary);
+    color: var(--text-secondary);
+    border-radius: var(--radius-small);
     font-size: 0.75rem;
 }
 
@@ -103,19 +101,19 @@
 #searchInput {
     width: 100%;
     padding: 1rem 1.5rem;
-    background: var(--bg-card);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: var(--border-radius);
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-medium);
     color: var(--text-primary);
     font-size: 1rem;
-    transition: var(--transition);
+    transition: all 0.2s ease;
     font-family: inherit;
 }
 
 #searchInput:focus {
     outline: none;
-    border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(212, 25, 41, 0.1);
 }
 
 #searchInput::placeholder {
@@ -130,30 +128,33 @@
 }
 
 .blog-card {
-    background: var(--bg-card);
-    border-radius: var(--border-radius);
-    padding: var(--spacing-md);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    transition: var(--transition);
+    background: var(--bg-primary);
+    border-radius: var(--radius-medium);
+    padding: var(--spacing-lg);
+    border: 1px solid var(--border-color);
+    transition: all 0.5s ease-in-out;
     display: flex;
     flex-direction: column;
 }
 
 .blog-card:hover {
-    transform: translateY(-5px);
-    border-color: var(--accent);
-    box-shadow: 0 15px 50px rgba(0, 212, 255, 0.2);
+    transform: translateY(-10px);
+    border-color: var(--border-color);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
 .blog-tag {
     display: inline-block;
     padding: 0.4rem 1rem;
-    background: rgba(0, 212, 255, 0.2);
-    color: var(--accent);
-    border-radius: 20px;
-    font-size: 0.85rem;
+    background: var(--bg-secondary);
+    color: var(--text-secondary);
+    border-radius: var(--radius-small);
+    font-size: var(--font-small);
     margin-bottom: var(--spacing-sm);
     width: fit-content;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
 }
 
 .blog-title {
@@ -179,15 +180,16 @@
 }
 
 .read-more {
-    color: var(--accent);
+    color: var(--primary-color);
     text-decoration: none;
     font-weight: 600;
-    transition: var(--transition);
+    transition: all 0.2s ease;
     display: inline-flex;
     align-items: center;
 }
 
 .read-more:hover {
+    color: var(--primary-hover);
     gap: 0.5rem;
 }
 
