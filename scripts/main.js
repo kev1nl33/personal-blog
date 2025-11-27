@@ -1,4 +1,4 @@
-// 主页交互效果
+// 极简主页交互效果
 document.addEventListener('DOMContentLoaded', function () {
     // 平滑滚动
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -14,132 +14,55 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // 导航栏滚动效果
-    let lastScroll = 0;
+    // 导航栏简化滚动效果
     const nav = document.querySelector('.nav');
-
-    window.addEventListener('scroll', () => {
-        const currentScroll = window.pageYOffset;
-
-        if (currentScroll <= 0) {
-            nav.style.boxShadow = 'none';
-        } else {
-            nav.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.5)';
-        }
-
-        lastScroll = currentScroll;
-    });
-
-    // 文章卡片点击跳转
-    const articleCardLinks = document.querySelectorAll('.article-card-link');
-
-    articleCardLinks.forEach(link => {
-        link.addEventListener('click', function (e) {
-            // 链接默认行为已经处理跳转，这里可以添加额外的动画或统计
-            console.log('Navigating to:', this.href);
-        });
-    });
-
-    // 打字效果（可选）
-    const typingText = document.querySelector('.typing-text');
-    if (typingText) {
-        const text = typingText.textContent;
-        typingText.textContent = '';
-        let i = 0;
-
-        function typeWriter() {
-            if (i < text.length) {
-                typingText.textContent += text.charAt(i);
-                i++;
-                setTimeout(typeWriter, 50);
+    if (nav) {
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 0) {
+                nav.style.boxShadow = '0 1px 3px rgba(0, 0, 0, 0.08)';
+            } else {
+                nav.style.boxShadow = 'none';
             }
-        }
-
-        // 延迟启动打字效果
-        setTimeout(typeWriter, 500);
+        });
     }
 
-    // 滚动时元素淡入效果
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver(function (entries) {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-            }
-        });
-    }, observerOptions);
-
-    // 为需要动画的元素添加初始样式和观察
-    document.querySelectorAll('.article-card, .about-content').forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(20px)';
-        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        observer.observe(el);
-    });
-
-    // --- 新增功能：回到顶部 & 阅读进度条 ---
-
-    // 1. 创建元素
-    const body = document.body;
-
-    // 创建进度条
+    // 创建阅读进度条
     const progressContainer = document.createElement('div');
     progressContainer.className = 'reading-progress-container';
     const progressBar = document.createElement('div');
     progressBar.className = 'reading-progress-bar';
     progressContainer.appendChild(progressBar);
-    body.appendChild(progressContainer);
+    document.body.appendChild(progressContainer);
 
     // 创建回到顶部按钮
     const backToTopBtn = document.createElement('div');
     backToTopBtn.className = 'back-to-top';
     backToTopBtn.title = '回到顶部';
-    body.appendChild(backToTopBtn);
+    document.body.appendChild(backToTopBtn);
 
-    // 2. 监听滚动事件
+    // 滚动事件 - 更新进度条和回到顶部按钮
     window.addEventListener('scroll', () => {
         const currentScroll = window.pageYOffset;
         const windowHeight = window.innerHeight;
         const documentHeight = document.documentElement.scrollHeight;
 
-        // 更新进度条
+        // 更新阅读进度条
         const scrollPercent = (currentScroll / (documentHeight - windowHeight)) * 100;
         progressBar.style.width = `${Math.min(100, Math.max(0, scrollPercent))}%`;
 
-        // 控制回到顶部按钮显示
-        if (currentScroll > 500) {
+        // 显示/隐藏回到顶部按钮
+        if (currentScroll > 300) {
             backToTopBtn.classList.add('visible');
         } else {
             backToTopBtn.classList.remove('visible');
         }
     });
 
-    // 3. 回到顶部点击事件
+    // 回到顶部点击事件
     backToTopBtn.addEventListener('click', () => {
         window.scrollTo({
             top: 0,
             behavior: 'smooth'
         });
     });
-});
-
-// 添加鼠标跟随光效（可选，增强科技感）
-document.addEventListener('mousemove', (e) => {
-    const hero = document.querySelector('.hero');
-    if (hero) {
-        const x = e.clientX / window.innerWidth;
-        const y = e.clientY / window.innerHeight;
-
-        hero.style.background = `
-            radial-gradient(circle at ${x * 100}% ${y * 100}%, 
-            rgba(0, 212, 255, 0.15), transparent 50%),
-            radial-gradient(circle at ${(1 - x) * 100}% ${(1 - y) * 100}%, 
-            rgba(123, 47, 247, 0.15), transparent 50%)
-        `;
-    }
 });
