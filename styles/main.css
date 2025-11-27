@@ -1,27 +1,34 @@
-/* 基础重置和变量 */
+/* Farnam Street 1:1 复刻样式 */
 :root {
-    /* 极简配色 - Farnam Street 风格 */
-    --bg-primary: #fafafa;
-    --bg-secondary: #ffffff;
-    --bg-card: #ffffff;
-    --text-primary: #1a1a1a;
+    /* 精确配色 - 来自 fs.blog */
+    --primary-color: #d41929;
+    --primary-hover: #e62d3c;
+    --primary-dark: #a4131f;
+    --bg-primary: #ffffff;
+    --bg-secondary: #f4f4f4;
+    --text-primary: #111111;
     --text-secondary: #666666;
-    --text-muted: #999999;
-    --accent: #2563eb;
-    --accent-hover: #1e40af;
-    --border-light: #e5e5e5;
-    --border-medium: #d4d4d4;
+    --border-color: #E7E7E7;
+    --button-bg: #32373c;
 
-    /* 简化间距 */
+    /* 字号系统 */
+    --font-small: 13px;
+    --font-button: 18px;
+    --font-medium: 20px;
+    --font-large: 36px;
+    --font-xlarge: 42px;
+
+    /* 间距 */
     --spacing-xs: 0.5rem;
     --spacing-sm: 1rem;
-    --spacing-md: 2rem;
-    --spacing-lg: 4rem;
-    --spacing-xl: 6rem;
+    --spacing-md: 1.5rem;
+    --spacing-lg: 2rem;
+    --spacing-xl: 3rem;
 
-    /* 简化圆角和过渡 */
-    --border-radius: 4px;
-    --transition: all 0.2s ease;
+    /* 圆角 */
+    --radius-small: 3px;
+    --radius-medium: 5px;
+    --radius-pill: 9999px;
 }
 
 * {
@@ -31,47 +38,54 @@
 }
 
 body {
-    /* 正文使用系统无衬线字体 */
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC',
-                 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
     background: var(--bg-primary);
     color: var(--text-primary);
-    line-height: 1.7;
-    font-size: 18px;
+    line-height: 1.6;
+    font-size: 16px;
 }
 
-/* 标题使用 Georgia 衬线字体 */
 h1, h2, h3, h4, h5, h6 {
-    font-family: Georgia, 'Times New Roman', serif;
     font-weight: 600;
     line-height: 1.3;
     color: var(--text-primary);
 }
 
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: var(--primary-hover);
+}
+
 .container {
-    max-width: 750px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 0 var(--spacing-md);
 }
 
-/* 导航栏 - 极简风格 */
+/* 导航栏 - 精确复刻 */
 .nav {
     position: sticky;
     top: 0;
     z-index: 1000;
-    background: var(--bg-secondary);
-    border-bottom: 1px solid var(--border-light);
+    background: var(--bg-primary);
+    border-bottom: 1px solid var(--border-color);
 }
 
 .nav-content {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: var(--spacing-md) 0;
+    padding: 1rem 0;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .logo {
-    font-family: Georgia, serif;
     font-size: 1.5rem;
     font-weight: 700;
     color: var(--text-primary);
@@ -80,54 +94,53 @@ h1, h2, h3, h4, h5, h6 {
 
 .nav-links {
     display: flex;
-    gap: var(--spacing-md);
+    gap: var(--spacing-lg);
     list-style: none;
     align-items: center;
 }
 
 .nav-links a {
-    color: var(--text-secondary);
+    color: var(--text-primary);
     text-decoration: none;
-    transition: var(--transition);
-    font-size: 0.95rem;
+    transition: color 0.2s ease;
+    font-size: 16px;
+    font-weight: 500;
 }
 
 .nav-links a:hover {
-    color: var(--text-primary);
+    color: var(--primary-color);
 }
 
 .search-btn {
-    background: transparent;
-    border: 1px solid var(--border-medium);
-    color: var(--text-secondary);
-    padding: 0.4rem 0.8rem;
-    border-radius: var(--border-radius);
+    background: var(--button-bg);
+    border: none;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-pill);
     cursor: pointer;
-    transition: var(--transition);
-    font-size: 1rem;
+    transition: all 0.2s ease;
+    font-size: 16px;
+    font-weight: 500;
 }
 
 .search-btn:hover {
-    border-color: var(--text-primary);
-    color: var(--text-primary);
+    opacity: 0.9;
 }
 
-/* Hero 区域 - 极简风格 */
+/* Hero 区域 */
 .hero {
     padding: var(--spacing-xl) 0;
-    background: var(--bg-secondary);
-    border-bottom: 1px solid var(--border-light);
+    background: var(--bg-primary);
 }
 
 .hero-content {
-    max-width: 650px;
+    max-width: 800px;
     margin: 0 auto;
     text-align: center;
 }
 
 .hero-title {
-    font-family: Georgia, serif;
-    font-size: clamp(2rem, 5vw, 3rem);
+    font-size: var(--font-xlarge);
     font-weight: 700;
     line-height: 1.2;
     margin-bottom: var(--spacing-md);
@@ -135,22 +148,20 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .gradient-text {
-    /* 移除渐变，使用纯色 */
     color: var(--text-primary);
 }
 
 .typing-text {
     color: var(--text-secondary);
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    font-size: clamp(1rem, 2.5vw, 1.3rem);
+    font-size: var(--font-medium);
     font-weight: 400;
 }
 
 .hero-description {
-    font-size: 1.1rem;
+    font-size: 18px;
     color: var(--text-secondary);
     margin-bottom: var(--spacing-lg);
-    line-height: 1.8;
+    line-height: 1.7;
 }
 
 .hero-buttons {
@@ -161,53 +172,56 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .btn {
-    padding: 0.8rem 1.5rem;
-    border-radius: var(--border-radius);
+    padding: 0.667em 1.5em;
+    border-radius: var(--radius-small);
     text-decoration: none;
-    font-weight: 500;
-    transition: var(--transition);
+    font-weight: 600;
+    transition: all 0.2s ease;
     display: inline-block;
-    font-size: 0.95rem;
+    font-size: var(--font-button);
+    cursor: pointer;
 }
 
 .btn-primary {
-    background: var(--accent);
+    background: var(--button-bg);
     color: white;
-    border: 1px solid var(--accent);
+    border: none;
 }
 
 .btn-primary:hover {
-    background: var(--accent-hover);
-    border-color: var(--accent-hover);
+    background: var(--text-primary);
 }
 
 .btn-secondary {
     background: transparent;
     color: var(--text-primary);
-    border: 1px solid var(--border-medium);
+    border: 1px solid var(--border-color);
 }
 
 .btn-secondary:hover {
     border-color: var(--text-primary);
 }
 
-/* 文章部分 - 极简卡片 */
+/* 文章部分 */
 .featured {
     padding: var(--spacing-xl) 0;
+    background: var(--bg-primary);
 }
 
 .section-title {
-    font-family: Georgia, serif;
-    font-size: 2rem;
+    font-size: var(--font-large);
     margin-bottom: var(--spacing-lg);
     text-align: center;
     color: var(--text-primary);
+    font-weight: 700;
 }
 
 .articles-grid {
     display: grid;
     grid-template-columns: 1fr;
     gap: var(--spacing-lg);
+    max-width: 800px;
+    margin: 0 auto;
 }
 
 .article-card-link {
@@ -217,77 +231,78 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .article-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-light);
-    border-radius: var(--border-radius);
-    padding: var(--spacing-md);
-    transition: var(--transition);
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-medium);
+    padding: var(--spacing-lg);
+    transition: all 0.5s ease-in-out;
     cursor: pointer;
 }
 
 .article-card-link:hover .article-card {
-    border-color: var(--border-medium);
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
 .article-tag {
     display: inline-block;
     padding: 0.3rem 0.8rem;
-    background: var(--bg-primary);
+    background: var(--bg-secondary);
     color: var(--text-secondary);
-    border-radius: var(--border-radius);
-    font-size: 0.8rem;
+    border-radius: var(--radius-small);
+    font-size: var(--font-small);
     margin-bottom: var(--spacing-sm);
-    border: 1px solid var(--border-light);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
 }
 
 .article-title {
-    font-family: Georgia, serif;
-    font-size: 1.4rem;
+    font-size: 24px;
     margin-bottom: var(--spacing-sm);
     color: var(--text-primary);
-    line-height: 1.4;
+    line-height: 1.3;
+    font-weight: 700;
 }
 
 .article-excerpt {
     color: var(--text-secondary);
     margin-bottom: var(--spacing-sm);
     line-height: 1.7;
-    font-size: 0.95rem;
+    font-size: 16px;
 }
 
 .article-meta {
     display: flex;
     gap: var(--spacing-sm);
-    font-size: 0.85rem;
-    color: var(--text-muted);
+    font-size: var(--font-small);
+    color: var(--text-secondary);
 }
 
 /* 关于预览 */
 .about-preview {
     padding: var(--spacing-xl) 0;
     background: var(--bg-secondary);
-    border-top: 1px solid var(--border-light);
 }
 
 .about-content {
-    max-width: 650px;
+    max-width: 800px;
     margin: 0 auto;
     text-align: center;
 }
 
 .about-text {
-    font-size: 1rem;
+    font-size: 18px;
     color: var(--text-secondary);
     margin-bottom: var(--spacing-md);
-    line-height: 1.8;
+    line-height: 1.7;
 }
 
 /* 页脚 */
 .footer {
     padding: var(--spacing-lg) 0;
-    border-top: 1px solid var(--border-light);
-    background: var(--bg-secondary);
+    border-top: 1px solid var(--border-color);
+    background: var(--bg-primary);
 }
 
 .footer-content {
@@ -296,8 +311,10 @@ h1, h2, h3, h4, h5, h6 {
     align-items: center;
     flex-wrap: wrap;
     gap: var(--spacing-sm);
-    font-size: 0.9rem;
+    font-size: 14px;
     color: var(--text-secondary);
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .social-links {
@@ -308,17 +325,17 @@ h1, h2, h3, h4, h5, h6 {
 .social-links a {
     color: var(--text-secondary);
     text-decoration: none;
-    transition: var(--transition);
+    transition: color 0.2s ease;
 }
 
 .social-links a:hover {
-    color: var(--text-primary);
+    color: var(--primary-color);
 }
 
 /* 响应式设计 */
-@media (max-width: 768px) {
-    body {
-        font-size: 16px;
+@media (max-width: 800px) {
+    .hero-title {
+        font-size: 32px;
     }
 
     .nav-links {
@@ -329,43 +346,57 @@ h1, h2, h3, h4, h5, h6 {
         padding: var(--spacing-lg) 0;
     }
 
-    .articles-grid {
-        gap: var(--spacing-md);
-    }
-
     .footer-content {
         flex-direction: column;
         text-align: center;
     }
 }
 
-/* 滚动条样式 - 极简风格 */
+@media (max-width: 600px) {
+    body {
+        font-size: 14px;
+    }
+
+    .hero-title {
+        font-size: 28px;
+    }
+
+    .section-title {
+        font-size: 28px;
+    }
+
+    .container {
+        padding: 0 var(--spacing-sm);
+    }
+}
+
+/* 滚动条样式 */
 ::-webkit-scrollbar {
-    width: 8px;
+    width: 10px;
 }
 
 ::-webkit-scrollbar-track {
-    background: var(--bg-primary);
+    background: var(--bg-secondary);
 }
 
 ::-webkit-scrollbar-thumb {
-    background: var(--border-medium);
-    border-radius: 4px;
+    background: var(--border-color);
+    border-radius: var(--radius-medium);
 }
 
 ::-webkit-scrollbar-thumb:hover {
     background: var(--text-secondary);
 }
 
-/* 回到顶部按钮 - 极简风格 */
+/* 回到顶部按钮 */
 .back-to-top {
     position: fixed;
     bottom: 30px;
     right: 30px;
-    width: 44px;
-    height: 44px;
-    background: var(--bg-card);
-    border: 1px solid var(--border-medium);
+    width: 50px;
+    height: 50px;
+    background: var(--button-bg);
+    border: none;
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -374,9 +405,9 @@ h1, h2, h3, h4, h5, h6 {
     opacity: 0;
     visibility: hidden;
     transform: translateY(10px);
-    transition: var(--transition);
+    transition: all 0.3s ease;
     z-index: 999;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .back-to-top.visible {
@@ -386,27 +417,23 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .back-to-top:hover {
-    border-color: var(--text-primary);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    background: var(--text-primary);
+    transform: translateY(-5px);
 }
 
 .back-to-top::before {
     content: '↑';
-    font-size: 1.3rem;
-    color: var(--text-secondary);
+    font-size: 1.5rem;
+    color: white;
 }
 
-.back-to-top:hover::before {
-    color: var(--text-primary);
-}
-
-/* 阅读进度条 - 极简风格 */
+/* 阅读进度条 */
 .reading-progress-container {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: 2px;
+    height: 3px;
     background: transparent;
     z-index: 1001;
     pointer-events: none;
@@ -415,6 +442,6 @@ h1, h2, h3, h4, h5, h6 {
 .reading-progress-bar {
     height: 100%;
     width: 0%;
-    background: var(--accent);
+    background: var(--primary-color);
     transition: width 0.1s ease;
 }
