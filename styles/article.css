@@ -1,4 +1,4 @@
-/* 文章页面样式 - Farnam Street 风格 */
+/* 文章页面样式 */
 .article-container {
     padding: var(--spacing-xl) 0;
     max-width: 800px;
@@ -9,20 +9,17 @@
     text-align: center;
     margin-bottom: var(--spacing-xl);
     padding-bottom: var(--spacing-lg);
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .article-header .article-tag {
     display: inline-block;
-    padding: 0.4rem 1rem;
-    background: var(--bg-secondary);
-    color: var(--text-secondary);
-    border-radius: var(--radius-small);
-    font-size: var(--font-small);
+    padding: 0.5rem 1.2rem;
+    background: rgba(0, 212, 255, 0.2);
+    color: var(--accent);
+    border-radius: 25px;
+    font-size: 0.9rem;
     margin-bottom: var(--spacing-md);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    font-weight: 600;
 }
 
 .article-title {
@@ -44,7 +41,7 @@
 .article-meta span::before {
     content: '•';
     margin-right: 0.5rem;
-    color: var(--primary-color);
+    color: var(--accent);
 }
 
 .article-meta span:first-child::before {
@@ -65,7 +62,7 @@
     color: var(--text-primary);
     margin-bottom: var(--spacing-lg);
     padding-left: var(--spacing-md);
-    border-left: 4px solid var(--primary-color);
+    border-left: 4px solid var(--accent);
 }
 
 .article-content h2 {
@@ -84,7 +81,7 @@
     transform: translateY(-50%);
     width: 4px;
     height: 60%;
-    background: var(--primary-color);
+    background: linear-gradient(to bottom, var(--accent), transparent);
 }
 
 .article-content p {
@@ -108,27 +105,27 @@
 }
 
 .article-content em {
-    color: var(--primary-color);
+    color: var(--accent);
     font-style: italic;
 }
 
 .article-content a {
-    color: var(--primary-color);
+    color: var(--accent);
     text-decoration: none;
-    border-bottom: 1px solid var(--primary-color);
-    transition: all 0.2s ease;
+    border-bottom: 1px solid var(--accent);
+    transition: var(--transition);
 }
 
 .article-content a:hover {
-    color: var(--primary-hover);
-    border-bottom-color: var(--primary-hover);
+    color: var(--accent-hover);
+    border-bottom-color: var(--accent-hover);
 }
 
 /* 文章底部 */
 .article-footer {
     margin-top: var(--spacing-xl);
     padding-top: var(--spacing-lg);
-    border-top: 1px solid var(--border-color);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .article-tags {
@@ -144,13 +141,13 @@
     color: var(--text-secondary);
     border-radius: 20px;
     font-size: 0.9rem;
-    border: 1px solid var(--border-color);
-    transition: all 0.2s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: var(--transition);
 }
 
 .tag:hover {
-    border-color: var(--primary-color);
-    color: var(--primary-color);
+    border-color: var(--accent);
+    color: var(--accent);
 }
 
 .article-share p {
@@ -168,22 +165,21 @@
     background: var(--bg-secondary);
     color: var(--text-primary);
     text-decoration: none;
-    border-radius: var(--radius-small);
-    border: 1px solid var(--border-color);
-    transition: all 0.2s ease;
+    border-radius: var(--border-radius);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: var(--transition);
 }
 
 .share-btn:hover {
-    background: var(--button-bg);
-    border-color: var(--button-bg);
-    color: white;
+    background: var(--accent);
+    border-color: var(--accent);
 }
 
 /* 相关文章 */
 .related-articles {
     margin-top: var(--spacing-xl);
     padding-top: var(--spacing-lg);
-    border-top: 1px solid var(--border-color);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .related-articles h3 {
@@ -199,19 +195,19 @@
 }
 
 .related-card {
-    background: var(--bg-primary);
+    background: var(--bg-card);
     padding: var(--spacing-md);
-    border-radius: var(--radius-medium);
-    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     text-decoration: none;
-    transition: all 0.5s ease-in-out;
+    transition: var(--transition);
     display: block;
 }
 
 .related-card:hover {
-    border-color: var(--border-color);
-    transform: translateY(-10px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border-color: var(--accent);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 212, 255, 0.2);
 }
 
 .related-card h4 {
@@ -265,16 +261,16 @@
 .article-content code {
     background: var(--bg-secondary);
     padding: 0.2rem 0.5rem;
-    border-radius: var(--radius-small);
+    border-radius: 4px;
     font-family: 'Courier New', monospace;
     font-size: 0.95em;
-    color: var(--primary-color);
+    color: var(--accent);
 }
 
 .article-content pre {
     background: var(--bg-secondary);
     padding: var(--spacing-md);
-    border-radius: var(--radius-medium);
+    border-radius: var(--border-radius);
     overflow-x: auto;
     margin-bottom: var(--spacing-md);
 }
@@ -290,8 +286,8 @@
     margin: var(--spacing-lg) 0;
     padding: var(--spacing-md) var(--spacing-lg);
     background: var(--bg-secondary);
-    border-left: 4px solid var(--primary-color);
-    border-radius: 0 var(--radius-medium) var(--radius-medium) 0;
+    border-left: 4px solid var(--accent);
+    border-radius: 0 var(--border-radius) var(--border-radius) 0;
 }
 
 .article-content blockquote p {
