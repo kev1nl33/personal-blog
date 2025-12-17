@@ -1,30 +1,40 @@
-/* 文章页面样式 */
+/* ================================
+   文章页面包豪斯风格样式
+   Article Page - Bauhaus Style
+   ================================ */
+
 .article-container {
     padding: var(--spacing-xl) 0;
     max-width: 800px;
     margin: 0 auto;
 }
 
+/* ================================
+   文章头部 - Article Header
+   ================================ */
 .article-header {
     text-align: center;
     margin-bottom: var(--spacing-xl);
     padding-bottom: var(--spacing-lg);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: var(--border-width) solid var(--border-color);
 }
 
 .article-header .article-tag {
     display: inline-block;
     padding: 0.5rem 1.2rem;
-    background: rgba(0, 212, 255, 0.2);
-    color: var(--accent);
-    border-radius: 25px;
+    background: var(--accent-blue);
+    color: white;
     font-size: 0.9rem;
+    font-weight: 600;
     margin-bottom: var(--spacing-md);
+    border: var(--border-width) solid var(--border-color);
 }
 
 .article-title {
     font-size: clamp(2rem, 5vw, 3rem);
-    line-height: 1.3;
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
     margin-bottom: var(--spacing-md);
     color: var(--text-primary);
 }
@@ -41,7 +51,7 @@
 .article-meta span::before {
     content: '•';
     margin-right: 0.5rem;
-    color: var(--accent);
+    color: var(--accent-orange);
 }
 
 .article-meta span:first-child::before {
@@ -49,7 +59,9 @@
     margin: 0;
 }
 
-/* 文章内容 */
+/* ================================
+   文章内容 - Article Content
+   ================================ */
 .article-content {
     color: var(--text-secondary);
     font-size: 1.1rem;
@@ -62,26 +74,40 @@
     color: var(--text-primary);
     margin-bottom: var(--spacing-lg);
     padding-left: var(--spacing-md);
-    border-left: 4px solid var(--accent);
+    border-left: 4px solid var(--accent-orange);
+    font-weight: 500;
 }
 
 .article-content h2 {
     font-size: 2rem;
+    font-weight: 700;
     color: var(--text-primary);
     margin-top: var(--spacing-xl);
     margin-bottom: var(--spacing-md);
     position: relative;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
 }
 
+/* 包豪斯风格的标题装饰 */
 .article-content h2::before {
     content: '';
     position: absolute;
     left: -20px;
-    top: 50%;
-    transform: translateY(-50%);
+    top: 0;
     width: 4px;
-    height: 60%;
-    background: linear-gradient(to bottom, var(--accent), transparent);
+    height: 100%;
+    background: var(--accent-orange);
+}
+
+.article-content h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-top: var(--spacing-lg);
+    margin-bottom: var(--spacing-md);
+    line-height: 1.3;
+    letter-spacing: -0.01em;
 }
 
 .article-content p {
@@ -101,31 +127,84 @@
 
 .article-content strong {
     color: var(--text-primary);
-    font-weight: 600;
+    font-weight: 700;
+    background: var(--accent-yellow);
+    padding: 0 0.2em;
 }
 
 .article-content em {
-    color: var(--accent);
+    color: var(--text-primary);
     font-style: italic;
 }
 
 .article-content a {
-    color: var(--accent);
+    color: var(--accent-orange);
     text-decoration: none;
-    border-bottom: 1px solid var(--accent);
-    transition: var(--transition);
+    border-bottom: 2px solid var(--accent-orange);
+    transition: var(--transition-fast);
+    font-weight: 600;
 }
 
 .article-content a:hover {
-    color: var(--accent-hover);
-    border-bottom-color: var(--accent-hover);
+    background: var(--accent-orange);
+    color: white;
+    padding: 0 0.2em;
 }
 
-/* 文章底部 */
+/* ================================
+   代码块样式 - Code Blocks
+   ================================ */
+.article-content code {
+    background: var(--bg-secondary);
+    padding: 0.2rem 0.5rem;
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-size: 0.95em;
+    color: var(--text-primary);
+    border: var(--border-width) solid var(--border-color);
+}
+
+.article-content pre {
+    background: var(--bg-secondary);
+    padding: var(--spacing-md);
+    border: var(--border-width) solid var(--border-color);
+    overflow-x: auto;
+    margin-bottom: var(--spacing-md);
+}
+
+.article-content pre code {
+    background: none;
+    padding: 0;
+    border: none;
+    color: var(--text-primary);
+}
+
+/* ================================
+   引用样式 - Blockquote
+   ================================ */
+.article-content blockquote {
+    margin: var(--spacing-lg) 0;
+    padding: var(--spacing-md) var(--spacing-lg);
+    background: var(--bg-secondary);
+    border-left: 4px solid var(--accent-blue);
+    border: var(--border-width) solid var(--border-color);
+    border-left-width: 4px;
+    border-left-color: var(--accent-blue);
+}
+
+.article-content blockquote p {
+    margin: 0;
+    font-style: italic;
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+/* ================================
+   文章底部 - Article Footer
+   ================================ */
 .article-footer {
     margin-top: var(--spacing-xl);
     padding-top: var(--spacing-lg);
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: var(--border-width) solid var(--border-color);
 }
 
 .article-tags {
@@ -138,21 +217,29 @@
 .tag {
     padding: 0.4rem 1rem;
     background: var(--bg-secondary);
-    color: var(--text-secondary);
-    border-radius: 20px;
+    color: var(--text-primary);
     font-size: 0.9rem;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    transition: var(--transition);
+    font-weight: 500;
+    border: var(--border-width) solid var(--border-color);
+    transition: var(--transition-fast);
+    text-decoration: none;
+    display: inline-block;
 }
 
 .tag:hover {
-    border-color: var(--accent);
-    color: var(--accent);
+    background: var(--text-primary);
+    color: var(--bg-secondary);
+    transform: translate(-2px, -2px);
+    box-shadow: 2px 2px 0 var(--border-color);
 }
 
+/* ================================
+   分享按钮 - Share Buttons
+   ================================ */
 .article-share p {
     color: var(--text-secondary);
     margin-bottom: var(--spacing-sm);
+    font-weight: 600;
 }
 
 .share-buttons {
@@ -165,27 +252,34 @@
     background: var(--bg-secondary);
     color: var(--text-primary);
     text-decoration: none;
-    border-radius: var(--border-radius);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    transition: var(--transition);
+    border: var(--border-width) solid var(--border-color);
+    transition: var(--transition-fast);
+    font-weight: 600;
 }
 
 .share-btn:hover {
-    background: var(--accent);
-    border-color: var(--accent);
+    background: var(--accent-green);
+    color: white;
+    transform: translate(-2px, -2px);
+    box-shadow: 2px 2px 0 var(--border-color);
 }
 
-/* 相关文章 */
+/* ================================
+   相关文章 - Related Articles
+   ================================ */
 .related-articles {
     margin-top: var(--spacing-xl);
     padding-top: var(--spacing-lg);
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: var(--border-width) solid var(--border-color);
 }
 
 .related-articles h3 {
     font-size: 1.8rem;
+    font-weight: 800;
     margin-bottom: var(--spacing-md);
     color: var(--text-primary);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
 }
 
 .related-grid {
@@ -197,101 +291,85 @@
 .related-card {
     background: var(--bg-card);
     padding: var(--spacing-md);
-    border-radius: var(--border-radius);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: var(--border-width) solid var(--border-color);
     text-decoration: none;
     transition: var(--transition);
     display: block;
+    position: relative;
+}
+
+/* 顶部彩条 */
+.related-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: var(--accent-blue);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
 }
 
 .related-card:hover {
-    border-color: var(--accent);
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(0, 212, 255, 0.2);
+    transform: translate(-4px, -4px);
+    box-shadow: var(--shadow-small);
+}
+
+.related-card:hover::before {
+    transform: scaleX(1);
 }
 
 .related-card h4 {
     color: var(--text-primary);
     font-size: 1.1rem;
+    font-weight: 700;
     margin-bottom: 0.5rem;
+    line-height: 1.3;
 }
 
 .related-card p {
     color: var(--text-secondary);
     font-size: 0.95rem;
     margin: 0;
+    line-height: 1.5;
 }
 
-/* 响应式设计 */
+/* ================================
+   响应式设计 - Responsive
+   ================================ */
 @media (max-width: 768px) {
     .article-container {
         padding: var(--spacing-lg) 0;
     }
-    
+
     .article-title {
         font-size: 1.8rem;
     }
-    
+
     .article-content {
         font-size: 1rem;
     }
-    
+
     .article-content .lead {
         font-size: 1.1rem;
     }
-    
+
     .article-content h2 {
         font-size: 1.5rem;
     }
-    
+
     .article-content h2::before {
-        display: none;
+        left: -12px;
+        width: 3px;
     }
-    
+
     .share-buttons {
         flex-wrap: wrap;
     }
-    
+
     .related-grid {
         grid-template-columns: 1fr;
     }
-}
-
-/* 代码块样式（如果需要） */
-.article-content code {
-    background: var(--bg-secondary);
-    padding: 0.2rem 0.5rem;
-    border-radius: 4px;
-    font-family: 'Courier New', monospace;
-    font-size: 0.95em;
-    color: var(--accent);
-}
-
-.article-content pre {
-    background: var(--bg-secondary);
-    padding: var(--spacing-md);
-    border-radius: var(--border-radius);
-    overflow-x: auto;
-    margin-bottom: var(--spacing-md);
-}
-
-.article-content pre code {
-    background: none;
-    padding: 0;
-    color: var(--text-primary);
-}
-
-/* 引用样式 */
-.article-content blockquote {
-    margin: var(--spacing-lg) 0;
-    padding: var(--spacing-md) var(--spacing-lg);
-    background: var(--bg-secondary);
-    border-left: 4px solid var(--accent);
-    border-radius: 0 var(--border-radius) var(--border-radius) 0;
-}
-
-.article-content blockquote p {
-    margin: 0;
-    font-style: italic;
-    color: var(--text-primary);
 }

@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>无效忙碌 - 108种认知武器 | Fake Busyness - 108 Cognitive Weapons</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Noto+Serif+SC:wght@400;700&family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            black: '#0a0a0a',
+                            white: '#f4f4f0',
+                            accent: '#FF4D00', // 警示橙
+                            blue: '#0047AB', // 克莱因蓝
+                            green: '#059669', // 增长绿
+                            gray: '#8a8a8a'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Noto Sans SC"', 'Inter', 'sans-serif'],
+                        serif: ['"Noto Serif SC"', 'serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                    },
+                    spacing: {
+                        '128': '32rem',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #f4f4f0;
+            color: #0a0a0a;
+            font-family: 'Noto Sans SC', 'Inter', sans-serif;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .bg-grid {
+            background-image: linear-gradient(#e5e5e5 1px, transparent 1px),
+            linear-gradient(90deg, #e5e5e5 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        .display-text {
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+        }
+
+        .bento-card {
+            background: white;
+            border: 1px solid #0a0a0a;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bento-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 8px 8px 0px #0a0a0a;
+        }
+
+        .bento-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: #0a0a0a;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .bento-card:hover::after {
+            transform: scaleX(1);
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .marker-highlight {
+            background: linear-gradient(120deg, rgba(255, 77, 0, 0.15) 0%, rgba(255, 77, 0, 0.15) 100%);
+            background-repeat: no-repeat;
+            background-size: 100% 40%;
+            background-position: 0 88%;
+            transition: background-size 0.25s ease-in;
+        }
+
+        .bento-card:hover .marker-highlight {
+            background-size: 100% 88%;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f4f4f0;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #0a0a0a;
+        }
+
+        /* Language Toggle Button */
+        .lang-toggle {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            z-index: 1000;
+            display: flex;
+            gap: 0.5rem;
+            background: white;
+            border: 2px solid #0a0a0a;
+            border-radius: 0.5rem;
+            padding: 0.25rem;
+            box-shadow: 4px 4px 0px #0a0a0a;
+        }
+
+        .lang-btn {
+            padding: 0.5rem 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.875rem;
+            font-weight: 600;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 0.25rem;
+        }
+
+        .lang-btn.active {
+            background: #0a0a0a;
+            color: white;
+        }
+
+        .lang-btn:hover:not(.active) {
+            background: #f4f4f0;
+        }
+
+        /* Hide inactive language content */
+        body[data-lang="zh"] .lang-en {
+            display: none;
+        }
+
+        body[data-lang="en"] .lang-zh {
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-grid min-h-screen p-4 md:p-8 lg:p-12" data-lang="zh">
+
+    <div class="lang-toggle">
+        <button class="lang-btn active" data-lang="zh" onclick="switchLang('zh')">中文</button>
+        <button class="lang-btn" data-lang="en" onclick="switchLang('en')">EN</button>
+    </div>
+
+    <div class="lang-zh">
+        <div class="max-w-7xl mx-auto pt-8 pb-4 reveal">
+            <div class="flex items-center gap-4">
+                <div class="flex-1 h-px bg-brand-black opacity-20"></div>
+                <h2 class="font-mono text-sm md:text-base tracking-widest uppercase text-brand-black font-bold">
+                    <span class="text-brand-accent">●</span> 108种认知武器 <span class="text-brand-accent">●</span>
+                </h2>
+                <div class="flex-1 h-px bg-brand-black opacity-20"></div>
+            </div>
+        </div>
+
+        <header class="max-w-7xl mx-auto mb-12 reveal">
+            <div class="flex flex-col md:flex-row justify-between items-end border-b-2 border-brand-black pb-6">
+                <div>
+                    <span class="font-mono text-brand-accent text-sm tracking-widest uppercase mb-2 block">思维模型 No.010</span>
+                    <h1 class="text-5xl md:text-7xl font-black display-text text-brand-black">
+                        忙全是假象<br>
+                        <span class="text-3xl md:text-5xl font-light text-gray-500">Busy is an Illusion</span>
+                    </h1>
+                </div>
+                <div class="mt-6 md:mt-0 text-right">
+                    <p class="font-serif italic text-xl md:text-2xl max-w-lg leading-tight text-gray-800">
+                        "真正的效率杀手，<br>是<span class="marker-highlight">不休息</span>。"
+                    </p>
+                    <div class="mt-4 font-mono text-xs text-brand-gray">
+                        阅读时长: 11分钟 • 来源: 月见 • 2025-11-01
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-6 auto-rows-auto">
+
+            <div class="bento-card col-span-1 md:col-span-8 p-8 flex flex-col justify-between reveal">
+                <div>
+                    <h3 class="font-mono text-brand-accent mb-4 font-bold tracking-widest">症状诊断</h3>
+                    <h2 class="text-3xl font-bold mb-4">冯雪柏的"永动机幻觉"</h2>
+                    <p class="text-lg text-gray-700 leading-relaxed font-serif mb-4">
+                        31岁的冯雪柏，大厂运营，人生就是个大写的"忙"字。日均6个会，8个窗口同时开，键盘声响彻部门。他觉得自己是燃烧的永动机。
+                    </p>
+                    <p class="text-lg text-gray-700 leading-relaxed font-serif">
+                        直到绩效面谈，总监一盆冰水泼下："你很努力，但你负责的S级增长策略，三个月了还是个框架。你救了100次火，但没挖一口井。" 冯雪柏愣住了。他每天忙12小时，回应了无数个"收到"，却在核心产出上交了白卷。
+                    </p>
+                </div>
+                <div class="mt-8 pt-6 border-t border-gray-200">
+                    <div class="flex items-center gap-4">
+                        <div class="h-12 w-12 rounded-full bg-brand-black text-white flex items-center justify-center shrink-0">
+                            <i class="ri-timer-flash-line text-2xl"></i>
+                        </div>
+                        <div>
+                            <p class="font-bold text-sm uppercase">核心病灶</p>
+                            <p class="text-sm text-gray-600">响应式陷阱：用100件"紧急"琐事，逃避1件"重要"难事。你不是在工作，你是在表演工作。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bento-card col-span-1 md:col-span-4 p-6 bg-brand-black text-white reveal">
+                <h3 class="font-mono text-brand-gray mb-6 font-bold tracking-widest">认知操作系统 OS</h3>
+
+                <div class="space-y-8">
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="font-bold text-xl text-brand-accent">永动机模式 (Trap)</span>
+                            <i class="ri-refresh-line text-brand-accent"></i>
+                        </div>
+                        <div class="h-1 w-full bg-gray-800 rounded mb-2">
+                            <div class="h-1 w-1/4 bg-brand-accent rounded"></div>
+                        </div>
+                        <p class="text-sm text-gray-400 font-mono">连续工作<br>熬夜 = 敬业 = 专注力递减</p>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="font-bold text-xl text-brand-green">运动员模式 (Growth)</span>
+                            <i class="ri-heart-pulse-line text-brand-green"></i>
+                        </div>
+                        <div class="h-1 w-full bg-gray-800 rounded mb-2">
+                            <div class="h-1 w-full bg-brand-green rounded"></div>
+                        </div>
+                        <p class="text-sm text-white font-mono">脉冲式工作<br>冲刺 + 回血 = 持续高产</p>
+                    </div>
+                </div>
+
+                <div class="mt-12 p-4 border border-gray-700 rounded bg-gray-900">
+                    <p class="text-xs font-mono leading-relaxed text-gray-300">
+                        "你不是时间的奴隶，你是能量的主人。休息不是偷懒，是工作的一部分。"
+                    </p>
+                </div>
+            </div>
+
+            <div class="bento-card col-span-1 md:col-span-5 p-6 reveal">
+                <h3 class="font-mono text-brand-black mb-2 font-bold tracking-widest">能量曲线</h3>
+                <h4 class="text-xl font-bold mb-4">专注力递减效应</h4>
+
+                <div class="relative h-64 w-full">
+                    <canvas id="energyChartZh"></canvas>
+                </div>
+
+                <div class="mt-4 text-sm text-gray-600 font-serif leading-relaxed text-center">
+                    连续工作3小时，后半程基本是"垃圾时间"。番茄钟是你的"心智呼吸机"。
+                </div>
+            </div>
+
+            <div class="bento-card col-span-1 md:col-span-7 p-8 bg-brand-white reveal">
+                <h3 class="font-mono text-brand-black mb-6 font-bold tracking-widest">番茄钟·三阶跃迁法</h3>
+
+                <div class="grid grid-cols-1 gap-4">
+                    <div class="flex items-start p-4 border border-gray-200 rounded hover:border-brand-black transition-colors group">
+                        <div class="bg-brand-black text-white font-mono text-lg px-3 py-1 rounded mr-4">Step 1</div>
+                        <div>
+                            <h4 class="font-bold text-lg">清障 (Clear)</h4>
+                            <p class="text-sm text-gray-600 mt-1 font-serif">物理清障：手机锁抽屉。精神清障：写下杂念清空大脑。锚定唯一任务：25分钟只做这一件事。</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start p-4 border border-gray-200 rounded hover:border-brand-black transition-colors group">
+                        <div class="bg-brand-black text-white font-mono text-lg px-3 py-1 rounded mr-4">Step 2</div>
+                        <div>
+                            <h4 class="font-bold text-lg">潜行 (Dive)</h4>
+                            <p class="text-sm text-gray-600 mt-1 font-serif">忍受前5分钟的焦虑。前25分钟不是工作，是"戒断"。不回消息，不切窗口。你在深海，与世隔绝。</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start p-4 border border-gray-200 rounded hover:border-brand-black transition-colors group">
+                        <div class="bg-brand-black text-white font-mono text-lg px-3 py-1 rounded mr-4">Step 3</div>
+                        <div>
+                            <h4 class="font-bold text-lg">换气 (Breathe)</h4>
+                            <p class="text-sm text-gray-600 mt-1 font-serif">闹钟一响，立即停止。5分钟真休息：离开屏幕，喝水，看远方。严禁看手机。这是为了给下一轮冲刺充能。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bento-card col-span-1 md:col-span-12 p-8 bg-brand-blue text-white reveal" style="background-color: #0047AB;">
+                 <div class="flex flex-col md:flex-row justify-between items-center mb-6">
+                    <div>
+                        <h3 class="font-mono opacity-70 mb-2 font-bold tracking-widest">行动指南</h3>
+                        <h2 class="text-2xl font-bold">真正的自由，是"敢于停下"</h2>
+                    </div>
+                    <i class="ri-timer-line text-4xl text-brand-accent mt-4 md:mt-0"></i>
+                </div>
+
+                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-white/90">
+                     <div class="border-t border-white/20 pt-4">
+                         <h4 class="font-bold text-lg mb-2">01. 痛苦的开始</h4>
+                         <p class="text-sm opacity-80 font-serif">冯雪柏第一天失败了，忍不住看了微信。第二天，他把手机锁进抽屉，终于熬过了第一个25分钟。</p>
+                     </div>
+
+                     <div class="border-t border-white/20 pt-4">
+                         <h4 class="font-bold text-lg mb-2">02. 惊人的产出</h4>
+                         <p class="text-sm opacity-80 font-serif">一周后，他只用了10个高质量番茄钟（5小时），就完成了过去三周都在拖延的S级方案框架。</p>
+                     </div>
+
+                     <div class="border-t border-white/20 pt-4">
+                         <h4 class="font-bold text-lg mb-2">03. 真实的水平</h4>
+                         <p class="text-sm opacity-80 font-serif">不再加班，不再空虚。一个月后，他拿着逻辑严密的方案敲开总监的门。总监说："这才是你的真实水平。"</p>
+                     </div>
+                 </div>
+            </div>
+
+            <div class="bento-card col-span-1 md:col-span-12 p-8 reveal">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="font-mono text-brand-accent font-bold tracking-widest">实战清单</h3>
+                    <span class="bg-brand-black text-white text-xs px-2 py-1 font-mono rounded">TOOLKIT</span>
+                </div>
+
+                <h2 class="text-2xl font-bold mb-4">专注力切片导航器 (T-S-E-R-L)</h2>
+                <p class="text-sm text-gray-600 mb-6 font-serif">建立可持续的高产出节奏，把时间切片，把任务切碎。</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+                    <div class="p-4 bg-gray-50 rounded border border-gray-200">
+                        <span class="font-mono font-bold text-brand-blue block mb-2">T: 锚定</span>
+                        <div class="text-sm font-bold text-brand-black mb-1">Task Anchor</div>
+                        <div class="text-xs text-gray-500">不求多，只求一。纸上写下唯一具体子任务。</div>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded border border-gray-200">
+                        <span class="font-mono font-bold text-brand-blue block mb-2">S: 结界</span>
+                        <div class="text-sm font-bold text-brand-black mb-1">Sacred Seal</div>
+                        <div class="text-xs text-gray-500">物理隔绝（锁手机）+ 精神隔绝（清杂念）。</div>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded border border-gray-200">
+                        <span class="font-mono font-bold text-brand-blue block mb-2">E: 执行</span>
+                        <div class="text-sm font-bold text-brand-black mb-1">Execution</div>
+                        <div class="text-xs text-gray-500">100%专注。遇干扰记在纸上，绝不分心处理。</div>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded border border-gray-200">
+                        <span class="font-mono font-bold text-brand-blue block mb-2">R: 换气</span>
+                        <div class="text-sm font-bold text-brand-black mb-1">Forced Rest</div>
+                        <div class="text-xs text-gray-500">5分钟强制离开屏幕。休息不是奖赏，是工作一部分。</div>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded border border-gray-200">
+                        <span class="font-mono font-bold text-brand-blue block mb-2">L: 复盘</span>
+                        <div class="text-sm font-bold text-brand-black mb-1">Loop</div>
+                        <div class="text-xs text-gray-500">每4个循环后，长休息15-30分钟。跑得快更要停得好。</div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+        <footer class="max-w-7xl mx-auto mt-12 mb-24 text-center reveal">
+            <hr class="border-brand-black mb-8 opacity-20">
+            <h2 class="text-2xl md:text-3xl font-serif italic text-gray-400 leading-snug">
+                "当你抗拒那个重要任务时，对自己说：<br>
+                <span class="text-brand-black not-italic font-bold">'来，我们就干25分钟。'</span>"
+            </h2>
+        </footer>
+    </div>
+
+    <div class="lang-en">
+        <div class="max-w-7xl mx-auto pt-8 pb-4 reveal">
+            <div class="flex items-center gap-4">
+                <div class="flex-1 h-px bg-brand-black opacity-20"></div>
+                <h2 class="font-mono text-sm md:text-base tracking-widest uppercase text-brand-black font-bold">
+                    <span class="text-brand-accent">●</span> 108 Cognitive Weapons <span class="text-brand-accent">●</span>
+                </h2>
+                <div class="flex-1 h-px bg-brand-black opacity-20"></div>
+            </div>
+        </div>
+
+        <header class="max-w-7xl mx-auto mb-12 reveal">
+            <div class="flex flex-col md:flex-row justify-between items-end border-b-2 border-brand-black pb-6">
+                <div>
+                    <span class="font-mono text-brand-accent text-sm tracking-widest uppercase mb-2 block">Mental Model 010</span>
+                    <h1 class="text-6xl md:text-8xl font-black display-text uppercase">
+                        Busy is an<br>Illusion
+                    </h1>
+                </div>
+                <div class="mt-6 md:mt-0 text-right">
+                    <p class="font-serif italic text-xl md:text-2xl max-w-lg leading-tight">
+                        "The real killer of efficiency<br>is <span class="marker-highlight">not resting</span>."
+                    </p>
+                    <div class="mt-4 font-mono text-xs text-brand-gray">
+                        READ TIME: 11 MIN • SOURCE: YUE JIAN • 2025-11-01
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-6 auto-rows-auto">
+
+            <div class="bento-card col-span-1 md:col-span-8 p-8 flex flex-col justify-between reveal">
+                <div>
+                    <h3 class="font-mono text-brand-accent mb-4 font-bold tracking-widest">THE DIAGNOSIS</h3>
+                    <h2 class="text-3xl font-bold mb-4">Feng's "Fake Busyness"</h2>
+                    <p class="text-lg text-gray-700 leading-relaxed font-serif mb-4">
+                        Feng Xuebai, 31, Ops Manager. His life is "BUSY". 6 meetings/day, 8 browser tabs open. He replies to messages instantly. He feels like a perpetual motion machine.
+                    </p>
+                    <p class="text-lg text-gray-700 leading-relaxed font-serif">
+                        Performance Review: The director said, "You are hardworking, but where is the output for the S-level project? It's been 3 months." Feng froze. He worked 12 hours a day but produced zero core value. He was a hamster running in a wheel.
+                    </p>
+                </div>
+                <div class="mt-8 pt-6 border-t border-gray-200">
+                    <div class="flex items-center gap-4">
+                        <div class="h-12 w-12 rounded-full bg-brand-black text-white flex items-center justify-center shrink-0">
+                            <i class="ri-timer-flash-line text-2xl"></i>
+                        </div>
+                        <div>
+                            <p class="font-bold text-sm uppercase">Core Issue</p>
+                            <p class="text-sm text-gray-600">Response Trap: Using 100 trivial tasks to avoid 1 hard task. You are performing work, not working.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bento-card col-span-1 md:col-span-4 p-6 bg-brand-black text-white reveal">
+                <h3 class="font-mono text-brand-gray mb-6 font-bold tracking-widest">MINDSET OS</h3>
+
+                <div class="space-y-8">
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="font-bold text-xl text-brand-accent">Perpetual Motion (Trap)</span>
+                            <i class="ri-refresh-line text-brand-accent"></i>
+                        </div>
+                        <div class="h-1 w-full bg-gray-800 rounded mb-2">
+                            <div class="h-1 w-1/4 bg-brand-accent rounded"></div>
+                        </div>
+                        <p class="text-sm text-gray-400 font-mono">Continuous Work<br>No Rest = Dedication = Low Focus</p>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="font-bold text-xl text-brand-green">Athlete Mode (Growth)</span>
+                            <i class="ri-heart-pulse-line text-brand-green"></i>
+                        </div>
+                        <div class="h-1 w-full bg-gray-800 rounded mb-2">
+                            <div class="h-1 w-full bg-brand-green rounded"></div>
+                        </div>
+                        <p class="text-sm text-white font-mono">Pulse Work<br>Sprint + Recovery = High Output</p>
+                    </div>
+                </div>
+
+                <div class="mt-12 p-4 border border-gray-700 rounded bg-gray-900">
+                    <p class="text-xs font-mono leading-relaxed text-gray-300">
+                        "You are not a slave to time; you are the master of energy. Rest is not laziness; it's part of the work."
+                    </p>
+                </div>
+            </div>
+
+            <div class="bento-card col-span-1 md:col-span-5 p-6 reveal">
+                <h3 class="font-mono text-brand-black mb-2 font-bold tracking-widest">ENERGY CURVE</h3>
+                <h4 class="text-xl font-bold mb-4">Focus Decrement Effect</h4>
+
+                <div class="relative h-64 w-full">
+                    <canvas id="energyChartEn"></canvas>
+                </div>
+
+                <div class="mt-4 text-sm text-gray-600 font-serif leading-relaxed text-center">
+                    Continuous work leads to trash time. Pomodoro is your "Mental Ventilator".
+                </div>
+            </div>
+
+            <div class="bento-card col-span-1 md:col-span-7 p-8 bg-brand-white reveal">
+                <h3 class="font-mono text-brand-black mb-6 font-bold tracking-widest">The 3-Stage Transition</h3>
+
+                <div class="grid grid-cols-1 gap-4">
+                    <div class="flex items-start p-4 border border-gray-200 rounded hover:border-brand-black transition-colors group">
+                        <div class="bg-brand-black text-white font-mono text-lg px-3 py-1 rounded mr-4">Step 1</div>
+                        <div>
+                            <h4 class="font-bold text-lg">Clear (Obstacles)</h4>
+                            <p class="text-sm text-gray-600 mt-1 font-serif">Physical: Lock phone away. Mental: Write down distractions. Anchor: One specific task for 25 mins.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start p-4 border border-gray-200 rounded hover:border-brand-black transition-colors group">
+                        <div class="bg-brand-black text-white font-mono text-lg px-3 py-1 rounded mr-4">Step 2</div>
+                        <div>
+                            <h4 class="font-bold text-lg">Dive (Stealth)</h4>
+                            <p class="text-sm text-gray-600 mt-1 font-serif">Endure the first 5 mins of anxiety. It's not work; it's "detox". No messages, no switching. Deep sea mode.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start p-4 border border-gray-200 rounded hover:border-brand-black transition-colors group">
+                        <div class="bg-brand-black text-white font-mono text-lg px-3 py-1 rounded mr-4">Step 3</div>
+                        <div>
+                            <h4 class="font-bold text-lg">Breathe (Rest)</h4>
+                            <p class="text-sm text-gray-600 mt-1 font-serif">Alarm rings, STOP immediately. 5 mins true rest: Look far, drink water. NO PHONE. Recharge for the next sprint.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bento-card col-span-1 md:col-span-12 p-8 bg-brand-blue text-white reveal" style="background-color: #0047AB;">
+                 <div class="flex flex-col md:flex-row justify-between items-center mb-6">
+                    <div>
+                        <h3 class="font-mono opacity-70 mb-2 font-bold tracking-widest">ACTION GUIDE</h3>
+                        <h2 class="text-2xl font-bold">True Freedom is "Daring to Stop"</h2>
+                    </div>
+                    <i class="ri-timer-line text-4xl text-brand-accent mt-4 md:mt-0"></i>
+                </div>
+
+                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-white/90">
+                     <div class="border-t border-white/20 pt-4">
+                         <h4 class="font-bold text-lg mb-2">01. Painful Start</h4>
+                         <p class="text-sm opacity-80 font-serif">Feng failed Day 1 (checked WeChat). Day 2, he locked his phone and survived the first 25 mins.</p>
+                     </div>
+
+                     <div class="border-t border-white/20 pt-4">
+                         <h4 class="font-bold text-lg mb-2">02. Amazing Output</h4>
+                         <p class="text-sm opacity-80 font-serif">In one week, 10 quality Pomodoros (5 hours) finished the S-level framework that stalled for 3 weeks.</p>
+                     </div>
+
+                     <div class="border-t border-white/20 pt-4">
+                         <h4 class="font-bold text-lg mb-2">03. Real Level</h4>
+                         <p class="text-sm opacity-80 font-serif">No OT, no emptiness. He showed the logic-tight plan to the boss. Boss: "This is your real level."</p>
+                     </div>
+                 </div>
+            </div>
+
+            <div class="bento-card col-span-1 md:col-span-12 p-8 reveal">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="font-mono text-brand-accent font-bold tracking-widest">CHECKLIST</h3>
+                    <span class="bg-brand-black text-white text-xs px-2 py-1 font-mono rounded">TOOLKIT</span>
+                </div>
+
+                <h2 class="text-2xl font-bold mb-4">Focus Slice Navigator (T-S-E-R-L)</h2>
+                <p class="text-sm text-gray-600 mb-6 font-serif">Slice time, slice tasks. Build a sustainable rhythm.</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+                    <div class="p-4 bg-gray-50 rounded border border-gray-200">
+                        <span class="font-mono font-bold text-brand-blue block mb-2">T: Anchor</span>
+                        <div class="text-sm font-bold text-brand-black mb-1">Task Anchor</div>
+                        <div class="text-xs text-gray-500">Only one thing. Write down one specific sub-task.</div>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded border border-gray-200">
+                        <span class="font-mono font-bold text-brand-blue block mb-2">S: Seal</span>
+                        <div class="text-sm font-bold text-brand-black mb-1">Sacred Seal</div>
+                        <div class="text-xs text-gray-500">Physical (Lock phone) + Mental (Clear mind).</div>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded border border-gray-200">
+                        <span class="font-mono font-bold text-brand-blue block mb-2">E: Execute</span>
+                        <div class="text-sm font-bold text-brand-black mb-1">Execution</div>
+                        <div class="text-xs text-gray-500">100% Focus. Note distractions, don't act on them.</div>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded border border-gray-200">
+                        <span class="font-mono font-bold text-brand-blue block mb-2">R: Rest</span>
+                        <div class="text-sm font-bold text-brand-black mb-1">Forced Rest</div>
+                        <div class="text-xs text-gray-500">5 mins away from screen. Rest is not a reward, it's fuel.</div>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded border border-gray-200">
+                        <span class="font-mono font-bold text-brand-blue block mb-2">L: Loop</span>
+                        <div class="text-sm font-bold text-brand-black mb-1">Review</div>
+                        <div class="text-xs text-gray-500">After 4 cycles, take a long break (15-30m).</div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+        <footer class="max-w-7xl mx-auto mt-12 mb-24 text-center reveal">
+            <hr class="border-brand-black mb-8 opacity-20">
+            <h2 class="text-2xl md:text-3xl font-serif italic text-gray-400 leading-snug">
+                "When you resist that important task, say to yourself:<br>
+                <span class="text-brand-black not-italic font-bold">'Come on, let's just do it for 25 minutes.'</span>"
+            </h2>
+        </footer>
+    </div>
+
+    <script>
+        // Language Switcher
+        function switchLang(lang) {
+            document.body.setAttribute('data-lang', lang);
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.getAttribute('data-lang') === lang) {
+                    btn.classList.add('active');
+                }
+            });
+
+            if (lang === 'zh') {
+                initChartZh();
+            } else {
+                initChartEn();
+            }
+
+            document.querySelectorAll('.reveal').forEach(el => {
+                el.classList.remove('active');
+                observer.observe(el);
+            });
+        }
+
+        // Animation Logic
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Chart.js - Energy/Focus Curve
+        function initChartZh() {
+            const ctx = document.getElementById('energyChartZh');
+            if (!ctx) return;
+
+            const existingChart = Chart.getChart(ctx);
+            if (existingChart) existingChart.destroy();
+
+            new Chart(ctx.getContext('2d'), {
+                type: 'line',
+                data: {
+                    labels: ['0h', '0.5h', '1h', '1.5h', '2h', '2.5h', '3h'],
+                    datasets: [{
+                        label: '连续工作 (递减效应)',
+                        data: [100, 80, 50, 30, 10, 5, 0],
+                        borderColor: '#e5e5e5',
+                        borderWidth: 3,
+                        pointRadius: 0,
+                        tension: 0.4
+                    }, {
+                        label: '番茄工作法 (脉冲维持)',
+                        data: [100, 95, 100, 95, 100, 95, 100], // High efficiency pulses
+                        borderColor: '#FF4D00',
+                        backgroundColor: 'rgba(255, 77, 0, 0.1)',
+                        borderWidth: 3,
+                        pointRadius: 4,
+                        pointBackgroundColor: '#0a0a0a',
+                        fill: true,
+                        tension: 0.1,
+                        stepped: false
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom', labels: { font: { family: 'Inter' } } },
+                        tooltip: { backgroundColor: '#0a0a0a' }
+                    },
+                    scales: {
+                        x: { grid: { display: false } },
+                        y: { 
+                            grid: { display: false }, 
+                            beginAtZero: true,
+                            max: 110,
+                            ticks: { display: false }
+                        }
+                    }
+                }
+            });
+        }
+
+        function initChartEn() {
+            const ctx = document.getElementById('energyChartEn');
+            if (!ctx) return;
+
+            const existingChart = Chart.getChart(ctx);
+            if (existingChart) existingChart.destroy();
+
+            new Chart(ctx.getContext('2d'), {
+                type: 'line',
+                data: {
+                    labels: ['0h', '0.5h', '1h', '1.5h', '2h', '2.5h', '3h'],
+                    datasets: [{
+                        label: 'Continuous (Decrement)',
+                        data: [100, 80, 50, 30, 10, 5, 0],
+                        borderColor: '#e5e5e5',
+                        borderWidth: 3,
+                        pointRadius: 0,
+                        tension: 0.4
+                    }, {
+                        label: 'Pomodoro (Pulse)',
+                        data: [100, 95, 100, 95, 100, 95, 100],
+                        borderColor: '#FF4D00',
+                        backgroundColor: 'rgba(255, 77, 0, 0.1)',
+                        borderWidth: 3,
+                        pointRadius: 4,
+                        pointBackgroundColor: '#0a0a0a',
+                        fill: true,
+                        tension: 0.1,
+                        stepped: false
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom', labels: { font: { family: 'Inter' } } },
+                        tooltip: { backgroundColor: '#0a0a0a' }
+                    },
+                    scales: {
+                        x: { grid: { display: false } },
+                        y: { 
+                            grid: { display: false }, 
+                            beginAtZero: true,
+                            max: 110,
+                            ticks: { display: false }
+                        }
+                    }
+                }
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            initChartZh();
+            initChartEn();
+        });
+    </script>
+</body>
+</html>

@@ -1,4 +1,8 @@
-/* 博客页面样式 */
+/* ================================
+   博客页面包豪斯风格样式
+   Blog Page - Bauhaus Style
+   ================================ */
+
 .blog-section {
     padding: var(--spacing-xl) 0;
     min-height: 80vh;
@@ -6,15 +10,30 @@
 
 .page-title {
     font-size: 3rem;
+    font-weight: 800;
     text-align: center;
     margin-bottom: var(--spacing-lg);
-    background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--text-primary);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    position: relative;
+    display: inline-block;
+    width: 100%;
 }
 
-/* 分类筛选 */
+/* 包豪斯风格的标题装饰 */
+.page-title::after {
+    content: '';
+    display: block;
+    width: 120px;
+    height: 4px;
+    background: var(--accent-orange);
+    margin: var(--spacing-sm) auto 0;
+}
+
+/* ================================
+   分类筛选 - Category Filters
+   ================================ */
 .categories {
     display: flex;
     justify-content: center;
@@ -27,26 +46,31 @@
     padding: 0.6rem 1.5rem;
     background: var(--bg-card);
     color: var(--text-secondary);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 25px;
+    border: var(--border-width) solid var(--border-color);
     cursor: pointer;
-    transition: var(--transition);
+    transition: var(--transition-fast);
     font-size: 0.95rem;
     font-family: inherit;
+    font-weight: 500;
 }
 
 .category-btn:hover {
-    border-color: var(--accent);
-    color: var(--text-primary);
+    background: var(--text-primary);
+    color: var(--bg-secondary);
+    transform: translate(-2px, -2px);
+    box-shadow: 2px 2px 0 var(--border-color);
 }
 
 .category-btn.active {
-    background: var(--accent);
+    background: var(--accent-blue);
     color: white;
-    border-color: var(--accent);
+    border-color: var(--border-color);
+    font-weight: 600;
 }
 
-/* 标签筛选 */
+/* ================================
+   标签筛选 - Tag Filters
+   ================================ */
 .tag-filters {
     display: flex;
     justify-content: center;
@@ -59,26 +83,29 @@
     padding: 0.4rem 1rem;
     background: var(--bg-card);
     color: var(--text-secondary);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 15px;
+    border: var(--border-width) solid var(--border-color);
     cursor: pointer;
-    transition: var(--transition);
+    transition: var(--transition-fast);
     font-size: 0.85rem;
     font-family: inherit;
+    font-weight: 500;
 }
 
 .tag-btn:hover {
-    border-color: var(--gradient-2);
-    color: var(--text-primary);
+    background: var(--text-primary);
+    color: var(--bg-secondary);
 }
 
 .tag-btn.active {
-    background: var(--gradient-2);
+    background: var(--accent-green);
     color: white;
-    border-color: var(--gradient-2);
+    border-color: var(--border-color);
+    font-weight: 600;
 }
 
-/* 文章标签 */
+/* ================================
+   文章标签 - Blog Tags
+   ================================ */
 .blog-tags {
     display: flex;
     flex-wrap: wrap;
@@ -88,13 +115,16 @@
 
 .blog-item-tag {
     padding: 0.2rem 0.6rem;
-    background: rgba(139, 92, 246, 0.2);
-    color: var(--gradient-2);
-    border-radius: 10px;
+    background: var(--accent-yellow);
+    color: var(--text-primary);
     font-size: 0.75rem;
+    font-weight: 600;
+    border: var(--border-width) solid var(--border-color);
 }
 
-/* 搜索框 */
+/* ================================
+   搜索框 - Search Box
+   ================================ */
 .search-box {
     max-width: 600px;
     margin: 0 auto var(--spacing-lg);
@@ -104,25 +134,27 @@
     width: 100%;
     padding: 1rem 1.5rem;
     background: var(--bg-card);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: var(--border-radius);
+    border: var(--border-width) solid var(--border-color);
     color: var(--text-primary);
     font-size: 1rem;
-    transition: var(--transition);
+    transition: var(--transition-fast);
     font-family: inherit;
 }
 
 #searchInput:focus {
     outline: none;
-    border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
+    background: var(--bg-secondary);
+    transform: translate(-2px, -2px);
+    box-shadow: 2px 2px 0 var(--border-color);
 }
 
 #searchInput::placeholder {
     color: var(--text-secondary);
 }
 
-/* 博客网格 */
+/* ================================
+   博客网格 - Blog Grid
+   ================================ */
 .blog-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
@@ -131,36 +163,56 @@
 
 .blog-card {
     background: var(--bg-card);
-    border-radius: var(--border-radius);
     padding: var(--spacing-md);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: var(--border-width) solid var(--border-color);
     transition: var(--transition);
     display: flex;
     flex-direction: column;
+    position: relative;
+}
+
+/* 顶部彩条装饰 */
+.blog-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--accent-orange);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
 }
 
 .blog-card:hover {
-    transform: translateY(-5px);
-    border-color: var(--accent);
-    box-shadow: 0 15px 50px rgba(0, 212, 255, 0.2);
+    transform: translate(-4px, -4px);
+    box-shadow: var(--shadow-medium);
+}
+
+.blog-card:hover::before {
+    transform: scaleX(1);
 }
 
 .blog-tag {
     display: inline-block;
     padding: 0.4rem 1rem;
-    background: rgba(0, 212, 255, 0.2);
-    color: var(--accent);
-    border-radius: 20px;
+    background: var(--accent-blue);
+    color: white;
     font-size: 0.85rem;
     margin-bottom: var(--spacing-sm);
     width: fit-content;
+    font-weight: 600;
+    border: var(--border-width) solid var(--border-color);
 }
 
 .blog-title {
     font-size: 1.6rem;
+    font-weight: 700;
     margin-bottom: var(--spacing-sm);
     color: var(--text-primary);
-    line-height: 1.4;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
 }
 
 .blog-excerpt {
@@ -179,37 +231,42 @@
 }
 
 .read-more {
-    color: var(--accent);
+    color: var(--accent-orange);
     text-decoration: none;
     font-weight: 600;
-    transition: var(--transition);
+    transition: var(--transition-fast);
     display: inline-flex;
     align-items: center;
+    border-bottom: 2px solid transparent;
 }
 
 .read-more:hover {
-    gap: 0.5rem;
+    border-bottom-color: var(--accent-orange);
 }
 
-/* 隐藏不匹配的卡片 */
+/* ================================
+   辅助类 - Utility Classes
+   ================================ */
 .blog-card.hidden {
     display: none;
 }
 
-/* 响应式设计 */
+/* ================================
+   响应式设计 - Responsive
+   ================================ */
 @media (max-width: 768px) {
     .page-title {
         font-size: 2rem;
     }
-    
+
     .blog-grid {
         grid-template-columns: 1fr;
     }
-    
+
     .categories {
         gap: 0.5rem;
     }
-    
+
     .category-btn {
         padding: 0.5rem 1rem;
         font-size: 0.85rem;

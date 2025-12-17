@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>巨石恐惧症 - 108种认知武器 | Megalith Phobia - 108 Cognitive Weapons</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Noto+Serif+SC:wght@400;700&family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            black: '#0a0a0a',
+                            white: '#f4f4f0',
+                            accent: '#FF4D00', // 警示橙
+                            blue: '#0047AB', // 克莱因蓝
+                            green: '#059669', // 增长绿
+                            gray: '#8a8a8a'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Noto Sans SC"', 'Inter', 'sans-serif'],
+                        serif: ['"Noto Serif SC"', 'serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                    },
+                    spacing: {
+                        '128': '32rem',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #f4f4f0;
+            color: #0a0a0a;
+            font-family: 'Noto Sans SC', 'Inter', sans-serif;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .bg-grid {
+            background-image: linear-gradient(#e5e5e5 1px, transparent 1px),
+            linear-gradient(90deg, #e5e5e5 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        .display-text {
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+        }
+
+        .bento-card {
+            background: white;
+            border: 1px solid #0a0a0a;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bento-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 8px 8px 0px #0a0a0a;
+        }
+
+        .bento-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: #0a0a0a;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .bento-card:hover::after {
+            transform: scaleX(1);
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .marker-highlight {
+            background: linear-gradient(120deg, rgba(255, 77, 0, 0.15) 0%, rgba(255, 77, 0, 0.15) 100%);
+            background-repeat: no-repeat;
+            background-size: 100% 40%;
+            background-position: 0 88%;
+            transition: background-size 0.25s ease-in;
+        }
+
+        .bento-card:hover .marker-highlight {
+            background-size: 100% 88%;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f4f4f0;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #0a0a0a;
+        }
+
+        /* Language Toggle Button */
+        .lang-toggle {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            z-index: 1000;
+            display: flex;
+            gap: 0.5rem;
+            background: white;
+            border: 2px solid #0a0a0a;
+            border-radius: 0.5rem;
+            padding: 0.25rem;
+            box-shadow: 4px 4px 0px #0a0a0a;
+        }
+
+        .lang-btn {
+            padding: 0.5rem 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.875rem;
+            font-weight: 600;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 0.25rem;
+        }
+
+        .lang-btn.active {
+            background: #0a0a0a;
+            color: white;
+        }
+
+        .lang-btn:hover:not(.active) {
+            background: #f4f4f0;
+        }
+
+        /* Hide inactive language content */
+        body[data-lang="zh"] .lang-en {
+            display: none;
+        }
+
+        body[data-lang="en"] .lang-zh {
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-grid min-h-screen p-4 md:p-8 lg:p-12" data-lang="zh">
+
+    <div class="lang-toggle">
+        <button class="lang-btn active" data-lang="zh" onclick="switchLang('zh')">中文</button>
+        <button class="lang-btn" data-lang="en" onclick="switchLang('en')">EN</button>
+    </div>
+
+    <div class="lang-zh">
+        <div class="max-w-7xl mx-auto pt-8 pb-4 reveal">
+            <div class="flex items-center gap-4">
+                <div class="flex-1 h-px bg-brand-black opacity-20"></div>
+                <h2 class="font-mono text-sm md:text-base tracking-widest uppercase text-brand-black font-bold">
+                    <span class="text-brand-accent">●</span> 108种认知武器 <span class="text-brand-accent">●</span>
+                </h2>
+                <div class="flex-1 h-px bg-brand-black opacity-20"></div>
+            </div>
+        </div>
+
+        <header class="max-w-7xl mx-auto mb-12 reveal">
+            <div class="flex flex-col md:flex-row justify-between items-end border-b-2 border-brand-black pb-6">
+                <div>
+                    <span class="font-mono text-brand-accent text-sm tracking-widest uppercase mb-2 block">思维模型 No.012</span>
+                    <h1 class="text-5xl md:text-7xl font-black display-text text-brand-black">
+                        巨石恐惧症<br>
+                        <span class="text-3xl md:text-5xl font-light text-gray-500">Megalith Phobia</span>
+                    </h1>
+                </div>
+                <div class="mt-6 md:mt-0 text-right">
+                    <p class="font-serif italic text-xl md:text-2xl max-w-lg leading-tight text-gray-800">
+                        "你缺的不是执行力，<br>是<span class="marker-highlight">拆解力</span>。"
+                    </p>
+                    <div class="mt-4 font-mono text-xs text-brand-gray">
+                        阅读时长: 12分钟 • 来源: 月见 • 2025-10-29
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-6 auto-rows-auto">
+
+            <div class="bento-card col-span-1 md:col-span-8 p-8 flex flex-col justify-between reveal">
+                <div>
+                    <h3 class="font-mono text-brand-accent mb-4 font-bold tracking-widest">症状诊断</h3>
+                    <h2 class="text-3xl font-bold mb-4">林涛的"PPT困境"</h2>
+                    <p class="text-lg text-gray-700 leading-relaxed font-serif mb-4">
+                        34岁的运营总监林涛，接手了S级项目"会员积分体系"。他开了两周"对齐会"，做出了50页精美PPT，获得高层掌声。但一个月过去了，项目纹丝不动。
+                    </p>
+                    <p class="text-lg text-gray-700 leading-relaxed font-serif">
+                        技术等产品，产品等市场，市场等林涛。林涛每天忙于回复上百封邮件，处理部门拉扯，加班到凌晨。他像推着一块万吨巨石的西西弗斯，声势浩大，却原地踏步。他陷入了"巨石幻想"，以为靠协调和蛮力能推动大山，却不敢亲手把它砸碎。
+                    </p>
+                </div>
+                <div class="mt-8 pt-6 border-t border-gray-200">
+                    <div class="flex items-center gap-4">
+                        <div class="h-12 w-12 rounded-full bg-brand-black text-white flex items-center justify-center shrink-0">
+                            <i class="ri-hammer-line text-2xl"></i>
+                        </div>
+                        <div>
+                            <p class="font-bold text-sm uppercase">核心病灶</p>
+                            <p class="text-sm text-gray-600">巨石恐惧症：被目标的"宏大"和"模糊"绑架。宁愿忙于"表演执行"，也不愿做痛苦的"工程拆解"。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bento-card col-span-1 md:col-span-4 p-6 bg-brand-black text-white reveal">
+                <h3 class="font-mono text-brand-gray mb-6 font-bold tracking-widest">认知操作系统 OS</h3>
+
+                <div class="space-y-8">
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="font-bold text-xl text-brand-accent">表演执行 (Trap)</span>
+                            <i class="ri-movie-line text-brand-accent"></i>
+                        </div>
+                        <div class="h-1 w-full bg-gray-800 rounded mb-2">
+                            <div class="h-1 w-1/4 bg-brand-accent rounded"></div>
+                        </div>
+                        <p class="text-sm text-gray-400 font-mono">迷恋模糊<br>战略宏大 = 安全感 = 虚假掌控</p>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="font-bold text-xl text-brand-green">工程拆解 (Growth)</span>
+                            <i class="ri-tools-line text-brand-green"></i>
+                        </div>
+                        <div class="h-1 w-full bg-gray-800 rounded mb-2">
+                            <div class="h-1 w-full bg-brand-green rounded"></div>
+                        </div>
+                        <p class="text-sm text-white font-mono">消灭模糊<br>战术具体 = 痛苦 = 真实推进</p>
+                    </div>
+                </div>
+
+                <div class="mt-12 p-4 border border-gray-700 rounded bg-gray-900">
+                    <p class="text-xs font-mono leading-relaxed text-gray-300">
+                        "你之所以焦虑，是因为你心里的那团任务是模糊的。WBS就是手术刀。"
+                    </p>
+                </div>
+            </div>
+
+            <div class="bento-card col-span-1 md:col-span-5 p-6 reveal">
+                <h3 class="font-mono text-brand-black mb-2 font-bold tracking-widest">拆解效应</h3>
+                <h4 class="text-xl font-bold mb-4">颗粒度 vs 掌控感</h4>
+
+                <div class="relative h-64 w-full">
+                    <canvas id="wbsChartZh"></canvas>
+                </div>
+
+                <div class="mt-4 text-sm text-gray-600 font-serif leading-relaxed text-center">
+                    任务越具体(颗粒度越细)，焦虑越低，掌控力越高。
+                </div>
+            </div>
+
+            <div class="bento-card col-span-1 md:col-span-7 p-8 bg-brand-white reveal">
+                <h3 class="font-mono text-brand-black mb-6 font-bold tracking-widest">WBS 三层下钻法</h3>
+
+                <div class="grid grid-cols-1 gap-4">
+                    <div class="flex items-start p-4 border border-gray-200 rounded hover:border-brand-black transition-colors group">
+                        <div class="bg-brand-black text-white font-mono text-lg px-3 py-1 rounded mr-4">L1</div>
+                        <div>
+                            <h4 class="font-bold text-lg">顶层交付物 (Noun)</h4>
+                            <p class="text-sm text-gray-600 mt-1 font-serif">定义终局。不是动词"提升活跃"，而是名词"上线的积分体系V1.0"。如果定义不出来，活该你焦虑。</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start p-4 border border-gray-200 rounded hover:border-brand-black transition-colors group">
+                        <div class="bg-brand-black text-white font-mono text-lg px-3 py-1 rounded mr-4">L2</div>
+                        <div>
+                            <h4 class="font-bold text-lg">关键子系统 (100%)</h4>
+                            <p class="text-sm text-gray-600 mt-1 font-serif">搭建骨架。必须遵循"100%原则"：子模块加起来不多不少等于L1。这是边界感，防止范围蔓延。</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start p-4 border border-gray-200 rounded hover:border-brand-black transition-colors group">
+                        <div class="bg-brand-black text-white font-mono text-lg px-3 py-1 rounded mr-4">L3</div>
+                        <div>
+                            <h4 class="font-bold text-lg">可控工作包 (8/80)</h4>
+                            <p class="text-sm text-gray-600 mt-1 font-serif">填充血肉。拆解到"一个人"在"8-80小时"内能完成的独立任务。这是责任到人的最小砖块。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bento-card col-span-1 md:col-span-12 p-8 bg-brand-blue text-white reveal" style="background-color: #0047AB;">
+                 <div class="flex flex-col md:flex-row justify-between items-center mb-6">
+                    <div>
+                        <h3 class="font-mono opacity-70 mb-2 font-bold tracking-widest">行动指南</h3>
+                        <h2 class="text-2xl font-bold">从"总协调"到"总工程师"</h2>
+                    </div>
+                    <i class="ri-node-tree text-4xl text-brand-accent mt-4 md:mt-0"></i>
+                </div>
+
+                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-white/90">
+                     <div class="border-t border-white/20 pt-4">
+                         <h4 class="font-bold text-lg mb-2">01. 闭门画图</h4>
+                         <p class="text-sm opacity-80 font-serif">林涛停止了协调会。关起门，花一下午画出了L1-L3的树状图。从"务虚"转向"务实"。</p>
+                     </div>
+
+                     <div class="border-t border-white/20 pt-4">
+                         <h4 class="font-bold text-lg mb-2">02. 分发砖块</h4>
+                         <p class="text-sm opacity-80 font-serif">不再谈战略意义。把15个具体的"工作包"分发给具体的人。技术领走"接口"，产品领走"模型"。大家不再互相等待。</p>
+                     </div>
+
+                     <div class="border-t border-white/20 pt-4">
+                         <h4 class="font-bold text-lg mb-2">03. 掌控进度</h4>
+                         <p class="text-sm opacity-80 font-serif">PPT活了。林涛不再需要用权威压人，他只需要看着图追问交付。两个月后，项目如期上线。</p>
+                     </div>
+                 </div>
+            </div>
+
+            <div class="bento-card col-span-1 md:col-span-12 p-8 reveal">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="font-mono text-brand-accent font-bold tracking-widest">实战清单</h3>
+                    <span class="bg-brand-black text-white text-xs px-2 py-1 font-mono rounded">TOOLKIT</span>
+                </div>
+
+                <h2 class="text-2xl font-bold mb-4">"巨石粉碎" WBS 导航器</h2>
+                <p class="text-sm text-gray-600 mb-6 font-serif">将任何庞大任务转化为清晰的行动地图。</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <div class="p-4 bg-gray-50 rounded border border-gray-200">
+                        <span class="font-mono font-bold text-brand-blue block mb-2">L1: 终局</span>
+                        <div class="text-sm font-bold text-brand-black mb-1">定义交付物</div>
+                        <div class="text-xs text-gray-500">"我最终要交付的那个名词是什么？" (e.g. 上线的网站)</div>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded border border-gray-200">
+                        <span class="font-mono font-bold text-brand-blue block mb-2">L2: 骨架</span>
+                        <div class="text-sm font-bold text-brand-black mb-1">关键子系统</div>
+                        <div class="text-xs text-gray-500">"缺了哪块就不完整？" (e.g. 前端、后端、设计)</div>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded border border-gray-200">
+                        <span class="font-mono font-bold text-brand-blue block mb-2">L3: 血肉</span>
+                        <div class="text-sm font-bold text-brand-black mb-1">可控工作包</div>
+                        <div class="text-xs text-gray-500">"1-2周内可完成的独立任务包。" (e.g. 首页UI)</div>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded border border-gray-200">
+                        <span class="font-mono font-bold text-brand-blue block mb-2">L4: 责任</span>
+                        <div class="text-sm font-bold text-brand-black mb-1">RACI矩阵</div>
+                        <div class="text-xs text-gray-500">"谁负责？何时完？" (e.g. 张三 - 10月30日)</div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+        <footer class="max-w-7xl mx-auto mt-12 mb-24 text-center reveal">
+            <hr class="border-brand-black mb-8 opacity-20">
+            <h2 class="text-2xl md:text-3xl font-serif italic text-gray-400 leading-snug">
+                "不要去推那块巨石，<br>
+                <span class="text-brand-black not-italic font-bold">去分解它，然后搬走第一块碎石。</span>"
+            </h2>
+        </footer>
+    </div>
+
+    <div class="lang-en">
+        <div class="max-w-7xl mx-auto pt-8 pb-4 reveal">
+            <div class="flex items-center gap-4">
+                <div class="flex-1 h-px bg-brand-black opacity-20"></div>
+                <h2 class="font-mono text-sm md:text-base tracking-widest uppercase text-brand-black font-bold">
+                    <span class="text-brand-accent">●</span> 108 Cognitive Weapons <span class="text-brand-accent">●</span>
+                </h2>
+                <div class="flex-1 h-px bg-brand-black opacity-20"></div>
+            </div>
+        </div>
+
+        <header class="max-w-7xl mx-auto mb-12 reveal">
+            <div class="flex flex-col md:flex-row justify-between items-end border-b-2 border-brand-black pb-6">
+                <div>
+                    <span class="font-mono text-brand-accent text-sm tracking-widest uppercase mb-2 block">Mental Model 012</span>
+                    <h1 class="text-6xl md:text-8xl font-black display-text uppercase">
+                        Megalith<br>Phobia
+                    </h1>
+                </div>
+                <div class="mt-6 md:mt-0 text-right">
+                    <p class="font-serif italic text-xl md:text-2xl max-w-lg leading-tight">
+                        "You don't lack execution,<br>you lack <span class="marker-highlight">Decomposition</span>."
+                    </p>
+                    <div class="mt-4 font-mono text-xs text-brand-gray">
+                        READ TIME: 12 MIN • SOURCE: YUE JIAN • 2025-10-29
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-6 auto-rows-auto">
+
+            <div class="bento-card col-span-1 md:col-span-8 p-8 flex flex-col justify-between reveal">
+                <div>
+                    <h3 class="font-mono text-brand-accent mb-4 font-bold tracking-widest">THE DIAGNOSIS</h3>
+                    <h2 class="text-3xl font-bold mb-4">Lin's "PPT Trap"</h2>
+                    <p class="text-lg text-gray-700 leading-relaxed font-serif mb-4">
+                        Lin Tao, 34, Ops Director. He took on an S-level project: "Membership System". He held "alignment meetings" for 2 weeks and made a beautiful 50-page PPT.
+                    </p>
+                    <p class="text-lg text-gray-700 leading-relaxed font-serif">
+                        But one month later, zero progress. Tech waited for Product, Product waited for Market. Lin was busy replying to 100 emails and coordinating chaos. He was like Sisyphus pushing a giant rock, making noise but no movement. He fell into the "Megalith Fantasy": afraid to smash the rock, only daring to push it.
+                    </p>
+                </div>
+                <div class="mt-8 pt-6 border-t border-gray-200">
+                    <div class="flex items-center gap-4">
+                        <div class="h-12 w-12 rounded-full bg-brand-black text-white flex items-center justify-center shrink-0">
+                            <i class="ri-hammer-line text-2xl"></i>
+                        </div>
+                        <div>
+                            <p class="font-bold text-sm uppercase">Core Issue</p>
+                            <p class="text-sm text-gray-600">Megalith Phobia: Hijacked by the "grandeur" and "ambiguity" of the goal. Performing execution instead of engineering decomposition.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bento-card col-span-1 md:col-span-4 p-6 bg-brand-black text-white reveal">
+                <h3 class="font-mono text-brand-gray mb-6 font-bold tracking-widest">MINDSET OS</h3>
+
+                <div class="space-y-8">
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="font-bold text-xl text-brand-accent">Performer (Trap)</span>
+                            <i class="ri-movie-line text-brand-accent"></i>
+                        </div>
+                        <div class="h-1 w-full bg-gray-800 rounded mb-2">
+                            <div class="h-1 w-1/4 bg-brand-accent rounded"></div>
+                        </div>
+                        <p class="text-sm text-gray-400 font-mono">Obsessed with Vague<br>Grand Strategy = False Safety</p>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="font-bold text-xl text-brand-green">Engineer (Growth)</span>
+                            <i class="ri-tools-line text-brand-green"></i>
+                        </div>
+                        <div class="h-1 w-full bg-gray-800 rounded mb-2">
+                            <div class="h-1 w-full bg-brand-green rounded"></div>
+                        </div>
+                        <p class="text-sm text-white font-mono">Kill Ambiguity<br>Concrete Tactics = Pain = Progress</p>
+                    </div>
+                </div>
+
+                <div class="mt-12 p-4 border border-gray-700 rounded bg-gray-900">
+                    <p class="text-xs font-mono leading-relaxed text-gray-300">
+                        "Your anxiety comes from the blurriness of the task. WBS is the scalpel to clear it."
+                    </p>
+                </div>
+            </div>
+
+            <div class="bento-card col-span-1 md:col-span-5 p-6 reveal">
+                <h3 class="font-mono text-brand-black mb-2 font-bold tracking-widest">DECOMPOSITION EFFECT</h3>
+                <h4 class="text-xl font-bold mb-4">Granularity vs. Control</h4>
+
+                <div class="relative h-64 w-full">
+                    <canvas id="wbsChartEn"></canvas>
+                </div>
+
+                <div class="mt-4 text-sm text-gray-600 font-serif leading-relaxed text-center">
+                    The finer the granularity, the lower the anxiety, and the higher the control.
+                </div>
+            </div>
+
+            <div class="bento-card col-span-1 md:col-span-7 p-8 bg-brand-white reveal">
+                <h3 class="font-mono text-brand-black mb-6 font-bold tracking-widest">WBS 3-Layer Drill</h3>
+
+                <div class="grid grid-cols-1 gap-4">
+                    <div class="flex items-start p-4 border border-gray-200 rounded hover:border-brand-black transition-colors group">
+                        <div class="bg-brand-black text-white font-mono text-lg px-3 py-1 rounded mr-4">L1</div>
+                        <div>
+                            <h4 class="font-bold text-lg">Top Deliverable (Noun)</h4>
+                            <p class="text-sm text-gray-600 mt-1 font-serif">Define the End. Not "Improve Activity", but "Launched System V1.0". If you can't name it, you fail.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start p-4 border border-gray-200 rounded hover:border-brand-black transition-colors group">
+                        <div class="bg-brand-black text-white font-mono text-lg px-3 py-1 rounded mr-4">L2</div>
+                        <div>
+                            <h4 class="font-bold text-lg">Subsystems (100% Rule)</h4>
+                            <p class="text-sm text-gray-600 mt-1 font-serif">The Skeleton. Sub-modules must add up to exactly 100% of L1. This is the boundary to prevent scope creep.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start p-4 border border-gray-200 rounded hover:border-brand-black transition-colors group">
+                        <div class="bg-brand-black text-white font-mono text-lg px-3 py-1 rounded mr-4">L3</div>
+                        <div>
+                            <h4 class="font-bold text-lg">Work Packages (8/80)</h4>
+                            <p class="text-sm text-gray-600 mt-1 font-serif">The Flesh. Break down into tasks doable by one person in 8-80 hours. The smallest assignable brick.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bento-card col-span-1 md:col-span-12 p-8 bg-brand-blue text-white reveal" style="background-color: #0047AB;">
+                 <div class="flex flex-col md:flex-row justify-between items-center mb-6">
+                    <div>
+                        <h3 class="font-mono opacity-70 mb-2 font-bold tracking-widest">ACTION GUIDE</h3>
+                        <h2 class="text-2xl font-bold">From "Coordinator" to "Engineer"</h2>
+                    </div>
+                    <i class="ri-node-tree text-4xl text-brand-accent mt-4 md:mt-0"></i>
+                </div>
+
+                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-white/90">
+                     <div class="border-t border-white/20 pt-4">
+                         <h4 class="font-bold text-lg mb-2">01. Stop & Draw</h4>
+                         <p class="text-sm opacity-80 font-serif">Lin stopped meetings. He spent an afternoon drawing the L1-L3 tree. From "Vague" to "Concrete".</p>
+                     </div>
+
+                     <div class="border-t border-white/20 pt-4">
+                         <h4 class="font-bold text-lg mb-2">02. Distribute Bricks</h4>
+                         <p class="text-sm opacity-80 font-serif">No more strategy talk. 15 specific "packages" were assigned. Tech took "API", Product took "Model". No more waiting.</p>
+                     </div>
+
+                     <div class="border-t border-white/20 pt-4">
+                         <h4 class="font-bold text-lg mb-2">03. Control Progress</h4>
+                         <p class="text-sm opacity-80 font-serif">The PPT came alive. Lin didn't need authority; he chased deliverables. 2 months later, launched on time.</p>
+                     </div>
+                 </div>
+            </div>
+
+            <div class="bento-card col-span-1 md:col-span-12 p-8 reveal">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="font-mono text-brand-accent font-bold tracking-widest">CHECKLIST</h3>
+                    <span class="bg-brand-black text-white text-xs px-2 py-1 font-mono rounded">TOOLKIT</span>
+                </div>
+
+                <h2 class="text-2xl font-bold mb-4">"Megalith Smasher" WBS</h2>
+                <p class="text-sm text-gray-600 mb-6 font-serif">Turn any huge monster into a clear map.</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <div class="p-4 bg-gray-50 rounded border border-gray-200">
+                        <span class="font-mono font-bold text-brand-blue block mb-2">L1: End</span>
+                        <div class="text-sm font-bold text-brand-black mb-1">Define Outcome</div>
+                        <div class="text-xs text-gray-500">"What is the final NOUN I am delivering?" (e.g. Launched Website)</div>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded border border-gray-200">
+                        <span class="font-mono font-bold text-brand-blue block mb-2">L2: Skeleton</span>
+                        <div class="text-sm font-bold text-brand-black mb-1">Subsystems</div>
+                        <div class="text-xs text-gray-500">"What parts make the whole?" (e.g. Front, Back, Design)</div>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded border border-gray-200">
+                        <span class="font-mono font-bold text-brand-blue block mb-2">L3: Flesh</span>
+                        <div class="text-sm font-bold text-brand-black mb-1">Work Package</div>
+                        <div class="text-xs text-gray-500">"Independent task for 1 person in 1-2 weeks." (e.g. Home UI)</div>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded border border-gray-200">
+                        <span class="font-mono font-bold text-brand-blue block mb-2">L4: Owner</span>
+                        <div class="text-sm font-bold text-brand-black mb-1">RACI</div>
+                        <div class="text-xs text-gray-500">"Who does it? When?" (e.g. John - Oct 30)</div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+        <footer class="max-w-7xl mx-auto mt-12 mb-24 text-center reveal">
+            <hr class="border-brand-black mb-8 opacity-20">
+            <h2 class="text-2xl md:text-3xl font-serif italic text-gray-400 leading-snug">
+                "Don't push the megalith.<br>
+                <span class="text-brand-black not-italic font-bold">Break it down, and move the first pebble.</span>"
+            </h2>
+        </footer>
+    </div>
+
+    <script>
+        // Language Switcher
+        function switchLang(lang) {
+            document.body.setAttribute('data-lang', lang);
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.getAttribute('data-lang') === lang) {
+                    btn.classList.add('active');
+                }
+            });
+
+            if (lang === 'zh') {
+                initChartZh();
+            } else {
+                initChartEn();
+            }
+
+            document.querySelectorAll('.reveal').forEach(el => {
+                el.classList.remove('active');
+                observer.observe(el);
+            });
+        }
+
+        // Animation Logic
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Chart.js - Decomposition Effect Chart
+        function initChartZh() {
+            const ctx = document.getElementById('wbsChartZh');
+            if (!ctx) return;
+
+            const existingChart = Chart.getChart(ctx);
+            if (existingChart) existingChart.destroy();
+
+            new Chart(ctx.getContext('2d'), {
+                type: 'line',
+                data: {
+                    labels: ['宏大目标 (L0)', '子系统 (L2)', '工作包 (L3)', '行动清单 (L4)'],
+                    datasets: [{
+                        label: '焦虑感 (模糊度)',
+                        data: [100, 70, 30, 10],
+                        borderColor: '#FF4D00',
+                        backgroundColor: 'rgba(255, 77, 0, 0.1)',
+                        borderWidth: 3,
+                        pointRadius: 6,
+                        tension: 0.4
+                    }, {
+                        label: '掌控力 (颗粒度)',
+                        data: [10, 40, 80, 100],
+                        borderColor: '#059669',
+                        backgroundColor: 'rgba(5, 150, 105, 0.1)',
+                        borderWidth: 3,
+                        pointRadius: 6,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom', labels: { font: { family: 'Inter' } } },
+                        tooltip: { backgroundColor: '#0a0a0a' }
+                    },
+                    scales: {
+                        x: { grid: { display: false } },
+                        y: { 
+                            grid: { display: false }, 
+                            beginAtZero: true,
+                            ticks: { display: false }
+                        }
+                    }
+                }
+            });
+        }
+
+        function initChartEn() {
+            const ctx = document.getElementById('wbsChartEn');
+            if (!ctx) return;
+
+            const existingChart = Chart.getChart(ctx);
+            if (existingChart) existingChart.destroy();
+
+            new Chart(ctx.getContext('2d'), {
+                type: 'line',
+                data: {
+                    labels: ['Grand Goal (L0)', 'Subsystems (L2)', 'Work Pkg (L3)', 'Actions (L4)'],
+                    datasets: [{
+                        label: 'Anxiety (Ambiguity)',
+                        data: [100, 70, 30, 10],
+                        borderColor: '#FF4D00',
+                        backgroundColor: 'rgba(255, 77, 0, 0.1)',
+                        borderWidth: 3,
+                        pointRadius: 6,
+                        tension: 0.4
+                    }, {
+                        label: 'Control (Granularity)',
+                        data: [10, 40, 80, 100],
+                        borderColor: '#059669',
+                        backgroundColor: 'rgba(5, 150, 105, 0.1)',
+                        borderWidth: 3,
+                        pointRadius: 6,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom', labels: { font: { family: 'Inter' } } },
+                        tooltip: { backgroundColor: '#0a0a0a' }
+                    },
+                    scales: {
+                        x: { grid: { display: false } },
+                        y: { 
+                            grid: { display: false }, 
+                            beginAtZero: true,
+                            ticks: { display: false }
+                        }
+                    }
+                }
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            initChartZh();
+            initChartEn();
+        });
+    </script>
+</body>
+</html>

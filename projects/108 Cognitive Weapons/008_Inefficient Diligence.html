@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>低效勤奋 - 108种认知武器 | Inefficient Diligence - 108 Cognitive Weapons</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Noto+Serif+SC:wght@400;700&family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            black: '#0a0a0a',
+                            white: '#f4f4f0',
+                            accent: '#FF4D00', // 警示橙
+                            blue: '#0047AB', // 克莱因蓝
+                            green: '#059669', // 增长绿
+                            gray: '#8a8a8a'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Noto Sans SC"', 'Inter', 'sans-serif'],
+                        serif: ['"Noto Serif SC"', 'serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                    },
+                    spacing: {
+                        '128': '32rem',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #f4f4f0;
+            color: #0a0a0a;
+            font-family: 'Noto Sans SC', 'Inter', sans-serif;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .bg-grid {
+            background-image: linear-gradient(#e5e5e5 1px, transparent 1px),
+            linear-gradient(90deg, #e5e5e5 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        .display-text {
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+        }
+
+        .bento-card {
+            background: white;
+            border: 1px solid #0a0a0a;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bento-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 8px 8px 0px #0a0a0a;
+        }
+
+        .bento-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: #0a0a0a;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .bento-card:hover::after {
+            transform: scaleX(1);
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .marker-highlight {
+            background: linear-gradient(120deg, rgba(255, 77, 0, 0.15) 0%, rgba(255, 77, 0, 0.15) 100%);
+            background-repeat: no-repeat;
+            background-size: 100% 40%;
+            background-position: 0 88%;
+            transition: background-size 0.25s ease-in;
+        }
+
+        .bento-card:hover .marker-highlight {
+            background-size: 100% 88%;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f4f4f0;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #0a0a0a;
+        }
+
+        /* Language Toggle Button */
+        .lang-toggle {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            z-index: 1000;
+            display: flex;
+            gap: 0.5rem;
+            background: white;
+            border: 2px solid #0a0a0a;
+            border-radius: 0.5rem;
+            padding: 0.25rem;
+            box-shadow: 4px 4px 0px #0a0a0a;
+        }
+
+        .lang-btn {
+            padding: 0.5rem 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.875rem;
+            font-weight: 600;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 0.25rem;
+        }
+
+        .lang-btn.active {
+            background: #0a0a0a;
+            color: white;
+        }
+
+        .lang-btn:hover:not(.active) {
+            background: #f4f4f0;
+        }
+
+        /* Hide inactive language content */
+        body[data-lang="zh"] .lang-en {
+            display: none;
+        }
+
+        body[data-lang="en"] .lang-zh {
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-grid min-h-screen p-4 md:p-8 lg:p-12" data-lang="zh">
+
+    <div class="lang-toggle">
+        <button class="lang-btn active" data-lang="zh" onclick="switchLang('zh')">中文</button>
+        <button class="lang-btn" data-lang="en" onclick="switchLang('en')">EN</button>
+    </div>
+
+    <div class="lang-zh">
+        <div class="max-w-7xl mx-auto pt-8 pb-4 reveal">
+            <div class="flex items-center gap-4">
+                <div class="flex-1 h-px bg-brand-black opacity-20"></div>
+                <h2 class="font-mono text-sm md:text-base tracking-widest uppercase text-brand-black font-bold">
+                    <span class="text-brand-accent">●</span> 108种认知武器 <span class="text-brand-accent">●</span>
+                </h2>
+                <div class="flex-1 h-px bg-brand-black opacity-20"></div>
+            </div>
+        </div>
+
+        <header class="max-w-7xl mx-auto mb-12 reveal">
+            <div class="flex flex-col md:flex-row justify-between items-end border-b-2 border-brand-black pb-6">
+                <div>
+                    <span class="font-mono text-brand-accent text-sm tracking-widest uppercase mb-2 block">思维模型 No.008</span>
+                    <h1 class="text-5xl md:text-7xl font-black display-text text-brand-black">
+                        低效勤奋<br>
+                        <span class="text-3xl md:text-5xl font-light text-gray-500">Inefficient Diligence</span>
+                    </h1>
+                </div>
+                <div class="mt-6 md:mt-0 text-right">
+                    <p class="font-serif italic text-xl md:text-2xl max-w-lg leading-tight text-gray-800">
+                        "遗忘，不是大脑的缺陷，<br>而是它的<span class="marker-highlight">保护机制</span>。"
+                    </p>
+                    <div class="mt-4 font-mono text-xs text-brand-gray">
+                        阅读时长: 10分钟 • 来源: 月见 • 2025-10-29
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-6 auto-rows-auto">
+
+            <div class="bento-card col-span-1 md:col-span-8 p-8 flex flex-col justify-between reveal">
+                <div>
+                    <h3 class="font-mono text-brand-accent mb-4 font-bold tracking-widest">症状诊断</h3>
+                    <h2 class="text-3xl font-bold mb-4">孙鹏的"海绵式"崩溃</h2>
+                    <p class="text-lg text-gray-700 leading-relaxed font-serif mb-4">
+                        31岁的孙鹏，为了转岗AI产品经理，努力了两年。电脑塞满GPT课程，笔记记了三大本，他觉得自己像块疯狂吸水的海绵。
+                    </p>
+                    <p class="text-lg text-gray-700 leading-relaxed font-serif">
+                        面试时，总监问了一个基础问题："用你自己的话解释Transformer的注意力机制。" 孙鹏的大脑瞬间空白。他发誓看过三遍，甚至记得图表颜色，但就是说不出来。面试官眼神黯淡。700个日夜的"勤奋"，在实战探照灯下不堪一击。
+                    </p>
+                </div>
+                <div class="mt-8 pt-6 border-t border-gray-200">
+                    <div class="flex items-center gap-4">
+                        <div class="h-12 w-12 rounded-full bg-brand-black text-white flex items-center justify-center shrink-0">
+                            <i class="ri-delete-bin-line text-2xl"></i>
+                        </div>
+                        <div>
+                            <p class="font-bold text-sm uppercase">核心病灶</p>
+                            <p class="text-sm text-gray-600">知识松鼠症：用"囤积"对抗焦虑，用"输入"代替"提取"。你不是记性差，你是对"遗忘"一无所知。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bento-card col-span-1 md:col-span-4 p-6 bg-brand-black text-white reveal">
+                <h3 class="font-mono text-brand-gray mb-6 font-bold tracking-widest">认知操作系统 OS</h3>
+
+                <div class="space-y-8">
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="font-bold text-xl text-brand-accent">仓库模型 (Trap)</span>
+                            <i class="ri-store-3-line text-brand-accent"></i>
+                        </div>
+                        <div class="h-1 w-full bg-gray-800 rounded mb-2">
+                            <div class="h-1 w-1/4 bg-brand-accent rounded"></div>
+                        </div>
+                        <p class="text-sm text-gray-400 font-mono">只进不出<br>追求存量 = 支付高昂管理费（遗忘）</p>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="font-bold text-xl text-brand-green">网络模型 (Growth)</span>
+                            <i class="ri-share-line text-brand-green"></i>
+                        </div>
+                        <div class="h-1 w-full bg-gray-800 rounded mb-2">
+                            <div class="h-1 w-full bg-brand-green rounded"></div>
+                        </div>
+                        <p class="text-sm text-white font-mono">主动提取<br>连接节点 = 记忆永固 = 掌控力</p>
+                    </div>
+                </div>
+
+                <div class="mt-12 p-4 border border-gray-700 rounded bg-gray-900">
+                    <p class="text-xs font-mono leading-relaxed text-gray-300">
+                        "遗忘不是bug，是feature。它帮你过滤掉那些你不去'调用'的噪音。"
+                    </p>
+                </div>
+            </div>
+
+            <div class="bento-card col-span-1 md:col-span-5 p-6 reveal">
+                <h3 class="font-mono text-brand-black mb-2 font-bold tracking-widest">记忆的残酷真相</h3>
+                <h4 class="text-xl font-bold mb-4">艾宾浩斯遗忘曲线</h4>
+
+                <div class="relative h-64 w-full">
+                    <canvas id="curveChartZh"></canvas>
+                </div>
+
+                <div class="mt-4 text-sm text-gray-600 font-serif leading-relaxed text-center">
+                    20分钟后忘掉42%，1天后忘掉66%。不复习，努力等于零。
+                </div>
+            </div>
+
+            <div class="bento-card col-span-1 md:col-span-7 p-8 bg-brand-white reveal">
+                <h3 class="font-mono text-brand-black mb-6 font-bold tracking-widest">"反遗忘"三刃剑</h3>
+
+                <div class="grid grid-cols-1 gap-4">
+                    <div class="flex items-start p-4 border border-gray-200 rounded hover:border-brand-black transition-colors group">
+                        <div class="bg-brand-black text-white font-mono text-lg px-3 py-1 rounded mr-4">01</div>
+                        <div>
+                            <h4 class="font-bold text-lg">建立锚点 (费曼复述)</h4>
+                            <p class="text-sm text-gray-600 mt-1 font-serif">学习当天，必须合上书，用大白话复述给8岁孩子听。停止划线，开始转码。这是打下的第一个桩。</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start p-4 border border-gray-200 rounded hover:border-brand-black transition-colors group">
+                        <div class="bg-brand-black text-white font-mono text-lg px-3 py-1 rounded mr-4">02</div>
+                        <div>
+                            <h4 class="font-bold text-lg">间隔重复 (SRS系统)</h4>
+                            <p class="text-sm text-gray-600 mt-1 font-serif">启动艾宾浩斯闹钟。在第1、4、7、15、30天强制复习。没有复习，就没有学习。</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start p-4 border border-gray-200 rounded hover:border-brand-black transition-colors group">
+                        <div class="bg-brand-black text-white font-mono text-lg px-3 py-1 rounded mr-4">03</div>
+                        <div>
+                            <h4 class="font-bold text-lg">调用战场 (强行连接)</h4>
+                            <p class="text-sm text-gray-600 mt-1 font-serif">微应用、微教学、微写作。把A知识点和B现实问题连起来。记忆的本质不是存储，是提取。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bento-card col-span-1 md:col-span-12 p-8 bg-brand-blue text-white reveal" style="background-color: #0047AB;">
+                 <div class="flex flex-col md:flex-row justify-between items-center mb-6">
+                    <div>
+                        <h3 class="font-mono opacity-70 mb-2 font-bold tracking-widest">行动指南</h3>
+                        <h2 class="text-2xl font-bold">从"松鼠"到"蜘蛛"</h2>
+                    </div>
+                    <i class="ri-mind-map text-4xl text-brand-accent mt-4 md:mt-0"></i>
+                </div>
+
+                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-white/90">
+                     <div class="border-t border-white/20 pt-4">
+                         <h4 class="font-bold text-lg mb-2">01. 停止贪婪</h4>
+                         <p class="text-sm opacity-80 font-serif">孙鹏后来不再买课。他把那本划烂的书找出来，撕掉没用的，只用"龟速"重学前三章。</p>
+                     </div>
+
+                     <div class="border-t border-white/20 pt-4">
+                         <h4 class="font-bold text-lg mb-2">02. 痛苦提取</h4>
+                         <p class="text-sm opacity-80 font-serif">每次复习都是折磨，想不起来、自我怀疑。但这种痛苦，正是记忆在加固的信号。大脑在出汗。</p>
+                     </div>
+
+                     <div class="border-t border-white/20 pt-4">
+                         <h4 class="font-bold text-lg mb-2">03. 编织网络</h4>
+                         <p class="text-sm opacity-80 font-serif">三个月后，他再次面试。这次他没有背书，他讲理解（锚点）、讲策略（应用）、讲风险（连接）。Offer到手。</p>
+                     </div>
+                 </div>
+            </div>
+
+            <div class="bento-card col-span-1 md:col-span-12 p-8 reveal">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="font-mono text-brand-accent font-bold tracking-widest">实战清单</h3>
+                    <span class="bg-brand-black text-white text-xs px-2 py-1 font-mono rounded">TOOLKIT</span>
+                </div>
+
+                <h2 class="text-2xl font-bold mb-4">"知识固化"周期轮盘</h2>
+                <p class="text-sm text-gray-600 mb-6 font-serif">别假装勤奋地囤积，要反人性地提取。</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <div class="p-4 bg-gray-50 rounded border border-gray-200">
+                        <span class="font-mono font-bold text-brand-blue block mb-2">Day 1: 锚定</span>
+                        <div class="text-sm font-bold text-brand-black mb-1">强制输出</div>
+                        <div class="text-xs text-gray-500">合上书。用人话复述。打下第一个桩。</div>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded border border-gray-200">
+                        <span class="font-mono font-bold text-brand-blue block mb-2">Day 2: 激活</span>
+                        <div class="text-sm font-bold text-brand-black mb-1">快速提取</div>
+                        <div class="text-xs text-gray-500">不看书，快速回忆核心逻辑。对抗最速遗忘。</div>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded border border-gray-200">
+                        <span class="font-mono font-bold text-brand-blue block mb-2">Day 7: 连接</span>
+                        <div class="text-sm font-bold text-brand-black mb-1">调用练习</div>
+                        <div class="text-xs text-gray-500">做题，或强行关联旧知识。编织网络。</div>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded border border-gray-200">
+                        <span class="font-mono font-bold text-brand-blue block mb-2">Day 30: 内化</span>
+                        <div class="text-sm font-bold text-brand-black mb-1">情景应用</div>
+                        <div class="text-xs text-gray-500">教会别人，或解决真实问题。形成本能。</div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+        <footer class="max-w-7xl mx-auto mt-12 mb-24 text-center reveal">
+            <hr class="border-brand-black mb-8 opacity-20">
+            <h2 class="text-2xl md:text-3xl font-serif italic text-gray-400 leading-snug">
+                "对抗遗忘，不是关于记忆力的战争，<br>
+                <span class="text-brand-black not-italic font-bold">是一场关于'什么是值得'的价值排序。</span>"
+            </h2>
+        </footer>
+    </div>
+
+    <div class="lang-en">
+        <div class="max-w-7xl mx-auto pt-8 pb-4 reveal">
+            <div class="flex items-center gap-4">
+                <div class="flex-1 h-px bg-brand-black opacity-20"></div>
+                <h2 class="font-mono text-sm md:text-base tracking-widest uppercase text-brand-black font-bold">
+                    <span class="text-brand-accent">●</span> 108 Cognitive Weapons <span class="text-brand-accent">●</span>
+                </h2>
+                <div class="flex-1 h-px bg-brand-black opacity-20"></div>
+            </div>
+        </div>
+
+        <header class="max-w-7xl mx-auto mb-12 reveal">
+            <div class="flex flex-col md:flex-row justify-between items-end border-b-2 border-brand-black pb-6">
+                <div>
+                    <span class="font-mono text-brand-accent text-sm tracking-widest uppercase mb-2 block">Mental Model 008</span>
+                    <h1 class="text-6xl md:text-8xl font-black display-text uppercase">
+                        Inefficient<br>Diligence
+                    </h1>
+                </div>
+                <div class="mt-6 md:mt-0 text-right">
+                    <p class="font-serif italic text-xl md:text-2xl max-w-lg leading-tight">
+                        "Forgetting is not a bug of the brain,<br>but its <span class="marker-highlight">protection mechanism</span>."
+                    </p>
+                    <div class="mt-4 font-mono text-xs text-brand-gray">
+                        READ TIME: 10 MIN • SOURCE: YUE JIAN • 2025-10-29
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-6 auto-rows-auto">
+
+            <div class="bento-card col-span-1 md:col-span-8 p-8 flex flex-col justify-between reveal">
+                <div>
+                    <h3 class="font-mono text-brand-accent mb-4 font-bold tracking-widest">THE DIAGNOSIS</h3>
+                    <h2 class="text-3xl font-bold mb-4">Sun's "Sponge" Collapse</h2>
+                    <p class="text-lg text-gray-700 leading-relaxed font-serif mb-4">
+                        Sun Peng, 31, worked hard for 2 years to transition to AI PM. His desktop was full of courses, notes filled 3 notebooks. He felt like a sponge absorbing water.
+                    </p>
+                    <p class="text-lg text-gray-700 leading-relaxed font-serif">
+                        In an interview, the director asked: "Explain Transformer's attention mechanism in your own words." Sun's mind went blank. He swore he read it 3 times, but couldn't speak. 700 days of "diligence" collapsed under the spotlight.
+                    </p>
+                </div>
+                <div class="mt-8 pt-6 border-t border-gray-200">
+                    <div class="flex items-center gap-4">
+                        <div class="h-12 w-12 rounded-full bg-brand-black text-white flex items-center justify-center shrink-0">
+                            <i class="ri-delete-bin-line text-2xl"></i>
+                        </div>
+                        <div>
+                            <p class="font-bold text-sm uppercase">Core Issue</p>
+                            <p class="text-sm text-gray-600">Knowledge Squirrel: Hoarding to fight anxiety. Inputting without Retrieving. You don't have bad memory; you ignore "Forgetting".</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bento-card col-span-1 md:col-span-4 p-6 bg-brand-black text-white reveal">
+                <h3 class="font-mono text-brand-gray mb-6 font-bold tracking-widest">MINDSET OS</h3>
+
+                <div class="space-y-8">
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="font-bold text-xl text-brand-accent">Warehouse (Trap)</span>
+                            <i class="ri-store-3-line text-brand-accent"></i>
+                        </div>
+                        <div class="h-1 w-full bg-gray-800 rounded mb-2">
+                            <div class="h-1 w-1/4 bg-brand-accent rounded"></div>
+                        </div>
+                        <p class="text-sm text-gray-400 font-mono">Input Only<br>Stockpile = High Mgmt Cost (Forgetting)</p>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="font-bold text-xl text-brand-green">Network (Growth)</span>
+                            <i class="ri-share-line text-brand-green"></i>
+                        </div>
+                        <div class="h-1 w-full bg-gray-800 rounded mb-2">
+                            <div class="h-1 w-full bg-brand-green rounded"></div>
+                        </div>
+                        <p class="text-sm text-white font-mono">Active Retrieval<br>Connections = Permanent = Control</p>
+                    </div>
+                </div>
+
+                <div class="mt-12 p-4 border border-gray-700 rounded bg-gray-900">
+                    <p class="text-xs font-mono leading-relaxed text-gray-300">
+                        "Forgetting filters out 99% of the noise you don't 'call upon', leaving only the 1% treasure."
+                    </p>
+                </div>
+            </div>
+
+            <div class="bento-card col-span-1 md:col-span-5 p-6 reveal">
+                <h3 class="font-mono text-brand-black mb-2 font-bold tracking-widest">THE BRUTAL TRUTH</h3>
+                <h4 class="text-xl font-bold mb-4">The Forgetting Curve</h4>
+
+                <div class="relative h-64 w-full">
+                    <canvas id="curveChartEn"></canvas>
+                </div>
+
+                <div class="mt-4 text-sm text-gray-600 font-serif leading-relaxed text-center">
+                    42% lost in 20 mins. 66% lost in 1 day. Without review, effort is zero.
+                </div>
+            </div>
+
+            <div class="bento-card col-span-1 md:col-span-7 p-8 bg-brand-white reveal">
+                <h3 class="font-mono text-brand-black mb-6 font-bold tracking-widest">The "Anti-Forgetting" Blades</h3>
+
+                <div class="grid grid-cols-1 gap-4">
+                    <div class="flex items-start p-4 border border-gray-200 rounded hover:border-brand-black transition-colors group">
+                        <div class="bg-brand-black text-white font-mono text-lg px-3 py-1 rounded mr-4">01</div>
+                        <div>
+                            <h4 class="font-bold text-lg">Anchor (Feynman)</h4>
+                            <p class="text-sm text-gray-600 mt-1 font-serif">Close the book. Retell it to an 8-year-old. Stop highlighting, start transcoding. This is the first pile.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start p-4 border border-gray-200 rounded hover:border-brand-black transition-colors group">
+                        <div class="bg-brand-black text-white font-mono text-lg px-3 py-1 rounded mr-4">02</div>
+                        <div>
+                            <h4 class="font-bold text-lg">Spaced Repetition (SRS)</h4>
+                            <p class="text-sm text-gray-600 mt-1 font-serif">Set the Ebbinghaus alarm. Review on Day 1, 4, 7, 15, 30. No review means no learning.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start p-4 border border-gray-200 rounded hover:border-brand-black transition-colors group">
+                        <div class="bg-brand-black text-white font-mono text-lg px-3 py-1 rounded mr-4">03</div>
+                        <div>
+                            <h4 class="font-bold text-lg">Battlefield (Connection)</h4>
+                            <p class="text-sm text-gray-600 mt-1 font-serif">Micro-apply, teach, write. Connect A to B. Memory is not storage; it is retrieval.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bento-card col-span-1 md:col-span-12 p-8 bg-brand-blue text-white reveal" style="background-color: #0047AB;">
+                 <div class="flex flex-col md:flex-row justify-between items-center mb-6">
+                    <div>
+                        <h3 class="font-mono opacity-70 mb-2 font-bold tracking-widest">ACTION GUIDE</h3>
+                        <h2 class="text-2xl font-bold">From "Squirrel" to "Spider"</h2>
+                    </div>
+                    <i class="ri-mind-map text-4xl text-brand-accent mt-4 md:mt-0"></i>
+                </div>
+
+                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-white/90">
+                     <div class="border-t border-white/20 pt-4">
+                         <h4 class="font-bold text-lg mb-2">01. Stop Greed</h4>
+                         <p class="text-sm opacity-80 font-serif">Sun stopped buying courses. He re-learned just 3 chapters at "turtle speed".</p>
+                     </div>
+
+                     <div class="border-t border-white/20 pt-4">
+                         <h4 class="font-bold text-lg mb-2">02. Painful Retrieval</h4>
+                         <p class="text-sm opacity-80 font-serif">Every review is torture. Blank mind, self-doubt. That pain is the brain sweating and building muscle.</p>
+                     </div>
+
+                     <div class="border-t border-white/20 pt-4">
+                         <h4 class="font-bold text-lg mb-2">03. Weaving Web</h4>
+                         <p class="text-sm opacity-80 font-serif">3 months later, he interviewed again. No memorization. He spoke of understanding (anchor), strategy (apply), and risk (connect).</p>
+                     </div>
+                 </div>
+            </div>
+
+            <div class="bento-card col-span-1 md:col-span-12 p-8 reveal">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="font-mono text-brand-accent font-bold tracking-widest">CHECKLIST</h3>
+                    <span class="bg-brand-black text-white text-xs px-2 py-1 font-mono rounded">TOOLKIT</span>
+                </div>
+
+                <h2 class="text-2xl font-bold mb-4">"Solidification" Cycle Wheel</h2>
+                <p class="text-sm text-gray-600 mb-6 font-serif">Don't hoard diligently; retrieve against human nature.</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <div class="p-4 bg-gray-50 rounded border border-gray-200">
+                        <span class="font-mono font-bold text-brand-blue block mb-2">Day 1: Anchor</span>
+                        <div class="text-sm font-bold text-brand-black mb-1">Force Output</div>
+                        <div class="text-xs text-gray-500">Close book. Speak human. Drive the first pile.</div>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded border border-gray-200">
+                        <span class="font-mono font-bold text-brand-blue block mb-2">Day 2: Activate</span>
+                        <div class="text-sm font-bold text-brand-black mb-1">Rapid Retrieval</div>
+                        <div class="text-xs text-gray-500">No book. Recall core logic. Fight speed forgetting.</div>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded border border-gray-200">
+                        <span class="font-mono font-bold text-brand-blue block mb-2">Day 7: Connect</span>
+                        <div class="text-sm font-bold text-brand-black mb-1">Call Practice</div>
+                        <div class="text-xs text-gray-500">Do exercises or link to old knowledge. Weave web.</div>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded border border-gray-200">
+                        <span class="font-mono font-bold text-brand-blue block mb-2">Day 30: Internalize</span>
+                        <div class="text-sm font-bold text-brand-black mb-1">Apply Context</div>
+                        <div class="text-xs text-gray-500">Teach others or solve real problems. Make instinct.</div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+        <footer class="max-w-7xl mx-auto mt-12 mb-24 text-center reveal">
+            <hr class="border-brand-black mb-8 opacity-20">
+            <h2 class="text-2xl md:text-3xl font-serif italic text-gray-400 leading-snug">
+                "Fighting forgetting is not about memory,<br>
+                <span class="text-brand-black not-italic font-bold">it's a value ranking of 'what is worth keeping'."</span>
+            </h2>
+        </footer>
+    </div>
+
+    <script>
+        // Language Switcher
+        function switchLang(lang) {
+            document.body.setAttribute('data-lang', lang);
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.getAttribute('data-lang') === lang) {
+                    btn.classList.add('active');
+                }
+            });
+
+            if (lang === 'zh') {
+                initChartZh();
+            } else {
+                initChartEn();
+            }
+
+            document.querySelectorAll('.reveal').forEach(el => {
+                el.classList.remove('active');
+                observer.observe(el);
+            });
+        }
+
+        // Animation Logic
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Chart.js - Ebbinghaus Forgetting Curve
+        function initChartZh() {
+            const ctx = document.getElementById('curveChartZh');
+            if (!ctx) return;
+
+            const existingChart = Chart.getChart(ctx);
+            if (existingChart) existingChart.destroy();
+
+            new Chart(ctx.getContext('2d'), {
+                type: 'line',
+                data: {
+                    labels: ['立即', '20分钟', '1小时', '1天', '1周', '1月'],
+                    datasets: [{
+                        label: '自然遗忘 (无复习)',
+                        data: [100, 58, 44, 33, 25, 21],
+                        borderColor: '#e5e5e5',
+                        borderWidth: 3,
+                        pointRadius: 0,
+                        tension: 0.4
+                    }, {
+                        label: '间隔重复 (有复习)',
+                        data: [100, 100, 100, 95, 90, 85], // Simulated effect of SRS
+                        borderColor: '#FF4D00',
+                        backgroundColor: 'rgba(255, 77, 0, 0.1)',
+                        borderWidth: 3,
+                        pointRadius: 4,
+                        pointBackgroundColor: '#0a0a0a',
+                        fill: true,
+                        tension: 0.2,
+                        stepped: true // Visualizing "boosts"
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom', labels: { font: { family: 'Inter' } } },
+                        tooltip: { backgroundColor: '#0a0a0a' }
+                    },
+                    scales: {
+                        x: { grid: { display: false } },
+                        y: { 
+                            grid: { display: false }, 
+                            beginAtZero: true,
+                            max: 100,
+                            ticks: { display: false }
+                        }
+                    }
+                }
+            });
+        }
+
+        function initChartEn() {
+            const ctx = document.getElementById('curveChartEn');
+            if (!ctx) return;
+
+            const existingChart = Chart.getChart(ctx);
+            if (existingChart) existingChart.destroy();
+
+            new Chart(ctx.getContext('2d'), {
+                type: 'line',
+                data: {
+                    labels: ['Now', '20min', '1hr', '1day', '1wk', '1mo'],
+                    datasets: [{
+                        label: 'Natural Decay',
+                        data: [100, 58, 44, 33, 25, 21],
+                        borderColor: '#e5e5e5',
+                        borderWidth: 3,
+                        pointRadius: 0,
+                        tension: 0.4
+                    }, {
+                        label: 'Spaced Repetition',
+                        data: [100, 100, 100, 95, 90, 85],
+                        borderColor: '#FF4D00',
+                        backgroundColor: 'rgba(255, 77, 0, 0.1)',
+                        borderWidth: 3,
+                        pointRadius: 4,
+                        pointBackgroundColor: '#0a0a0a',
+                        fill: true,
+                        tension: 0.2,
+                        stepped: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom', labels: { font: { family: 'Inter' } } },
+                        tooltip: { backgroundColor: '#0a0a0a' }
+                    },
+                    scales: {
+                        x: { grid: { display: false } },
+                        y: { 
+                            grid: { display: false }, 
+                            beginAtZero: true,
+                            max: 100,
+                            ticks: { display: false }
+                        }
+                    }
+                }
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            initChartZh();
+            initChartEn();
+        });
+    </script>
+</body>
+</html>
