@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>视觉设计 - 计划李</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/visual-design.css">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="nav">
+        <div class="container">
+            <div class="nav-content">
+                <a href="index.html" class="logo">计划李</a>
+                <ul class="nav-links">
+                    <li><a href="index.html">首页</a></li>
+                    <li><a href="blog.html">文章</a></li>
+                    <li><a href="weekly.html">周刊</a></li>
+                    <li><a href="books.html">书单</a></li>
+                    <li><a href="visual-design.html" class="active">视觉设计</a></li>
+                    <li><a href="about.html">关于</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 页面头部 -->
+    <section class="visual-design-header">
+        <div class="container">
+            <h1 class="page-title">🎨 视觉设计</h1>
+            <p class="page-subtitle">探索设计之美，展示创意网站作品</p>
+        </div>
+    </section>
+
+    <!-- 设计作品展示 -->
+    <section class="projects-section">
+        <div class="container">
+            <div class="projects-grid">
+
+                <!-- 示例项目卡片 - 你可以添加更多项目 -->
+                <!-- <article class="project-card">
+                    <a href="projects/project-name/index.html" class="project-link">
+                        <div class="project-thumbnail">
+                            <img src="projects/project-name/thumbnail.png" alt="项目名称">
+                            <div class="project-overlay">
+                                <span class="view-project">查看项目 →</span>
+                            </div>
+                        </div>
+                        <div class="project-info">
+                            <h3 class="project-title">项目名称</h3>
+                            <p class="project-description">项目简短描述</p>
+                        </div>
+                    </a>
+                </article> -->
+
+            </div>
+
+            <!-- 空状态提示 -->
+            <div class="empty-state">
+                <div class="empty-icon">🎨</div>
+                <h3 class="empty-title">即将展示精彩设计作品</h3>
+                <p class="empty-description">第一个设计项目正在准备中...</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2025 计划李. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="https://zhihu.com" target="_blank">知乎</a>
+                    <a href="https://github.com" target="_blank">GitHub</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 检查是否有项目，如果有则隐藏空状态提示
+        document.addEventListener('DOMContentLoaded', function() {
+            const projectsGrid = document.querySelector('.projects-grid');
+            const emptyState = document.querySelector('.empty-state');
+            const projectCards = document.querySelectorAll('.project-card');
+
+            if (projectCards.length > 0) {
+                emptyState.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
