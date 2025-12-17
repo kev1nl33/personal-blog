@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Model 025: First Principles | The Antidote to Mediocrity</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
+    
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            black: '#0a0a0a',
+                            white: '#f4f4f0', // Off-white swiss style
+                            accent: '#FF4D00', // International Orange (Alert/Action)
+                            blue: '#0047AB', // Klein Blue equivalent
+                            gray: '#8a8a8a'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Noto Serif SC', 'serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    spacing: {
+                        '128': '32rem',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Base Styles */
+        body {
+            background-color: #f4f4f0;
+            color: #0a0a0a;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Swiss Grid Texture */
+        .bg-grid {
+            background-image: linear-gradient(#e5e5e5 1px, transparent 1px),
+            linear-gradient(90deg, #e5e5e5 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        /* Typography Utilities */
+        .display-text {
+            letter-spacing: -0.04em;
+            line-height: 0.95;
+        }
+        
+        /* Bento Card Styles */
+        .bento-card {
+            background: white;
+            border: 1px solid #0a0a0a;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bento-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 8px 8px 0px #0a0a0a;
+        }
+
+        .bento-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: #0a0a0a;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .bento-card:hover::after {
+            transform: scaleX(1);
+        }
+
+        /* Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Specific Highlight */
+        .marker-highlight {
+            background: linear-gradient(120deg, rgba(255, 77, 0, 0.2) 0%, rgba(255, 77, 0, 0.2) 100%);
+            background-repeat: no-repeat;
+            background-size: 100% 40%;
+            background-position: 0 88%;
+            transition: background-size 0.25s ease-in;
+        }
+        
+        .bento-card:hover .marker-highlight {
+            background-size: 100% 88%;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f4f4f0; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #0a0a0a; 
+        }
+    </style>
+</head>
+<body class="bg-grid min-h-screen p-4 md:p-8 lg:p-12">
+
+    <header class="max-w-7xl mx-auto mb-12 reveal">
+        <div class="flex flex-col md:flex-row justify-between items-end border-b-2 border-brand-black pb-6">
+            <div>
+                <span class="font-mono text-brand-accent text-sm tracking-widest uppercase mb-2 block">Mental Model 025</span>
+                <h1 class="text-6xl md:text-8xl font-black display-text uppercase">
+                    First<br>Principles
+                </h1>
+            </div>
+            <div class="mt-6 md:mt-0 text-right">
+                <p class="font-serif italic text-xl md:text-2xl max-w-lg leading-tight">
+                    [cite_start]"The only way to break the cycle of <span class="marker-highlight">busy mediocrity</span>." [cite: 1]
+                </p>
+                <div class="mt-4 font-mono text-xs text-brand-gray">
+                    READ TIME: 8 MIN • SOURCE: YUE JIAN • 2025-10-29
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-6 auto-rows-auto">
+
+        <div class="bento-card col-span-1 md:col-span-8 p-8 flex flex-col justify-between reveal">
+            <div>
+                <h3 class="font-mono text-brand-accent mb-4">THE DIAGNOSIS</h3>
+                <h2 class="text-3xl font-bold mb-4">The Senior "Repeater" Trap</h2>
+                <p class="text-lg text-gray-700 leading-relaxed font-serif">
+                    Xu Feng, a 38-year-old Product Director, is exhausted. He's built his career on "experience": dissecting competitors, imitating features, and optimizing costs. But facing a saturated market, his CEO demands "disruptive innovation."
+                </p>
+                <br>
+                <p class="text-lg text-gray-700 leading-relaxed font-serif">
+                    Xu Feng isn't lazy; he's trapped in a <strong class="text-brand-black">"Gravity Well of Experience."</strong> He isn't thinking; he's drawing parallels. [cite_start]He's essentially a highly skilled "human photocopier," creating slightly better versions of existing things. [cite: 1, 2]
+                </p>
+            </div>
+            <div class="mt-8 pt-6 border-t border-gray-200">
+                <div class="flex items-center gap-4">
+                    <div class="h-12 w-12 rounded-full bg-brand-black text-white flex items-center justify-center">
+                        <i class="ri-alert-fill text-2xl"></i>
+                    </div>
+                    <div>
+                        <p class="font-bold text-sm uppercase">Symptom</p>
+                        <p class="text-sm text-gray-600">Confusing "Analogy" with "Thinking".</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bento-card col-span-1 md:col-span-4 p-6 bg-brand-black text-white reveal">
+            <h3 class="font-mono text-brand-gray mb-6">MINDSET OS</h3>
+            
+            <div class="space-y-8">
+                <div>
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="font-bold text-xl text-brand-gray">Analogy Thinking</span>
+                        <i class="ri-git-branch-line text-brand-gray"></i>
+                    </div>
+                    <div class="h-1 w-full bg-gray-800 rounded mb-2">
+                        <div class="h-1 w-3/4 bg-brand-gray rounded"></div>
+                    </div>
+                    <p class="text-sm text-gray-400 font-mono">From Form -> Form<br>"How did others do it?"</p>
+                </div>
+
+                <div>
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="font-bold text-xl text-brand-accent">First Principles</span>
+                        <i class="ri-focus-3-line text-brand-accent"></i>
+                    </div>
+                    <div class="h-1 w-full bg-gray-800 rounded mb-2">
+                        <div class="h-1 w-full bg-brand-accent rounded"></div>
+                    </div>
+                    [cite_start]<p class="text-sm text-white font-mono">From Essence -> Form<br>"What is the truth?" [cite: 3]</p>
+                </div>
+            </div>
+            
+            <div class="mt-12 p-4 border border-gray-700 rounded bg-gray-900">
+                <p class="text-xs font-mono leading-relaxed text-gray-300">
+                    [cite_start]"You are not building a car; you are merely changing the cushions on a carriage." [cite: 2]
+                </p>
+            </div>
+        </div>
+
+        <div class="bento-card col-span-1 md:col-span-4 p-6 reveal">
+            <h3 class="font-mono text-brand-blue mb-2">THE 98% TAX</h3>
+            <h4 class="text-xl font-bold mb-4">Why Rockets Were Expensive</h4>
+            
+            <div class="relative h-64 w-full">
+                <canvas id="rocketChart"></canvas>
+            </div>
+            
+            <div class="mt-4 text-sm text-gray-600 font-serif">
+                Elon Musk discovered that raw materials only account for 2% of a rocket's price. [cite_start]The remaining 98% is the "Analogy Premium" paid to inefficiency and tradition. [cite: 5]
+            </div>
+        </div>
+
+        <div class="bento-card col-span-1 md:col-span-8 p-8 bg-brand-white reveal">
+            <h3 class="font-mono text-brand-black mb-6">THE 3-STEP BREAKTHROUGH</h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="border-l-2 border-brand-black pl-4 hover:border-brand-accent transition-colors group">
+                    <span class="text-5xl font-black text-gray-200 group-hover:text-brand-accent transition-colors">01</span>
+                    <h4 class="text-lg font-bold mt-2">Peel the Onion</h4>
+                    <p class="text-sm text-gray-600 mt-2">Identify "assumed" rules. Why must a speaker be a box? [cite_start]Why must it be in the living room? [cite: 8]</p>
+                </div>
+
+                <div class="border-l-2 border-brand-black pl-4 hover:border-brand-accent transition-colors group">
+                    <span class="text-5xl font-black text-gray-200 group-hover:text-brand-accent transition-colors">02</span>
+                    <h4 class="text-lg font-bold mt-2">Find the Truth</h4>
+                    <p class="text-sm text-gray-600 mt-2">Return to physics and human nature. A speaker is just vibration. [cite_start]Users want "atmosphere," not a gadget. [cite: 8]</p>
+                </div>
+
+                <div class="border-l-2 border-brand-black pl-4 hover:border-brand-accent transition-colors group">
+                    <span class="text-5xl font-black text-gray-200 group-hover:text-brand-accent transition-colors">03</span>
+                    <h4 class="text-lg font-bold mt-2">Reconstruct</h4>
+                    <p class="text-sm text-gray-600 mt-2">Build from the ground up. [cite_start]Result: "Oasis" - modular sound stones, not a box. [cite: 9]</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="bento-card col-span-1 md:col-span-6 p-8 bg-brand-blue text-white reveal">
+             <h3 class="font-mono opacity-70 mb-4">BEYOND BUSINESS</h3>
+             <h2 class="text-2xl font-bold mb-6">Applying First Principles to Life</h2>
+             
+             <div class="space-y-6">
+                 <div class="flex gap-4 items-start">
+                     <i class="ri-home-4-line text-2xl opacity-80"></i>
+                     <div>
+                         <h4 class="font-bold">Buying a House</h4>
+                         <p class="text-sm opacity-80 mt-1">Don't buy because "everyone else is." Ask: "Do I need the 'property deed' or the 'security of space'?" [cite_start]Is the cost worth 30 years of freedom? [cite: 6]</p>
+                     </div>
+                 </div>
+                 
+                 <div class="flex gap-4 items-start">
+                     <i class="ri-heart-2-line text-2xl opacity-80"></i>
+                     <div>
+                         <h4 class="font-bold">Marriage</h4>
+                         <p class="text-sm opacity-80 mt-1">Marriage is a "deep benefit community," not a ceremony. [cite_start]Don't bind yourself to the wrong person just for the form. [cite: 6]</p>
+                     </div>
+                 </div>
+
+                 <div class="flex gap-4 items-start">
+                     <i class="ri-briefcase-line text-2xl opacity-80"></i>
+                     <div>
+                         <h4 class="font-bold">Career & Stability</h4>
+                         <p class="text-sm opacity-80 mt-1">Work is trading time for resources/value. [cite_start]Do not sacrifice 40 years of passion for someone else's definition of "stability." [cite: 7]</p>
+                     </div>
+                 </div>
+             </div>
+        </div>
+
+        <div class="bento-card col-span-1 md:col-span-6 p-8 reveal">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="font-mono text-brand-accent">TOOLKIT</h3>
+                <span class="bg-brand-black text-white text-xs px-2 py-1 font-mono rounded">PRACTICAL GUIDE</span>
+            </div>
+            
+            <h2 class="text-2xl font-bold mb-4">The "Truth Navigator"</h2>
+            [cite_start]<p class="text-sm text-gray-600 mb-6">Use this checklist when you feel stuck in the "Experience Gravity Well." [cite: 10]</p>
+
+            <div class="space-y-3">
+                <div class="flex items-center gap-3 p-3 bg-gray-50 rounded border border-gray-200">
+                    <span class="font-mono font-bold text-brand-blue">01</span>
+                    <div class="flex-1 text-sm font-semibold">Anchor the Problem</div>
+                    [cite_start]<div class="text-xs text-gray-500">"Is this a real problem or a disguised assumption?" [cite: 11]</div>
+                </div>
+                <div class="flex items-center gap-3 p-3 bg-gray-50 rounded border border-gray-200">
+                    <span class="font-mono font-bold text-brand-blue">02</span>
+                    <div class="flex-1 text-sm font-semibold">Question Assumptions</div>
+                    [cite_start]<div class="text-xs text-gray-500">"Is this a law of physics or a convention?" [cite: 11]</div>
+                </div>
+                <div class="flex items-center gap-3 p-3 bg-gray-50 rounded border border-gray-200">
+                    <span class="font-mono font-bold text-brand-blue">03</span>
+                    <div class="flex-1 text-sm font-semibold">Decompose Truth</div>
+                    [cite_start]<div class="text-xs text-gray-500">"What are the most basic elements?" [cite: 11]</div>
+                </div>
+                <div class="flex items-center gap-3 p-3 bg-gray-50 rounded border border-gray-200">
+                    <span class="font-mono font-bold text-brand-blue">04</span>
+                    <div class="flex-1 text-sm font-semibold">Reconstruct</div>
+                    [cite_start]<div class="text-xs text-gray-500">"If I were an alien, how would I build this?" [cite: 11]</div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="max-w-7xl mx-auto mt-12 mb-24 text-center reveal">
+        <hr class="border-brand-black mb-8 opacity-20">
+        <h2 class="text-2xl md:text-4xl font-serif italic text-gray-400">
+            "Don't ask how others do it.<br>
+            <span class="text-brand-black not-italic font-bold">Ask what the truth is.</span>"
+        </h2>
+        [cite_start]<p class="mt-4 font-mono text-xs text-gray-400">[cite: 12]</p>
+    </footer>
+
+    <script>
+        // --- 1. Animation Logic (Intersection Observer) ---
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target); // Only animate once
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => {
+            observer.observe(el);
+        });
+
+        // --- 2. Chart.js Implementation ---
+        document.addEventListener("DOMContentLoaded", function() {
+            const ctx = document.getElementById('rocketChart').getContext('2d');
+            
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Raw Materials (Physics Truth)', 'Analogy Premium (Inefficiency)'],
+                    datasets: [{
+                        data: [2, 98],
+                        backgroundColor: [
+                            '#0a0a0a', // Black for Truth
+                            '#e5e5e5'  // Gray for Fluff
+                        ],
+                        borderWidth: 0,
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '70%',
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                font: {
+                                    family: "'Inter', sans-serif",
+                                    size: 10
+                                },
+                                usePointStyle: true,
+                                color: '#666'
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: '#0a0a0a',
+                            padding: 12,
+                            titleFont: { family: "'Inter', sans-serif" },
+                            bodyFont: { family: "'JetBrains Mono', monospace" }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

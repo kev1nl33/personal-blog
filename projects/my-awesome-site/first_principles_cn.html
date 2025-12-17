@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>模型025：第一性原理 | 拒绝忙碌的平庸</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Noto+Serif+SC:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            black: '#0a0a0a',
+                            white: '#f4f4f0', // 瑞士风米白
+                            accent: '#FF4D00', // 国际橙 (警示/行动)
+                            blue: '#0047AB', // 克莱因蓝
+                            gray: '#8a8a8a'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Noto Sans SC"', 'sans-serif'],
+                        serif: ['"Noto Serif SC"', 'serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                    },
+                    spacing: {
+                        '128': '32rem',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* 基础样式 */
+        body {
+            background-color: #f4f4f0;
+            color: #0a0a0a;
+            font-family: 'Noto Sans SC', sans-serif;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* 网格背景纹理 */
+        .bg-grid {
+            background-image: linear-gradient(#e5e5e5 1px, transparent 1px),
+            linear-gradient(90deg, #e5e5e5 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        /* 排版工具类 */
+        .display-text {
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+        }
+        
+        /* Bento 卡片样式 */
+        .bento-card {
+            background: white;
+            border: 1px solid #0a0a0a;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bento-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 8px 8px 0px #0a0a0a;
+        }
+
+        /* 卡片顶部的黑色进度条动画 */
+        .bento-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: #0a0a0a;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .bento-card:hover::after {
+            transform: scaleX(1);
+        }
+
+        /* 滚动显现动画 */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 荧光笔高亮效果 */
+        .marker-highlight {
+            background: linear-gradient(120deg, rgba(255, 77, 0, 0.15) 0%, rgba(255, 77, 0, 0.15) 100%);
+            background-repeat: no-repeat;
+            background-size: 100% 40%;
+            background-position: 0 88%;
+            transition: background-size 0.25s ease-in;
+        }
+        
+        .bento-card:hover .marker-highlight {
+            background-size: 100% 88%;
+        }
+
+        /* 滚动条美化 */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f4f4f0; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #0a0a0a; 
+        }
+    </style>
+</head>
+<body class="bg-grid min-h-screen p-4 md:p-8 lg:p-12">
+
+    <header class="max-w-7xl mx-auto mb-12 reveal">
+        <div class="flex flex-col md:flex-row justify-between items-end border-b-2 border-brand-black pb-6">
+            <div>
+                <span class="font-mono text-brand-accent text-sm tracking-widest uppercase mb-2 block">思维模型 No.025</span>
+                <h1 class="text-5xl md:text-7xl font-black display-text text-brand-black">
+                    第一性原理<br>
+                    <span class="text-3xl md:text-5xl font-light text-gray-500">First Principles</span>
+                </h1>
+            </div>
+            <div class="mt-6 md:mt-0 text-right">
+                <p class="font-serif italic text-xl md:text-2xl max-w-lg leading-tight text-gray-800">
+                    “你的<span class="marker-highlight">宝贵经验</span>，才是你忙碌且平庸的根源。”
+                </p>
+                <div class="mt-4 font-mono text-xs text-brand-gray">
+                    阅读时长: 8分钟 • 来源: 月见 • 2025-10-29
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-6 auto-rows-auto">
+
+        <div class="bento-card col-span-1 md:col-span-8 p-8 flex flex-col justify-between reveal">
+            <div>
+                <h3 class="font-mono text-brand-accent mb-4 font-bold tracking-widest">症状诊断</h3>
+                <h2 class="text-3xl font-bold mb-4">“高级复读机”的死循环</h2>
+                <p class="text-lg text-gray-700 leading-relaxed font-serif mb-4">
+                    38岁的产品总监许峰，坐在深圳科技园的办公室里。他入行12年，靠的是一套“宝贵经验”：拆解竞品、模仿、微创新、控制成本。
+                </p>
+                
+                <p class="text-lg text-gray-700 leading-relaxed font-serif">
+                    但面对CEO要求的“颠覆式创新”，这套经验失效了。他不是不努力，他是掉进了<strong class="text-brand-black">“经验的重力井”</strong>。他以为自己在思考，其实只是在做“类比”。他就像在给马车换更舒服的垫子，而对手已经在造汽车了。
+                </p>
+            </div>
+            <div class="mt-8 pt-6 border-t border-gray-200">
+                <div class="flex items-center gap-4">
+                    <div class="h-12 w-12 rounded-full bg-brand-black text-white flex items-center justify-center shrink-0">
+                        <i class="ri-alarm-warning-fill text-2xl"></i>
+                    </div>
+                    <div>
+                        <p class="font-bold text-sm uppercase">核心病灶</p>
+                        <p class="text-sm text-gray-600">你是在“绘画”，还是在别人的框架里“描红”？</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bento-card col-span-1 md:col-span-4 p-6 bg-brand-black text-white reveal">
+            <h3 class="font-mono text-brand-gray mb-6 font-bold tracking-widest">思维操作系统 OS</h3>
+            
+            <div class="space-y-8">
+                <div>
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="font-bold text-xl text-gray-400">类比思维 (Analogy)</span>
+                        <i class="ri-git-branch-line text-brand-gray"></i>
+                    </div>
+                    <div class="h-1 w-full bg-gray-800 rounded mb-2">
+                        <div class="h-1 w-3/4 bg-gray-500 rounded"></div>
+                    </div>
+                    <p class="text-sm text-gray-500 font-mono">从“形式”到“形式”<br>“别人是怎么做的？”</p>
+                </div>
+
+                <div>
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="font-bold text-xl text-brand-accent">第一性原理 (First Principles)</span>
+                        <i class="ri-focus-3-line text-brand-accent"></i>
+                    </div>
+                    <div class="h-1 w-full bg-gray-800 rounded mb-2">
+                        <div class="h-1 w-full bg-brand-accent rounded"></div>
+                    </div>
+                    <p class="text-sm text-white font-mono">从“本质”到“形式”<br>“这件事的真相是什么？”</p>
+                </div>
+            </div>
+            
+            <div class="mt-12 p-4 border border-gray-700 rounded bg-gray-900">
+                <p class="text-xs font-mono leading-relaxed text-gray-300">
+                    “在一个‘三体’般混沌、高速迭代的世界里，类比思维就是你最大的牢笼。”
+                </p>
+            </div>
+        </div>
+
+        <div class="bento-card col-span-1 md:col-span-4 p-6 reveal">
+            <h3 class="font-mono text-brand-blue mb-2 font-bold tracking-widest">98% 的智商税</h3>
+            <h4 class="text-xl font-bold mb-4">SpaceX 火箭成本拆解</h4>
+            
+            <div class="relative h-64 w-full">
+                <canvas id="rocketChart"></canvas>
+            </div>
+            
+            <div class="mt-4 text-sm text-gray-600 font-serif leading-relaxed">
+                马斯克发现，如果回归物理学真相，原材料成本仅占火箭售价的 2%。剩下的 98% 实际上是付给了陈旧流程和“行业惯例”的<span class="font-bold text-brand-black">类比溢价</span>。
+            </div>
+        </div>
+
+        <div class="bento-card col-span-1 md:col-span-8 p-8 bg-brand-white reveal">
+            <h3 class="font-mono text-brand-black mb-6 font-bold tracking-widest">三步破障法 (THE FRAMEWORK)</h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="border-l-2 border-brand-black pl-4 hover:border-brand-accent transition-colors group cursor-default">
+                    <span class="text-5xl font-black text-gray-200 group-hover:text-brand-accent transition-colors">01</span>
+                    <h4 class="text-lg font-bold mt-2">剥洋葱 (破)</h4>
+                    <p class="text-sm text-gray-600 mt-2 font-serif">识别所有“想当然”。音箱必须是盒子吗？必须放客厅吗？把所有假设揪出来。</p>
+                </div>
+
+                <div class="border-l-2 border-brand-black pl-4 hover:border-brand-accent transition-colors group cursor-default">
+                    <span class="text-5xl font-black text-gray-200 group-hover:text-brand-accent transition-colors">02</span>
+                    <h4 class="text-lg font-bold mt-2">拆积木 (拆)</h4>
+                    <p class="text-sm text-gray-600 mt-2 font-serif">回归物理与人性真相。声音只是振动；用户需要的是“氛围”，不是“机器”。</p>
+                </div>
+
+                <div class="border-l-2 border-brand-black pl-4 hover:border-brand-accent transition-colors group cursor-default">
+                    <span class="text-5xl font-black text-gray-200 group-hover:text-brand-accent transition-colors">03</span>
+                    <h4 class="text-lg font-bold mt-2">重构 (立)</h4>
+                    <p class="text-sm text-gray-600 mt-2 font-serif">从真相出发重新组合。结果：不是更好的音箱，而是“模块化声音原石”。</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="bento-card col-span-1 md:col-span-6 p-8 bg-brand-blue text-white reveal">
+             <h3 class="font-mono opacity-70 mb-4 font-bold tracking-widest">人生观应用</h3>
+             <h2 class="text-2xl font-bold mb-6">用第一性原理重写人生剧本</h2>
+             
+             <div class="space-y-6">
+                 <div class="flex gap-4 items-start">
+                     <i class="ri-home-4-line text-2xl opacity-80 mt-1"></i>
+                     <div>
+                         <h4 class="font-bold text-lg">买房决策</h4>
+                         <p class="text-sm opacity-80 mt-1 font-serif">本质是“空间安全感”还是“房产证”？为了那个证，牺牲30年自由是否符合你人生的真相？</p>
+                     </div>
+                 </div>
+                 
+                 <div class="flex gap-4 items-start">
+                     <i class="ri-heart-2-line text-2xl opacity-80 mt-1"></i>
+                     <div>
+                         <h4 class="font-bold text-lg">婚姻选择</h4>
+                         <p class="text-sm opacity-80 mt-1 font-serif">本质是“深度利益共同体”和“爱”。不要为了“结婚”的形式，去和一个无法深度连接的人捆绑。</p>
+                     </div>
+                 </div>
+
+                 <div class="flex gap-4 items-start">
+                     <i class="ri-briefcase-line text-2xl opacity-80 mt-1"></i>
+                     <div>
+                         <h4 class="font-bold text-lg">职业瓶颈</h4>
+                         <p class="text-sm opacity-80 mt-1 font-serif">工作的本质是交换价值。不要为了别人眼中的“稳定”，去压抑你未来40年的“热情”与“天赋”。</p>
+                     </div>
+                 </div>
+             </div>
+        </div>
+
+        <div class="bento-card col-span-1 md:col-span-6 p-8 reveal">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="font-mono text-brand-accent font-bold tracking-widest">实战清单</h3>
+                <span class="bg-brand-black text-white text-xs px-2 py-1 font-mono rounded">TOOLKIT</span>
+            </div>
+            
+            <h2 class="text-2xl font-bold mb-4">“真相”导航器</h2>
+            <p class="text-sm text-gray-600 mb-6 font-serif">当你感到困惑或陷入惯性时，拷问自己这四个问题：</p>
+
+            <div class="space-y-3">
+                <div class="flex items-center gap-3 p-3 bg-gray-50 rounded border border-gray-200 transition hover:bg-white hover:shadow-sm">
+                    <span class="font-mono font-bold text-brand-blue">01</span>
+                    <div class="flex-1 text-sm font-bold text-brand-black">锚定问题</div>
+                    <div class="text-xs text-gray-500">“我真正想解决的是这个问题，还是一个被包装的假设？”</div>
+                </div>
+                <div class="flex items-center gap-3 p-3 bg-gray-50 rounded border border-gray-200 transition hover:bg-white hover:shadow-sm">
+                    <span class="font-mono font-bold text-brand-blue">02</span>
+                    <div class="flex-1 text-sm font-bold text-brand-black">质疑假设</div>
+                    <div class="text-xs text-gray-500">“这是物理定律，还是人为规定？如果反过来做会怎样？”</div>
+                </div>
+                <div class="flex items-center gap-3 p-3 bg-gray-50 rounded border border-gray-200 transition hover:bg-white hover:shadow-sm">
+                    <span class="font-mono font-bold text-brand-blue">03</span>
+                    <div class="flex-1 text-sm font-bold text-brand-black">分解真相</div>
+                    <div class="text-xs text-gray-500">“剥掉所有外壳，它的物理/人性/成本真相是什么？”</div>
+                </div>
+                <div class="flex items-center gap-3 p-3 bg-gray-50 rounded border border-gray-200 transition hover:bg-white hover:shadow-sm">
+                    <span class="font-mono font-bold text-brand-blue">04</span>
+                    <div class="flex-1 text-sm font-bold text-brand-black">重构方案</div>
+                    <div class="text-xs text-gray-500">“如果我是外星人，第一次面对这些真相，我会造出什么？”</div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="max-w-7xl mx-auto mt-12 mb-24 text-center reveal">
+        <hr class="border-brand-black mb-8 opacity-20">
+        <h2 class="text-2xl md:text-3xl font-serif italic text-gray-400 leading-snug">
+            “别问别人怎么做。<br>
+            <span class="text-brand-black not-italic font-bold">要问，真相是什么。</span>”
+        </h2>
+        <p class="mt-8 font-mono text-xs text-gray-300">GENERATED BY AI • DESIGNED FOR CLARITY</p>
+    </footer>
+
+    <script>
+        // --- 1. 动画逻辑 (Intersection Observer) ---
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target); // 仅触发一次
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => {
+            observer.observe(el);
+        });
+
+        // --- 2. Chart.js 图表实现 ---
+        document.addEventListener("DOMContentLoaded", function() {
+            const ctx = document.getElementById('rocketChart').getContext('2d');
+            
+            // 确保字体加载完成后渲染
+            Chart.defaults.font.family = "'Noto Sans SC', sans-serif";
+            
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['物理真相 (原材料成本)', '类比溢价 (陈旧流程/惯例)'],
+                    datasets: [{
+                        data: [2, 98],
+                        backgroundColor: [
+                            '#0a0a0a', // 黑色代表核心真相
+                            '#e5e5e5'  // 灰色代表泡沫
+                        ],
+                        borderWidth: 0,
+                        hoverOffset: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '70%',
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 20,
+                                font: {
+                                    size: 11
+                                },
+                                usePointStyle: true,
+                                color: '#666'
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: '#0a0a0a',
+                            padding: 12,
+                            titleFont: { size: 13 },
+                            bodyFont: { size: 12 },
+                            displayColors: false,
+                            callbacks: {
+                                label: function(context) {
+                                    return ' ' + context.label + ': ' + context.raw + '%';
+                                }
+                            }
+                        }
+                    },
+                    animation: {
+                        animateScale: true,
+                        animateRotate: true
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
