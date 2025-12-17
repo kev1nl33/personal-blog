@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学习金字塔 - 108种认知武器 | The Learning Pyramid - 108 Cognitive Weapons</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Noto+Serif+SC:wght@400;700&family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            black: '#0a0a0a',
+                            white: '#f4f4f0',
+                            accent: '#FF4D00', // 警示橙
+                            blue: '#0047AB', // 克莱因蓝
+                            green: '#059669', // 增长绿
+                            gray: '#8a8a8a'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Noto Sans SC"', 'Inter', 'sans-serif'],
+                        serif: ['"Noto Serif SC"', 'serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                    },
+                    spacing: {
+                        '128': '32rem',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #f4f4f0;
+            color: #0a0a0a;
+            font-family: 'Noto Sans SC', 'Inter', sans-serif;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .bg-grid {
+            background-image: linear-gradient(#e5e5e5 1px, transparent 1px),
+            linear-gradient(90deg, #e5e5e5 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        .display-text {
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+        }
+
+        .bento-card {
+            background: white;
+            border: 1px solid #0a0a0a;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bento-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 8px 8px 0px #0a0a0a;
+        }
+
+        .bento-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: #0a0a0a;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .bento-card:hover::after {
+            transform: scaleX(1);
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .marker-highlight {
+            background: linear-gradient(120deg, rgba(255, 77, 0, 0.15) 0%, rgba(255, 77, 0, 0.15) 100%);
+            background-repeat: no-repeat;
+            background-size: 100% 40%;
+            background-position: 0 88%;
+            transition: background-size 0.25s ease-in;
+        }
+
+        .bento-card:hover .marker-highlight {
+            background-size: 100% 88%;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f4f4f0;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #0a0a0a;
+        }
+
+        /* Language Toggle Button */
+        .lang-toggle {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            z-index: 1000;
+            display: flex;
+            gap: 0.5rem;
+            background: white;
+            border: 2px solid #0a0a0a;
+            border-radius: 0.5rem;
+            padding: 0.25rem;
+            box-shadow: 4px 4px 0px #0a0a0a;
+        }
+
+        .lang-btn {
+            padding: 0.5rem 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.875rem;
+            font-weight: 600;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 0.25rem;
+        }
+
+        .lang-btn.active {
+            background: #0a0a0a;
+            color: white;
+        }
+
+        .lang-btn:hover:not(.active) {
+            background: #f4f4f0;
+        }
+
+        /* Hide inactive language content */
+        body[data-lang="zh"] .lang-en {
+            display: none;
+        }
+
+        body[data-lang="en"] .lang-zh {
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-grid min-h-screen p-4 md:p-8 lg:p-12" data-lang="zh">
+
+    <div class="lang-toggle">
+        <button class="lang-btn active" data-lang="zh" onclick="switchLang('zh')">中文</button>
+        <button class="lang-btn" data-lang="en" onclick="switchLang('en')">EN</button>
+    </div>
+
+    <div class="lang-zh">
+        <div class="max-w-7xl mx-auto pt-8 pb-4 reveal">
+            <div class="flex items-center gap-4">
+                <div class="flex-1 h-px bg-brand-black opacity-20"></div>
+                <h2 class="font-mono text-sm md:text-base tracking-widest uppercase text-brand-black font-bold">
+                    <span class="text-brand-accent">●</span> 108种认知武器 <span class="text-brand-accent">●</span>
+                </h2>
+                <div class="flex-1 h-px bg-brand-black opacity-20"></div>
+            </div>
+        </div>
+
+        <header class="max-w-7xl mx-auto mb-12 reveal">
+            <div class="flex flex-col md:flex-row justify-between items-end border-b-2 border-brand-black pb-6">
+                <div>
+                    <span class="font-mono text-brand-accent text-sm tracking-widest uppercase mb-2 block">思维模型 No.001</span>
+                    <h1 class="text-5xl md:text-7xl font-black display-text text-brand-black">
+                        学习金字塔<br>
+                        <span class="text-3xl md:text-5xl font-light text-gray-500">The Learning Pyramid</span>
+                    </h1>
+                </div>
+                <div class="mt-6 md:mt-0 text-right">
+                    <p class="font-serif italic text-xl md:text-2xl max-w-lg leading-tight text-gray-800">
+                        "你不是在学习，你只是在<span class="marker-highlight">囤积安全感</span>。"
+                    </p>
+                    <div class="mt-4 font-mono text-xs text-brand-gray">
+                        阅读时长: 9分钟 • 来源: 月见 • 2025-11-01
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-6 auto-rows-auto">
+
+            <div class="bento-card col-span-1 md:col-span-8 p-8 flex flex-col justify-between reveal">
+                <div>
+                    <h3 class="font-mono text-brand-accent mb-4 font-bold tracking-widest">症状诊断</h3>
+                    <h2 class="text-3xl font-bold mb-4">孙泊宁的"勤奋绝望"</h2>
+                    <p class="text-lg text-gray-700 leading-relaxed font-serif mb-4">
+                        31岁的孙泊宁，电脑硬盘里存满了PMP、商业文案、数据分析课程，价值超3万。他像一台永不停歇的抽水机，疯狂汲取"干货"。
+                    </p>
+                    <p class="text-lg text-gray-700 leading-relaxed font-serif">
+                        但在面对"A渠道用户流失率"的实际问题时，他只能说出"正确的废话"。而新人李默，只用一张Excel表和最笨拙的数据对比，就指出了要害。孙泊宁看着密密麻麻的笔记，第一次感到那不是知识，而是一堆嘲弄他的垃圾。
+                    </p>
+                </div>
+                <div class="mt-8 pt-6 border-t border-gray-200">
+                    <div class="flex items-center gap-4">
+                        <div class="h-12 w-12 rounded-full bg-brand-black text-white flex items-center justify-center shrink-0">
+                            <i class="ri-alert-fill text-2xl"></i>
+                        </div>
+                        <div>
+                            <p class="font-bold text-sm uppercase">核心病灶</p>
+                            <p class="text-sm text-gray-600">你只是"知识的搬运工"，而不是"建筑师"。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bento-card col-span-1 md:col-span-4 p-6 bg-brand-black text-white reveal">
+                <h3 class="font-mono text-brand-gray mb-6 font-bold tracking-widest">认知操作系统 OS</h3>
+
+                <div class="space-y-8">
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="font-bold text-xl text-brand-accent">被动输入 (Trap)</span>
+                            <i class="ri-download-cloud-line text-brand-accent"></i>
+                        </div>
+                        <div class="h-1 w-full bg-gray-800 rounded mb-2">
+                            <div class="h-1 w-1/4 bg-brand-accent rounded"></div>
+                        </div>
+                        <p class="text-sm text-gray-400 font-mono">听课/阅读/收藏<br>认知流畅性 → 留存率 <10%</p>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="font-bold text-xl text-brand-green">主动输出 (Growth)</span>
+                            <i class="ri-upload-cloud-line text-brand-green"></i>
+                        </div>
+                        <div class="h-1 w-full bg-gray-800 rounded mb-2">
+                            <div class="h-1 w-full bg-brand-green rounded"></div>
+                        </div>
+                        <p class="text-sm text-white font-mono">实践/教授/创造<br>认知阻滞感 → 留存率 >75%</p>
+                    </div>
+                </div>
+
+                <div class="mt-12 p-4 border border-gray-700 rounded bg-gray-900">
+                    <p class="text-xs font-mono leading-relaxed text-gray-300">
+                        "你买的不是课，你是在购买一个'我没有掉队'的心理安慰。"
+                    </p>
+                </div>
+            </div>
+
+            <div class="bento-card col-span-1 md:col-span-5 p-6 reveal">
+                <h3 class="font-mono text-brand-black mb-2 font-bold tracking-widest">学习留存率真相</h3>
+                <h4 class="text-xl font-bold mb-4">为什么你学了就忘？</h4>
+
+                <div class="relative h-64 w-full">
+                    <canvas id="pyramidChartZh"></canvas>
+                </div>
+
+                <div class="mt-4 text-sm text-gray-600 font-serif leading-relaxed text-center">
+                    从"被动听"到"主动教"，效率暴涨 10 倍。
+                </div>
+            </div>
+
+            <div class="bento-card col-span-1 md:col-span-7 p-8 bg-brand-white reveal">
+                <h3 class="font-mono text-brand-black mb-6 font-bold tracking-widest">P-O-T 三重火力输出法</h3>
+
+                <div class="grid grid-cols-1 gap-4">
+                    <div class="flex items-start p-4 border border-gray-200 rounded hover:border-brand-black transition-colors group">
+                        <div class="bg-brand-black text-white font-mono text-lg px-3 py-1 rounded mr-4">P</div>
+                        <div>
+                            <h4 class="font-bold text-lg">Problem (以问题为靶心)</h4>
+                            <p class="text-sm text-gray-600 mt-1 font-serif">不为问题，不学习。不要学"数据分析"，要学"怎么解决A产品复购率低20%的问题"。</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start p-4 border border-gray-200 rounded hover:border-brand-black transition-colors group">
+                        <div class="bg-brand-black text-white font-mono text-lg px-3 py-1 rounded mr-4">O</div>
+                        <div>
+                            <h4 class="font-bold text-lg">Output (强行建造残次品)</h4>
+                            <p class="text-sm text-gray-600 mt-1 font-serif">24小时内，强行输出一个"很丑"的结果。拉一张最简单的表，写一个最烂的文案。先完成，后完美。</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start p-4 border border-gray-200 rounded hover:border-brand-black transition-colors group">
+                        <div class="bg-brand-black text-white font-mono text-lg px-3 py-1 rounded mr-4">T</div>
+                        <div>
+                            <h4 class="font-bold text-lg">Teach (费曼技巧)</h4>
+                            <p class="text-sm text-gray-600 mt-1 font-serif">抓住一个"小白"，用大白话教会他。如果你不能把一个东西给6岁小孩讲明白，你就是没真懂。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bento-card col-span-1 md:col-span-12 p-8 bg-brand-blue text-white reveal">
+                 <div class="flex flex-col md:flex-row justify-between items-center mb-6">
+                    <div>
+                        <h3 class="font-mono opacity-70 mb-2 font-bold tracking-widest">行动指南</h3>
+                        <h2 class="text-2xl font-bold">扔掉收藏夹，去做满身泥泞的开拓者</h2>
+                    </div>
+                    <i class="ri-run-line text-4xl text-brand-accent mt-4 md:mt-0"></i>
+                </div>
+
+                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-white/90">
+                     <div class="border-t border-white/20 pt-4">
+                         <h4 class="font-bold text-lg mb-2">01. 格式化硬盘</h4>
+                         <p class="text-sm opacity-80 font-serif">像孙泊宁一样，删掉80%的学习APP，退掉付费社群。停止摄入"精神鸦片"。你不需要更多信息，你需要更深思考。</p>
+                     </div>
+
+                     <div class="border-t border-white/20 pt-4">
+                         <h4 class="font-bold text-lg mb-2">02. 寻找唯一问题</h4>
+                         <p class="text-sm opacity-80 font-serif">写下当下最痛的一个问题。只学能解决这个问题的章节，其他的都略过。做一个精准的"猎人"，而不是松鼠。</p>
+                     </div>
+
+                     <div class="border-t border-white/20 pt-4">
+                         <h4 class="font-bold text-lg mb-2">03. 创造者飞轮</h4>
+                         <p class="text-sm opacity-80 font-serif">目标 → 输出 → 纠错 → 输入 → 迭代。让输出倒逼输入。学习不是为了"知道"，而是为了"解决"。</p>
+                     </div>
+                 </div>
+            </div>
+
+            <div class="bento-card col-span-1 md:col-span-12 p-8 reveal">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="font-mono text-brand-accent font-bold tracking-widest">实战清单</h3>
+                    <span class="bg-brand-black text-white text-xs px-2 py-1 font-mono rounded">TOOLKIT</span>
+                </div>
+
+                <h2 class="text-2xl font-bold mb-4">P-O-T 启动流程</h2>
+                <p class="text-sm text-gray-600 mb-6 font-serif">为了防止你"一听就懂，一做就废"，请在每次学习前执行此检查：</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="p-4 bg-gray-50 rounded border border-gray-200">
+                        <span class="font-mono font-bold text-brand-blue block mb-2">启动前</span>
+                        <div class="text-sm font-bold text-brand-black mb-1">问题锁定</div>
+                        <div class="text-xs text-gray-500">"我学这个，是为了解决现实中哪一个具体问题？"</div>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded border border-gray-200">
+                        <span class="font-mono font-bold text-brand-blue block mb-2">启动中</span>
+                        <div class="text-sm font-bold text-brand-black mb-1">建造雏形</div>
+                        <div class="text-xs text-gray-500">"24小时内，我能不能造出一个哪怕很烂的成品？"</div>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded border border-gray-200">
+                        <span class="font-mono font-bold text-brand-blue block mb-2">启动后</span>
+                        <div class="text-sm font-bold text-brand-black mb-1">强行授课</div>
+                        <div class="text-xs text-gray-500">"我能不能用3分钟大白话，把这个概念讲给别人听？"</div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+        <footer class="max-w-7xl mx-auto mt-12 mb-24 text-center reveal">
+            <hr class="border-brand-black mb-8 opacity-20">
+            <h2 class="text-2xl md:text-3xl font-serif italic text-gray-400 leading-snug">
+                "真正的成长，不是收藏了多少地图，<br>
+                <span class="text-brand-black not-italic font-bold">而是你双脚踩出了多深的脚印。</span>"
+            </h2>
+            <p class="mt-8 font-mono text-xs text-gray-300">GENERATED BY AI • DESIGNED FOR CLARITY</p>
+        </footer>
+    </div>
+
+    <div class="lang-en">
+        <div class="max-w-7xl mx-auto pt-8 pb-4 reveal">
+            <div class="flex items-center gap-4">
+                <div class="flex-1 h-px bg-brand-black opacity-20"></div>
+                <h2 class="font-mono text-sm md:text-base tracking-widest uppercase text-brand-black font-bold">
+                    <span class="text-brand-accent">●</span> 108 Cognitive Weapons <span class="text-brand-accent">●</span>
+                </h2>
+                <div class="flex-1 h-px bg-brand-black opacity-20"></div>
+            </div>
+        </div>
+
+        <header class="max-w-7xl mx-auto mb-12 reveal">
+            <div class="flex flex-col md:flex-row justify-between items-end border-b-2 border-brand-black pb-6">
+                <div>
+                    <span class="font-mono text-brand-accent text-sm tracking-widest uppercase mb-2 block">Mental Model 001</span>
+                    <h1 class="text-6xl md:text-8xl font-black display-text uppercase">
+                        The Learning<br>Pyramid
+                    </h1>
+                </div>
+                <div class="mt-6 md:mt-0 text-right">
+                    <p class="font-serif italic text-xl md:text-2xl max-w-lg leading-tight">
+                        "You are not learning; you are merely <span class="marker-highlight">hoarding security</span>."
+                    </p>
+                    <div class="mt-4 font-mono text-xs text-brand-gray">
+                        READ TIME: 9 MIN • SOURCE: YUE JIAN • 2025-11-01
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-6 auto-rows-auto">
+
+            <div class="bento-card col-span-1 md:col-span-8 p-8 flex flex-col justify-between reveal">
+                <div>
+                    <h3 class="font-mono text-brand-accent mb-4 font-bold tracking-widest">THE DIAGNOSIS</h3>
+                    <h2 class="text-3xl font-bold mb-4">The Despair of Diligence</h2>
+                    <p class="text-lg text-gray-700 leading-relaxed font-serif mb-4">
+                        Sun Boning, 31, has spent over 30k on courses. His hard drive is packed with PMP, copywriting, and data analysis materials. He is like a relentless water pump, frantically hoarding "content".
+                    </p>
+                    <p class="text-lg text-gray-700 leading-relaxed font-serif">
+                        Yet, faced with a real "churn rate" problem, he could only speak "correct nonsense." Meanwhile, newcomer Li Mo solved it with a single Excel sheet. Sun realized his notes weren't knowledge—they were trash mocking him.
+                    </p>
+                </div>
+                <div class="mt-8 pt-6 border-t border-gray-200">
+                    <div class="flex items-center gap-4">
+                        <div class="h-12 w-12 rounded-full bg-brand-black text-white flex items-center justify-center shrink-0">
+                            <i class="ri-alert-fill text-2xl"></i>
+                        </div>
+                        <div>
+                            <p class="font-bold text-sm uppercase">Core Issue</p>
+                            <p class="text-sm text-gray-600">You are a "porter" of knowledge, not an "architect".</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bento-card col-span-1 md:col-span-4 p-6 bg-brand-black text-white reveal">
+                <h3 class="font-mono text-brand-gray mb-6 font-bold tracking-widest">MINDSET OS</h3>
+
+                <div class="space-y-8">
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="font-bold text-xl text-brand-accent">Passive Input (Trap)</span>
+                            <i class="ri-download-cloud-line text-brand-accent"></i>
+                        </div>
+                        <div class="h-1 w-full bg-gray-800 rounded mb-2">
+                            <div class="h-1 w-1/4 bg-brand-accent rounded"></div>
+                        </div>
+                        <p class="text-sm text-gray-400 font-mono">Lecture/Read/Save<br>Cognitive Fluency → Retention <10%</p>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="font-bold text-xl text-brand-green">Active Output (Growth)</span>
+                            <i class="ri-upload-cloud-line text-brand-green"></i>
+                        </div>
+                        <div class="h-1 w-full bg-gray-800 rounded mb-2">
+                            <div class="h-1 w-full bg-brand-green rounded"></div>
+                        </div>
+                        <p class="text-sm text-white font-mono">Practice/Teach/Build<br>Cognitive Strain → Retention >75%</p>
+                    </div>
+                </div>
+
+                <div class="mt-12 p-4 border border-gray-700 rounded bg-gray-900">
+                    <p class="text-xs font-mono leading-relaxed text-gray-300">
+                        "You're not buying a course; you're buying the psychological comfort of 'not falling behind'."
+                    </p>
+                </div>
+            </div>
+
+            <div class="bento-card col-span-1 md:col-span-5 p-6 reveal">
+                <h3 class="font-mono text-brand-black mb-2 font-bold tracking-widest">THE RETENTION TRUTH</h3>
+                <h4 class="text-xl font-bold mb-4">Why You Forget Everything</h4>
+
+                <div class="relative h-64 w-full">
+                    <canvas id="pyramidChartEn"></canvas>
+                </div>
+
+                <div class="mt-4 text-sm text-gray-600 font-serif leading-relaxed text-center">
+                    From "Passive Listening" to "Active Teaching", efficiency skyrockets by 10x.
+                </div>
+            </div>
+
+            <div class="bento-card col-span-1 md:col-span-7 p-8 bg-brand-white reveal">
+                <h3 class="font-mono text-brand-black mb-6 font-bold tracking-widest">THE P-O-T FRAMEWORK</h3>
+
+                <div class="grid grid-cols-1 gap-4">
+                    <div class="flex items-start p-4 border border-gray-200 rounded hover:border-brand-black transition-colors group">
+                        <div class="bg-brand-black text-white font-mono text-lg px-3 py-1 rounded mr-4">P</div>
+                        <div>
+                            <h4 class="font-bold text-lg">Problem (Target the Issue)</h4>
+                            <p class="text-sm text-gray-600 mt-1 font-serif">No problem, no learning. Don't learn "Data Analysis"; learn "How to fix the 20% churn rate in Product A".</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start p-4 border border-gray-200 rounded hover:border-brand-black transition-colors group">
+                        <div class="bg-brand-black text-white font-mono text-lg px-3 py-1 rounded mr-4">O</div>
+                        <div>
+                            <h4 class="font-bold text-lg">Output (Build a Prototype)</h4>
+                            <p class="text-sm text-gray-600 mt-1 font-serif">Within 24h, force an output. Make a simple spreadsheet, write a rough draft. Done is better than perfect.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start p-4 border border-gray-200 rounded hover:border-brand-black transition-colors group">
+                        <div class="bg-brand-black text-white font-mono text-lg px-3 py-1 rounded mr-4">T</div>
+                        <div>
+                            <h4 class="font-bold text-lg">Teach (Feynman Method)</h4>
+                            <p class="text-sm text-gray-600 mt-1 font-serif">Grab a beginner and teach them simply. If you can't explain it to a 6-year-old, you don't understand it.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bento-card col-span-1 md:col-span-12 p-8 bg-brand-blue text-white reveal" style="background-color: #0047AB;">
+                 <div class="flex flex-col md:flex-row justify-between items-center mb-6">
+                    <div>
+                        <h3 class="font-mono opacity-70 mb-2 font-bold tracking-widest">ACTION GUIDE</h3>
+                        <h2 class="text-2xl font-bold">Delete Bookmarks, Be a Muddy Pioneer</h2>
+                    </div>
+                    <i class="ri-run-line text-4xl text-brand-accent mt-4 md:mt-0"></i>
+                </div>
+
+                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-white/90">
+                     <div class="border-t border-white/20 pt-4">
+                         <h4 class="font-bold text-lg mb-2">01. Format Your Drive</h4>
+                         <p class="text-sm opacity-80 font-serif">Like Sun, delete 80% of apps. Stop consuming "spiritual opium". You don't need more info; you need deeper thinking.</p>
+                     </div>
+
+                     <div class="border-t border-white/20 pt-4">
+                         <h4 class="font-bold text-lg mb-2">02. Find The Problem</h4>
+                         <p class="text-sm opacity-80 font-serif">Write down your most painful problem. Only learn what solves it. Be a "Hunter", not a Squirrel.</p>
+                     </div>
+
+                     <div class="border-t border-white/20 pt-4">
+                         <h4 class="font-bold text-lg mb-2">03. Creator Flywheel</h4>
+                         <p class="text-sm opacity-80 font-serif">Goal → Output → Fix → Input → Iterate. Let output drive input. Learning is for "Solving", not "Knowing".</p>
+                     </div>
+                 </div>
+            </div>
+
+            <div class="bento-card col-span-1 md:col-span-12 p-8 reveal">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="font-mono text-brand-accent font-bold tracking-widest">CHECKLIST</h3>
+                    <span class="bg-brand-black text-white text-xs px-2 py-1 font-mono rounded">TOOLKIT</span>
+                </div>
+
+                <h2 class="text-2xl font-bold mb-4">P-O-T Launch Sequence</h2>
+                <p class="text-sm text-gray-600 mb-6 font-serif">Use this before starting any new course:</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="p-4 bg-gray-50 rounded border border-gray-200">
+                        <span class="font-mono font-bold text-brand-blue block mb-2">BEFORE</span>
+                        <div class="text-sm font-bold text-brand-black mb-1">Anchor Problem</div>
+                        <div class="text-xs text-gray-500">"What specific real-world problem am I solving?"</div>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded border border-gray-200">
+                        <span class="font-mono font-bold text-brand-blue block mb-2">DURING</span>
+                        <div class="text-sm font-bold text-brand-black mb-1">Build Prototype</div>
+                        <div class="text-xs text-gray-500">"Can I build a rough version within 24 hours?"</div>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded border border-gray-200">
+                        <span class="font-mono font-bold text-brand-blue block mb-2">AFTER</span>
+                        <div class="text-sm font-bold text-brand-black mb-1">Force Teach</div>
+                        <div class="text-xs text-gray-500">"Can I explain this to a beginner in 3 minutes?"</div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+        <footer class="max-w-7xl mx-auto mt-12 mb-24 text-center reveal">
+            <hr class="border-brand-black mb-8 opacity-20">
+            <h2 class="text-2xl md:text-3xl font-serif italic text-gray-400 leading-snug">
+                "Growth is not about collecting maps,<br>
+                <span class="text-brand-black not-italic font-bold">but about how deep your footprints are.</span>"
+            </h2>
+        </footer>
+    </div>
+
+    <script>
+        // Language Switcher
+        function switchLang(lang) {
+            document.body.setAttribute('data-lang', lang);
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.getAttribute('data-lang') === lang) {
+                    btn.classList.add('active');
+                }
+            });
+
+            if (lang === 'zh') {
+                initChartZh();
+            } else {
+                initChartEn();
+            }
+
+            document.querySelectorAll('.reveal').forEach(el => {
+                el.classList.remove('active');
+                observer.observe(el);
+            });
+        }
+
+        // Animation Logic
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Chart.js - Pyramid Bar Chart
+        function initChartZh() {
+            const ctx = document.getElementById('pyramidChartZh');
+            if (!ctx) return;
+
+            const existingChart = Chart.getChart(ctx);
+            if (existingChart) existingChart.destroy();
+
+            new Chart(ctx.getContext('2d'), {
+                type: 'bar',
+                data: {
+                    labels: ['听讲 (5%)', '阅读 (10%)', '讨论 (50%)', '实践 (75%)', '教授 (90%)'],
+                    datasets: [{
+                        label: '留存率',
+                        data: [5, 10, 50, 75, 90],
+                        backgroundColor: [
+                            '#e5e5e5', '#e5e5e5', '#8a8a8a', '#0a0a0a', '#FF4D00'
+                        ],
+                        borderRadius: 4,
+                        borderSkipped: false,
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { backgroundColor: '#0a0a0a' }
+                    },
+                    scales: {
+                        x: { grid: { display: false }, max: 100 },
+                        y: { grid: { display: false }, ticks: { font: { weight: 'bold' } } }
+                    }
+                }
+            });
+        }
+
+        function initChartEn() {
+            const ctx = document.getElementById('pyramidChartEn');
+            if (!ctx) return;
+
+            const existingChart = Chart.getChart(ctx);
+            if (existingChart) existingChart.destroy();
+
+            new Chart(ctx.getContext('2d'), {
+                type: 'bar',
+                data: {
+                    labels: ['Lecture (5%)', 'Reading (10%)', 'Discussion (50%)', 'Practice (75%)', 'Teaching (90%)'],
+                    datasets: [{
+                        label: 'Retention',
+                        data: [5, 10, 50, 75, 90],
+                        backgroundColor: [
+                            '#e5e5e5', '#e5e5e5', '#8a8a8a', '#0a0a0a', '#FF4D00'
+                        ],
+                        borderRadius: 4,
+                        borderSkipped: false,
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { backgroundColor: '#0a0a0a' }
+                    },
+                    scales: {
+                        x: { grid: { display: false }, max: 100 },
+                        y: { grid: { display: false }, ticks: { font: { weight: 'bold' } } }
+                    }
+                }
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            initChartZh();
+            initChartEn();
+        });
+    </script>
+</body>
+</html>

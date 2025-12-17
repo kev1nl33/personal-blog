@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>术语的表演者 - 108种认知武器 | The Jargon Performer - 108 Cognitive Weapons</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Noto+Serif+SC:wght@400;700&family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            black: '#0a0a0a',
+                            white: '#f4f4f0',
+                            accent: '#FF4D00', // 警示橙
+                            blue: '#0047AB', // 克莱因蓝
+                            green: '#059669', // 增长绿
+                            gray: '#8a8a8a'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Noto Sans SC"', 'Inter', 'sans-serif'],
+                        serif: ['"Noto Serif SC"', 'serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                    },
+                    spacing: {
+                        '128': '32rem',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #f4f4f0;
+            color: #0a0a0a;
+            font-family: 'Noto Sans SC', 'Inter', sans-serif;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .bg-grid {
+            background-image: linear-gradient(#e5e5e5 1px, transparent 1px),
+            linear-gradient(90deg, #e5e5e5 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        .display-text {
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+        }
+
+        .bento-card {
+            background: white;
+            border: 1px solid #0a0a0a;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bento-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 8px 8px 0px #0a0a0a;
+        }
+
+        .bento-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: #0a0a0a;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .bento-card:hover::after {
+            transform: scaleX(1);
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .marker-highlight {
+            background: linear-gradient(120deg, rgba(255, 77, 0, 0.15) 0%, rgba(255, 77, 0, 0.15) 100%);
+            background-repeat: no-repeat;
+            background-size: 100% 40%;
+            background-position: 0 88%;
+            transition: background-size 0.25s ease-in;
+        }
+
+        .bento-card:hover .marker-highlight {
+            background-size: 100% 88%;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f4f4f0;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #0a0a0a;
+        }
+
+        /* Language Toggle Button */
+        .lang-toggle {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            z-index: 1000;
+            display: flex;
+            gap: 0.5rem;
+            background: white;
+            border: 2px solid #0a0a0a;
+            border-radius: 0.5rem;
+            padding: 0.25rem;
+            box-shadow: 4px 4px 0px #0a0a0a;
+        }
+
+        .lang-btn {
+            padding: 0.5rem 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.875rem;
+            font-weight: 600;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 0.25rem;
+        }
+
+        .lang-btn.active {
+            background: #0a0a0a;
+            color: white;
+        }
+
+        .lang-btn:hover:not(.active) {
+            background: #f4f4f0;
+        }
+
+        /* Hide inactive language content */
+        body[data-lang="zh"] .lang-en {
+            display: none;
+        }
+
+        body[data-lang="en"] .lang-zh {
+            display: none;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            text-align: left;
+            padding: 0.75rem;
+            border-bottom: 1px solid #e5e5e5;
+        }
+        th {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: #8a8a8a;
+            letter-spacing: 0.05em;
+        }
+        tr:last-child td {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body class="bg-grid min-h-screen p-4 md:p-8 lg:p-12" data-lang="zh">
+
+    <div class="lang-toggle">
+        <button class="lang-btn active" data-lang="zh" onclick="switchLang('zh')">中文</button>
+        <button class="lang-btn" data-lang="en" onclick="switchLang('en')">EN</button>
+    </div>
+
+    <div class="lang-zh">
+        <div class="max-w-7xl mx-auto pt-8 pb-4 reveal">
+            <div class="flex items-center gap-4">
+                <div class="flex-1 h-px bg-brand-black opacity-20"></div>
+                <h2 class="font-mono text-sm md:text-base tracking-widest uppercase text-brand-black font-bold">
+                    <span class="text-brand-accent">●</span> 108种认知武器 <span class="text-brand-accent">●</span>
+                </h2>
+                <div class="flex-1 h-px bg-brand-black opacity-20"></div>
+            </div>
+        </div>
+
+        <header class="max-w-7xl mx-auto mb-12 reveal">
+            <div class="flex flex-col md:flex-row justify-between items-end border-b-2 border-brand-black pb-6">
+                <div>
+                    <span class="font-mono text-brand-accent text-sm tracking-widest uppercase mb-2 block">思维模型 No.002</span>
+                    <h1 class="text-5xl md:text-7xl font-black display-text text-brand-black">
+                        术语的表演者<br>
+                        <span class="text-3xl md:text-5xl font-light text-gray-500">The Jargon Performer</span>
+                    </h1>
+                </div>
+                <div class="mt-6 md:mt-0 text-right">
+                    <p class="font-serif italic text-xl md:text-2xl max-w-lg leading-tight text-gray-800">
+                        "你不是真懂，<br>你只是<span class="marker-highlight">知道</span>。"
+                    </p>
+                    <div class="mt-4 font-mono text-xs text-brand-gray">
+                        阅读时长: 8分钟 • 来源: 月见 • 2025-11-01
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-6 auto-rows-auto">
+
+            <div class="bento-card col-span-1 md:col-span-8 p-8 flex flex-col justify-between reveal">
+                <div>
+                    <h3 class="font-mono text-brand-accent mb-4 font-bold tracking-widest">症状诊断</h3>
+                    <h2 class="text-3xl font-bold mb-4">孙酌溪的"公开处刑"</h2>
+                    <p class="text-lg text-gray-700 leading-relaxed font-serif mb-4">
+                        29岁的孙酌溪是名校博士，言必谈“蒙特卡洛模拟”，PPT塞满“分布式账本”。他坚信<span class="bg-yellow-100">复杂等于专业</span>。
+                    </p>
+                    <p class="text-lg text-gray-700 leading-relaxed font-serif">
+                        直到面对55岁的实业家王董。王董打断了他意气风发的“非对称加密”演讲：“说人话！我为什么要花500万上这个系统？”孙酌溪瞬间变成了哑巴。他发现脱离了黑话，他根本拎不起那些“高大上”的模型。
+                    </p>
+                </div>
+                <div class="mt-8 pt-6 border-t border-gray-200">
+                    <div class="flex items-center gap-4">
+                        <div class="h-12 w-12 rounded-full bg-brand-black text-white flex items-center justify-center shrink-0">
+                            <i class="ri-theater-masks-fill text-2xl"></i>
+                        </div>
+                        <div>
+                            <p class="font-bold text-sm uppercase">核心病灶</p>
+                            <p class="text-sm text-gray-600">知识纹身：你用复杂来伪装专业，用记忆替代理解。你不是懂，你是<span class="font-bold">懂反了</span>。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bento-card col-span-1 md:col-span-4 p-6 bg-brand-black text-white reveal">
+                <h3 class="font-mono text-brand-gray mb-6 font-bold tracking-widest">认知操作系统 OS</h3>
+
+                <div class="space-y-8">
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="font-bold text-xl text-brand-accent">标签化 (Labeling)</span>
+                            <i class="ri-price-tag-3-line text-brand-accent"></i>
+                        </div>
+                        <div class="h-1 w-full bg-gray-800 rounded mb-2">
+                            <div class="h-1 w-1/4 bg-brand-accent rounded"></div>
+                        </div>
+                        <p class="text-sm text-gray-400 font-mono">
+                            智力虚荣<br>
+                            贴标签 = 零消耗，高优越感<br>
+                            "我知道这个词" ≠ "我理解它"
+                        </p>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="font-bold text-xl text-brand-green">转译 (Translating)</span>
+                            <i class="ri-translate-2 text-brand-green"></i>
+                        </div>
+                        <div class="h-1 w-full bg-gray-800 rounded mb-2">
+                            <div class="h-1 w-full bg-brand-green rounded"></div>
+                        </div>
+                        <p class="text-sm text-white font-mono">
+                            认知肌肉<br>
+                            找比喻 = 高消耗，真本事<br>
+                            同理心是认知的最高层级
+                        </p>
+                    </div>
+                </div>
+
+                <div class="mt-12 p-4 border border-gray-700 rounded bg-gray-900">
+                    <p class="text-xs font-mono leading-relaxed text-gray-300">
+                        "简单不是简陋，是深度理解后的精简。能化繁为简，才是慈悲。"
+                    </p>
+                </div>
+            </div>
+
+            <div class="bento-card col-span-1 md:col-span-5 p-6 reveal">
+                <h3 class="font-mono text-brand-black mb-2 font-bold tracking-widest">费曼学习法</h3>
+                <h4 class="text-xl font-bold mb-4">为什么"教"是最高效的学？</h4>
+
+                <div class="relative h-64 w-full">
+                    <canvas id="chartZh"></canvas>
+                </div>
+
+                <div class="mt-4 text-sm text-gray-600 font-serif leading-relaxed text-center">
+                    当你被迫教一个"小白"时，所有的黑话都会失效，逼你露出真本事。
+                </div>
+            </div>
+
+            <div class="bento-card col-span-1 md:col-span-7 p-8 bg-brand-white reveal">
+                <h3 class="font-mono text-brand-black mb-6 font-bold tracking-widest">费曼"四步熔炉"法</h3>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="p-4 border border-gray-200 rounded hover:border-brand-black transition-colors group">
+                        <div class="flex items-center mb-2">
+                            <span class="bg-brand-black text-white font-mono text-xs px-2 py-0.5 rounded mr-2">STEP 01</span>
+                            <h4 class="font-bold">锁定 (Lock)</h4>
+                        </div>
+                        <p class="text-sm text-gray-600 font-serif">选定一个最小概念单元（如MECE）。贪多就是假装在学。</p>
+                    </div>
+
+                    <div class="p-4 border border-gray-200 rounded hover:border-brand-black transition-colors group">
+                        <div class="flex items-center mb-2">
+                            <span class="bg-brand-black text-white font-mono text-xs px-2 py-0.5 rounded mr-2">STEP 02</span>
+                            <h4 class="font-bold">转译 (Translate)</h4>
+                        </div>
+                        <p class="text-sm text-gray-600 font-serif">假装给10岁小孩写邮件。<b>红线：绝对禁止使用术语。</b>一用黑话就是心虚。</p>
+                    </div>
+
+                    <div class="p-4 border border-gray-200 rounded hover:border-brand-black transition-colors group">
+                        <div class="flex items-center mb-2">
+                            <span class="bg-brand-black text-white font-mono text-xs px-2 py-0.5 rounded mr-2">STEP 03</span>
+                            <h4 class="font-bold">自曝 (Expose)</h4>
+                        </div>
+                        <p class="text-sm text-gray-600 font-serif">卡壳的地方，就是你认知断裂的地方。不要滑过去，圈出来，这是成长的入口。</p>
+                    </div>
+
+                    <div class="p-4 border border-gray-200 rounded hover:border-brand-black transition-colors group">
+                        <div class="flex items-center mb-2">
+                            <span class="bg-brand-black text-white font-mono text-xs px-2 py-0.5 rounded mr-2">STEP 04</span>
+                            <h4 class="font-bold">重炼 (Refine)</h4>
+                        </div>
+                        <p class="text-sm text-gray-600 font-serif">带着问题回炉，寻找最痛的堵点对应的比喻。最好的比喻来自最痛的堵点。</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bento-card col-span-1 md:col-span-12 p-8 bg-brand-blue text-white reveal" style="background-color: #0047AB;">
+                 <div class="flex flex-col md:flex-row justify-between items-center mb-6">
+                    <div>
+                        <h3 class="font-mono opacity-70 mb-2 font-bold tracking-widest">行动指南</h3>
+                        <h2 class="text-2xl font-bold">从"知识纹身"到"认知连接"</h2>
+                    </div>
+                    <i class="ri-links-line text-4xl text-brand-accent mt-4 md:mt-0"></i>
+                </div>
+
+                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-white/90">
+                     <div class="border-l-2 border-brand-accent pl-6">
+                         <h4 class="font-bold text-lg mb-2 text-brand-accent">BEFORE: 术语的高墙</h4>
+                         <p class="text-sm opacity-80 font-serif italic mb-2">"分布式账本的去中心化特性保证了数据的不可篡改性..."</p>
+                         <p class="text-xs font-mono uppercase opacity-60">Result: 王董听不懂，项目流产。</p>
+                     </div>
+
+                     <div class="border-l-2 border-brand-green pl-6">
+                         <h4 class="font-bold text-lg mb-2 text-brand-green">AFTER: 常识的桥梁</h4>
+                         <p class="text-sm opacity-80 font-serif italic mb-2">"这是一个全村人一起记的账本。张三卖给李四一头猪，全村人都记下来，谁也赖不掉。银行看了这本全村公认的账，才敢借钱。"</p>
+                         <p class="text-xs font-mono uppercase opacity-60">Result: 500万成交。解决的是信任问题。</p>
+                     </div>
+                 </div>
+            </div>
+
+            <div class="bento-card col-span-1 md:col-span-12 p-8 reveal">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="font-mono text-brand-accent font-bold tracking-widest">实战工具包</h3>
+                    <span class="bg-brand-black text-white text-xs px-2 py-1 font-mono rounded">CHECKLIST</span>
+                </div>
+
+                <h2 class="text-2xl font-bold mb-4">费曼"小白"翻译器</h2>
+                <p class="text-sm text-gray-600 mb-6 font-serif">不能化繁为简的，都是假装看懂。请填写下表自查：</p>
+
+                <div class="overflow-x-auto">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class="w-1/6">步骤</th>
+                                <th class="w-1/4">动作</th>
+                                <th class="w-1/3">关键自问</th>
+                                <th>案例 (复利)</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-sm font-serif text-gray-700">
+                            <tr>
+                                <td class="font-bold font-mono text-brand-black">1. 概念</td>
+                                <td>锁定核心概念</td>
+                                <td class="text-brand-blue italic">"我到底要搞懂什么？"</td>
+                                <td>复利</td>
+                            </tr>
+                            <tr>
+                                <td class="font-bold font-mono text-brand-black">2. 高墙</td>
+                                <td>列出所有黑话</td>
+                                <td class="text-brand-blue italic">"我在用哪些词吓唬外行？"</td>
+                                <td>本金、非线性、指数</td>
+                            </tr>
+                            <tr>
+                                <td class="font-bold font-mono text-brand-black">3. 比喻</td>
+                                <td>用生活场景替换</td>
+                                <td class="text-brand-blue italic">"如果不说黑话，它像什么？"</td>
+                                <td><span class="marker-highlight">滚雪球</span></td>
+                            </tr>
+                            <tr>
+                                <td class="font-bold font-mono text-brand-black">4. 堵点</td>
+                                <td>找出比喻漏洞</td>
+                                <td class="text-brand-blue italic">"对方会问的第一个傻问题？"</td>
+                                <td>雪球为啥越滚越大？(没解释利滚利)</td>
+                            </tr>
+                            <tr>
+                                <td class="font-bold font-mono text-brand-black">5. 精炼</td>
+                                <td>让比喻闭环</td>
+                                <td class="text-brand-blue italic">"怎么堵上这个漏洞？"</td>
+                                <td>新粘上的雪(利息)，下一圈也会跟着粘雪。</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </main>
+
+        <footer class="max-w-7xl mx-auto mt-12 mb-24 text-center reveal">
+            <hr class="border-brand-black mb-8 opacity-20">
+            <h2 class="text-2xl md:text-3xl font-serif italic text-gray-400 leading-snug">
+                "费曼学习法不是技巧，是<span class="text-brand-black not-italic font-bold">认知诚实</span>。<br>
+                别再表演专业了，试着翻译它。"
+            </h2>
+            <p class="mt-8 font-mono text-xs text-gray-300">GENERATED BY AI • DESIGNED FOR CLARITY</p>
+        </footer>
+    </div>
+
+    <div class="lang-en">
+        <div class="max-w-7xl mx-auto pt-8 pb-4 reveal">
+            <div class="flex items-center gap-4">
+                <div class="flex-1 h-px bg-brand-black opacity-20"></div>
+                <h2 class="font-mono text-sm md:text-base tracking-widest uppercase text-brand-black font-bold">
+                    <span class="text-brand-accent">●</span> 108 Cognitive Weapons <span class="text-brand-accent">●</span>
+                </h2>
+                <div class="flex-1 h-px bg-brand-black opacity-20"></div>
+            </div>
+        </div>
+
+        <header class="max-w-7xl mx-auto mb-12 reveal">
+            <div class="flex flex-col md:flex-row justify-between items-end border-b-2 border-brand-black pb-6">
+                <div>
+                    <span class="font-mono text-brand-accent text-sm tracking-widest uppercase mb-2 block">Mental Model 002</span>
+                    <h1 class="text-5xl md:text-8xl font-black display-text uppercase text-brand-black">
+                        The Jargon<br>Performer
+                    </h1>
+                </div>
+                <div class="mt-6 md:mt-0 text-right">
+                    <p class="font-serif italic text-xl md:text-2xl max-w-lg leading-tight">
+                        "You don't really understand, you just <span class="marker-highlight">know</span>."
+                    </p>
+                    <div class="mt-4 font-mono text-xs text-brand-gray">
+                        READ TIME: 8 MIN • SOURCE: YUE JIAN • 2025-11-01
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-6 auto-rows-auto">
+
+            <div class="bento-card col-span-1 md:col-span-8 p-8 flex flex-col justify-between reveal">
+                <div>
+                    <h3 class="font-mono text-brand-accent mb-4 font-bold tracking-widest">THE DIAGNOSIS</h3>
+                    <h2 class="text-3xl font-bold mb-4">Sun's "Public Execution"</h2>
+                    <p class="text-lg text-gray-700 leading-relaxed font-serif mb-4">
+                        Sun Zhuoxi, 29, a brilliant PhD analyst, filled his slides with "Monte Carlo Simulations" and "Distributed Ledgers." He believed <span class="bg-yellow-100">complexity equals professionalism</span>.
+                    </p>
+                    <p class="text-lg text-gray-700 leading-relaxed font-serif">
+                        Until he met Director Wang (55), a factory owner. Wang interrupted Sun's speech on "Asymmetric Encryption": "Speak human! Why should I spend 5 million on this?" Sun froze. Without his jargon, he was mute.
+                    </p>
+                </div>
+                <div class="mt-8 pt-6 border-t border-gray-200">
+                    <div class="flex items-center gap-4">
+                        <div class="h-12 w-12 rounded-full bg-brand-black text-white flex items-center justify-center shrink-0">
+                            <i class="ri-theater-masks-fill text-2xl"></i>
+                        </div>
+                        <div>
+                            <p class="font-bold text-sm uppercase">Core Issue</p>
+                            <p class="text-sm text-gray-600">Knowledge Tattoos: You disguise professionalism with complexity. You don't understand; you understand <span class="font-bold">backwards</span>.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bento-card col-span-1 md:col-span-4 p-6 bg-brand-black text-white reveal">
+                <h3 class="font-mono text-brand-gray mb-6 font-bold tracking-widest">MINDSET OS</h3>
+
+                <div class="space-y-8">
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="font-bold text-xl text-brand-accent">Labeling (Trap)</span>
+                            <i class="ri-price-tag-3-line text-brand-accent"></i>
+                        </div>
+                        <div class="h-1 w-full bg-gray-800 rounded mb-2">
+                            <div class="h-1 w-1/4 bg-brand-accent rounded"></div>
+                        </div>
+                        <p class="text-sm text-gray-400 font-mono">
+                            Intellectual Vanity<br>
+                            Labels = Zero Cost, High Ego<br>
+                            "I know the word" ≠ "I get it"
+                        </p>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="font-bold text-xl text-brand-green">Translating (Growth)</span>
+                            <i class="ri-translate-2 text-brand-green"></i>
+                        </div>
+                        <div class="h-1 w-full bg-gray-800 rounded mb-2">
+                            <div class="h-1 w-full bg-brand-green rounded"></div>
+                        </div>
+                        <p class="text-sm text-white font-mono">
+                            Cognitive Muscle<br>
+                            Analogy = High Cost, True Skill<br>
+                            Empathy is the highest level
+                        </p>
+                    </div>
+                </div>
+
+                <div class="mt-12 p-4 border border-gray-700 rounded bg-gray-900">
+                    <p class="text-xs font-mono leading-relaxed text-gray-300">
+                        "Simplicity is not shallowness; it is the essence after deep understanding. Simplification is compassion."
+                    </p>
+                </div>
+            </div>
+
+            <div class="bento-card col-span-1 md:col-span-5 p-6 reveal">
+                <h3 class="font-mono text-brand-black mb-2 font-bold tracking-widest">THE FEYNMAN TECHNIQUE</h3>
+                <h4 class="text-xl font-bold mb-4">Why Teaching is Learning</h4>
+
+                <div class="relative h-64 w-full">
+                    <canvas id="chartEn"></canvas>
+                </div>
+
+                <div class="mt-4 text-sm text-gray-600 font-serif leading-relaxed text-center">
+                    When forced to teach a "novice," jargon fails, forcing you to reveal your true understanding.
+                </div>
+            </div>
+
+            <div class="bento-card col-span-1 md:col-span-7 p-8 bg-brand-white reveal">
+                <h3 class="font-mono text-brand-black mb-6 font-bold tracking-widest">THE 4-STEP FURNACE</h3>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="p-4 border border-gray-200 rounded hover:border-brand-black transition-colors group">
+                        <div class="flex items-center mb-2">
+                            <span class="bg-brand-black text-white font-mono text-xs px-2 py-0.5 rounded mr-2">STEP 01</span>
+                            <h4 class="font-bold">Lock</h4>
+                        </div>
+                        <p class="text-sm text-gray-600 font-serif">Select one micro-concept (e.g., MECE). Greed is fake learning.</p>
+                    </div>
+
+                    <div class="p-4 border border-gray-200 rounded hover:border-brand-black transition-colors group">
+                        <div class="flex items-center mb-2">
+                            <span class="bg-brand-black text-white font-mono text-xs px-2 py-0.5 rounded mr-2">STEP 02</span>
+                            <h4 class="font-bold">Translate</h4>
+                        </div>
+                        <p class="text-sm text-gray-600 font-serif">Write an email to a 10-year-old. <b>Red Line: No Jargon.</b> Using jargon means you are guilty.</p>
+                    </div>
+
+                    <div class="p-4 border border-gray-200 rounded hover:border-brand-black transition-colors group">
+                        <div class="flex items-center mb-2">
+                            <span class="bg-brand-black text-white font-mono text-xs px-2 py-0.5 rounded mr-2">STEP 03</span>
+                            <h4 class="font-bold">Expose</h4>
+                        </div>
+                        <p class="text-sm text-gray-600 font-serif">Where you stutter is where your logic breaks. Circle it; this is the entry point for growth.</p>
+                    </div>
+
+                    <div class="p-4 border border-gray-200 rounded hover:border-brand-black transition-colors group">
+                        <div class="flex items-center mb-2">
+                            <span class="bg-brand-black text-white font-mono text-xs px-2 py-0.5 rounded mr-2">STEP 04</span>
+                            <h4 class="font-bold">Refine</h4>
+                        </div>
+                        <p class="text-sm text-gray-600 font-serif">Go back to the source. Find the analogy that fixes the gap. The best analogies come from the worst blocks.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bento-card col-span-1 md:col-span-12 p-8 bg-brand-blue text-white reveal" style="background-color: #0047AB;">
+                 <div class="flex flex-col md:flex-row justify-between items-center mb-6">
+                    <div>
+                        <h3 class="font-mono opacity-70 mb-2 font-bold tracking-widest">ACTION GUIDE</h3>
+                        <h2 class="text-2xl font-bold">From "Wall" to "Bridge"</h2>
+                    </div>
+                    <i class="ri-links-line text-4xl text-brand-accent mt-4 md:mt-0"></i>
+                </div>
+
+                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-white/90">
+                     <div class="border-l-2 border-brand-accent pl-6">
+                         <h4 class="font-bold text-lg mb-2 text-brand-accent">BEFORE: The Wall of Jargon</h4>
+                         <p class="text-sm opacity-80 font-serif italic mb-2">"The decentralized nature of the distributed ledger ensures data immutability..."</p>
+                         <p class="text-xs font-mono uppercase opacity-60">Result: Client confused. Project failed.</p>
+                     </div>
+
+                     <div class="border-l-2 border-brand-green pl-6">
+                         <h4 class="font-bold text-lg mb-2 text-brand-green">AFTER: The Bridge of Common Sense</h4>
+                         <p class="text-sm opacity-80 font-serif italic mb-2">"It's a ledger everyone in the village keeps. If John sells a pig to Paul, everyone writes it down. The bank trusts this village book."</p>
+                         <p class="text-xs font-mono uppercase opacity-60">Result: 5 Million Deal. Trust established.</p>
+                     </div>
+                 </div>
+            </div>
+
+            <div class="bento-card col-span-1 md:col-span-12 p-8 reveal">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="font-mono text-brand-accent font-bold tracking-widest">TOOLKIT</h3>
+                    <span class="bg-brand-black text-white text-xs px-2 py-1 font-mono rounded">CHECKLIST</span>
+                </div>
+
+                <h2 class="text-2xl font-bold mb-4">The "Novice Translator"</h2>
+                <p class="text-sm text-gray-600 mb-6 font-serif">If you can't simplify it, you are faking it. Use this checklist:</p>
+
+                <div class="overflow-x-auto">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class="w-1/6">Step</th>
+                                <th class="w-1/4">Action</th>
+                                <th class="w-1/3">Self-Question</th>
+                                <th>Example (Compound Interest)</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-sm font-serif text-gray-700">
+                            <tr>
+                                <td class="font-bold font-mono text-brand-black">1. Concept</td>
+                                <td>Lock Core Concept</td>
+                                <td class="text-brand-blue italic">"What exactly am I trying to understand?"</td>
+                                <td>Compound Interest</td>
+                            </tr>
+                            <tr>
+                                <td class="font-bold font-mono text-brand-black">2. Wall</td>
+                                <td>List Jargon</td>
+                                <td class="text-brand-blue italic">"What words am I using to scare people?"</td>
+                                <td>Principal, Exponential, Non-linear</td>
+                            </tr>
+                            <tr>
+                                <td class="font-bold font-mono text-brand-black">3. Analogy</td>
+                                <td>Use Life Scenario</td>
+                                <td class="text-brand-blue italic">"Without jargon, what does this look like?"</td>
+                                <td><span class="marker-highlight">Rolling a Snowball</span></td>
+                            </tr>
+                            <tr>
+                                <td class="font-bold font-mono text-brand-black">4. Gap</td>
+                                <td>Find Logic Holes</td>
+                                <td class="text-brand-blue italic">"What's the first 'dumb' question?"</td>
+                                <td>Why does it get faster? (Forgot 'interest on interest')</td>
+                            </tr>
+                            <tr>
+                                <td class="font-bold font-mono text-brand-black">5. Refine</td>
+                                <td>Close the Loop</td>
+                                <td class="text-brand-blue italic">"How to plug this hole?"</td>
+                                <td>New snow sticks to old snow, making it grab even more next time.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </main>
+
+        <footer class="max-w-7xl mx-auto mt-12 mb-24 text-center reveal">
+            <hr class="border-brand-black mb-8 opacity-20">
+            <h2 class="text-2xl md:text-3xl font-serif italic text-gray-400 leading-snug">
+                "The Feynman Technique is not a trick, it is <span class="text-brand-black not-italic font-bold">Cognitive Honesty</span>.<br>
+                Stop performing. Start translating."
+            </h2>
+        </footer>
+    </div>
+
+    <script>
+        // Language Switcher
+        function switchLang(lang) {
+            document.body.setAttribute('data-lang', lang);
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.getAttribute('data-lang') === lang) {
+                    btn.classList.add('active');
+                }
+            });
+
+            if (lang === 'zh') {
+                initChartZh();
+            } else {
+                initChartEn();
+            }
+
+            document.querySelectorAll('.reveal').forEach(el => {
+                el.classList.remove('active');
+                observer.observe(el);
+            });
+        }
+
+        // Animation Logic
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Chart.js - Retention Bar Chart (Aligned with Feynman Theme)
+        function initChartZh() {
+            const ctx = document.getElementById('chartZh');
+            if (!ctx) return;
+
+            const existingChart = Chart.getChart(ctx);
+            if (existingChart) existingChart.destroy();
+
+            new Chart(ctx.getContext('2d'), {
+                type: 'bar',
+                data: {
+                    labels: ['听讲', '阅读', '视听', '讨论', '实践', '教给他人'],
+                    datasets: [{
+                        label: '知识留存率',
+                        data: [5, 10, 20, 50, 75, 90],
+                        backgroundColor: [
+                            '#e5e5e5', '#e5e5e5', '#e5e5e5', '#e5e5e5', '#8a8a8a', '#FF4D00'
+                        ],
+                        borderRadius: 4,
+                        borderSkipped: false,
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { backgroundColor: '#0a0a0a' }
+                    },
+                    scales: {
+                        x: { grid: { display: false }, max: 100 },
+                        y: { grid: { display: false }, ticks: { font: { weight: 'bold' } } }
+                    }
+                }
+            });
+        }
+
+        function initChartEn() {
+            const ctx = document.getElementById('chartEn');
+            if (!ctx) return;
+
+            const existingChart = Chart.getChart(ctx);
+            if (existingChart) existingChart.destroy();
+
+            new Chart(ctx.getContext('2d'), {
+                type: 'bar',
+                data: {
+                    labels: ['Lecture', 'Reading', 'Audio-Visual', 'Discussion', 'Practice', 'Teach Others'],
+                    datasets: [{
+                        label: 'Retention',
+                        data: [5, 10, 20, 50, 75, 90],
+                        backgroundColor: [
+                            '#e5e5e5', '#e5e5e5', '#e5e5e5', '#e5e5e5', '#8a8a8a', '#FF4D00'
+                        ],
+                        borderRadius: 4,
+                        borderSkipped: false,
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { backgroundColor: '#0a0a0a' }
+                    },
+                    scales: {
+                        x: { grid: { display: false }, max: 100 },
+                        y: { grid: { display: false }, ticks: { font: { weight: 'bold' } } }
+                    }
+                }
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            initChartZh();
+            initChartEn();
+        });
+    </script>
+</body>
+</html>
