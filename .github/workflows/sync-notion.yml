@@ -36,18 +36,6 @@ jobs:
       run: |
         python sync_notion.py
 
-    - name: 设置 Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '18'
-
-    - name: 从 Notion 同步周刊
-      env:
-        NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
-        WEEKLY_DATABASE_ID: ${{ secrets.WEEKLY_DATABASE_ID }}
-      run: |
-        node scripts/sync-weekly.js
-
     - name: 提交更改
       run: |
         git config --local user.email "action@github.com"

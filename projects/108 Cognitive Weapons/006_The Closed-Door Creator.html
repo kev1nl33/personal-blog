@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>闭门造车 - 108种认知武器 | The Closed-Door Creator - 108 Cognitive Weapons</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Noto+Serif+SC:wght@400;700&family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            black: '#0a0a0a',
+                            white: '#f4f4f0',
+                            accent: '#FF4D00', // 警示橙
+                            blue: '#0047AB', // 克莱因蓝
+                            green: '#059669', // 增长绿
+                            gray: '#8a8a8a'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Noto Sans SC"', 'Inter', 'sans-serif'],
+                        serif: ['"Noto Serif SC"', 'serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                    },
+                    spacing: {
+                        '128': '32rem',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #f4f4f0;
+            color: #0a0a0a;
+            font-family: 'Noto Sans SC', 'Inter', sans-serif;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .bg-grid {
+            background-image: linear-gradient(#e5e5e5 1px, transparent 1px),
+            linear-gradient(90deg, #e5e5e5 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        .display-text {
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+        }
+
+        .bento-card {
+            background: white;
+            border: 1px solid #0a0a0a;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bento-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 8px 8px 0px #0a0a0a;
+        }
+
+        .bento-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: #0a0a0a;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .bento-card:hover::after {
+            transform: scaleX(1);
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .marker-highlight {
+            background: linear-gradient(120deg, rgba(255, 77, 0, 0.15) 0%, rgba(255, 77, 0, 0.15) 100%);
+            background-repeat: no-repeat;
+            background-size: 100% 40%;
+            background-position: 0 88%;
+            transition: background-size 0.25s ease-in;
+        }
+
+        .bento-card:hover .marker-highlight {
+            background-size: 100% 88%;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f4f4f0;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #0a0a0a;
+        }
+
+        /* Language Toggle Button */
+        .lang-toggle {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            z-index: 1000;
+            display: flex;
+            gap: 0.5rem;
+            background: white;
+            border: 2px solid #0a0a0a;
+            border-radius: 0.5rem;
+            padding: 0.25rem;
+            box-shadow: 4px 4px 0px #0a0a0a;
+        }
+
+        .lang-btn {
+            padding: 0.5rem 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.875rem;
+            font-weight: 600;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 0.25rem;
+        }
+
+        .lang-btn.active {
+            background: #0a0a0a;
+            color: white;
+        }
+
+        .lang-btn:hover:not(.active) {
+            background: #f4f4f0;
+        }
+
+        /* Hide inactive language content */
+        body[data-lang="zh"] .lang-en {
+            display: none;
+        }
+
+        body[data-lang="en"] .lang-zh {
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-grid min-h-screen p-4 md:p-8 lg:p-12" data-lang="zh">
+
+    <div class="lang-toggle">
+        <button class="lang-btn active" data-lang="zh" onclick="switchLang('zh')">中文</button>
+        <button class="lang-btn" data-lang="en" onclick="switchLang('en')">EN</button>
+    </div>
+
+    <div class="lang-zh">
+        <div class="max-w-7xl mx-auto pt-8 pb-4 reveal">
+            <div class="flex items-center gap-4">
+                <div class="flex-1 h-px bg-brand-black opacity-20"></div>
+                <h2 class="font-mono text-sm md:text-base tracking-widest uppercase text-brand-black font-bold">
+                    <span class="text-brand-accent">●</span> 108种认知武器 <span class="text-brand-accent">●</span>
+                </h2>
+                <div class="flex-1 h-px bg-brand-black opacity-20"></div>
+            </div>
+        </div>
+
+        <header class="max-w-7xl mx-auto mb-12 reveal">
+            <div class="flex flex-col md:flex-row justify-between items-end border-b-2 border-brand-black pb-6">
+                <div>
+                    <span class="font-mono text-brand-accent text-sm tracking-widest uppercase mb-2 block">思维模型 No.006</span>
+                    <h1 class="text-5xl md:text-7xl font-black display-text text-brand-black">
+                        闭门造车<br>
+                        <span class="text-3xl md:text-5xl font-light text-gray-500">The Closed-Door Creator</span>
+                    </h1>
+                </div>
+                <div class="mt-6 md:mt-0 text-right">
+                    <p class="font-serif italic text-xl md:text-2xl max-w-lg leading-tight text-gray-800">
+                        "这世上最愚蠢的努力，<br>就是<span class="marker-highlight">拒绝借力</span>。"
+                    </p>
+                    <div class="mt-4 font-mono text-xs text-brand-gray">
+                        阅读时长: 12分钟 • 来源: 月见 • 2025-11-01
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-6 auto-rows-auto">
+
+            <div class="bento-card col-span-1 md:col-span-8 p-8 flex flex-col justify-between reveal">
+                <div>
+                    <h3 class="font-mono text-brand-accent mb-4 font-bold tracking-widest">症状诊断</h3>
+                    <h2 class="text-3xl font-bold mb-4">王在川的"原创执念"</h2>
+                    <p class="text-lg text-gray-700 leading-relaxed font-serif mb-4">
+                        32岁的技术组长王在川，为了研发一套AI物流算法，立下军令状。他拒绝使用Google的开源框架，认为那是"汉化"，坚持要从第一行代码开始"100%原创"。
+                    </p>
+                    <p class="text-lg text-gray-700 leading-relaxed font-serif">
+                        结果？团队像蒙眼工兵排雷，花了两个月，只是笨拙地复刻了别人十年前就解决了的问题。进度严重滞后，士气崩盘。他以为自己在造火箭，其实只是在巨人的脚趾缝里<span class="font-bold">重新发明轮子</span>。
+                    </p>
+                </div>
+                <div class="mt-8 pt-6 border-t border-gray-200">
+                    <div class="flex items-center gap-4">
+                        <div class="h-12 w-12 rounded-full bg-brand-black text-white flex items-center justify-center shrink-0">
+                            <i class="ri-git-repository-private-line text-2xl"></i>
+                        </div>
+                        <div>
+                            <p class="font-bold text-sm uppercase">核心病灶</p>
+                            <p class="text-sm text-gray-600">无效原创：用战术上的"独立思考"，掩盖战略上的"认知闭关锁国"。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bento-card col-span-1 md:col-span-4 p-6 bg-brand-black text-white reveal">
+                <h3 class="font-mono text-brand-gray mb-6 font-bold tracking-widest">认知操作系统 OS</h3>
+
+                <div class="space-y-8">
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="font-bold text-xl text-brand-accent">侏儒思维 (Gnome)</span>
+                            <i class="ri-hammer-line text-brand-accent"></i>
+                        </div>
+                        <div class="h-1 w-full bg-gray-800 rounded mb-2">
+                            <div class="h-1 w-1/4 bg-brand-accent rounded"></div>
+                        </div>
+                        <p class="text-sm text-gray-400 font-mono">从零开始<br>满足虚荣 = 100%重复造轮子</p>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="font-bold text-xl text-brand-green">巨人思维 (Giant)</span>
+                            <i class="ri-global-line text-brand-green"></i>
+                        </div>
+                        <div class="h-1 w-full bg-gray-800 rounded mb-2">
+                            <div class="h-1 w-full bg-brand-green rounded"></div>
+                        </div>
+                        <p class="text-sm text-white font-mono">借力打力<br>站在肩膀 = 1%关键创新</p>
+                    </div>
+                </div>
+
+                <div class="mt-12 p-4 border border-gray-700 rounded bg-gray-900">
+                    <p class="text-xs font-mono leading-relaxed text-gray-300">
+                        "你刨的那个'原创'的坑，在巨人眼里，可能只是他登山鞋上掉下来的一块泥。"
+                    </p>
+                </div>
+            </div>
+
+            <div class="bento-card col-span-1 md:col-span-5 p-6 reveal">
+                <h3 class="font-mono text-brand-black mb-2 font-bold tracking-widest">资源分配效率</h3>
+                <h4 class="text-xl font-bold mb-4">为什么你的努力无效？</h4>
+
+                <div class="relative h-64 w-full">
+                    <canvas id="chartZh"></canvas>
+                </div>
+
+                <div class="mt-4 text-sm text-gray-600 font-serif leading-relaxed text-center">
+                    "侏儒"把精力耗在基础建设，"巨人"把精力聚焦在1%的无人区。
+                </div>
+            </div>
+
+            <div class="bento-card col-span-1 md:col-span-7 p-8 bg-brand-white reveal">
+                <h3 class="font-mono text-brand-black mb-6 font-bold tracking-widest">巨人学习法 (G-I-A-N-T)</h3>
+
+                <div class="grid grid-cols-1 gap-4">
+                    <div class="flex items-start p-4 border border-gray-200 rounded hover:border-brand-black transition-colors group">
+                        <div class="bg-brand-black text-white font-mono text-lg px-3 py-1 rounded mr-4">G</div>
+                        <div>
+                            <h4 class="font-bold text-lg">Ground (锚定巨人)</h4>
+                            <p class="text-sm text-gray-600 mt-1 font-serif">别刷公众号。去读开山之作，去找行业规则制定者。用80%的时间找源头，只喝上游的水。</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start p-4 border border-gray-200 rounded hover:border-brand-black transition-colors group">
+                        <div class="bg-brand-black text-white font-mono text-lg px-3 py-1 rounded mr-4">I/A</div>
+                        <div>
+                            <h4 class="font-bold text-lg">Identify & Analyze (拆解蓝图)</h4>
+                            <p class="text-sm text-gray-600 mt-1 font-serif">像侦探一样还原思考。巨人的公理是什么？分歧在哪里？局限是什么？产出一份"案情分析报告"。</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start p-4 border border-gray-200 rounded hover:border-brand-black transition-colors group">
+                        <div class="bg-brand-black text-white font-mono text-lg px-3 py-1 rounded mr-4">N/T</div>
+                        <div>
+                            <h4 class="font-bold text-lg">Neglect & Target (聚焦空白)</h4>
+                            <p class="text-sm text-gray-600 mt-1 font-serif">找到巨人共同忽略的"无人区"。缝合已有的最好零件，把你100%的原创力，砸向那10%的关键空白。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bento-card col-span-1 md:col-span-12 p-8 bg-brand-blue text-white reveal" style="background-color: #0047AB;">
+                 <div class="flex flex-col md:flex-row justify-between items-center mb-6">
+                    <div>
+                        <h3 class="font-mono opacity-70 mb-2 font-bold tracking-widest">行动指南</h3>
+                        <h2 class="text-2xl font-bold">从"造轮子"到"F1改装师"</h2>
+                    </div>
+                    <i class="ri-roadster-line text-4xl text-brand-accent mt-4 md:mt-0"></i>
+                </div>
+
+                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-white/90">
+                     <div class="border-t border-white/20 pt-4">
+                         <h4 class="font-bold text-lg mb-2">01. 承认平庸</h4>
+                         <p class="text-sm opacity-80 font-serif">杀死那个想当"天才"的虚荣自我。承认自己99%的工作都应该是缝合。这不是抄袭，是借力。</p>
+                     </div>
+
+                     <div class="border-t border-white/20 pt-4">
+                         <h4 class="font-bold text-lg mb-2">02. 绘制地图</h4>
+                         <p class="text-sm opacity-80 font-serif">花一周时间，只看不写。标出"已建成的公路"（成熟模块）和"无人区"（业务痛点）。</p>
+                     </div>
+
+                     <div class="border-t border-white/20 pt-4">
+                         <h4 class="font-bold text-lg mb-2">03. 降维打击</h4>
+                         <p class="text-sm opacity-80 font-serif">用开源框架解决80%的基础，用全部精力攻克那"夜间补货"的10%。这才是S级绩效的来源。</p>
+                     </div>
+                 </div>
+            </div>
+
+            <div class="bento-card col-span-1 md:col-span-12 p-8 reveal">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="font-mono text-brand-accent font-bold tracking-widest">实战清单</h3>
+                    <span class="bg-brand-black text-white text-xs px-2 py-1 font-mono rounded">TOOLKIT</span>
+                </div>
+
+                <h2 class="text-2xl font-bold mb-4">"巨人图谱"构建指令</h2>
+                <p class="text-sm text-gray-600 mb-6 font-serif">进入新领域时，严禁直接干活。先完成以下三步：</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="p-4 bg-gray-50 rounded border border-gray-200">
+                        <span class="font-mono font-bold text-brand-blue block mb-2">Step 1</span>
+                        <div class="text-sm font-bold text-brand-black mb-1">谁是巨人？</div>
+                        <div class="text-xs text-gray-500">找到3-5个奠基人/经典框架。只看源头，不看二手。</div>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded border border-gray-200">
+                        <span class="font-mono font-bold text-brand-blue block mb-2">Step 2</span>
+                        <div class="text-sm font-bold text-brand-black mb-1">他们在吵什么？</div>
+                        <div class="text-xs text-gray-500">找到共识（公理）和分歧（前沿）。理解优劣。</div>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded border border-gray-200">
+                        <span class="font-mono font-bold text-brand-blue block mb-2">Step 3</span>
+                        <div class="text-sm font-bold text-brand-black mb-1">我能在哪缝合？</div>
+                        <div class="text-xs text-gray-500">对比你的痛点，找到巨人没覆盖的空白。哪怕只有1%。</div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+        <footer class="max-w-7xl mx-auto mt-12 mb-24 text-center reveal">
+            <hr class="border-brand-black mb-8 opacity-20">
+            <h2 class="text-2xl md:text-3xl font-serif italic text-gray-400 leading-snug">
+                "高手的原创，<br>
+                <span class="text-brand-black not-italic font-bold">是站在1000米高空发现的缝隙。</span>"
+            </h2>
+            <p class="mt-8 font-mono text-xs text-gray-300">GENERATED BY AI • DESIGNED FOR CLARITY</p>
+        </footer>
+    </div>
+
+    <div class="lang-en">
+        <div class="max-w-7xl mx-auto pt-8 pb-4 reveal">
+            <div class="flex items-center gap-4">
+                <div class="flex-1 h-px bg-brand-black opacity-20"></div>
+                <h2 class="font-mono text-sm md:text-base tracking-widest uppercase text-brand-black font-bold">
+                    <span class="text-brand-accent">●</span> 108 Cognitive Weapons <span class="text-brand-accent">●</span>
+                </h2>
+                <div class="flex-1 h-px bg-brand-black opacity-20"></div>
+            </div>
+        </div>
+
+        <header class="max-w-7xl mx-auto mb-12 reveal">
+            <div class="flex flex-col md:flex-row justify-between items-end border-b-2 border-brand-black pb-6">
+                <div>
+                    <span class="font-mono text-brand-accent text-sm tracking-widest uppercase mb-2 block">Mental Model 006</span>
+                    <h1 class="text-6xl md:text-8xl font-black display-text uppercase">
+                        The Closed-Door<br>Creator
+                    </h1>
+                </div>
+                <div class="mt-6 md:mt-0 text-right">
+                    <p class="font-serif italic text-xl md:text-2xl max-w-lg leading-tight">
+                        "The stupidest effort is refusing<br>to <span class="marker-highlight">leverage others</span>."
+                    </p>
+                    <div class="mt-4 font-mono text-xs text-brand-gray">
+                        READ TIME: 12 MIN • SOURCE: YUE JIAN • 2025-11-01
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-6 auto-rows-auto">
+
+            <div class="bento-card col-span-1 md:col-span-8 p-8 flex flex-col justify-between reveal">
+                <div>
+                    <h3 class="font-mono text-brand-accent mb-4 font-bold tracking-widest">THE DIAGNOSIS</h3>
+                    <h2 class="text-3xl font-bold mb-4">Wang's "Originality" Obsession</h2>
+                    <p class="text-lg text-gray-700 leading-relaxed font-serif mb-4">
+                        Wang Zaichuan, 32, a tech lead, swore to build an AI logistics algorithm with "100% Originality." He rejected Google's open-source framework, calling it "copying," and forced his team to start from line one.
+                    </p>
+                    <p class="text-lg text-gray-700 leading-relaxed font-serif">
+                        Result? His team spent two months blindly clearing mines, only to clumsily reinvent a wheel solved 10 years ago. Morale collapsed. He thought he was building a rocket, but he was just <span class="font-bold">reinventing the wheel</span> in a giant's shadow.
+                    </p>
+                </div>
+                <div class="mt-8 pt-6 border-t border-gray-200">
+                    <div class="flex items-center gap-4">
+                        <div class="h-12 w-12 rounded-full bg-brand-black text-white flex items-center justify-center shrink-0">
+                            <i class="ri-git-repository-private-line text-2xl"></i>
+                        </div>
+                        <div>
+                            <p class="font-bold text-sm uppercase">Core Issue</p>
+                            <p class="text-sm text-gray-600">Invalid Originality: Using tactical "independent thinking" to mask strategic "cognitive isolation."</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bento-card col-span-1 md:col-span-4 p-6 bg-brand-black text-white reveal">
+                <h3 class="font-mono text-brand-gray mb-6 font-bold tracking-widest">MINDSET OS</h3>
+
+                <div class="space-y-8">
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="font-bold text-xl text-brand-accent">Gnome Mindset (Trap)</span>
+                            <i class="ri-hammer-line text-brand-accent"></i>
+                        </div>
+                        <div class="h-1 w-full bg-gray-800 rounded mb-2">
+                            <div class="h-1 w-1/4 bg-brand-accent rounded"></div>
+                        </div>
+                        <p class="text-sm text-gray-400 font-mono">Start from Zero<br>Vanity = 100% Reinventing Wheel</p>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="font-bold text-xl text-brand-green">Giant Mindset (Growth)</span>
+                            <i class="ri-global-line text-brand-green"></i>
+                        </div>
+                        <div class="h-1 w-full bg-gray-800 rounded mb-2">
+                            <div class="h-1 w-full bg-brand-green rounded"></div>
+                        </div>
+                        <p class="text-sm text-white font-mono">Leverage Power<br>On Shoulders = 1% Critical Innovation</p>
+                    </div>
+                </div>
+
+                <div class="mt-12 p-4 border border-gray-700 rounded bg-gray-900">
+                    <p class="text-xs font-mono leading-relaxed text-gray-300">
+                        "The 'original' pit you dug by hand is just a speck of mud on the giant's boot."
+                    </p>
+                </div>
+            </div>
+
+            <div class="bento-card col-span-1 md:col-span-5 p-6 reveal">
+                <h3 class="font-mono text-brand-black mb-2 font-bold tracking-widest">EFFICIENCY MODEL</h3>
+                <h4 class="text-xl font-bold mb-4">Resource Allocation</h4>
+
+                <div class="relative h-64 w-full">
+                    <canvas id="chartEn"></canvas>
+                </div>
+
+                <div class="mt-4 text-sm text-gray-600 font-serif leading-relaxed text-center">
+                    Gnomes waste energy on foundations. Giants focus energy on the 1% gap.
+                </div>
+            </div>
+
+            <div class="bento-card col-span-1 md:col-span-7 p-8 bg-brand-white reveal">
+                <h3 class="font-mono text-brand-black mb-6 font-bold tracking-widest">The G-I-A-N-T Method</h3>
+
+                <div class="grid grid-cols-1 gap-4">
+                    <div class="flex items-start p-4 border border-gray-200 rounded hover:border-brand-black transition-colors group">
+                        <div class="bg-brand-black text-white font-mono text-lg px-3 py-1 rounded mr-4">G</div>
+                        <div>
+                            <h4 class="font-bold text-lg">Ground (Anchor Giants)</h4>
+                            <p class="text-sm text-gray-600 mt-1 font-serif">Don't read secondhand blogs. Find the founding fathers and rule-makers. Spend 80% time finding the source.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start p-4 border border-gray-200 rounded hover:border-brand-black transition-colors group">
+                        <div class="bg-brand-black text-white font-mono text-lg px-3 py-1 rounded mr-4">I/A</div>
+                        <div>
+                            <h4 class="font-bold text-lg">Identify & Analyze (Blueprint)</h4>
+                            <p class="text-sm text-gray-600 mt-1 font-serif">Reverse engineer their thinking. What are the axioms? Where do they disagree? What are the limitations?</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start p-4 border border-gray-200 rounded hover:border-brand-black transition-colors group">
+                        <div class="bg-brand-black text-white font-mono text-lg px-3 py-1 rounded mr-4">N/T</div>
+                        <div>
+                            <h4 class="font-bold text-lg">Neglect & Target (The Gap)</h4>
+                            <p class="text-sm text-gray-600 mt-1 font-serif">Find what the giants missed (The "No Man's Land"). Stitch their best parts and aim your 100% originality at that 1% gap.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bento-card col-span-1 md:col-span-12 p-8 bg-brand-blue text-white reveal" style="background-color: #0047AB;">
+                 <div class="flex flex-col md:flex-row justify-between items-center mb-6">
+                    <div>
+                        <h3 class="font-mono opacity-70 mb-2 font-bold tracking-widest">ACTION GUIDE</h3>
+                        <h2 class="text-2xl font-bold">From "Wheel-Maker" to "F1 Tuner"</h2>
+                    </div>
+                    <i class="ri-roadster-line text-4xl text-brand-accent mt-4 md:mt-0"></i>
+                </div>
+
+                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-white/90">
+                     <div class="border-t border-white/20 pt-4">
+                         <h4 class="font-bold text-lg mb-2">01. Admit Mediocrity</h4>
+                         <p class="text-sm opacity-80 font-serif">Kill the ego that wants to be a "Genius." Admit that 99% of work is stitching. It's not copying; it's leverage.</p>
+                     </div>
+
+                     <div class="border-t border-white/20 pt-4">
+                         <h4 class="font-bold text-lg mb-2">02. Map the Terrain</h4>
+                         <p class="text-sm opacity-80 font-serif">Spend a week coding nothing. Map out "Existing Highways" (Mature tech) and "No Man's Land" (Your pain point).</p>
+                     </div>
+
+                     <div class="border-t border-white/20 pt-4">
+                         <h4 class="font-bold text-lg mb-2">03. Dimensional Strike</h4>
+                         <p class="text-sm opacity-80 font-serif">Use open-source for the 80% base. Focus all energy on the 10% unique "Night Shift" logic. That's where S-grade performance lives.</p>
+                     </div>
+                 </div>
+            </div>
+
+            <div class="bento-card col-span-1 md:col-span-12 p-8 reveal">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="font-mono text-brand-accent font-bold tracking-widest">CHECKLIST</h3>
+                    <span class="bg-brand-black text-white text-xs px-2 py-1 font-mono rounded">TOOLKIT</span>
+                </div>
+
+                <h2 class="text-2xl font-bold mb-4">Giant Map Protocols</h2>
+                <p class="text-sm text-gray-600 mb-6 font-serif">Entering a new field? Don't work yet. Do these 3 steps first:</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="p-4 bg-gray-50 rounded border border-gray-200">
+                        <span class="font-mono font-bold text-brand-blue block mb-2">Step 1</span>
+                        <div class="text-sm font-bold text-brand-black mb-1">Who are the Giants?</div>
+                        <div class="text-xs text-gray-500">Find 3-5 founders/classic frameworks. Go to source.</div>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded border border-gray-200">
+                        <span class="font-mono font-bold text-brand-blue block mb-2">Step 2</span>
+                        <div class="text-sm font-bold text-brand-black mb-1">What's the Conflict?</div>
+                        <div class="text-xs text-gray-500">Find consensus (axioms) and divergence (frontier).</div>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded border border-gray-200">
+                        <span class="font-mono font-bold text-brand-blue block mb-2">Step 3</span>
+                        <div class="text-sm font-bold text-brand-black mb-1">Where is the Gap?</div>
+                        <div class="text-xs text-gray-500">Contrast with your pain point. Find the 1% blank spot.</div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+        <footer class="max-w-7xl mx-auto mt-12 mb-24 text-center reveal">
+            <hr class="border-brand-black mb-8 opacity-20">
+            <h2 class="text-2xl md:text-3xl font-serif italic text-gray-400 leading-snug">
+                "True originality is found in the cracks<br>
+                <span class="text-brand-black not-italic font-bold">seen from 1000 meters above.</span>"
+            </h2>
+        </footer>
+    </div>
+
+    <script>
+        // Language Switcher
+        function switchLang(lang) {
+            document.body.setAttribute('data-lang', lang);
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.getAttribute('data-lang') === lang) {
+                    btn.classList.add('active');
+                }
+            });
+
+            if (lang === 'zh') {
+                initChartZh();
+            } else {
+                initChartEn();
+            }
+
+            document.querySelectorAll('.reveal').forEach(el => {
+                el.classList.remove('active');
+                observer.observe(el);
+            });
+        }
+
+        // Animation Logic
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Chart.js - Resource Allocation
+        function initChartZh() {
+            const ctx = document.getElementById('chartZh');
+            if (!ctx) return;
+
+            const existingChart = Chart.getChart(ctx);
+            if (existingChart) existingChart.destroy();
+
+            new Chart(ctx.getContext('2d'), {
+                type: 'bar',
+                data: {
+                    labels: ['基础建设 (重复造轮子)', '关键创新 (无人区)'],
+                    datasets: [{
+                        label: '侏儒学习法',
+                        data: [100, 10],
+                        backgroundColor: '#e5e5e5',
+                        borderRadius: 4
+                    }, {
+                        label: '巨人学习法',
+                        data: [10, 100],
+                        backgroundColor: '#FF4D00',
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom', labels: { font: { family: 'Inter' } } },
+                        tooltip: { backgroundColor: '#0a0a0a' }
+                    },
+                    scales: {
+                        x: { grid: { display: false }, max: 100 },
+                        y: { grid: { display: false }, ticks: { font: { weight: 'bold' } } }
+                    }
+                }
+            });
+        }
+
+        function initChartEn() {
+            const ctx = document.getElementById('chartEn');
+            if (!ctx) return;
+
+            const existingChart = Chart.getChart(ctx);
+            if (existingChart) existingChart.destroy();
+
+            new Chart(ctx.getContext('2d'), {
+                type: 'bar',
+                data: {
+                    labels: ['Foundation (Reinventing)', 'Innovation (The Gap)'],
+                    datasets: [{
+                        label: 'Gnome Method',
+                        data: [100, 10],
+                        backgroundColor: '#e5e5e5',
+                        borderRadius: 4
+                    }, {
+                        label: 'Giant Method',
+                        data: [10, 100],
+                        backgroundColor: '#FF4D00',
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom', labels: { font: { family: 'Inter' } } },
+                        tooltip: { backgroundColor: '#0a0a0a' }
+                    },
+                    scales: {
+                        x: { grid: { display: false }, max: 100 },
+                        y: { grid: { display: false }, ticks: { font: { weight: 'bold' } } }
+                    }
+                }
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            initChartZh();
+            initChartEn();
+        });
+    </script>
+</body>
+</html>

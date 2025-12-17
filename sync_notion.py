@@ -823,4 +823,3 @@ def sync_reading_list():
 
 if __name__ == '__main__':
     main()
-    sync_reading_list()
