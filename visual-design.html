@@ -34,62 +34,11 @@
     <!-- 认知武器列表 -->
     <section class="projects-section">
         <div class="container">
-            <div class="projects-grid">
-
-                <article class="project-card">
-                    <a href="projects/108 Cognitive Weapons/001_The Learning Pyramid.html" class="project-link">
-                        <div class="project-info">
-                            <h3 class="project-title">001 学习金字塔</h3>
-                            <p class="project-description">The Learning Pyramid - 通过主动学习提升知识留存率</p>
-                        </div>
-                    </a>
-                </article>
-
-                <article class="project-card">
-                    <a href="projects/108 Cognitive Weapons/002_Feynman Technique.html" class="project-link">
-                        <div class="project-info">
-                            <h3 class="project-title">002 费曼学习法</h3>
-                            <p class="project-description">Feynman Technique - 用简单语言解释复杂概念</p>
-                        </div>
-                    </a>
-                </article>
-
-                <article class="project-card">
-                    <a href="projects/108 Cognitive Weapons/003_The Thought Peddler.html" class="project-link">
-                        <div class="project-info">
-                            <h3 class="project-title">003 思想贩卖机</h3>
-                            <p class="project-description">The Thought Peddler - 警惕被动接受他人观点</p>
-                        </div>
-                    </a>
-                </article>
-
-                <article class="project-card">
-                    <a href="projects/108 Cognitive Weapons/004_The Low-Quality Hard Worker.html" class="project-link">
-                        <div class="project-info">
-                            <h3 class="project-title">004 低质量勤奋者</h3>
-                            <p class="project-description">The Low-Quality Hard Worker - 努力的幻觉</p>
-                        </div>
-                    </a>
-                </article>
-
-                <article class="project-card">
-                    <a href="projects/108 Cognitive Weapons/005_The Comfort Zone of Fake Diligence.html" class="project-link">
-                        <div class="project-info">
-                            <h3 class="project-title">005 伪勤奋舒适区</h3>
-                            <p class="project-description">The Comfort Zone of Fake Diligence - 突破表面努力</p>
-                        </div>
-                    </a>
-                </article>
-
-                <article class="project-card">
-                    <a href="projects/108 Cognitive Weapons/025_First_Principles.html" class="project-link">
-                        <div class="project-info">
-                            <h3 class="project-title">025 第一性原理</h3>
-                            <p class="project-description">First Principles - 从基本真理出发思考问题</p>
-                        </div>
-                    </a>
-                </article>
-
+            <div class="projects-grid" id="cognitive-weapons-grid">
+                <!-- 动态加载认知武器列表 -->
+                <div class="loading-state" style="text-align: center; padding: 4rem 0;">
+                    <p style="color: #666;">正在加载认知武器...</p>
+                </div>
             </div>
         </div>
     </section>
@@ -108,14 +57,44 @@
     </footer>
 
     <script>
-        // 检查是否有项目，如果有则隐藏空状态提示
-        document.addEventListener('DOMContentLoaded', function() {
-            const projectsGrid = document.querySelector('.projects-grid');
-            const emptyState = document.querySelector('.empty-state');
-            const projectCards = document.querySelectorAll('.project-card');
+        // 动态加载108种认知武器
+        document.addEventListener('DOMContentLoaded', async function() {
+            const grid = document.getElementById('cognitive-weapons-grid');
+            const loadingState = grid.querySelector('.loading-state');
 
-            if (projectCards.length > 0) {
-                emptyState.style.display = 'none';
+            try {
+                // 加载JSON数据
+                const response = await fetch('data/cognitive-weapons.json');
+                const weapons = await response.json();
+
+                // 移除加载状态
+                if (loadingState) {
+                    loadingState.remove();
+                }
+
+                // 生成项目卡片
+                weapons.forEach(weapon => {
+                    const card = document.createElement('article');
+                    card.className = 'project-card';
+
+                    card.innerHTML = `
+                        <a href="${weapon.url}" class="project-link">
+                            <div class="project-info">
+                                <h3 class="project-title">${weapon.number} ${weapon.cn_title}</h3>
+                                <p class="project-description">${weapon.description}</p>
+                            </div>
+                        </a>
+                    `;
+
+                    grid.appendChild(card);
+                });
+
+                console.log(`✅ 成功加载 ${weapons.length} 个认知武器`);
+            } catch (error) {
+                console.error('加载认知武器数据失败:', error);
+                if (loadingState) {
+                    loadingState.innerHTML = '<p style="color: #e74c3c;">加载失败，请刷新页面重试</p>';
+                }
             }
         });
     </script>
