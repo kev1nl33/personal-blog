@@ -1,0 +1,758 @@
+[
+  {
+    "number": "001",
+    "cn_title": "学习金字塔",
+    "en_title": "The Learning Pyramid",
+    "description": "The Learning Pyramid - 学习金字塔",
+    "url": "projects/108 Cognitive Weapons/001_The Learning Pyramid.html"
+  },
+  {
+    "number": "002",
+    "cn_title": "术语的表演者",
+    "en_title": "Feynman Technique",
+    "description": "Feynman Technique - 术语的表演者",
+    "url": "projects/108 Cognitive Weapons/002_Feynman Technique.html"
+  },
+  {
+    "number": "003",
+    "cn_title": "布鲁姆深度学习",
+    "en_title": "The Thought Peddler",
+    "description": "The Thought Peddler - 布鲁姆深度学习",
+    "url": "projects/108 Cognitive Weapons/003_The Thought Peddler.html"
+  },
+  {
+    "number": "004",
+    "cn_title": "低质努力家",
+    "en_title": "The Low-Quality Hard Worker",
+    "description": "The Low-Quality Hard Worker - 低质努力家",
+    "url": "projects/108 Cognitive Weapons/004_The Low-Quality Hard Worker.html"
+  },
+  {
+    "number": "005",
+    "cn_title": "伪勤奋的舒适区",
+    "en_title": "The Comfort Zone of Fake Diligence",
+    "description": "The Comfort Zone of Fake Diligence - 伪勤奋的舒适区",
+    "url": "projects/108 Cognitive Weapons/005_The Comfort Zone of Fake Diligence.html"
+  },
+  {
+    "number": "006",
+    "cn_title": "闭门造车",
+    "en_title": "The Closed-Door Creator",
+    "description": "The Closed-Door Creator - 闭门造车",
+    "url": "projects/108 Cognitive Weapons/006_The Closed-Door Creator.html"
+  },
+  {
+    "number": "007",
+    "cn_title": "认知浅薄",
+    "en_title": "The Shallow Generalist",
+    "description": "The Shallow Generalist - 认知浅薄",
+    "url": "projects/108 Cognitive Weapons/007_The Shallow Generalist.html"
+  },
+  {
+    "number": "008",
+    "cn_title": "低效勤奋",
+    "en_title": "Inefficient Diligence",
+    "description": "Inefficient Diligence - 低效勤奋",
+    "url": "projects/108 Cognitive Weapons/008_Inefficient Diligence.html"
+  },
+  {
+    "number": "009",
+    "cn_title": "无效勤奋",
+    "en_title": "Ineffective Diligence",
+    "description": "Ineffective Diligence - 无效勤奋",
+    "url": "projects/108 Cognitive Weapons/009_Ineffective Diligence.html"
+  },
+  {
+    "number": "010",
+    "cn_title": "无效忙碌",
+    "en_title": "Fake Busyness",
+    "description": "Fake Busyness - 无效忙碌",
+    "url": "projects/108 Cognitive Weapons/010_Fake Busyness.html"
+  },
+  {
+    "number": "011",
+    "cn_title": "盲目执行",
+    "en_title": "Blind Execution",
+    "description": "Blind Execution - 盲目执行",
+    "url": "projects/108 Cognitive Weapons/011_Blind Execution.html"
+  },
+  {
+    "number": "012",
+    "cn_title": "巨石恐惧症",
+    "en_title": "Megalith Phobia",
+    "description": "Megalith Phobia - 巨石恐惧症",
+    "url": "projects/108 Cognitive Weapons/012_Megalith Phobia.html"
+  },
+  {
+    "number": "013",
+    "cn_title": "清单革命",
+    "en_title": "The Checklist Manifesto",
+    "description": "The Checklist Manifesto - 清单革命",
+    "url": "projects/108 Cognitive Weapons/013_The Checklist Manifesto.html"
+  },
+  {
+    "number": "014",
+    "cn_title": "积极幻想之毒",
+    "en_title": "The Positive Fantasy Trap",
+    "description": "The Positive Fantasy Trap - 积极幻想之毒",
+    "url": "projects/108 Cognitive Weapons/014_The Positive Fantasy Trap.html"
+  },
+  {
+    "number": "015",
+    "cn_title": "紧急的奴隶",
+    "en_title": "The Urgency Trap",
+    "description": "The Urgency Trap - 紧急的奴隶",
+    "url": "projects/108 Cognitive Weapons/015_The Urgency Trap.html"
+  },
+  {
+    "number": "016",
+    "cn_title": "伪目标陷阱",
+    "en_title": "The Fake Goal Trap",
+    "description": "The Fake Goal Trap - 伪目标陷阱",
+    "url": "projects/108 Cognitive Weapons/016_The Fake Goal Trap.html"
+  },
+  {
+    "number": "017",
+    "cn_title": "认知模型工厂",
+    "en_title": "The Review Trap",
+    "description": "The Review Trap - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/017_The Review Trap.html"
+  },
+  {
+    "number": "018",
+    "cn_title": "认知模型工厂",
+    "en_title": "The Epic Review Curse",
+    "description": "The Epic Review Curse - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/018_The Epic Review Curse.html"
+  },
+  {
+    "number": "019",
+    "cn_title": "认知模型工厂",
+    "en_title": "The Ineffective Reviewer",
+    "description": "The Ineffective Reviewer - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/019_The Ineffective Reviewer.html"
+  },
+  {
+    "number": "020",
+    "cn_title": "认知模型工厂",
+    "en_title": "The Diligence Trap",
+    "description": "The Diligence Trap - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/020_The Diligence Trap.html"
+  },
+  {
+    "number": "021",
+    "cn_title": "认知模型工厂",
+    "en_title": "The Fake Discipline",
+    "description": "The Fake Discipline - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/021_The Fake Discipline.html"
+  },
+  {
+    "number": "022",
+    "cn_title": "认知模型工厂",
+    "en_title": "King of Flops",
+    "description": "King of Flops - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/022_King of Flops.html"
+  },
+  {
+    "number": "023",
+    "cn_title": "认知模型工厂",
+    "en_title": "The Good Student Trap",
+    "description": "The Good Student Trap - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/023_The Good Student Trap.html"
+  },
+  {
+    "number": "024",
+    "cn_title": "认知模型工厂",
+    "en_title": "The Instant Gratification Addict",
+    "description": "The Instant Gratification Addict - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/024_The Instant Gratification Addict.html"
+  },
+  {
+    "number": "025",
+    "cn_title": "认知模型工厂",
+    "en_title": "The Experience Trap",
+    "description": "The Experience Trap - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/025_The Experience Trap.html"
+  },
+  {
+    "number": "026",
+    "cn_title": "认知模型工厂",
+    "en_title": "The Blabbermouth Trap",
+    "description": "The Blabbermouth Trap - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/026_The Blabbermouth Trap.html"
+  },
+  {
+    "number": "027",
+    "cn_title": "认知模型工厂",
+    "en_title": "The Meeting Chaos",
+    "description": "The Meeting Chaos - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/027_The Meeting Chaos.html"
+  },
+  {
+    "number": "028",
+    "cn_title": "认知模型工厂",
+    "en_title": "The Hollow Elite",
+    "description": "The Hollow Elite - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/028_The Hollow Elite.html"
+  },
+  {
+    "number": "029",
+    "cn_title": "认知模型工厂",
+    "en_title": "The Silent Carnival",
+    "description": "The Silent Carnival - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/029_The Silent Carnival.html"
+  },
+  {
+    "number": "030",
+    "cn_title": "认知模型工厂",
+    "en_title": "The Furthest from Answer",
+    "description": "The Furthest from Answer - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/030_The Furthest from Answer.html"
+  },
+  {
+    "number": "031",
+    "cn_title": "认知模型工厂",
+    "en_title": "Execution Collapse",
+    "description": "Execution Collapse - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/031_Execution Collapse.html"
+  },
+  {
+    "number": "032",
+    "cn_title": "认知模型工厂",
+    "en_title": "Career Suicide",
+    "description": "Career Suicide - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/032_Career Suicide.html"
+  },
+  {
+    "number": "033",
+    "cn_title": "认知模型工厂",
+    "en_title": "Good Work, Bad Talk",
+    "description": "Good Work, Bad Talk - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/033_Good Work, Bad Talk.html"
+  },
+  {
+    "number": "034",
+    "cn_title": "认知模型工厂",
+    "en_title": "The Nanny Manager",
+    "description": "The Nanny Manager - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/034_The Nanny Manager.html"
+  },
+  {
+    "number": "035",
+    "cn_title": "认知模型工厂",
+    "en_title": "Stop Useless Meetings",
+    "description": "Stop Useless Meetings - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/035_Stop Useless Meetings.html"
+  },
+  {
+    "number": "036",
+    "cn_title": "认知模型工厂",
+    "en_title": "Communication Fail",
+    "description": "Communication Fail - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/036_Communication Fail.html"
+  },
+  {
+    "number": "037",
+    "cn_title": "认知模型工厂",
+    "en_title": "The Invisible Man",
+    "description": "The Invisible Man - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/037_The Invisible Man.html"
+  },
+  {
+    "number": "038",
+    "cn_title": "认知模型工厂",
+    "en_title": "Stop Saying Good Job",
+    "description": "Stop Saying Good Job - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/038_Stop Saying Good Job.html"
+  },
+  {
+    "number": "039",
+    "cn_title": "认知模型工厂",
+    "en_title": "The Founder's Burnout",
+    "description": "The Founder's Burnout - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/039_The Founder's Burnout.html"
+  },
+  {
+    "number": "040",
+    "cn_title": "认知模型工厂",
+    "en_title": "The Heart Attack Achiever",
+    "description": "The Heart Attack Achiever - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/040_The Heart Attack Achiever.html"
+  },
+  {
+    "number": "041",
+    "cn_title": "认知模型工厂",
+    "en_title": "The Hollow Elite",
+    "description": "The Hollow Elite - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/041_The Hollow Elite.html"
+  },
+  {
+    "number": "042",
+    "cn_title": "认知模型工厂",
+    "en_title": "The Void of High Pay",
+    "description": "The Void of High Pay - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/042_The Void of High Pay.html"
+  },
+  {
+    "number": "043",
+    "cn_title": "认知模型工厂",
+    "en_title": "The Slasher Trap",
+    "description": "The Slasher Trap - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/043_The Slasher Trap.html"
+  },
+  {
+    "number": "044",
+    "cn_title": "认知模型工厂",
+    "en_title": "The Self-Friction",
+    "description": "The Self-Friction - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/044_The Self-Friction.html"
+  },
+  {
+    "number": "045",
+    "cn_title": "认知模型工厂",
+    "en_title": "The Efficiency Trap",
+    "description": "The Efficiency Trap - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/045_The Efficiency Trap.html"
+  },
+  {
+    "number": "046",
+    "cn_title": "认知模型工厂",
+    "en_title": "The Busy Poor",
+    "description": "The Busy Poor - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/046_The Busy Poor.html"
+  },
+  {
+    "number": "047",
+    "cn_title": "认知模型工厂",
+    "en_title": "The Manager's Burnout",
+    "description": "The Manager's Burnout - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/047_The Manager's Burnout.html"
+  },
+  {
+    "number": "048",
+    "cn_title": "认知模型工厂",
+    "en_title": "The Rockstar Trap",
+    "description": "The Rockstar Trap - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/048_The Rockstar Trap.html"
+  },
+  {
+    "number": "049",
+    "cn_title": "认知模型工厂",
+    "en_title": "The Nice Guy Trap",
+    "description": "The Nice Guy Trap - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/049_The Nice Guy Trap.html"
+  },
+  {
+    "number": "050",
+    "cn_title": "认知模型工厂",
+    "en_title": "The Ace Trap",
+    "description": "The Ace Trap - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/050_The Ace Trap.html"
+  },
+  {
+    "number": "051",
+    "cn_title": "认知模型工厂",
+    "en_title": "The Nanny Trap",
+    "description": "The Nanny Trap - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/051_The Nanny Trap.html"
+  },
+  {
+    "number": "052",
+    "cn_title": "认知模型工厂",
+    "en_title": "The Pseudo-Leader",
+    "description": "The Pseudo-Leader - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/052_The Pseudo-Leader.html"
+  },
+  {
+    "number": "053",
+    "cn_title": "认知模型工厂",
+    "en_title": "The All-Star Chaos",
+    "description": "The All-Star Chaos - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/053_The All-Star Chaos.html"
+  },
+  {
+    "number": "054",
+    "cn_title": "认知模型工厂",
+    "en_title": "The Paralyzed Manager",
+    "description": "The Paralyzed Manager - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/054_The Paralyzed Manager.html"
+  },
+  {
+    "number": "055",
+    "cn_title": "认知模型工厂",
+    "en_title": "The Adult Meltdown",
+    "description": "The Adult Meltdown - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/055_The Adult Meltdown.html"
+  },
+  {
+    "number": "056",
+    "cn_title": "认知模型工厂",
+    "en_title": "The Glass Heart",
+    "description": "The Glass Heart - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/056_The Glass Heart.html"
+  },
+  {
+    "number": "057",
+    "cn_title": "认知模型工厂",
+    "en_title": "The Ruined Day",
+    "description": "The Ruined Day - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/057_The Ruined Day.html"
+  },
+  {
+    "number": "058",
+    "cn_title": "认知模型工厂",
+    "en_title": "The Last Straw",
+    "description": "The Last Straw - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/058_The Last Straw.html"
+  },
+  {
+    "number": "059",
+    "cn_title": "认知模型工厂",
+    "en_title": "The Nice Guy Injury",
+    "description": "The Nice Guy Injury - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/059_The Nice Guy Injury.html"
+  },
+  {
+    "number": "060",
+    "cn_title": "认知模型工厂",
+    "en_title": "Destined Collapse",
+    "description": "Destined Collapse - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/060_Destined Collapse.html"
+  },
+  {
+    "number": "061",
+    "cn_title": "认知模型工厂",
+    "en_title": "The Missing Brake",
+    "description": "The Missing Brake - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/061_The Missing Brake.html"
+  },
+  {
+    "number": "062",
+    "cn_title": "认知模型工厂",
+    "en_title": "The Bystander Truth",
+    "description": "The Bystander Truth - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/062_The Bystander Truth.html"
+  },
+  {
+    "number": "063",
+    "cn_title": "认知模型工厂",
+    "en_title": "The Wait and See Trap",
+    "description": "The Wait and See Trap - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/063_The Wait and See Trap.html"
+  },
+  {
+    "number": "064",
+    "cn_title": "认知模型工厂",
+    "en_title": "Defeated by 'Now'",
+    "description": "Defeated by 'Now' - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/064_Defeated by 'Now'.html"
+  },
+  {
+    "number": "065",
+    "cn_title": "认知模型工厂",
+    "en_title": "Choice Paralysis",
+    "description": "Choice Paralysis - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/065_Choice Paralysis.html"
+  },
+  {
+    "number": "066",
+    "cn_title": "认知模型工厂",
+    "en_title": "Fear of Wrong Choice",
+    "description": "Fear of Wrong Choice - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/066_Fear of Wrong Choice.html"
+  },
+  {
+    "number": "067",
+    "cn_title": "认知模型工厂",
+    "en_title": "The Free Birdcage",
+    "description": "The Free Birdcage - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/067_The Free Birdcage.html"
+  },
+  {
+    "number": "068",
+    "cn_title": "认知模型工厂",
+    "en_title": "The Good Product Curse",
+    "description": "The Good Product Curse - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/068_The Good Product Curse.html"
+  },
+  {
+    "number": "069",
+    "cn_title": "认知模型工厂",
+    "en_title": "Slave to Traffic",
+    "description": "Slave to Traffic - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/069_Slave to Traffic.html"
+  },
+  {
+    "number": "070",
+    "cn_title": "认知模型工厂",
+    "en_title": "The Good Product Curse",
+    "description": "The Good Product Curse - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/070_The Good Product Curse.html"
+  },
+  {
+    "number": "071",
+    "cn_title": "认知模型工厂",
+    "en_title": "Right but Defeated",
+    "description": "Right but Defeated - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/071_Right but Defeated.html"
+  },
+  {
+    "number": "072",
+    "cn_title": "认知模型工厂",
+    "en_title": "Stop Licking Clients",
+    "description": "Stop Licking Clients - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/072_Stop Licking Clients.html"
+  },
+  {
+    "number": "073",
+    "cn_title": "认知模型工厂",
+    "en_title": "Stop Vanity Seeding",
+    "description": "Stop Vanity Seeding - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/073_Stop Vanity Seeding.html"
+  },
+  {
+    "number": "074",
+    "cn_title": "认知模型工厂",
+    "en_title": "The Lie of Perfection",
+    "description": "The Lie of Perfection - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/074_The Lie of Perfection.html"
+  },
+  {
+    "number": "075",
+    "cn_title": "认知模型工厂",
+    "en_title": "100 Visitors, 1 Sale",
+    "description": "100 Visitors, 1 Sale - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/075_100 Visitors, 1 Sale.html"
+  },
+  {
+    "number": "076",
+    "cn_title": "认知模型工厂",
+    "en_title": "High-Spec Poor Busy",
+    "description": "High-Spec Poor Busy - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/076_High-Spec Poor Busy.html"
+  },
+  {
+    "number": "077",
+    "cn_title": "认知模型工厂",
+    "en_title": "The Nice Guy's Rage",
+    "description": "The Nice Guy's Rage - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/077_The Nice Guy's Rage.html"
+  },
+  {
+    "number": "078",
+    "cn_title": "认知模型工厂",
+    "en_title": "The Confident Idiot",
+    "description": "The Confident Idiot - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/078_The Confident Idiot.html"
+  },
+  {
+    "number": "079",
+    "cn_title": "认知模型工厂",
+    "en_title": "The High-IQ Fool",
+    "description": "The High-IQ Fool - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/079_The High-IQ Fool.html"
+  },
+  {
+    "number": "080",
+    "cn_title": "认知模型工厂",
+    "en_title": "Habitual Failure",
+    "description": "Habitual Failure - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/080_Habitual Failure.html"
+  },
+  {
+    "number": "081",
+    "cn_title": "认知模型工厂",
+    "en_title": "Inefficient Diligence",
+    "description": "Inefficient Diligence - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/081_Inefficient Diligence.html"
+  },
+  {
+    "number": "082",
+    "cn_title": "认知模型工厂",
+    "en_title": "The Willpower Scam",
+    "description": "The Willpower Scam - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/082_The Willpower Scam.html"
+  },
+  {
+    "number": "083",
+    "cn_title": "认知模型工厂",
+    "en_title": "The Memory Illusion",
+    "description": "The Memory Illusion - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/083_The Memory Illusion.html"
+  },
+  {
+    "number": "084",
+    "cn_title": "认知模型工厂",
+    "en_title": "The Labor Trap",
+    "description": "The Labor Trap - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/084_The Labor Trap.html"
+  },
+  {
+    "number": "085",
+    "cn_title": "认知模型工厂",
+    "en_title": "Masters Don't Balance",
+    "description": "Masters Don't Balance - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/085_Masters Don't Balance.html"
+  },
+  {
+    "number": "086",
+    "cn_title": "认知模型工厂",
+    "en_title": "The Hard Sell Fail",
+    "description": "The Hard Sell Fail - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/086_The Hard Sell Fail.html"
+  },
+  {
+    "number": "087",
+    "cn_title": "认知模型工厂",
+    "en_title": "Stop Symptom Fixing",
+    "description": "Stop Symptom Fixing - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/087_Stop Symptom Fixing.html"
+  },
+  {
+    "number": "088",
+    "cn_title": "认知模型工厂",
+    "en_title": "Resource Gravity",
+    "description": "Resource Gravity - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/088_Resource Gravity.html"
+  },
+  {
+    "number": "089",
+    "cn_title": "认知模型工厂",
+    "en_title": "Essence of Mediocrity",
+    "description": "Essence of Mediocrity - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/089_Essence of Mediocrity.html"
+  },
+  {
+    "number": "090",
+    "cn_title": "认知模型工厂",
+    "en_title": "Emotional Numbness",
+    "description": "Emotional Numbness - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/090_Emotional Numbness.html"
+  },
+  {
+    "number": "091",
+    "cn_title": "认知模型工厂",
+    "en_title": "Self-High Value is Trash",
+    "description": "Self-High Value is Trash - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/091_Self-High Value is Trash.html"
+  },
+  {
+    "number": "092",
+    "cn_title": "认知模型工厂",
+    "en_title": "Facts are Worthless",
+    "description": "Facts are Worthless - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/092_Facts are Worthless.html"
+  },
+  {
+    "number": "093",
+    "cn_title": "认知模型工厂",
+    "en_title": "The Conversation Killer",
+    "description": "The Conversation Killer - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/093_The Conversation Killer.html"
+  },
+  {
+    "number": "094",
+    "cn_title": "认知模型工厂",
+    "en_title": "Right but Ignored",
+    "description": "Right but Ignored - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/094_Right but Ignored.html"
+  },
+  {
+    "number": "095",
+    "cn_title": "认知模型工厂",
+    "en_title": "The Muted Talent",
+    "description": "The Muted Talent - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/095_The Muted Talent.html"
+  },
+  {
+    "number": "096",
+    "cn_title": "认知模型工厂",
+    "en_title": "Nice Guy's Crash",
+    "description": "Nice Guy's Crash - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/096_Nice Guy's Crash.html"
+  },
+  {
+    "number": "097",
+    "cn_title": "认知模型工厂",
+    "en_title": "Team Friction",
+    "description": "Team Friction - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/097_Team Friction.html"
+  },
+  {
+    "number": "098",
+    "cn_title": "认知模型工厂",
+    "en_title": "The Nice Guy Crash",
+    "description": "The Nice Guy Crash - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/098_The Nice Guy Crash.html"
+  },
+  {
+    "number": "099",
+    "cn_title": "认知模型工厂",
+    "en_title": "The Superiority Trap",
+    "description": "The Superiority Trap - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/099_The Superiority Trap.html"
+  },
+  {
+    "number": "100",
+    "cn_title": "认知模型工厂",
+    "en_title": "Stop Blaming",
+    "description": "Stop Blaming - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/100_Stop Blaming.html"
+  },
+  {
+    "number": "101",
+    "cn_title": "认知模型工厂",
+    "en_title": "Bad Good Intentions",
+    "description": "Bad Good Intentions - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/101_Bad Good Intentions.html"
+  },
+  {
+    "number": "102",
+    "cn_title": "认知模型工厂",
+    "en_title": "Hitting the Wall",
+    "description": "Hitting the Wall - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/102_Hitting the Wall.html"
+  },
+  {
+    "number": "103",
+    "cn_title": "认知模型工厂",
+    "en_title": "High-Paid Poor",
+    "description": "High-Paid Poor - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/103_High-Paid Poor.html"
+  },
+  {
+    "number": "104",
+    "cn_title": "认知模型工厂",
+    "en_title": "Millionaire Custodian",
+    "description": "Millionaire Custodian - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/104_Millionaire Custodian.html"
+  },
+  {
+    "number": "105",
+    "cn_title": "认知模型工厂",
+    "en_title": "Poorer by Grabbing",
+    "description": "Poorer by Grabbing - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/105_Poorer by Grabbing.html"
+  },
+  {
+    "number": "106",
+    "cn_title": "认知模型工厂",
+    "en_title": "High-Paid but Broke",
+    "description": "High-Paid but Broke - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/106_High-Paid but Broke.html"
+  },
+  {
+    "number": "107",
+    "cn_title": "认知模型工厂",
+    "en_title": "Saving Won't Save You",
+    "description": "Saving Won't Save You - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/107_Saving Won't Save You.html"
+  },
+  {
+    "number": "108",
+    "cn_title": "认知模型工厂",
+    "en_title": "The Poor Busy Ceiling",
+    "description": "The Poor Busy Ceiling - 认知模型工厂",
+    "url": "projects/108 Cognitive Weapons/108_The Poor Busy Ceiling.html"
+  }
+]
