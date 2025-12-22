@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>认知模型工厂 - Cognitive Model Generator</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Noto+Serif+SC:wght@400;700&family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            black: '#0a0a0a',
+                            white: '#f4f4f0',
+                            accent: '#FF4D00',
+                            blue: '#0047AB',
+                            green: '#059669',
+                            gray: '#8a8a8a'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Noto Sans SC"', 'Inter', 'sans-serif'],
+                        serif: ['"Noto Serif SC"', 'serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { background-color: #f4f4f0; color: #0a0a0a; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+        .bg-grid { background-image: linear-gradient(#e5e5e5 1px, transparent 1px), linear-gradient(90deg, #e5e5e5 1px, transparent 1px); background-size: 40px 40px; }
+        .display-text { letter-spacing: -0.02em; line-height: 1.1; }
+        .bento-card { background: white; border: 1px solid #0a0a0a; transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); position: relative; overflow: hidden; }
+        .bento-card:hover { transform: translateY(-4px); box-shadow: 8px 8px 0px #0a0a0a; }
+        .bento-card::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: #0a0a0a; transform: scaleX(0); transform-origin: left; transition: transform 0.4s ease; }
+        .bento-card:hover::after { transform: scaleX(1); }
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        .marker-highlight { background: linear-gradient(120deg, rgba(255, 77, 0, 0.15) 0%, rgba(255, 77, 0, 0.15) 100%); background-repeat: no-repeat; background-size: 100% 40%; background-position: 0 88%; transition: background-size 0.25s ease-in; }
+        .bento-card:hover .marker-highlight { background-size: 100% 88%; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f4f4f0; }
+        ::-webkit-scrollbar-thumb { background: #0a0a0a; }
+        .lang-toggle { position: fixed; top: 2rem; right: 2rem; z-index: 1000; display: flex; gap: 0.5rem; background: white; border: 2px solid #0a0a0a; border-radius: 0.5rem; padding: 0.25rem; box-shadow: 4px 4px 0px #0a0a0a; }
+        .lang-btn { padding: 0.5rem 1rem; font-family: 'JetBrains Mono', monospace; font-size: 0.875rem; font-weight: 600; border: none; background: transparent; cursor: pointer; transition: all 0.3s ease; border-radius: 0.25rem; }
+        .lang-btn.active { background: #0a0a0a; color: white; }
+        .lang-btn:hover:not(.active) { background: #f4f4f0; }
+        body[data-lang="zh"] .lang-en { display: none; }
+        body[data-lang="en"] .lang-zh { display: none; }
+    </style>
+</head>
+<body class="bg-grid min-h-screen p-4 md:p-8 lg:p-12" data-lang="zh">
+
+    <div class="lang-toggle">
+        <button class="lang-btn active" data-lang="zh" onclick="switchLang('zh')">中文</button>
+        <button class="lang-btn" data-lang="en" onclick="switchLang('en')">EN</button>
+    </div>
+
+    <div id="langZh"></div>
+    <div id="langEn"></div>
+
+    <script>
+        const pageConfig = {
+    meta: { seriesTitleZh: "108种认知武器", seriesTitleEn: "108 Cognitive Weapons", modelNo: "No.081", readTime: "12 MIN", source: "YUE JIAN", date: "2025-10-29" },
+    zh: {
+        header: { title: "低效勤奋者", quote: "压垮你的不是日程表，<br>是底层的<span class='marker-highlight'>能量泄漏</span>。" },
+        cards: {
+            diagnosis: { tag: "症状诊断", title: "张兰的“电量耗尽”", text1: "34岁的张兰，时间管理大师。日程表精确到15分钟，熟练使用GTD。但她脸色蜡黄，易怒，晋升失败。", text2: "她以为只要把时间填满就是高效。她像一台电量仅剩5%的手机，却开着所有后台程序。她不缺时间，她缺的是电。", icon: "ri-battery-2-charge-line", coreIssueTitle: "核心病灶", coreIssueText: "线性管理误区：试图管理“物理时间”（钟表），而非“生理能量”（精力）。在地基（体能/情绪）崩塌的情况下强行运转。" },
+            mindset: { tag: "认知操作系统 OS", trapTitle: "机器 (Trap)", trapIcon: "ri-robot-line", trapDesc: "管理时间<br>填满 = 枯竭", growthTitle: "运动员 (Growth)", growthIcon: "ri-run-line", growthDesc: "管理能量<br>波 动 = 巅峰", quote: "“时间是有限的资源，而精力是可再生的资源。”" },
+            chart: { tag: "产出效能", title: "直线 vs 波浪", desc: "直线工作导致效能递减，波浪式（消耗/恢复）维持巅峰。", data: { labels: ['直线死磕', '波浪循环'], values: [40, 100], colors: ['#e5e5e5', '#059669'] } },
+            framework: { tag: "精力金字塔 (Loehr)", steps: [ { label: "1", title: "体能 (Physical)", desc: "金字塔底座。睡眠、饮食、运动。没这个，一切免谈。" }, { label: "2", title: "情绪 (Emotional)", desc: "积极情绪是燃料。消极情绪是刹车。" }, { label: "3", title: "思维 (Mental)", desc: "专注力。单核工作，拒绝多任务。" }, { label: "4", title: "精神 (Spiritual)", desc: "塔尖。使命感。为了什么而战？" } ] },
+            action: { tag: "行动指南", title: "从“耗干”到“充盈”", icon: "ri-battery-charge-line", steps: [ { title: "01. 强制关机", desc: "张兰规定：晚上11点必须睡觉（修补体能）。中午冥想20分钟。" }, { title: "02. 情绪止损", desc: "远离喜欢抱怨的同事（保护情绪）。周末陪孩子去公园，不带手机（情感充电）。" }, { title: "03. 意义对齐", desc: "申请调去更有挑战的新业务线，找回了工作的初心（精神充能）。" } ] },
+            checklist: { tag: "实战清单", badge: "TOOLKIT", title: "能量审计表", items: [ { tag: "Body", title: "体能", desc: "睡够7小时了吗？" }, { tag: "Emo", title: "情绪", desc: "今天笑了还是骂了？" }, { tag: "Mind", title: "专注", desc: "有90分钟深度工作吗？" }, { tag: "Soul", title: "意义", desc: "这件事让我兴奋吗？" } ] },
+            footer: { quote: "“管理精力，而不是管理时间。全情投入，然后彻底抽离。”" }
+        }
+    },
+    en: {
+        header: { title: "Inefficient Diligence", quote: "Not the schedule,<br>but <span class='marker-highlight'>Energy Leakage</span> kills you." },
+        cards: {
+            diagnosis: { tag: "THE DIAGNOSIS", title: "Zhang's Low Battery", text1: "Zhang, 34, Time Mgmt Guru. Schedule packed. But she looks sick, angry, and missed promotion.", text2: "She treated herself like a machine with 5% battery running heavy apps. She lacked Energy, not Time.", icon: "ri-battery-2-charge-line", coreIssueTitle: "Core Issue", coreIssueText: "Linear Management Error: Managing 'Clock Time' instead of 'Physiological Energy'. Building a skyscraper on a collapsing foundation." },
+            mindset: { tag: "MINDSET OS", trapTitle: "Robot (Trap)", trapIcon: "ri-robot-line", trapDesc: "Manage Time<br>Full = Burnout", growthTitle: "Athlete (Growth)", growthIcon: "ri-run-line", growthDesc: "Manage Energy<br>Pulse = Peak", quote: "\"Time is a finite resource; Energy is renewable.\"" },
+            chart: { tag: "OUTPUT", title: "Linear vs Wave", desc: "Linear grind decays. Wave oscillation maintains peak.", data: { labels: ['Linear Grind', 'Wave Cycle'], values: [40, 100], colors: ['#e5e5e5', '#059669'] } },
+            framework: { tag: "Energy Pyramid", steps: [ { label: "1", title: "Physical", desc: "The Base. Sleep, Food, Move. No body, no glory." }, { label: "2", title: "Emotional", desc: "Fuel. Positive = Gas. Negative = Brake." }, { label: "3", title: "Mental", desc: "Focus. Single-tasking." }, { label: "4", title: "Spiritual", desc: "The Top. Purpose. Why do this?" } ] },
+            action: { tag: "ACTION GUIDE", title: "From 'Drained' to 'Full'", icon: "ri-battery-charge-line", steps: [ { title: "01. Shutdown", desc: "Zhang sleeps at 11 PM sharp. 20 min nap daily. (Physical)" }, { title: "02. Detox", desc: "Avoids toxic colleagues. Weekend park time with kid. (Emotional)" }, { title: "03. Align", desc: "Switched to a challenging new role. Found spark. (Spiritual)" } ] },
+            checklist: { tag: "CHECKLIST", badge: "TOOLKIT", title: "Energy Audit", items: [ { tag: "Body", title: "Sleep", desc: "7 hours quality sleep?" }, { tag: "Emo", title: "Mood", desc: "More joy or anger?" }, { tag: "Mind", title: "Focus", desc: "90 min deep work?" }, { tag: "Soul", title: "Why", desc: "Does it matter?" } ] },
+            footer: { quote: "\"Manage energy, not time. Fully engage, then fully disengage.\"" }
+        }
+    }
+};
+
+
+        const nl2br = (text = '') => text ? text.replace(/\n/g, '<br>') : '';
+
+        const renderLang = (lang, meta, data) => `
+            <div class="lang-${lang}">
+                <div class="max-w-7xl mx-auto pt-8 pb-4 reveal">
+                    <div class="flex items-center gap-4">
+                        <div class="flex-1 h-px bg-brand-black opacity-20"></div>
+                        <h2 class="font-mono text-sm md:text-base tracking-widest uppercase text-brand-black font-bold">
+                            <span class="text-brand-accent">●</span> ${lang==='zh'?meta.seriesTitleZh:meta.seriesTitleEn} <span class="text-brand-accent">●</span>
+                        </h2>
+                        <div class="flex-1 h-px bg-brand-black opacity-20"></div>
+                    </div>
+                </div>
+
+                <header class="max-w-7xl mx-auto mb-12 reveal">
+                    <div class="flex flex-col md:flex-row justify-between items-end border-b-2 border-brand-black pb-6">
+                        <div>
+                            <span class="font-mono text-brand-accent text-sm tracking-widest uppercase mb-2 block">${lang==='zh'?'思维模型':'Mental Model'} ${meta.modelNo}</span>
+                            <h1 class="text-5xl md:text-7xl font-black display-text text-brand-black">
+                                ${data.header.title}
+                            </h1>
+                            ${data.header.subtitle ? `<p class="text-2xl md:text-4xl font-light text-gray-500 mt-2">${data.header.subtitle}</p>` : ''}
+                        </div>
+                        <div class="mt-6 md:mt-0 text-right">
+                            <p class="font-serif italic text-xl md:text-2xl max-w-lg leading-tight text-gray-800">
+                                ${data.header.quote}
+                            </p>
+                            <div class="mt-4 font-mono text-xs text-brand-gray">
+                                ${lang==='zh'?'阅读时长':'READ TIME'}: ${meta.readTime} • ${lang==='zh'?'来源':'SOURCE'}: ${meta.source} • ${meta.date}
+                            </div>
+                        </div>
+                    </div>
+                </header>
+
+                <main class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-6 auto-rows-auto">
+                    <div class="bento-card col-span-1 md:col-span-8 p-8 flex flex-col justify-between reveal">
+                        <div>
+                            <h3 class="font-mono text-brand-accent mb-4 font-bold tracking-widest">${data.cards.diagnosis.tag}</h3>
+                            <h2 class="text-3xl font-bold mb-4">${data.cards.diagnosis.title}</h2>
+                            ${data.cards.diagnosis.text1 ? `<p class="text-lg text-gray-700 leading-relaxed font-serif mb-4">${nl2br(data.cards.diagnosis.text1)}</p>` : ''}
+                            ${data.cards.diagnosis.text2 ? `<p class="text-lg text-gray-700 leading-relaxed font-serif">${nl2br(data.cards.diagnosis.text2)}</p>` : ''}
+                        </div>
+                        <div class="mt-8 pt-6 border-t border-gray-200">
+                            <div class="flex items-center gap-4">
+                                <div class="h-12 w-12 rounded-full bg-brand-black text-white flex items-center justify-center shrink-0">
+                                    <i class="${data.cards.diagnosis.icon || 'ri-focus-3-line'} text-2xl"></i>
+                                </div>
+                                <div>
+                                    <p class="font-bold text-sm uppercase">${data.cards.diagnosis.coreIssueTitle}</p>
+                                    <p class="text-sm text-gray-600">${nl2br(data.cards.diagnosis.coreIssueText)}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bento-card col-span-1 md:col-span-4 p-6 bg-brand-black text-white reveal">
+                        <h3 class="font-mono text-brand-gray mb-6 font-bold tracking-widest">${data.cards.mindset.tag}</h3>
+                        <div class="space-y-8">
+                            <div>
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="font-bold text-xl text-brand-accent">${data.cards.mindset.trapTitle}</span>
+                                    <i class="${data.cards.mindset.trapIcon}"></i>
+                                </div>
+                                <div class="h-1 w-full bg-gray-800 rounded mb-2">
+                                    <div class="h-1 w-1/4 bg-brand-accent rounded"></div>
+                                </div>
+                                <p class="text-sm text-gray-400 font-mono">${nl2br(data.cards.mindset.trapDesc)}</p>
+                            </div>
+                            <div>
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="font-bold text-xl text-brand-green">${data.cards.mindset.growthTitle}</span>
+                                    <i class="${data.cards.mindset.growthIcon}"></i>
+                                </div>
+                                <div class="h-1 w-full bg-gray-800 rounded mb-2">
+                                    <div class="h-1 w-full bg-brand-green rounded"></div>
+                                </div>
+                                <p class="text-sm text-white font-mono">${nl2br(data.cards.mindset.growthDesc)}</p>
+                            </div>
+                        </div>
+                        <div class="mt-12 p-4 border border-gray-700 rounded bg-gray-900">
+                            <p class="text-xs font-mono leading-relaxed text-gray-300">${data.cards.mindset.quote || data.cards.mindset.note || ''}</p>
+                        </div>
+                    </div>
+
+                    <div class="bento-card col-span-1 md:col-span-5 p-6 reveal">
+                        <h3 class="font-mono text-brand-black mb-2 font-bold tracking-widest">${data.cards.chart.tag}</h3>
+                        <h4 class="text-xl font-bold mb-4">${data.cards.chart.title}</h4>
+                        <div class="relative h-64 w-full">
+                            <canvas id="chart${lang.toUpperCase()}"></canvas>
+                        </div>
+                        <div class="mt-4 text-sm text-gray-600 font-serif leading-relaxed text-center">${data.cards.chart.desc}</div>
+                    </div>
+
+                    <div class="bento-card col-span-1 md:col-span-7 p-8 bg-brand-white reveal">
+                        <h3 class="font-mono text-brand-black mb-6 font-bold tracking-widest">${data.cards.framework.tag}</h3>
+                        <div class="grid grid-cols-1 gap-4">
+                            ${data.cards.framework.steps.map((step, idx) => `
+                                <div class="flex items-start p-4 border border-gray-200 rounded hover:border-brand-black transition-colors group">
+                                    <div class="bg-brand-black text-white font-mono text-lg px-3 py-1 rounded mr-4">${step.label || String(idx + 1).padStart(2,'0')}</div>
+                                    <div>
+                                        <h4 class="font-bold text-lg">${step.title}</h4>
+                                        <p class="text-sm text-gray-600 mt-1 font-serif">${step.desc}</p>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+
+                    <div class="bento-card col-span-1 md:col-span-12 p-8 bg-brand-blue text-white reveal">
+                        <div class="flex flex-col md:flex-row justify-between items-center mb-6">
+                            <div>
+                                <h3 class="font-mono opacity-70 mb-2 font-bold tracking-widest">${data.cards.action.tag}</h3>
+                                <h2 class="text-2xl font-bold">${data.cards.action.title}</h2>
+                            </div>
+                            <i class="${data.cards.action.icon} text-4xl text-brand-accent mt-4 md:mt-0"></i>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-white/90">
+                            ${data.cards.action.steps.map(step => `
+                                <div class="border-t border-white/20 pt-4">
+                                    <h4 class="font-bold text-lg mb-2">${step.title}</h4>
+                                    <p class="text-sm opacity-80 font-serif">${step.desc}</p>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+
+                    <div class="bento-card col-span-1 md:col-span-12 p-8 reveal">
+                        <div class="flex justify-between items-center mb-6">
+                            <h3 class="font-mono text-brand-accent font-bold tracking-widest">${data.cards.checklist.tag}</h3>
+                            <span class="bg-brand-black text-white text-xs px-2 py-1 font-mono rounded">${data.cards.checklist.badge}</span>
+                        </div>
+                        <h2 class="text-2xl font-bold mb-4">${data.cards.checklist.title}</h2>
+                        ${data.cards.checklist.desc ? `<p class="text-sm text-gray-600 mb-6 font-serif">${data.cards.checklist.desc}</p>` : ''}
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                            ${data.cards.checklist.items.map(item => `
+                                <div class="p-4 bg-gray-50 rounded border border-gray-200">
+                                    <span class="font-mono font-bold text-brand-blue block mb-2">${item.tag}</span>
+                                    <div class="text-sm font-bold text-brand-black mb-1">${item.title}</div>
+                                    <div class="text-xs text-gray-500">${item.desc}</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </main>
+
+                <footer class="max-w-7xl mx-auto mt-12 mb-24 text-center reveal">
+                    <hr class="border-brand-black mb-8 opacity-20">
+                    <h2 class="text-2xl md:text-3xl font-serif italic text-gray-400 leading-snug">
+                        ${data.cards.footer.quote}
+                    </h2>
+                </footer>
+            </div>`;
+
+        const chartInstances = {};
+
+        function initChart(langKey, chartData) {
+            const id = `chart${langKey.toUpperCase()}`;
+            const canvas = document.getElementById(id);
+            if (!canvas) return;
+            if (chartInstances[id]) {
+                chartInstances[id].destroy();
+            }
+            chartInstances[id] = new Chart(canvas.getContext('2d'), {
+                type: 'bar',
+                data: {
+                    labels: chartData.labels,
+                    datasets: [{
+                        data: chartData.values,
+                        backgroundColor: chartData.colors || '#FF4D00',
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { backgroundColor: '#0a0a0a' }
+                    },
+                    scales: {
+                        x: { grid: { display: false } },
+                        y: { grid: { display: false }, ticks: { font: { weight: 'bold' } } }
+                    }
+                }
+            });
+        }
+
+        function initObserver() {
+            const observer = new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        obs.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        }
+
+        function switchLang(lang) {
+            document.body.setAttribute('data-lang', lang);
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+            });
+            initChart('zh', pageConfig.zh.cards.chart.data);
+            initChart('en', pageConfig.en.cards.chart.data);
+            document.querySelectorAll('.reveal').forEach(el => el.classList.remove('active'));
+            initObserver();
+        }
+
+        function renderApp() {
+            if (!pageConfig.meta) return;
+            document.getElementById('langZh').innerHTML = renderLang('zh', pageConfig.meta, pageConfig.zh);
+            document.getElementById('langEn').innerHTML = renderLang('en', pageConfig.meta, pageConfig.en);
+            initChart('zh', pageConfig.zh.cards.chart.data);
+            initChart('en', pageConfig.en.cards.chart.data);
+            initObserver();
+        }
+
+        document.addEventListener('DOMContentLoaded', renderApp);
+    </script>
+</body>
+</html>

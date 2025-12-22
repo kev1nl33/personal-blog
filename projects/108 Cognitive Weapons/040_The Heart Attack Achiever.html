@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>认知模型工厂 - Cognitive Model Generator</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Noto+Serif+SC:wght@400;700&family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            black: '#0a0a0a',
+                            white: '#f4f4f0',
+                            accent: '#FF4D00',
+                            blue: '#0047AB',
+                            green: '#059669',
+                            gray: '#8a8a8a'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Noto Sans SC"', 'Inter', 'sans-serif'],
+                        serif: ['"Noto Serif SC"', 'serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { background-color: #f4f4f0; color: #0a0a0a; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+        .bg-grid { background-image: linear-gradient(#e5e5e5 1px, transparent 1px), linear-gradient(90deg, #e5e5e5 1px, transparent 1px); background-size: 40px 40px; }
+        .display-text { letter-spacing: -0.02em; line-height: 1.1; }
+        .bento-card { background: white; border: 1px solid #0a0a0a; transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); position: relative; overflow: hidden; }
+        .bento-card:hover { transform: translateY(-4px); box-shadow: 8px 8px 0px #0a0a0a; }
+        .bento-card::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: #0a0a0a; transform: scaleX(0); transform-origin: left; transition: transform 0.4s ease; }
+        .bento-card:hover::after { transform: scaleX(1); }
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        .marker-highlight { background: linear-gradient(120deg, rgba(255, 77, 0, 0.15) 0%, rgba(255, 77, 0, 0.15) 100%); background-repeat: no-repeat; background-size: 100% 40%; background-position: 0 88%; transition: background-size 0.25s ease-in; }
+        .bento-card:hover .marker-highlight { background-size: 100% 88%; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f4f4f0; }
+        ::-webkit-scrollbar-thumb { background: #0a0a0a; }
+        .lang-toggle { position: fixed; top: 2rem; right: 2rem; z-index: 1000; display: flex; gap: 0.5rem; background: white; border: 2px solid #0a0a0a; border-radius: 0.5rem; padding: 0.25rem; box-shadow: 4px 4px 0px #0a0a0a; }
+        .lang-btn { padding: 0.5rem 1rem; font-family: 'JetBrains Mono', monospace; font-size: 0.875rem; font-weight: 600; border: none; background: transparent; cursor: pointer; transition: all 0.3s ease; border-radius: 0.25rem; }
+        .lang-btn.active { background: #0a0a0a; color: white; }
+        .lang-btn:hover:not(.active) { background: #f4f4f0; }
+        body[data-lang="zh"] .lang-en { display: none; }
+        body[data-lang="en"] .lang-zh { display: none; }
+    </style>
+</head>
+<body class="bg-grid min-h-screen p-4 md:p-8 lg:p-12" data-lang="zh">
+
+    <div class="lang-toggle">
+        <button class="lang-btn active" data-lang="zh" onclick="switchLang('zh')">中文</button>
+        <button class="lang-btn" data-lang="en" onclick="switchLang('en')">EN</button>
+    </div>
+
+    <div id="langZh"></div>
+    <div id="langEn"></div>
+
+    <script>
+        const pageConfig = {
+    meta: { seriesTitleZh: "108种认知武器", seriesTitleEn: "108 Cognitive Weapons", modelNo: "No.040", readTime: "12 MIN", source: "YUE JIAN", date: "2025-10-31" },
+    zh: {
+        header: { title: "那个35岁心梗的卷王", quote: "你不是败给KPI，<br>你是败给了<span class='marker-highlight'>“单点爆破”</span>。" },
+        cards: {
+            diagnosis: { tag: "症状诊断", title: "傅铮屿的“ICU时刻”", text1: "35岁的技术VP傅铮屿，年薪百万，深圳湾买房。他是“单点爆破”的信徒，牺牲一切换取事业成功。", text2: "直到凌晨三点心梗倒地。在ICU里，他意识到自己像一辆只有发动机（事业）却没轮子（健康/家庭）的跑车，跑得越快，散架越快。", icon: "ri-heart-pulse-fill", coreIssueTitle: "核心病灶", coreIssueText: "跛脚巨人综合症：误以为人生是“单行道”，过度透支其他维度来填充“事业”这一个维度。系统失衡导致崩盘。" },
+            mindset: { tag: "认知操作系统 OS", trapTitle: "短跑者 (Trap)", trapIcon: "ri-run-line", trapDesc: "单维极致<br>失衡 = 脆弱", growthTitle: "赛车手 (Growth)", growthIcon: "ri-steering-2-line", growthDesc: "多维平衡<br>圆润 = 远行", quote: "“人生不是百米冲刺，而是一场比起谁轮子更圆的拉力赛。”" },
+            chart: { tag: "生命质量", title: "单点 vs 平衡", desc: "平衡轮的面积（总幸福感）远大于单点突出的畸形轮。", data: { labels: ['事业极值', '健康崩盘', '家庭破碎', '平衡发展'], values: [100, 10, 20, 80], colors: ['#e5e5e5', '#8a8a8a', '#8a8a8a', '#FF4D00'] } },
+            framework: { tag: "人生平衡轮", steps: [ { label: "1", title: "八大维度", desc: "事业、财务、健康、家庭、社交、学习、休闲、心灵。" }, { label: "2", title: "现状打分", desc: "诚实地给每个维度打分（1-10）。连线看形状。" }, { label: "3", title: "动态配平", desc: "找出“短板”（MVB），制定补救计划。轮子圆才能滚得动。" } ] },
+            action: { tag: "行动指南", title: "从“甚至”到“圆润”", icon: "ri-pie-chart-line", steps: [ { title: "01. 强制关机", desc: "傅铮屿出院后，每周三、五准时6点下班去康复训练。" }, { title: "02. 跨区联动", desc: "把带女儿去游乐园当成“项目”来做，投入专注力。" }, { title: "03. 效率反升", desc: "因为精力充沛，工作效率反而更高。他不再是苦行僧，而是生活家。" } ] },
+            checklist: { tag: "实战清单", badge: "TOOLKIT", title: "多维驾驶舱", items: [ { tag: "Check", title: "画轮子", desc: "现在我的轮子是圆的还是瘪的？" }, { tag: "Low", title: "找短板", desc: "哪一项低于4分？这是高危区。" }, { tag: "Plan", title: "定动作", desc: "本周为短板做哪一件小事？" }, { tag: "Cut", title: "砍长板", desc: "能否从过度投入的领域抽身10%？" } ] },
+            footer: { quote: "“别为了赶路，扔掉了轮子。”" }
+        }
+    },
+    en: {
+        header: { title: "The Heart Attack Achiever", quote: "You didn't fail KPI,<br>you failed at <span class='marker-highlight'>Balance</span>." },
+        cards: {
+            diagnosis: { tag: "THE DIAGNOSIS", title: "Fu's ICU Moment", text1: "Fu, 35, Tech VP. Millionaire. Believed in 'All-in Career'. Sacrificed health and family.", text2: "Collapsed at 3 AM. In ICU, he realized he was a supercar with only an engine but no wheels. Fast but fragile.", icon: "ri-heart-pulse-fill", coreIssueTitle: "Core Issue", coreIssueText: "Lame Giant Syndrome: Thinking life is a single track. Over-investing in Career while bankrupting Health/Family. System collapse." },
+            mindset: { tag: "MINDSET OS", trapTitle: "Sprinter (Trap)", trapIcon: "ri-run-line", trapDesc: "One Dimension<br>Imbalance = Fragile", growthTitle: "Racer (Growth)", growthIcon: "ri-steering-2-line", growthDesc: "Multi Dimension<br>Balance = Endurance", quote: "\"Life is not a 100m sprint, but a rally race where round wheels win.\"" },
+            chart: { tag: "LIFE QUALITY", title: "Spike vs Circle", desc: "A balanced wheel covers more area (Happiness) than a jagged one.", data: { labels: ['Career Peak', 'Health Crash', 'Family Loss', 'Balanced'], values: [100, 10, 20, 80], colors: ['#e5e5e5', '#8a8a8a', '#8a8a8a', '#FF4D00'] } },
+            framework: { tag: "Wheel of Life", steps: [ { label: "1", title: "8 Dimensions", desc: "Career, Money, Health, Family, Social, Growth, Fun, Soul." }, { label: "2", title: "Score", desc: "Rate 1-10. Connect the dots. Is it round?" }, { label: "3", title: "Balance", desc: "Identify the 'Flat Tire'. Fix the weakest link." } ] },
+            action: { tag: "ACTION GUIDE", title: "From 'Jagged' to 'Round'", icon: "ri-pie-chart-line", steps: [ { title: "01. Force Stop", desc: "Fu leaves at 6 PM twice a week for rehab." }, { title: "02. Cross Link", desc: "Treats family time with 'Project Focus'." }, { title: "03. Efficiency", desc: "Work improved due to higher energy. He is now living, not just working." } ] },
+            checklist: { tag: "CHECKLIST", badge: "TOOLKIT", title: "Life Cockpit", items: [ { tag: "Check", title: "Draw", desc: "Is my wheel round or flat?" }, { tag: "Low", title: "Spot", desc: "Which area is < 4? That's the risk." }, { tag: "Plan", title: "Act", desc: "One small thing for the weak area." }, { tag: "Cut", title: "Trim", desc: "Reduce 10% from the over-invested area?" } ] },
+            footer: { quote: "\"Don't throw away your wheels just to run faster.\"" }
+        }
+    }
+};
+
+
+        const nl2br = (text = '') => text ? text.replace(/\n/g, '<br>') : '';
+
+        const renderLang = (lang, meta, data) => `
+            <div class="lang-${lang}">
+                <div class="max-w-7xl mx-auto pt-8 pb-4 reveal">
+                    <div class="flex items-center gap-4">
+                        <div class="flex-1 h-px bg-brand-black opacity-20"></div>
+                        <h2 class="font-mono text-sm md:text-base tracking-widest uppercase text-brand-black font-bold">
+                            <span class="text-brand-accent">●</span> ${lang==='zh'?meta.seriesTitleZh:meta.seriesTitleEn} <span class="text-brand-accent">●</span>
+                        </h2>
+                        <div class="flex-1 h-px bg-brand-black opacity-20"></div>
+                    </div>
+                </div>
+
+                <header class="max-w-7xl mx-auto mb-12 reveal">
+                    <div class="flex flex-col md:flex-row justify-between items-end border-b-2 border-brand-black pb-6">
+                        <div>
+                            <span class="font-mono text-brand-accent text-sm tracking-widest uppercase mb-2 block">${lang==='zh'?'思维模型':'Mental Model'} ${meta.modelNo}</span>
+                            <h1 class="text-5xl md:text-7xl font-black display-text text-brand-black">
+                                ${data.header.title}
+                            </h1>
+                            ${data.header.subtitle ? `<p class="text-2xl md:text-4xl font-light text-gray-500 mt-2">${data.header.subtitle}</p>` : ''}
+                        </div>
+                        <div class="mt-6 md:mt-0 text-right">
+                            <p class="font-serif italic text-xl md:text-2xl max-w-lg leading-tight text-gray-800">
+                                ${data.header.quote}
+                            </p>
+                            <div class="mt-4 font-mono text-xs text-brand-gray">
+                                ${lang==='zh'?'阅读时长':'READ TIME'}: ${meta.readTime} • ${lang==='zh'?'来源':'SOURCE'}: ${meta.source} • ${meta.date}
+                            </div>
+                        </div>
+                    </div>
+                </header>
+
+                <main class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-6 auto-rows-auto">
+                    <div class="bento-card col-span-1 md:col-span-8 p-8 flex flex-col justify-between reveal">
+                        <div>
+                            <h3 class="font-mono text-brand-accent mb-4 font-bold tracking-widest">${data.cards.diagnosis.tag}</h3>
+                            <h2 class="text-3xl font-bold mb-4">${data.cards.diagnosis.title}</h2>
+                            ${data.cards.diagnosis.text1 ? `<p class="text-lg text-gray-700 leading-relaxed font-serif mb-4">${nl2br(data.cards.diagnosis.text1)}</p>` : ''}
+                            ${data.cards.diagnosis.text2 ? `<p class="text-lg text-gray-700 leading-relaxed font-serif">${nl2br(data.cards.diagnosis.text2)}</p>` : ''}
+                        </div>
+                        <div class="mt-8 pt-6 border-t border-gray-200">
+                            <div class="flex items-center gap-4">
+                                <div class="h-12 w-12 rounded-full bg-brand-black text-white flex items-center justify-center shrink-0">
+                                    <i class="${data.cards.diagnosis.icon || 'ri-focus-3-line'} text-2xl"></i>
+                                </div>
+                                <div>
+                                    <p class="font-bold text-sm uppercase">${data.cards.diagnosis.coreIssueTitle}</p>
+                                    <p class="text-sm text-gray-600">${nl2br(data.cards.diagnosis.coreIssueText)}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bento-card col-span-1 md:col-span-4 p-6 bg-brand-black text-white reveal">
+                        <h3 class="font-mono text-brand-gray mb-6 font-bold tracking-widest">${data.cards.mindset.tag}</h3>
+                        <div class="space-y-8">
+                            <div>
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="font-bold text-xl text-brand-accent">${data.cards.mindset.trapTitle}</span>
+                                    <i class="${data.cards.mindset.trapIcon}"></i>
+                                </div>
+                                <div class="h-1 w-full bg-gray-800 rounded mb-2">
+                                    <div class="h-1 w-1/4 bg-brand-accent rounded"></div>
+                                </div>
+                                <p class="text-sm text-gray-400 font-mono">${nl2br(data.cards.mindset.trapDesc)}</p>
+                            </div>
+                            <div>
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="font-bold text-xl text-brand-green">${data.cards.mindset.growthTitle}</span>
+                                    <i class="${data.cards.mindset.growthIcon}"></i>
+                                </div>
+                                <div class="h-1 w-full bg-gray-800 rounded mb-2">
+                                    <div class="h-1 w-full bg-brand-green rounded"></div>
+                                </div>
+                                <p class="text-sm text-white font-mono">${nl2br(data.cards.mindset.growthDesc)}</p>
+                            </div>
+                        </div>
+                        <div class="mt-12 p-4 border border-gray-700 rounded bg-gray-900">
+                            <p class="text-xs font-mono leading-relaxed text-gray-300">${data.cards.mindset.quote || data.cards.mindset.note || ''}</p>
+                        </div>
+                    </div>
+
+                    <div class="bento-card col-span-1 md:col-span-5 p-6 reveal">
+                        <h3 class="font-mono text-brand-black mb-2 font-bold tracking-widest">${data.cards.chart.tag}</h3>
+                        <h4 class="text-xl font-bold mb-4">${data.cards.chart.title}</h4>
+                        <div class="relative h-64 w-full">
+                            <canvas id="chart${lang.toUpperCase()}"></canvas>
+                        </div>
+                        <div class="mt-4 text-sm text-gray-600 font-serif leading-relaxed text-center">${data.cards.chart.desc}</div>
+                    </div>
+
+                    <div class="bento-card col-span-1 md:col-span-7 p-8 bg-brand-white reveal">
+                        <h3 class="font-mono text-brand-black mb-6 font-bold tracking-widest">${data.cards.framework.tag}</h3>
+                        <div class="grid grid-cols-1 gap-4">
+                            ${data.cards.framework.steps.map((step, idx) => `
+                                <div class="flex items-start p-4 border border-gray-200 rounded hover:border-brand-black transition-colors group">
+                                    <div class="bg-brand-black text-white font-mono text-lg px-3 py-1 rounded mr-4">${step.label || String(idx + 1).padStart(2,'0')}</div>
+                                    <div>
+                                        <h4 class="font-bold text-lg">${step.title}</h4>
+                                        <p class="text-sm text-gray-600 mt-1 font-serif">${step.desc}</p>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+
+                    <div class="bento-card col-span-1 md:col-span-12 p-8 bg-brand-blue text-white reveal">
+                        <div class="flex flex-col md:flex-row justify-between items-center mb-6">
+                            <div>
+                                <h3 class="font-mono opacity-70 mb-2 font-bold tracking-widest">${data.cards.action.tag}</h3>
+                                <h2 class="text-2xl font-bold">${data.cards.action.title}</h2>
+                            </div>
+                            <i class="${data.cards.action.icon} text-4xl text-brand-accent mt-4 md:mt-0"></i>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-white/90">
+                            ${data.cards.action.steps.map(step => `
+                                <div class="border-t border-white/20 pt-4">
+                                    <h4 class="font-bold text-lg mb-2">${step.title}</h4>
+                                    <p class="text-sm opacity-80 font-serif">${step.desc}</p>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+
+                    <div class="bento-card col-span-1 md:col-span-12 p-8 reveal">
+                        <div class="flex justify-between items-center mb-6">
+                            <h3 class="font-mono text-brand-accent font-bold tracking-widest">${data.cards.checklist.tag}</h3>
+                            <span class="bg-brand-black text-white text-xs px-2 py-1 font-mono rounded">${data.cards.checklist.badge}</span>
+                        </div>
+                        <h2 class="text-2xl font-bold mb-4">${data.cards.checklist.title}</h2>
+                        ${data.cards.checklist.desc ? `<p class="text-sm text-gray-600 mb-6 font-serif">${data.cards.checklist.desc}</p>` : ''}
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                            ${data.cards.checklist.items.map(item => `
+                                <div class="p-4 bg-gray-50 rounded border border-gray-200">
+                                    <span class="font-mono font-bold text-brand-blue block mb-2">${item.tag}</span>
+                                    <div class="text-sm font-bold text-brand-black mb-1">${item.title}</div>
+                                    <div class="text-xs text-gray-500">${item.desc}</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </main>
+
+                <footer class="max-w-7xl mx-auto mt-12 mb-24 text-center reveal">
+                    <hr class="border-brand-black mb-8 opacity-20">
+                    <h2 class="text-2xl md:text-3xl font-serif italic text-gray-400 leading-snug">
+                        ${data.cards.footer.quote}
+                    </h2>
+                </footer>
+            </div>`;
+
+        const chartInstances = {};
+
+        function initChart(langKey, chartData) {
+            const id = `chart${langKey.toUpperCase()}`;
+            const canvas = document.getElementById(id);
+            if (!canvas) return;
+            if (chartInstances[id]) {
+                chartInstances[id].destroy();
+            }
+            chartInstances[id] = new Chart(canvas.getContext('2d'), {
+                type: 'bar',
+                data: {
+                    labels: chartData.labels,
+                    datasets: [{
+                        data: chartData.values,
+                        backgroundColor: chartData.colors || '#FF4D00',
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { backgroundColor: '#0a0a0a' }
+                    },
+                    scales: {
+                        x: { grid: { display: false } },
+                        y: { grid: { display: false }, ticks: { font: { weight: 'bold' } } }
+                    }
+                }
+            });
+        }
+
+        function initObserver() {
+            const observer = new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        obs.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        }
+
+        function switchLang(lang) {
+            document.body.setAttribute('data-lang', lang);
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+            });
+            initChart('zh', pageConfig.zh.cards.chart.data);
+            initChart('en', pageConfig.en.cards.chart.data);
+            document.querySelectorAll('.reveal').forEach(el => el.classList.remove('active'));
+            initObserver();
+        }
+
+        function renderApp() {
+            if (!pageConfig.meta) return;
+            document.getElementById('langZh').innerHTML = renderLang('zh', pageConfig.meta, pageConfig.zh);
+            document.getElementById('langEn').innerHTML = renderLang('en', pageConfig.meta, pageConfig.en);
+            initChart('zh', pageConfig.zh.cards.chart.data);
+            initChart('en', pageConfig.en.cards.chart.data);
+            initObserver();
+        }
+
+        document.addEventListener('DOMContentLoaded', renderApp);
+    </script>
+</body>
+</html>
