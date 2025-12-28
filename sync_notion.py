@@ -1200,7 +1200,14 @@ def generate_note_card_html(note):
     equipment = note.get('equipment', '')
     equipment_html = ''
     if equipment:
-        equipment_html = f' · <span class="text-coffee-medium">{equipment}</span>'
+        # 如果是列表（multi_select），取第一个或拼接
+        if isinstance(equipment, list):
+            equipment_str = ', '.join(equipment) if equipment else ''
+        else:
+            equipment_str = equipment
+
+        if equipment_str:
+            equipment_html = f' · <span class="text-coffee-medium">{equipment_str}</span>'
 
     # 生成标签
     tags = note.get('tags', [])
