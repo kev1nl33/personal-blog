@@ -1,0 +1,434 @@
+/**
+ * Neo-Brutalism Design System
+ * 新野兽派设计系统
+ *
+ * 核心原则: 直接、锐利、清晰
+ * Core Principles: Directness, Sharpness, Clarity
+ */
+
+/* ============================================
+   CSS Variables - Color Palette
+   ============================================ */
+:root {
+    --brand-black: #0a0a0a;
+    --brand-white: #f4f4f0;
+    --brand-accent: #FF4D00;
+    --brand-blue: #0047AB;
+    --brand-green: #059669;
+    --brand-gray: #8a8a8a;
+
+    /* Grid */
+    --grid-line: #e5e5e5;
+    --grid-size: 40px;
+
+    /* Spacing */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 1.5rem;
+    --spacing-lg: 2rem;
+    --spacing-xl: 3rem;
+
+    /* Typography */
+    --font-sans: 'Noto Sans SC', 'Inter', sans-serif;
+    --font-serif: 'Noto Serif SC', serif;
+    --font-mono: 'JetBrains Mono', monospace;
+}
+
+/* ============================================
+   Base Styles
+   ============================================ */
+body {
+    background-color: var(--brand-white);
+    color: var(--brand-black);
+    font-family: var(--font-sans);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============================================
+   Grid Background Pattern
+   ============================================ */
+.bg-grid {
+    background-image:
+        linear-gradient(var(--grid-line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+    background-size: var(--grid-size) var(--grid-size);
+}
+
+/* ============================================
+   Typography Classes
+   ============================================ */
+.display-text {
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    font-weight: 900;
+}
+
+.mono-label {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.serif-quote {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.25rem;
+    line-height: 1.6;
+}
+
+/* ============================================
+   Bento Box Card System
+   ============================================ */
+.bento-card {
+    background: white;
+    border: 1px solid var(--brand-black);
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.bento-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 8px 8px 0px var(--brand-black);
+}
+
+/* Top accent line animation */
+.bento-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--brand-black);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+}
+
+.bento-card:hover::after {
+    transform: scaleX(1);
+}
+
+/* Card variants */
+.bento-card--accent {
+    background: var(--brand-accent);
+    color: white;
+}
+
+.bento-card--blue {
+    background: var(--brand-blue);
+    color: white;
+}
+
+.bento-card--black {
+    background: var(--brand-black);
+    color: white;
+}
+
+/* ============================================
+   Hard Shadow System (No Blur)
+   ============================================ */
+.shadow-hard {
+    box-shadow: 8px 8px 0px var(--brand-black);
+}
+
+.shadow-hard-sm {
+    box-shadow: 4px 4px 0px var(--brand-black);
+}
+
+.shadow-hard-accent {
+    box-shadow: 8px 8px 0px var(--brand-accent);
+}
+
+/* ============================================
+   Buttons
+   ============================================ */
+.btn-primary {
+    background: var(--brand-black);
+    color: white;
+    border: 2px solid var(--brand-black);
+    padding: 0.75rem 1.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: var(--font-mono);
+}
+
+.btn-primary:hover {
+    background: var(--brand-accent);
+    border-color: var(--brand-accent);
+    transform: translateY(-2px);
+    box-shadow: 4px 4px 0px var(--brand-black);
+}
+
+.btn-secondary {
+    background: white;
+    color: var(--brand-black);
+    border: 2px solid var(--brand-black);
+    padding: 0.75rem 1.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: var(--font-mono);
+}
+
+.btn-secondary:hover {
+    background: var(--brand-black);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 4px 4px 0px var(--brand-black);
+}
+
+/* ============================================
+   Marker Highlight Effect
+   ============================================ */
+.marker-highlight {
+    background: linear-gradient(
+        120deg,
+        rgba(255, 77, 0, 0.15) 0%,
+        rgba(255, 77, 0, 0.15) 100%
+    );
+    background-repeat: no-repeat;
+    background-size: 100% 40%;
+    background-position: 0 88%;
+    transition: background-size 0.25s ease-in;
+}
+
+.marker-highlight:hover {
+    background-size: 100% 88%;
+}
+
+/* ============================================
+   Scroll Reveal Animation
+   ============================================ */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease-out;
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Staggered reveal for lists */
+.reveal-stagger > *:nth-child(1) { transition-delay: 0.1s; }
+.reveal-stagger > *:nth-child(2) { transition-delay: 0.2s; }
+.reveal-stagger > *:nth-child(3) { transition-delay: 0.3s; }
+.reveal-stagger > *:nth-child(4) { transition-delay: 0.4s; }
+.reveal-stagger > *:nth-child(5) { transition-delay: 0.5s; }
+
+/* ============================================
+   Divider with Center Text
+   ============================================ */
+.divider-with-text {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.divider-with-text::before,
+.divider-with-text::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--brand-black);
+    opacity: 0.2;
+}
+
+.divider-with-text .accent-dot {
+    color: var(--brand-accent);
+}
+
+/* ============================================
+   Progress Bars
+   ============================================ */
+.progress-container {
+    height: 4px;
+    width: 100%;
+    background: var(--grid-line);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    background: var(--brand-accent);
+    transition: width 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.progress-bar--green {
+    background: var(--brand-green);
+}
+
+.progress-bar--blue {
+    background: var(--brand-blue);
+}
+
+/* ============================================
+   Scrollbar Styling
+   ============================================ */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--brand-white);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--brand-black);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--brand-accent);
+}
+
+/* ============================================
+   Icon Badge
+   ============================================ */
+.icon-badge {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background: var(--brand-black);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.icon-badge--accent {
+    background: var(--brand-accent);
+}
+
+.icon-badge--outline {
+    background: transparent;
+    border: 2px solid var(--brand-black);
+    color: var(--brand-black);
+}
+
+/* ============================================
+   Tag / Pill
+   ============================================ */
+.tag {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    background: var(--brand-black);
+    color: white;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-radius: 0.25rem;
+}
+
+.tag--outline {
+    background: transparent;
+    border: 2px solid var(--brand-black);
+    color: var(--brand-black);
+}
+
+.tag--accent {
+    background: var(--brand-accent);
+}
+
+.tag--personal {
+    background: white;
+    color: var(--brand-black);
+    border: 2px solid var(--brand-black);
+}
+
+.tag--reading {
+    background: #92400E;
+}
+
+.tag--investment {
+    background: var(--brand-green);
+}
+
+.tag--ai {
+    background: var(--brand-blue);
+}
+
+.tag--career {
+    background: #0891B2;
+}
+
+/* ============================================
+   Responsive Utilities
+   ============================================ */
+@media (max-width: 768px) {
+    .bento-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 4px 4px 0px var(--brand-black);
+    }
+
+    .shadow-hard {
+        box-shadow: 4px 4px 0px var(--brand-black);
+    }
+
+    .display-text {
+        font-size: 2.5rem;
+    }
+}
+
+/* ============================================
+   Accessibility
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    .reveal {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+/* Focus styles */
+a:focus,
+button:focus,
+input:focus,
+textarea:focus,
+select:focus {
+    outline: 2px solid var(--brand-accent);
+    outline-offset: 2px;
+}
+
+/* ============================================
+   Print Styles
+   ============================================ */
+@media print {
+    .bg-grid {
+        background: white;
+    }
+
+    .bento-card {
+        box-shadow: none;
+        border: 1px solid #000;
+    }
+
+    .reveal {
+        opacity: 1;
+        transform: none;
+    }
+}

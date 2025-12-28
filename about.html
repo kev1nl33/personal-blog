@@ -26,10 +26,62 @@
     <!-- Canonical URL -->
     <link rel="canonical" href="https://kev1nl33.github.io/personal-blog/about.html">
 
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Noto+Serif+SC:wght@400;700&family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- RemixIcon -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            black: '#0a0a0a',
+                            white: '#f4f4f0',
+                            accent: '#FF4D00',
+                            blue: '#0047AB',
+                            green: '#059669',
+                            gray: '#8a8a8a'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Noto Sans SC"', 'Inter', 'sans-serif'],
+                        serif: ['"Noto Serif SC"', 'serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
     <link rel="stylesheet" href="styles/main.css">
-    <link rel="stylesheet" href="styles/about.css">
+    <link rel="stylesheet" href="styles/neo-brutalism.css">
+
+    <style>
+        .timeline-line {
+            position: relative;
+        }
+
+        .timeline-line::before {
+            content: '';
+            position: absolute;
+            left: 1rem;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #0a0a0a;
+        }
+    </style>
 </head>
-<body>
+<body class="bg-grid min-h-screen">
+
     <!-- 导航栏 -->
     <nav class="nav">
         <div class="container">
@@ -39,158 +91,300 @@
                     <li><a href="index.html">首页</a></li>
                     <li><a href="blog.html">文章</a></li>
                     <li><a href="visual-design.html">认知武器</a></li>
-                    <li><a href="about.html">关于</a></li>
+                    <li><a href="about.html" class="active">关于</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <!-- 关于内容 -->
-    <section class="about-hero">
-        <div class="container">
-            <h1 class="about-title">关于我</h1>
-            <p class="about-subtitle">职业规划师 · AI探索者 · 自由职业者</p>
+    <!-- Hero 区域 -->
+    <section class="py-16 md:py-24">
+        <div class="max-w-7xl mx-auto px-4 md:px-8">
+            <div class="reveal">
+                <span class="font-mono text-brand-accent text-xs md:text-sm tracking-widest uppercase font-bold mb-4 block">
+                    <span class="text-brand-accent">●</span> ABOUT ME <span class="text-brand-accent">●</span>
+                </span>
+                <h1 class="text-5xl md:text-7xl font-black mb-6 display-text">关于我</h1>
+                <p class="font-serif italic text-xl md:text-2xl text-gray-600 max-w-2xl">
+                    职业规划师 · AI探索者 · 自由职业者
+                </p>
+            </div>
         </div>
     </section>
 
-    <section class="about-content-section">
-        <div class="container">
-            <div class="about-grid">
-                <!-- 个人简介 -->
-                <div class="about-block">
-                    <h2 class="block-title">个人简介</h2>
-                    <p class="block-text">
-                        我是Kevin，在知乎上以<strong>"计划李"</strong>的名字分享内容。2025年3月，我结束了在政府部门近5年的工作，
-                        开启了自由职业生涯。
+    <!-- 个人简介 -->
+    <section class="pb-12">
+        <div class="max-w-7xl mx-auto px-4 md:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+                <!-- 主要简介 -->
+                <div class="bento-card col-span-1 md:col-span-8 p-8 reveal">
+                    <h2 class="font-mono text-brand-accent mb-4 font-bold tracking-widest uppercase text-sm">个人简介</h2>
+                    <p class="text-lg text-gray-700 leading-relaxed font-serif mb-4">
+                        我是Kevin，在知乎上以<span class="marker-highlight font-bold">"计划李"</span>的名字分享内容。2025年3月，我结束了在政府部门近5年的工作，开启了自由职业生涯。
                     </p>
-                    <p class="block-text">
-                        这个决定不是一时冲动，而是经过长期思考后的选择。体制内的工作让我看到了许多效率低下和形式主义的问题，
-                        我希望能够做更有意义、更有自主性的工作。
+                    <p class="text-lg text-gray-700 leading-relaxed font-serif">
+                        这个决定不是一时冲动，而是经过长期思考后的选择。体制内的工作让我看到了许多效率低下和形式主义的问题，我希望能够做更有意义、更有自主性的工作。
                     </p>
                 </div>
 
-                <!-- 职业背景 -->
-                <div class="about-block">
-                    <h2 class="block-title">职业发展</h2>
-                    <div class="timeline">
-                        <div class="timeline-item">
-                            <div class="timeline-dot"></div>
-                            <div class="timeline-content">
-                                <h3>2025年3月 - 至今</h3>
-                                <p><strong>自由职业 · 职业发展顾问</strong></p>
-                                <p>专注于职业规划咨询和AI工具应用研究</p>
+                <!-- 快速信息卡片 -->
+                <div class="bento-card col-span-1 md:col-span-4 p-6 bg-brand-black text-white reveal">
+                    <h3 class="font-mono text-brand-gray mb-6 font-bold tracking-widest uppercase text-xs">快速了解</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-3">
+                            <i class="ri-user-line text-brand-accent text-xl mt-1"></i>
+                            <div>
+                                <p class="font-bold text-sm mb-1">计划李 / Kevin</p>
+                                <p class="text-xs opacity-80">职业规划师 · AI探索者</p>
                             </div>
                         </div>
-                        <div class="timeline-item">
-                            <div class="timeline-dot"></div>
-                            <div class="timeline-content">
-                                <h3>2020年7月 - 2025年3月</h3>
-                                <p><strong>某部委事业单位</strong></p>
-                                <p>近5年的体制内工作经验</p>
+                        <div class="flex items-start gap-3">
+                            <i class="ri-briefcase-line text-brand-accent text-xl mt-1"></i>
+                            <div>
+                                <p class="font-bold text-sm mb-1">GCDF持证者</p>
+                                <p class="text-xs opacity-80">全球职业规划师认证</p>
                             </div>
                         </div>
-                        <div class="timeline-item">
-                            <div class="timeline-dot"></div>
-                            <div class="timeline-content">
-                                <h3>GCDF认证</h3>
-                                <p><strong>全球生涯规划师</strong></p>
-                                <p>为6-7位前同事提供职业转型咨询</p>
+                        <div class="flex items-start gap-3">
+                            <i class="ri-map-pin-line text-brand-accent text-xl mt-1"></i>
+                            <div>
+                                <p class="font-bold text-sm mb-1">自由职业</p>
+                                <p class="text-xs opacity-80">2025年3月至今</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 职业发展时间线 -->
+    <section class="pb-12">
+        <div class="max-w-7xl mx-auto px-4 md:px-8">
+            <div class="bento-card p-8 md:p-12 reveal">
+                <h2 class="font-mono text-brand-accent mb-8 font-bold tracking-widest uppercase text-sm">职业发展</h2>
+
+                <div class="timeline-line space-y-8 pl-16 relative">
+                    <!-- 时间线项目 1 -->
+                    <div class="relative">
+                        <div class="absolute -left-16 w-8 h-8 rounded-full bg-brand-accent border-4 border-brand-white flex items-center justify-center">
+                            <div class="w-2 h-2 rounded-full bg-white"></div>
+                        </div>
+                        <div>
+                            <span class="font-mono text-xs text-brand-accent font-bold">2025年3月 - 至今</span>
+                            <h3 class="text-xl font-bold mt-2 mb-1">自由职业 · 职业发展顾问</h3>
+                            <p class="text-gray-600 font-serif">专注于职业规划咨询和AI工具应用研究</p>
+                        </div>
+                    </div>
+
+                    <!-- 时间线项目 2 -->
+                    <div class="relative">
+                        <div class="absolute -left-16 w-8 h-8 rounded-full bg-brand-black border-4 border-brand-white flex items-center justify-center">
+                            <div class="w-2 h-2 rounded-full bg-white"></div>
+                        </div>
+                        <div>
+                            <span class="font-mono text-xs text-gray-500 font-bold">2020年7月 - 2025年3月</span>
+                            <h3 class="text-xl font-bold mt-2 mb-1">某部委事业单位</h3>
+                            <p class="text-gray-600 font-serif">近5年的体制内工作经验</p>
+                        </div>
+                    </div>
+
+                    <!-- 时间线项目 3 -->
+                    <div class="relative">
+                        <div class="absolute -left-16 w-8 h-8 rounded-full bg-brand-blue border-4 border-brand-white flex items-center justify-center">
+                            <div class="w-2 h-2 rounded-full bg-white"></div>
+                        </div>
+                        <div>
+                            <span class="font-mono text-xs text-gray-500 font-bold">GCDF认证</span>
+                            <h3 class="text-xl font-bold mt-2 mb-1">全球生涯规划师</h3>
+                            <p class="text-gray-600 font-serif">为6-7位前同事提供职业转型咨询</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 专业领域 -->
+    <section class="pb-12">
+        <div class="max-w-7xl mx-auto px-4 md:px-8">
+            <div class="flex items-center gap-4 mb-8 reveal">
+                <div class="flex-1 h-px bg-brand-black opacity-20"></div>
+                <h2 class="font-mono text-sm md:text-base tracking-widest uppercase text-brand-black font-bold">
+                    <span class="text-brand-accent">●</span> 专业领域 <span class="text-brand-accent">●</span>
+                </h2>
+                <div class="flex-1 h-px bg-brand-black opacity-20"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- 技能卡片 1 -->
+                <div class="bento-card p-6 text-center reveal">
+                    <div class="w-16 h-16 mx-auto mb-4 bg-brand-black text-white rounded-full flex items-center justify-center text-3xl">
+                        💼
+                    </div>
+                    <h3 class="text-lg font-bold mb-2">职业规划</h3>
+                    <p class="text-sm text-gray-600 font-serif">GCDF持证者，擅长体制内外职业转型咨询</p>
+                </div>
+
+                <!-- 技能卡片 2 -->
+                <div class="bento-card p-6 text-center reveal">
+                    <div class="w-16 h-16 mx-auto mb-4 bg-brand-accent text-white rounded-full flex items-center justify-center text-3xl">
+                        🤖
+                    </div>
+                    <h3 class="text-lg font-bold mb-2">AI应用</h3>
+                    <p class="text-sm text-gray-600 font-serif">深度使用Claude、ChatGPT等AI工具</p>
+                </div>
+
+                <!-- 技能卡片 3 -->
+                <div class="bento-card p-6 text-center reveal">
+                    <div class="w-16 h-16 mx-auto mb-4 bg-brand-blue text-white rounded-full flex items-center justify-center text-3xl">
+                        💡
+                    </div>
+                    <h3 class="text-lg font-bold mb-2">内容创作</h3>
+                    <p class="text-sm text-gray-600 font-serif">在知乎分享职业发展和个人成长经验</p>
+                </div>
+
+                <!-- 技能卡片 4 -->
+                <div class="bento-card p-6 text-center reveal">
+                    <div class="w-16 h-16 mx-auto mb-4 bg-brand-green text-white rounded-full flex items-center justify-center text-3xl">
+                        📊
+                    </div>
+                    <h3 class="text-lg font-bold mb-2">投资研究</h3>
+                    <p class="text-sm text-gray-600 font-serif">关注科技股，研究基本面分析方法</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 当前项目 -->
+    <section class="pb-12">
+        <div class="max-w-7xl mx-auto px-4 md:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- 当前在做的事 -->
+                <div class="bento-card p-8 reveal">
+                    <h2 class="font-mono text-brand-accent mb-6 font-bold tracking-widest uppercase text-sm">当前在做的事</h2>
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-3">
+                            <div class="icon-badge icon-badge--accent flex-shrink-0">
+                                <i class="ri-tools-line"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold mb-1">AI驱动的职业规划工具</h3>
+                                <p class="text-sm text-gray-600 font-serif">开发整合AI能力的职业咨询工具和流程</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-3">
+                            <div class="icon-badge flex-shrink-0">
+                                <i class="ri-article-line"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold mb-1">知乎内容创作</h3>
+                                <p class="text-sm text-gray-600 font-serif">分享职业发展、AI应用和个人成长的思考</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-3">
+                            <div class="icon-badge icon-badge--outline flex-shrink-0">
+                                <i class="ri-service-line"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold mb-1">职业咨询服务</h3>
+                                <p class="text-sm text-gray-600 font-serif">为想要离开体制或转型的朋友提供咨询</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-3">
+                            <div class="icon-badge flex-shrink-0">
+                                <i class="ri-lightbulb-line"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold mb-1">个人技能提升</h3>
+                                <p class="text-sm text-gray-600 font-serif">编程、投资分析、认知能力训练</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- 专业领域 -->
-                <div class="about-block">
-                    <h2 class="block-title">专业领域</h2>
-                    <div class="skills-grid">
-                        <div class="skill-card">
-                            <div class="skill-icon">💼</div>
-                            <h3>职业规划</h3>
-                            <p>GCDF持证者，擅长体制内外职业转型咨询</p>
-                        </div>
-                        <div class="skill-card">
-                            <div class="skill-icon">🤖</div>
-                            <h3>AI应用</h3>
-                            <p>深度使用Claude、ChatGPT等AI工具</p>
-                        </div>
-                        <div class="skill-card">
-                            <div class="skill-icon">💡</div>
-                            <h3>内容创作</h3>
-                            <p>在知乎分享职业发展和个人成长经验</p>
-                        </div>
-                        <div class="skill-card">
-                            <div class="skill-icon">📊</div>
-                            <h3>投资研究</h3>
-                            <p>关注科技股，研究基本面分析方法</p>
-                        </div>
+                <!-- 生活 & 兴趣 -->
+                <div class="bento-card p-8 reveal">
+                    <h2 class="font-mono text-brand-accent mb-6 font-bold tracking-widest uppercase text-sm">生活 & 兴趣</h2>
+                    <p class="text-gray-700 leading-relaxed font-serif mb-4">
+                        我通过<span class="marker-highlight font-bold">骑行</span>保持健康，几个月内减重近20斤。阅读、编程和投资研究是我的主要兴趣。
+                    </p>
+                    <p class="text-gray-700 leading-relaxed font-serif mb-4">
+                        我使用<span class="marker-highlight font-bold">Apple Vision Pro</span>进行工作和研究，探索新技术在生产力方面的应用。同时保持结构化的个人发展习惯，专注于认知提升、技术能力提升以及健康管理。
+                    </p>
+                    <p class="text-gray-700 leading-relaxed font-serif">
+                        2025年，我即将成为一名<span class="marker-highlight font-bold">父亲</span>，这也让我思考如何在个人发展和家庭责任之间找到平衡。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系方式 -->
+    <section class="pb-16">
+        <div class="max-w-7xl mx-auto px-4 md:px-8">
+            <div class="bento-card p-8 md:p-12 bg-brand-accent text-white reveal">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <div class="mb-6 md:mb-0">
+                        <h2 class="font-mono opacity-90 mb-2 font-bold tracking-widest text-sm uppercase">联系我</h2>
+                        <p class="text-2xl font-bold mb-4 md:mb-0">
+                            如果你对职业规划、AI应用或者离开体制的话题感兴趣，欢迎联系
+                        </p>
                     </div>
                 </div>
-
-                <!-- 当前项目 -->
-                <div class="about-block">
-                    <h2 class="block-title">当前在做的事</h2>
-                    <ul class="project-list">
-                        <li>
-                            <strong>AI驱动的职业规划工具</strong>
-                            <p>开发整合AI能力的职业咨询工具和流程</p>
-                        </li>
-                        <li>
-                            <strong>知乎内容创作</strong>
-                            <p>分享职业发展、AI应用和个人成长的思考</p>
-                        </li>
-                        <li>
-                            <strong>职业咨询服务</strong>
-                            <p>为想要离开体制或转型的朋友提供咨询</p>
-                        </li>
-                        <li>
-                            <strong>个人技能提升</strong>
-                            <p>编程、投资分析、认知能力训练</p>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- 生活方式 -->
-                <div class="about-block">
-                    <h2 class="block-title">生活 & 兴趣</h2>
-                    <p class="block-text">
-                        我通过<strong>骑行</strong>保持健康，几个月内减重近20斤。阅读、编程和投资研究是我的主要兴趣。
-                    </p>
-                    <p class="block-text">
-                        我使用<strong>Apple Vision Pro</strong>进行工作和研究，探索新技术在生产力方面的应用。
-                        同时维持着结构化的个人发展routine，专注于认知提升、技术能力和健康维护。
-                    </p>
-                    <p class="block-text">
-                        2025年，我即将成为一名<strong>父亲</strong>，这也让我思考如何在个人发展和家庭责任之间找到平衡。
-                    </p>
-                </div>
-
-                <!-- 联系方式 -->
-                <div class="about-block">
-                    <h2 class="block-title">联系我</h2>
-                    <p class="block-text">
-                        如果你对职业规划、AI应用或者离开体制的话题感兴趣，欢迎通过以下方式联系：
-                    </p>
-                    <div class="contact-links">
-                        <a href="https://www.zhihu.com/people/ji-hua-li" target="_blank" class="contact-btn">
-                            <span>📝</span> 知乎：计划李
-                        </a>
-                        <a href="mailto:kevinlee19951002@gmail.com" class="contact-btn">
-                            <span>✉️</span> 邮件联系
-                        </a>
-                    </div>
+                <div class="flex flex-wrap gap-4 mt-8">
+                    <a href="https://www.zhihu.com/people/ji-hua-li" target="_blank"
+                       class="inline-flex items-center px-6 py-3 bg-white text-brand-black font-bold rounded hover:bg-brand-white transition-all duration-300 hover:scale-105">
+                        <i class="ri-zhihu-line mr-2"></i>
+                        知乎：计划李
+                        <i class="ri-arrow-right-line ml-2"></i>
+                    </a>
+                    <a href="mailto:kevinlee19951002@gmail.com"
+                       class="inline-flex items-center px-6 py-3 bg-brand-black text-white font-bold rounded hover:bg-gray-900 transition-all duration-300 hover:scale-105">
+                        <i class="ri-mail-line mr-2"></i>
+                        邮件联系
+                        <i class="ri-arrow-right-line ml-2"></i>
+                    </a>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- 页脚 -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <p>&copy; 2025 计划李. All rights reserved.</p>
-                <div class="social-links">
-                    <a href="https://zhihu.com" target="_blank">知乎</a>
-                    <a href="https://github.com" target="_blank">GitHub</a>
+    <footer class="border-t-2 border-brand-black mt-16 py-8">
+        <div class="max-w-7xl mx-auto px-4 md:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="font-mono text-xs text-gray-500">&copy; 2025 计划李. All rights reserved.</p>
+                <div class="flex gap-6">
+                    <a href="https://zhihu.com" target="_blank" class="font-mono text-xs font-bold hover:text-brand-accent transition-colors">知乎</a>
+                    <a href="https://github.com" target="_blank" class="font-mono text-xs font-bold hover:text-brand-accent transition-colors">GitHub</a>
                 </div>
             </div>
+        </div>
+    </footer>
+
+    <script>
+        // 滚动显示动画
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

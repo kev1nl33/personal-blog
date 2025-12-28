@@ -32,10 +32,297 @@
     <!-- Canonical URL -->
     <link rel="canonical" href="https://kev1nl33.github.io/personal-blog/she-arrived.html">
 
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Noto+Serif+SC:wght@400;700&family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            black: '#0a0a0a',
+                            white: '#f4f4f0',
+                            accent: '#FF4D00',
+                            blue: '#0047AB',
+                            green: '#059669',
+                            gray: '#8a8a8a'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Noto Sans SC"', 'Inter', 'sans-serif'],
+                        serif: ['"Noto Serif SC"', 'serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
     <link rel="stylesheet" href="styles/main.css">
-    <link rel="stylesheet" href="styles/article.css">
+    <link rel="stylesheet" href="styles/neo-brutalism.css">
+
+    <style>
+        /* 文章页面专用样式 */
+        .article-wrapper {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .article-wrapper {
+                padding: 0 2rem;
+            }
+        }
+
+        .article-content p {
+            font-family: 'Noto Serif SC', Georgia, serif;
+            font-size: 1.175rem;
+            line-height: 2;
+            margin-bottom: 1.75rem;
+            color: #1f2937;
+            letter-spacing: 0.01em;
+        }
+
+        .article-content h2 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-top: 3rem;
+            margin-bottom: 1rem;
+            color: #0a0a0a;
+            padding-left: 1rem;
+            border-left: 4px solid #FF4D00;
+        }
+
+        .article-content h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            color: #0a0a0a;
+            padding-left: 1rem;
+            border-left: 4px solid #0a0a0a;
+        }
+
+        .article-content blockquote {
+            background: white;
+            border: 1px solid #0a0a0a;
+            border-left: 4px solid #FF4D00;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            font-family: 'Noto Serif SC', serif;
+            font-style: italic;
+        }
+
+        .article-content ul,
+        .article-content ol {
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+        }
+
+        .article-content li {
+            font-family: 'Noto Serif SC', Georgia, serif;
+            margin-bottom: 0.75rem;
+            font-size: 1.175rem;
+            line-height: 2;
+            color: #1f2937;
+        }
+
+        .article-content a {
+            color: #FF4D00;
+            text-decoration: underline;
+            text-underline-offset: 2px;
+        }
+
+        .article-content a:hover {
+            background: #FF4D00;
+            color: white;
+            text-decoration: none;
+            padding: 0 0.25rem;
+        }
+
+        .article-content code {
+            background: #f4f4f0;
+            border: 1px solid #0a0a0a;
+            padding: 0.125rem 0.375rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9em;
+        }
+
+        .article-content pre {
+            background: #0a0a0a;
+            color: #f4f4f0;
+            padding: 1.5rem;
+            border: 2px solid #0a0a0a;
+            overflow-x: auto;
+            margin: 2rem 0;
+        }
+
+        .article-content pre code {
+            background: none;
+            border: none;
+            padding: 0;
+            color: inherit;
+        }
+
+        .article-content strong {
+            font-weight: 700;
+            color: #0a0a0a;
+        }
+
+        /* 目录导航样式 */
+        .toc-container {
+            position: fixed;
+            top: 120px;
+            right: calc((100vw - 960px) / 2 - 220px);
+            width: 200px;
+            max-height: calc(100vh - 160px);
+            overflow-y: auto;
+            z-index: 100;
+        }
+
+        .toc-card {
+            background: white;
+            border: 1px solid #0a0a0a;
+            padding: 1.25rem;
+        }
+
+        .toc-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #8a8a8a;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        .toc-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .toc-item {
+            margin-bottom: 0.5rem;
+        }
+
+        .toc-link {
+            display: block;
+            font-size: 0.875rem;
+            color: #6b7280;
+            text-decoration: none;
+            padding: 0.25rem 0;
+            padding-left: 0.75rem;
+            border-left: 2px solid transparent;
+            transition: all 0.2s ease;
+            line-height: 1.4;
+        }
+
+        .toc-link:hover {
+            color: #0a0a0a;
+            border-left-color: #0a0a0a;
+        }
+
+        .toc-link.active {
+            color: #FF4D00;
+            border-left-color: #FF4D00;
+            font-weight: 600;
+        }
+
+        .toc-link.toc-h3 {
+            font-size: 0.8rem;
+            padding-left: 1.25rem;
+            color: #9ca3af;
+        }
+
+        .toc-link.toc-h3:hover {
+            color: #6b7280;
+        }
+
+        .toc-link.toc-h3.active {
+            color: #FF4D00;
+        }
+
+        /* 隐藏目录在小屏幕 */
+        @media (max-width: 1400px) {
+            .toc-container {
+                display: none;
+            }
+        }
+
+        /* 阅读进度条 */
+        .reading-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: #FF4D00;
+            z-index: 9999;
+            transition: width 0.1s ease-out;
+        }
+
+        /* 返回顶部按钮 */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 48px;
+            height: 48px;
+            background: #0a0a0a;
+            color: white;
+            border: 2px solid #0a0a0a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            font-size: 1.25rem;
+        }
+
+        .back-to-top:hover {
+            background: #FF4D00;
+            border-color: #FF4D00;
+            transform: translateY(-4px);
+            box-shadow: 4px 4px 0px #0a0a0a;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 768px) {
+            .back-to-top {
+                bottom: 1rem;
+                right: 1rem;
+                width: 40px;
+                height: 40px;
+            }
+        }
+    </style>
 </head>
-<body>
+<body class="bg-grid min-h-screen">
+    <!-- 阅读进度条 -->
+    <div class="reading-progress" id="reading-progress"></div>
+
+    <!-- 返回顶部按钮 -->
+    <button class="back-to-top" id="back-to-top" title="返回顶部">↑</button>
+
     <!-- 导航栏 -->
     <nav class="nav">
         <div class="container">
@@ -44,78 +331,221 @@
                 <ul class="nav-links">
                     <li><a href="index.html">首页</a></li>
                     <li><a href="blog.html">文章</a></li>
-                    <li><a href="weekly.html">周刊</a></li>
-                    <li><a href="books.html">书单</a></li>
+                    <li><a href="visual-design.html">认知武器</a></li>
                     <li><a href="about.html">关于</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
+    <!-- 目录导航 -->
+    <aside class="toc-container" id="toc">
+        <div class="toc-card">
+            <div class="toc-title">目录</div>
+            <ul class="toc-list" id="toc-list">
+                <!-- 由 JavaScript 动态生成 -->
+            </ul>
+        </div>
+    </aside>
+
     <!-- 文章内容 -->
-    <article class="article-container">
-        <div class="container">
-            <div class="article-header">
-                <div class="article-tag">个人成长</div>
-                <h1 class="article-title">她来了</h1>
-                <div class="article-meta">
-                    <span class="article-author">计划李</span>
-                    <span class="article-date">2025年11月23日</span>
-                    <span class="article-read">8分钟阅读</span>
+    <article class="py-12 md:py-16">
+        <div class="article-wrapper">
+            <!-- 文章头部卡片 -->
+            <div class="bento-card p-8 md:p-12 mb-8 reveal">
+                <div class="mb-4">
+                    <span class="tag tag--personal">个人成长</span>
+                </div>
+                <h1 class="text-3xl md:text-4xl lg:text-5xl font-black mb-6 leading-tight display-text">
+                    她来了
+                </h1>
+                <p class="font-serif italic text-lg md:text-xl text-gray-600 mb-6">
+                    女儿出生的那一刻，我比妻子更早看到她。三十而立，从一个人到三个人，责任变得具体，成长变得真实。
+                </p>
+                <div class="flex flex-wrap gap-4 text-sm font-mono text-gray-500">
+                    <span>计划李</span>
+                    <span>·</span>
+                    <span>2025年11月23日</span>
+                    <span>·</span>
+                    <span>8分钟阅读</span>
                 </div>
             </div>
 
-            <div class="article-content">
-                <p>我比妻子更早看到女儿。</p>
-<p>医生将她从母体中托出的瞬间，我是第一个目睹她存在的人。紧接着，她被轻轻放在妻子腹部，我们同时落泪。这眼泪没有预兆，也无需理由——只是因为这个我们共同孕育的生命，在漫长的等待后终于降临。我们曾隔着一层肌肤与她对话了近一年，如今她终于应约而至。那声嘹亮的啼哭，是生命最原始也最有力的宣告。</p>
-<p>此刻回想，依然会眼眶泛热。</p>
-<h3>从独身到三人</h3>
-<p>三十而立。这个古老的说法在今年有了新的注解。</p>
-<p>这几年的轨迹很清晰：独自一人，然后二人世界，现在三口之家。每增加一个人，责任的重量就叠加一层，但快乐也以同样的倍数增长。</p>
-<p>我察觉到自己性情上的变化。是离开体制后这一年的刻意修炼起了作用，还是她的到来本身就是一剂催化剂？这个问题我没有答案，但变化是确凿的。</p>
-<p>最直观的证据来自深夜。</p>
-<p>她的哭声常常划破寂静。从睡梦中醒来的我，第一反应竟是：这声音真有穿透力，真好听。这种反应连我自己都感到意外。要知道，以前被吵醒的我，情绪管理可没这么到位。但现在，连哭声都能被我重新诠释为某种动听的旋律。</p>
-<p>身份的转换，原来可以如此彻底地重塑一个人的感知系统。</p>
-<h3>责任的具象化</h3>
-<p>移民这件事，之前一直停留在纸面讨论的层面。我们会分析政策利弊，比较生活环境，构想不同的可能性，但始终带着某种抽象感。</p>
-<p>她的出生改变了这一切。</p>
-<p>现在再思考这个问题，所有的考量都自然而然地落在她身上。移民不再是关于我们两个成年人的选择题，而是关于她成长路径的设计。我想给她更好的——这个"更好"从模糊的概念变成了具体的行动指南。</p>
-<p>她占据了我大量的注意力。即便不需要我亲手处理什么，但那种牵挂是持续的、潜在的。以往我可以专注地投入某项工作，现在脑海中总有一部分空间被她和妻子占据。这段时间几乎没什么输出，连记录工具都疏于使用了。</p>
-<p>这也是我此刻写下这些文字的原因——我需要为这个特殊阶段留下标记。</p>
-<p>但我不会因此动摇自由职业的选择。</p>
-<p>恰恰相反，正是这种工作形态，让我有足够的时间和精力高质量地陪伴家人。我参与了每一次产检，情绪始终稳定，不会被工作的消耗拖垮。妻子孕期的每个阶段，我都完整地在场。我们对这个决定有共识：离开体制，对这个家庭而言是正确的选择。</p>
-<p>所谓责任，不是被动地接受某种社会期待，而是主动地创造条件去承担。</p>
-<h3>旁观者的敬意</h3>
-<p>女性承受的，远超我的想象。</p>
-<p>十月孕育的辛苦，分娩时刻的疼痛，这些我只能作为旁观者去感知。站在产房里，我能做的极其有限，只能尽力提供陪伴和支持。那种无力感很强烈，但也让我对妻子的敬意更加深刻。</p>
-<p>有些经验是无法替代的。我只能记住这份敬意，并在之后的日子里用行动去回应。</p>
-<h3>应约而至</h3>
-<p>我们与她隔空对话了近一年。</p>
-<p>如今她应约而至。</p>
-<p>她的到来重构了许多东西：时间的分配方式、思考问题的角度、对未来的规划路径。但有些核心并未改变——对自由的坚持、对家庭的珍视、对自我成长的要求。</p>
-<p>只是现在，这些追求都找到了更清晰的锚点。</p>
-<p>我成为了她的父亲。</p>
+            <!-- 文章正文 -->
+            <div class="bento-card p-8 md:p-12 reveal">
+                <div class="article-content">
+                    <p>我比妻子更早看到女儿。</p>
+                    <p>医生将她从母体中托出的瞬间，我是第一个目睹她存在的人。紧接着，她被轻轻放在妻子腹部，我们同时落泪。这眼泪没有预兆，也无需理由——只是因为这个我们共同孕育的生命，在漫长的等待后终于降临。我们曾隔着一层肌肤与她对话了近一年，如今她终于应约而至。那声嘹亮的啼哭，是生命最原始也最有力的宣告。</p>
+                    <p>此刻回想，依然会眼眶泛热。</p>
 
+                    <h3>从独身到三人</h3>
+                    <p>三十而立。这个古老的说法在今年有了新的注解。</p>
+                    <p>这几年的轨迹很清晰：独自一人，然后二人世界，现在三口之家。每增加一个人，责任的重量就叠加一层，但快乐也以同样的倍数增长。</p>
+                    <p>我察觉到自己性情上的变化。是离开体制后这一年的刻意修炼起了作用，还是她的到来本身就是一剂催化剂？这个问题我没有答案，但变化是确凿的。</p>
+                    <p>最直观的证据来自深夜。</p>
+                    <p>她的哭声常常划破寂静。从睡梦中醒来的我，第一反应竟是：这声音真有穿透力，真好听。这种反应连我自己都感到意外。要知道，以前被吵醒的我，情绪管理可没这么到位。但现在，连哭声都能被我重新诠释为某种动听的旋律。</p>
+                    <p>身份的转换，原来可以如此彻底地重塑一个人的感知系统。</p>
+
+                    <h3>责任的具象化</h3>
+                    <p>移民这件事，之前一直停留在纸面讨论的层面。我们会分析政策利弊，比较生活环境，构想不同的可能性，但始终带着某种抽象感。</p>
+                    <p>她的出生改变了这一切。</p>
+                    <p>现在再思考这个问题，所有的考量都自然而然地落在她身上。移民不再是关于我们两个成年人的选择题，而是关于她成长路径的设计。我想给她更好的——这个"更好"从模糊的概念变成了具体的行动指南。</p>
+                    <p>她占据了我大量的注意力。即便不需要我亲手处理什么，但那种牵挂是持续的、潜在的。以往我可以专注地投入某项工作，现在脑海中总有一部分空间被她和妻子占据。这段时间几乎没什么输出，连记录工具都疏于使用了。</p>
+                    <p>这也是我此刻写下这些文字的原因——我需要为这个特殊阶段留下标记。</p>
+                    <p>但我不会因此动摇自由职业的选择。</p>
+                    <p>恰恰相反，正是这种工作形态，让我有足够的时间和精力高质量地陪伴家人。我参与了每一次产检，情绪始终稳定，不会被工作的消耗拖垮。妻子孕期的每个阶段，我都完整地在场。我们对这个决定有共识：离开体制，对这个家庭而言是正确的选择。</p>
+                    <p>所谓责任，不是被动地接受某种社会期待，而是主动地创造条件去承担。</p>
+
+                    <h3>旁观者的敬意</h3>
+                    <p>女性承受的，远超我的想象。</p>
+                    <p>十月孕育的辛苦，分娩时刻的疼痛，这些我只能作为旁观者去感知。站在产房里，我能做的极其有限，只能尽力提供陪伴和支持。那种无力感很强烈，但也让我对妻子的敬意更加深刻。</p>
+                    <p>有些经验是无法替代的。我只能记住这份敬意，并在之后的日子里用行动去回应。</p>
+
+                    <h3>应约而至</h3>
+                    <p>我们与她隔空对话了近一年。</p>
+                    <p>如今她应约而至。</p>
+                    <p>她的到来重构了许多东西：时间的分配方式、思考问题的角度、对未来的规划路径。但有些核心并未改变——对自由的坚持、对家庭的珍视、对自我成长的要求。</p>
+                    <p>只是现在，这些追求都找到了更清晰的锚点。</p>
+                    <p>我成为了她的父亲。</p>
+                </div>
+            </div>
+
+            <!-- 返回按钮 -->
+            <div class="mt-8 reveal">
+                <a href="blog.html" class="btn-secondary inline-flex items-center">
+                    ← 返回文章列表
+                </a>
             </div>
         </div>
     </article>
 
     <!-- 页脚 -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <p>&copy; 2025 计划李. All rights reserved.</p>
-                <div class="social-links">
-                    <a href="https://zhihu.com" target="_blank">知乎</a>
-                    <a href="https://github.com" target="_blank">GitHub</a>
+    <footer class="border-t-2 border-brand-black mt-16 py-8">
+        <div class="max-w-7xl mx-auto px-4 md:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="font-mono text-xs text-gray-500">&copy; 2025 计划李. All rights reserved.</p>
+                <div class="flex gap-6">
+                    <a href="https://zhihu.com" target="_blank" class="font-mono text-xs font-bold hover:text-brand-accent transition-colors">知乎</a>
+                    <a href="https://github.com" target="_blank" class="font-mono text-xs font-bold hover:text-brand-accent transition-colors">GitHub</a>
                 </div>
             </div>
         </div>
     </footer>
-    <script src="scripts/main.js"></script>
-    <script src="scripts/search.js"></script>
-    <script src="scripts/toc.js"></script>
-    <script src="scripts/theme.js"></script>
-    <script src="scripts/recommendations.js"></script>
+
+    <script>
+        // 滚动显示动画
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => {
+            observer.observe(el);
+        });
+
+        // 目录导航生成
+        document.addEventListener('DOMContentLoaded', function() {
+            const articleContent = document.querySelector('.article-content');
+            const tocList = document.getElementById('toc-list');
+            const headings = articleContent.querySelectorAll('h2, h3');
+
+            if (headings.length === 0) {
+                document.getElementById('toc').style.display = 'none';
+                return;
+            }
+
+            // 生成目录
+            headings.forEach((heading, index) => {
+                // 为标题添加 ID
+                const id = 'heading-' + index;
+                heading.id = id;
+
+                // 创建目录项
+                const li = document.createElement('li');
+                li.className = 'toc-item';
+
+                const a = document.createElement('a');
+                a.href = '#' + id;
+                a.className = 'toc-link toc-' + heading.tagName.toLowerCase();
+                a.textContent = heading.textContent;
+
+                // 点击平滑滚动
+                a.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    heading.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                });
+
+                li.appendChild(a);
+                tocList.appendChild(li);
+            });
+
+            // 滚动高亮当前章节
+            const tocLinks = document.querySelectorAll('.toc-link');
+
+            function updateActiveLink() {
+                let currentHeading = null;
+                const scrollPosition = window.scrollY + 150;
+
+                headings.forEach(heading => {
+                    if (heading.offsetTop <= scrollPosition) {
+                        currentHeading = heading;
+                    }
+                });
+
+                tocLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (currentHeading && link.getAttribute('href') === '#' + currentHeading.id) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+
+            window.addEventListener('scroll', updateActiveLink);
+            updateActiveLink();
+        });
+
+        // 阅读进度条
+        const progressBar = document.getElementById('reading-progress');
+
+        function updateProgressBar() {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = (scrollTop / docHeight) * 100;
+            progressBar.style.width = Math.min(progress, 100) + '%';
+        }
+
+        window.addEventListener('scroll', updateProgressBar);
+        updateProgressBar();
+
+        // 返回顶部按钮
+        const backToTop = document.getElementById('back-to-top');
+
+        function toggleBackToTop() {
+            if (window.scrollY > 400) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        }
+
+        backToTop.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        window.addEventListener('scroll', toggleBackToTop);
+        toggleBackToTop();
+    </script>
 </body>
 </html>
