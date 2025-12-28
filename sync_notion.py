@@ -913,7 +913,7 @@ def update_coffee_beans_html(beans):
         cards_html = ''.join([generate_bean_card_html(bean) for bean in beans])
 
         # 替换豆子列表部分
-        pattern = r'(<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">)(.*?)(</div>\s*</div>\s*</section>\s*<!-- 返回咖啡角 -->)'
+        pattern = r'(<div class="grid grid-cols-1 md:grid-cols-2 gap-6">)(.*?)(</div>\s*</div>\s*</section>)'
         replacement = r'\1\n' + cards_html + r'            \3'
 
         new_content = re.sub(pattern, replacement, content, flags=re.DOTALL)
@@ -1226,7 +1226,7 @@ def update_coffee_notes_html(notes):
         cards_html = ''.join([generate_note_card_html(note) for note in notes])
 
         # 替换日记列表部分
-        pattern = r'(<div class="space-y-8">)(.*?)(</div>\s*</div>\s*</div>\s*</section>\s*<!-- 返回咖啡角 -->)'
+        pattern = r'(<div class="space-y-8">)(.*?)(</div>\s*</div>\s*</div>\s*</section>)'
         replacement = r'\1\n' + cards_html + r'                \3'
 
         new_content = re.sub(pattern, replacement, content, flags=re.DOTALL)
