@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>探店笔记 - 咖啡角 | 计划李</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="城市咖啡馆探店记录：环境、出品、服务，以及值得再去的理由。发现身边的好咖啡。">
+    <meta name="keywords" content="咖啡馆, 探店, 精品咖啡店, 咖啡推荐, 咖啡探店">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Noto+Serif+SC:wght@400;700&family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+
+    <!-- RemixIcon -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            black: '#0a0a0a',
+                            white: '#f4f4f0',
+                            accent: '#FF4D00',
+                            blue: '#0047AB',
+                            green: '#059669',
+                            gray: '#8a8a8a'
+                        },
+                        coffee: {
+                            dark: '#3C2415',
+                            medium: '#6F4E37',
+                            light: '#A67B5B',
+                            cream: '#C4A484',
+                            foam: '#F5E6D3'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Noto Sans SC"', 'Inter', 'sans-serif'],
+                        serif: ['"Noto Serif SC"', 'serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/neo-brutalism.css">
+    <link rel="stylesheet" href="styles/coffee.css">
+</head>
+
+<body class="bg-grid min-h-screen">
+    <!-- 导航栏 -->
+    <nav class="nav">
+        <div class="container">
+            <div class="nav-content">
+                <a href="index.html" class="logo">计划李</a>
+                <ul class="nav-links">
+                    <li><a href="index.html">首页</a></li>
+                    <li><a href="blog.html">文章</a></li>
+                    <li><a href="visual-design.html">认知武器</a></li>
+                    <li><a href="coffee.html" class="active">咖啡角</a></li>
+                    <li><a href="about.html">关于</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 面包屑导航 -->
+    <div class="max-w-7xl mx-auto px-4 md:px-8 pt-8">
+        <nav class="flex items-center gap-2 text-sm font-mono">
+            <a href="coffee.html" class="text-coffee-medium hover:text-coffee-dark transition-colors">咖啡角</a>
+            <span class="text-gray-400">/</span>
+            <span class="text-coffee-dark font-bold">探店笔记</span>
+        </nav>
+    </div>
+
+    <!-- 页面头部 -->
+    <section class="py-8 md:py-12">
+        <div class="max-w-7xl mx-auto px-4 md:px-8">
+            <div class="reveal">
+                <div class="flex items-center gap-4 mb-4">
+                    <div class="w-16 h-16 bg-brand-accent border-2 border-brand-black flex items-center justify-center flex-shrink-0">
+                        <i class="ri-store-2-line text-3xl text-white"></i>
+                    </div>
+                    <div>
+                        <span class="font-mono text-xs text-coffee-medium tracking-widest uppercase font-bold">CAFE VISITS</span>
+                        <h1 class="text-4xl md:text-5xl font-black display-text text-brand-black">探店笔记</h1>
+                    </div>
+                </div>
+                <p class="font-serif text-lg md:text-xl text-gray-700 max-w-2xl mt-4 border-l-4 border-brand-accent pl-6">
+                    城市里值得一去的咖啡馆。不是打卡，是真心推荐。
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 城市筛选 -->
+    <section class="py-4">
+        <div class="max-w-7xl mx-auto px-4 md:px-8">
+            <div class="flex flex-wrap gap-3 reveal">
+                <button class="coffee-tag coffee-tag--dark border-2">全部</button>
+                <button class="coffee-tag border-2 border-coffee-dark">深圳</button>
+                <button class="coffee-tag border-2 border-coffee-dark">广州</button>
+                <button class="coffee-tag border-2 border-coffee-dark">其他城市</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 咖啡馆列表 -->
+    <section class="py-8">
+        <div class="max-w-7xl mx-auto px-4 md:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- 咖啡馆1: 精品手冲馆 -->
+                <div class="shop-card reveal border-2 border-brand-black bg-white">
+                    <div
+                        class="h-48 bg-coffee-cream border-b-2 border-brand-black flex items-center justify-center relative">
+                        <i class="ri-cup-line text-7xl text-coffee-dark"></i>
+                        <div class="absolute top-4 right-4">
+                            <span class="bg-brand-accent text-white text-xs font-bold px-3 py-1.5 font-mono border-2 border-brand-black uppercase tracking-wider">必去</span>
+                        </div>
+                    </div>
+                    <div class="shop-info">
+                        <div class="shop-location">
+                            <i class="ri-map-pin-line"></i>
+                            <span>深圳 · 南山 · 科技园</span>
+                        </div>
+                        <h3 class="shop-name text-brand-black font-black">山海咖啡 Hillsea Coffee</h3>
+                        <div class="shop-rating text-brand-accent font-bold">★★★★★</div>
+                        <p class="shop-highlight mb-4">
+                            隐藏在科技园的宝藏小店。老板是 SCA 认证冲煮师，手冲出品稳定且风味层次丰富。环境安静，适合工作。
+                        </p>
+                        <div class="mb-3">
+                            <span class="font-mono text-xs text-coffee-dark font-bold uppercase">必点：</span>
+                            <span class="font-serif text-sm text-gray-600">耶加雪菲手冲、燕麦拿铁</span>
+                        </div>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="coffee-tag border-2 border-coffee-dark">手冲</span>
+                            <span class="coffee-tag border-2 border-coffee-dark">安静</span>
+                            <span class="coffee-tag border-2 border-coffee-dark">适合工作</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 咖啡馆2: 社区咖啡馆 -->
+                <div class="shop-card reveal border-2 border-brand-black bg-white">
+                    <div
+                        class="h-48 bg-coffee-foam border-b-2 border-brand-black flex items-center justify-center relative">
+                        <i class="ri-home-heart-line text-7xl text-coffee-medium"></i>
+                    </div>
+                    <div class="shop-info">
+                        <div class="shop-location">
+                            <i class="ri-map-pin-line"></i>
+                            <span>深圳 · 福田 · 车公庙</span>
+                        </div>
+                        <h3 class="shop-name text-brand-black font-black">月亮与咖啡 Moon Brew</h3>
+                        <div class="shop-rating text-brand-accent font-bold">★★★★☆</div>
+                        <p class="shop-highlight mb-4">
+                            温馨的社区咖啡馆，店主是一对年轻夫妻。招牌是自烘的云南豆，价格亲民，氛围温暖。
+                        </p>
+                        <div class="mb-3">
+                            <span class="font-mono text-xs text-coffee-dark font-bold uppercase">必点：</span>
+                            <span class="font-serif text-sm text-gray-600">云南手冲、蜂蜜拿铁</span>
+                        </div>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="coffee-tag border-2 border-coffee-dark">自烘豆</span>
+                            <span class="coffee-tag border-2 border-coffee-dark">社区店</span>
+                            <span class="coffee-tag border-2 border-coffee-dark">性价比高</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 咖啡馆3: 烘焙坊 -->
+                <div class="shop-card reveal border-2 border-brand-black bg-coffee-dark text-white">
+                    <div
+                        class="h-48 bg-coffee-medium border-b-2 border-brand-black flex items-center justify-center relative">
+                        <i class="ri-fire-line text-7xl text-white"></i>
+                        <div class="absolute top-4 right-4">
+                            <span
+                                class="bg-coffee-foam text-coffee-dark text-xs font-bold px-3 py-1.5 font-mono border-2 border-brand-black uppercase tracking-wider">买豆推荐</span>
+                        </div>
+                    </div>
+                    <div class="shop-info">
+                        <div class="shop-location text-coffee-cream">
+                            <i class="ri-map-pin-line"></i>
+                            <span>广州 · 天河 · 珠江新城</span>
+                        </div>
+                        <h3 class="shop-name text-white font-black">焙感咖啡 Roast Sense</h3>
+                        <div class="shop-rating text-brand-accent font-bold">★★★★★</div>
+                        <p class="shop-highlight mb-4 text-coffee-cream">
+                            专业烘焙工作室，店内能看到完整的烘焙过程。豆子新鲜度极高，可以买到刚出炉的豆子。
+                        </p>
+                        <div class="mb-3">
+                            <span class="font-mono text-xs text-coffee-cream font-bold uppercase">必点：</span>
+                            <span class="font-serif text-sm text-coffee-cream">当季埃塞、肯尼亚 AA</span>
+                        </div>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="coffee-tag coffee-tag--light border-2">烘焙坊</span>
+                            <span class="coffee-tag coffee-tag--light border-2">买豆</span>
+                            <span class="coffee-tag coffee-tag--light border-2">精品豆</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 返回咖啡角 -->
+    <section class="py-8">
+        <div class="max-w-7xl mx-auto px-4 md:px-8">
+            <a href="coffee.html"
+                class="inline-flex items-center font-mono font-bold text-sm text-coffee-medium hover:text-coffee-dark transition-colors">
+                <i class="ri-arrow-left-line mr-2"></i> 返回咖啡角
+            </a>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="border-t-2 border-brand-black mt-16 py-8">
+        <div class="max-w-7xl mx-auto px-4 md:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="font-mono text-xs text-gray-500">&copy; 2025 计划李. All rights reserved.</p>
+                <div class="flex gap-6">
+                    <a href="https://zhihu.com" target="_blank"
+                        class="font-mono text-xs font-bold hover:text-brand-accent transition-colors">知乎</a>
+                    <a href="https://github.com" target="_blank"
+                        class="font-mono text-xs font-bold hover:text-brand-accent transition-colors">GitHub</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 滚动显示动画
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+
+</html>

@@ -14,6 +14,11 @@ NOTION_TOKEN = os.environ.get('NOTION_TOKEN', '')
 DATABASE_ID = os.environ.get('NOTION_DATABASE_ID', '')
 READING_LIST_DB_ID = os.environ.get('NOTION_READING_LIST_DB_ID', '2e71271652c047318638fcbf7fab4677')
 
+# 咖啡内容数据库配置
+COFFEE_BEANS_DB_ID = os.environ.get('COFFEE_BEANS_DB_ID', '2c0ee0e5ac2945acb2fea6856fb95d31')
+CAFE_VISITS_DB_ID = os.environ.get('CAFE_VISITS_DB_ID', 'de0b87e30eb84278826c73f2e4d69b7d')
+BREWING_NOTES_DB_ID = os.environ.get('BREWING_NOTES_DB_ID', '5a158f1d0cb54aed8414c426133e03da')
+
 NOTION_VERSION = '2022-06-28'
 HEADERS = {
     'Authorization': f'Bearer {NOTION_TOKEN}',
@@ -821,5 +826,480 @@ def sync_reading_list():
         print("\n⚠️  没有书籍需要同步")
 
 
+def query_coffee_beans():
+    """查询咖啡豆档案数据库"""
+    url = f'https://api.notion.com/v1/databases/{COFFEE_BEANS_DB_ID}/query'
+
+    payload = {
+        "filter": {
+            "property": "已发布",
+            "checkbox": {
+                "equals": True
+            }
+        },
+        "sorts": [
+            {
+                "property": "购买日期",
+                "direction": "descending"
+            }
+        ]
+    }
+
+    response = requests.post(url, headers=HEADERS, json=payload)
+    response.raise_for_status()
+    return response.json()['results']
+
+
+def generate_bean_card_html(bean):
+    """生成单个咖啡豆卡片HTML"""
+    # 生成风味标签
+    flavors = bean.get('flavor_notes', '').split('、')
+    flavor_tags = ''.join([f'<span class="coffee-tag border-2 border-coffee-dark">{f.strip()}</span>' for f in flavors if f.strip()])
+
+    # 生成冲煮参数
+    brew_params_html = f'''<div class="brew-params border-2 border-brand-black bg-coffee-foam mb-4">
+                        <div class="brew-param">
+                            <div class="brew-param-value">{bean.get('dose', 15)}g</div>
+                            <div class="brew-param-label">粉量</div>
+                        </div>
+                        <div class="brew-param">
+                            <div class="brew-param-value">{bean.get('ratio', '1:16')}</div>
+                            <div class="brew-param-label">粉水比</div>
+                        </div>
+                        <div class="brew-param">
+                            <div class="brew-param-value">{bean.get('temperature', 92)}°C</div>
+                            <div class="brew-param-label">水温</div>
+                        </div>
+                        <div class="brew-param">
+                            <div class="brew-param-value">{bean.get('brew_time', '2:30')}</div>
+                            <div class="brew-param-label">时间</div>
+                        </div>
+                    </div>'''
+
+    return f'''                <div class="bean-card reveal border-2 border-brand-black bg-white">
+                    <h3 class="text-2xl font-black mb-1 text-brand-black">{bean['name']}</h3>
+                    <p class="text-sm text-coffee-medium font-mono mb-4 uppercase tracking-wider">{bean['origin']} · {bean['roast']}</p>
+
+                    <div class="mb-4">
+                        <span class="text-xs font-mono text-coffee-dark font-bold uppercase block mb-2">风味描述</span>
+                        <div class="flex flex-wrap gap-2">
+                            {flavor_tags}
+                        </div>
+                    </div>
+
+                    {brew_params_html}
+
+                    <div class="mb-4">
+                        <span class="text-xs font-mono text-coffee-dark font-bold uppercase block mb-2">品鉴笔记</span>
+                        <p class="text-sm text-gray-600 font-serif leading-relaxed">{bean.get('tasting_notes', '暂无品鉴笔记')}</p>
+                    </div>
+
+                    <div class="flex items-center justify-between pt-3 border-t border-gray-200">
+                        <span class="text-sm font-mono text-coffee-medium">{bean.get('source', '未知来源')}</span>
+                        <span class="text-xl">{bean.get('rating', '⭐⭐⭐⭐')}</span>
+                    </div>
+                </div>
+
+'''
+
+
+def update_coffee_beans_html(beans):
+    """更新coffee-beans.html"""
+    try:
+        with open('coffee-beans.html', 'r', encoding='utf-8') as f:
+            content = f.read()
+
+        # 生成所有豆子卡片
+        cards_html = ''.join([generate_bean_card_html(bean) for bean in beans])
+
+        # 替换豆子列表部分
+        pattern = r'(<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">)(.*?)(</div>\s*</div>\s*</section>\s*<!-- 返回咖啡角 -->)'
+        replacement = r'\1\n' + cards_html + r'            \3'
+
+        new_content = re.sub(pattern, replacement, content, flags=re.DOTALL)
+
+        with open('coffee-beans.html', 'w', encoding='utf-8') as f:
+            f.write(new_content)
+
+        print("✅ coffee-beans.html 更新成功")
+        return True
+    except Exception as e:
+        print(f"❌ 更新 coffee-beans.html 失败: {e}")
+        import traceback
+        traceback.print_exc()
+        return False
+
+
+def sync_coffee_beans():
+    """同步咖啡豆档案"""
+    print("\n☕ 开始同步咖啡豆档案...")
+
+    try:
+        beans_data = query_coffee_beans()
+        print(f"📦 找到 {len(beans_data)} 款已发布的咖啡豆")
+    except Exception as e:
+        print(f"❌ 查询咖啡豆档案数据库失败: {e}")
+        return
+
+    beans = []
+
+    for bean_page in beans_data:
+        try:
+            properties = bean_page['properties']
+
+            bean = {
+                'name': get_property_value(properties, '豆子名称'),
+                'origin': get_property_value(properties, '产地'),
+                'process': get_property_value(properties, '处理法'),
+                'roast': get_property_value(properties, '烘焙度'),
+                'flavor_notes': get_property_value(properties, '风味描述'),
+                'dose': get_property_value(properties, '粉量'),
+                'ratio': get_property_value(properties, '粉水比'),
+                'temperature': get_property_value(properties, '水温'),
+                'brew_time': get_property_value(properties, '萃取时间'),
+                'tasting_notes': get_property_value(properties, '品鉴笔记'),
+                'rating': get_property_value(properties, '评分'),
+                'source': get_property_value(properties, '购买渠道'),
+                'date': get_property_value(properties, '购买日期')
+            }
+
+            beans.append(bean)
+            print(f"  ✅ 处理咖啡豆: {bean['name']}")
+
+        except Exception as e:
+            print(f"  ❌ 处理咖啡豆失败: {e}")
+            import traceback
+            traceback.print_exc()
+            continue
+
+    if beans:
+        print("\n📋 更新咖啡豆页面...")
+        update_coffee_beans_html(beans)
+        print(f"\n🎉 咖啡豆同步完成！共 {len(beans)} 款咖啡豆")
+    else:
+        print("\n⚠️  没有咖啡豆需要同步")
+
+
+def query_cafe_visits():
+    """查询探店笔记数据库"""
+    url = f'https://api.notion.com/v1/databases/{CAFE_VISITS_DB_ID}/query'
+
+    payload = {
+        "filter": {
+            "property": "已发布",
+            "checkbox": {
+                "equals": True
+            }
+        },
+        "sorts": [
+            {
+                "property": "访问日期",
+                "direction": "descending"
+            }
+        ]
+    }
+
+    response = requests.post(url, headers=HEADERS, json=payload)
+    response.raise_for_status()
+    return response.json()['results']
+
+
+def generate_shop_card_html(shop):
+    """生成单个咖啡馆卡片HTML"""
+    # 生成标签
+    tags = shop.get('tags', [])
+    tags_html = ''.join([f'<span class="coffee-tag border-2 border-coffee-dark">{tag}</span>' for tag in tags])
+
+    # 根据推荐状态决定徽章和背景
+    badge_html = ''
+    bg_color = 'coffee-cream'
+    if shop.get('recommend'):
+        badge_html = '<div class="absolute top-4 right-4"><span class="bg-brand-accent text-white text-xs font-bold px-3 py-1.5 font-mono border-2 border-brand-black uppercase tracking-wider">必去</span></div>'
+        bg_color = 'coffee-cream'
+
+    # 图标选择
+    icon_map = {
+        '手冲专门店': 'ri-cup-line',
+        '精品咖啡': 'ri-cup-line',
+        '社区咖啡馆': 'ri-home-heart-line',
+        '烘焙坊': 'ri-fire-line',
+        '连锁品牌': 'ri-store-2-line'
+    }
+    icon = 'ri-cup-line'  # 默认图标
+    for cafe_type in shop.get('types', []):
+        if cafe_type in icon_map:
+            icon = icon_map[cafe_type]
+            break
+
+    return f'''                <div class="shop-card reveal border-2 border-brand-black bg-white">
+                    <div class="h-48 bg-{bg_color} border-b-2 border-brand-black flex items-center justify-center relative">
+                        <i class="{icon} text-7xl text-coffee-dark"></i>
+                        {badge_html}
+                    </div>
+                    <div class="shop-info">
+                        <div class="shop-location">
+                            <i class="ri-map-pin-line"></i>
+                            <span>{shop.get('city', '')} · {shop.get('district', '')}</span>
+                        </div>
+                        <h3 class="shop-name text-brand-black font-black">{shop['name']}</h3>
+                        <div class="shop-rating text-brand-accent font-bold">{shop.get('rating', '★★★★')}</div>
+                        <p class="shop-highlight mb-4">
+                            {shop.get('ambience', '暂无环境评价')}
+                        </p>
+                        <div class="mb-3">
+                            <span class="font-mono text-xs text-coffee-dark font-bold uppercase">必点：</span>
+                            <span class="font-serif text-sm text-gray-600">{shop.get('recommendations', '待补充')}</span>
+                        </div>
+                        <div class="flex flex-wrap gap-2">
+                            {tags_html}
+                        </div>
+                    </div>
+                </div>
+
+'''
+
+
+def update_coffee_shops_html(shops):
+    """更新coffee-shops.html"""
+    try:
+        with open('coffee-shops.html', 'r', encoding='utf-8') as f:
+            content = f.read()
+
+        # 生成所有咖啡馆卡片
+        cards_html = ''.join([generate_shop_card_html(shop) for shop in shops])
+
+        # 替换咖啡馆列表部分
+        pattern = r'(<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">)(.*?)(</div>\s*</div>\s*</section>\s*<!-- 返回咖啡角 -->)'
+        replacement = r'\1\n' + cards_html + r'            \3'
+
+        new_content = re.sub(pattern, replacement, content, flags=re.DOTALL)
+
+        with open('coffee-shops.html', 'w', encoding='utf-8') as f:
+            f.write(new_content)
+
+        print("✅ coffee-shops.html 更新成功")
+        return True
+    except Exception as e:
+        print(f"❌ 更新 coffee-shops.html 失败: {e}")
+        import traceback
+        traceback.print_exc()
+        return False
+
+
+def sync_cafe_visits():
+    """同步探店笔记"""
+    print("\n🏪 开始同步探店笔记...")
+
+    try:
+        shops_data = query_cafe_visits()
+        print(f"📍 找到 {len(shops_data)} 家已发布的咖啡馆")
+    except Exception as e:
+        print(f"❌ 查询探店笔记数据库失败: {e}")
+        return
+
+    shops = []
+
+    for shop_page in shops_data:
+        try:
+            properties = shop_page['properties']
+
+            shop = {
+                'name': get_property_value(properties, '咖啡馆名称'),
+                'city': get_property_value(properties, '城市'),
+                'district': get_property_value(properties, '区域'),
+                'address': get_property_value(properties, '地址'),
+                'types': get_property_value(properties, '类型'),
+                'rating': get_property_value(properties, '评分'),
+                'ambience': get_property_value(properties, '环境评价'),
+                'quality': get_property_value(properties, '出品评价'),
+                'recommendations': get_property_value(properties, '必点推荐'),
+                'tags': get_property_value(properties, '特色标签'),
+                'visit_date': get_property_value(properties, '访问日期'),
+                'recommend': get_property_value(properties, '是否推荐')
+            }
+
+            shops.append(shop)
+            print(f"  ✅ 处理咖啡馆: {shop['name']}")
+
+        except Exception as e:
+            print(f"  ❌ 处理咖啡馆失败: {e}")
+            import traceback
+            traceback.print_exc()
+            continue
+
+    if shops:
+        print("\n📋 更新探店笔记页面...")
+        update_coffee_shops_html(shops)
+        print(f"\n🎉 探店笔记同步完成！共 {len(shops)} 家咖啡馆")
+    else:
+        print("\n⚠️  没有咖啡馆需要同步")
+
+
+def query_brewing_notes():
+    """查询冲煮日记数据库"""
+    url = f'https://api.notion.com/v1/databases/{BREWING_NOTES_DB_ID}/query'
+
+    payload = {
+        "filter": {
+            "property": "已发布",
+            "checkbox": {
+                "equals": True
+            }
+        },
+        "sorts": [
+            {
+                "property": "日期",
+                "direction": "descending"
+            }
+        ]
+    }
+
+    response = requests.post(url, headers=HEADERS, json=payload)
+    response.raise_for_status()
+    return response.json()['results']
+
+
+def generate_note_card_html(note):
+    """生成单个日记卡片HTML"""
+    # 生成标签
+    tags = note.get('tags', [])
+    tags_html = ''
+    if tags:
+        tags_html = f'''<div class="note-tags">
+                            {''.join([f'<span class="coffee-tag">{tag}</span>' for tag in tags])}
+                        </div>'''
+
+    # 根据类型选择图标和颜色
+    type_config = {
+        '冲煮记录': {'icon': '☕', 'dot_color': 'coffee-dark'},
+        '实验': {'icon': '🔬', 'dot_color': 'brand-accent', 'card_class': 'bg-white border-2 border-coffee-dark'},
+        '心情': {'icon': '💭', 'dot_color': 'coffee-cream', 'card_class': 'bg-coffee-foam'},
+        '学习': {'icon': '📚', 'dot_color': 'coffee-light'}
+    }
+
+    note_type = note.get('type', '冲煮记录')
+    config = type_config.get(note_type, type_config['冲煮记录'])
+    icon = config['icon']
+    dot_color = config['dot_color']
+    card_class = config.get('card_class', 'border-2 border-brand-black')
+
+    # 格式化日期
+    date_str = note.get('date', '')
+    if date_str:
+        try:
+            date_obj = datetime.fromisoformat(date_str.replace('Z', '+00:00'))
+            formatted_date = date_obj.strftime('%Y年%m月%d日 · %A')
+            # 翻译星期
+            weekday_map = {
+                'Monday': '周一', 'Tuesday': '周二', 'Wednesday': '周三',
+                'Thursday': '周四', 'Friday': '周五', 'Saturday': '周六', 'Sunday': '周日'
+            }
+            for en, zh in weekday_map.items():
+                formatted_date = formatted_date.replace(en, zh)
+        except:
+            formatted_date = date_str
+    else:
+        formatted_date = '未知日期'
+
+    return f'''                    <div class="note-card reveal md:ml-16 relative {card_class}">
+                        <div class="hidden md:block absolute -left-12 top-6 w-6 h-6 bg-{dot_color} border-2 border-brand-black"></div>
+                        <div class="flex items-center gap-3 mb-3">
+                            <span class="text-2xl">{icon}</span>
+                            <div class="note-date">{formatted_date}</div>
+                        </div>
+                        <div class="note-content">
+                            {note.get('content', '暂无内容')}
+                        </div>
+                        {tags_html}
+                    </div>
+
+'''
+
+
+def update_coffee_notes_html(notes):
+    """更新coffee-notes.html"""
+    try:
+        with open('coffee-notes.html', 'r', encoding='utf-8') as f:
+            content = f.read()
+
+        # 生成所有日记卡片
+        cards_html = ''.join([generate_note_card_html(note) for note in notes])
+
+        # 替换日记列表部分
+        pattern = r'(<div class="space-y-8">)(.*?)(</div>\s*</div>\s*</div>\s*</section>\s*<!-- 返回咖啡角 -->)'
+        replacement = r'\1\n' + cards_html + r'                \3'
+
+        new_content = re.sub(pattern, replacement, content, flags=re.DOTALL)
+
+        with open('coffee-notes.html', 'w', encoding='utf-8') as f:
+            f.write(new_content)
+
+        print("✅ coffee-notes.html 更新成功")
+        return True
+    except Exception as e:
+        print(f"❌ 更新 coffee-notes.html 失败: {e}")
+        import traceback
+        traceback.print_exc()
+        return False
+
+
+def sync_brewing_notes():
+    """同步冲煮日记"""
+    print("\n📝 开始同步冲煮日记...")
+
+    try:
+        notes_data = query_brewing_notes()
+        print(f"📖 找到 {len(notes_data)} 条已发布的日记")
+    except Exception as e:
+        print(f"❌ 查询冲煮日记数据库失败: {e}")
+        return
+
+    notes = []
+
+    for note_page in notes_data:
+        try:
+            properties = note_page['properties']
+
+            # 获取日期
+            date = get_property_value(properties, '日期')
+
+            # 获取内容 - 需要读取block内容
+            content_blocks = get_page_content(note_page['id'])
+            content_html = ''
+            for block in content_blocks:
+                if block['type'] == 'paragraph':
+                    text = rich_text_to_html(block['paragraph']['rich_text'])
+                    content_html += f'<p>{text}</p>'
+
+            note = {
+                'title': get_property_value(properties, '标题'),
+                'date': date,
+                'type': get_property_value(properties, '类型'),
+                'content': content_html or '暂无内容',
+                'equipment': get_property_value(properties, '冲煮器具'),
+                'tags': get_property_value(properties, '标签'),
+            }
+
+            notes.append(note)
+            print(f"  ✅ 处理日记: {note['title']}")
+
+        except Exception as e:
+            print(f"  ❌ 处理日记失败: {e}")
+            import traceback
+            traceback.print_exc()
+            continue
+
+    if notes:
+        print("\n📋 更新冲煮日记页面...")
+        update_coffee_notes_html(notes)
+        print(f"\n🎉 冲煮日记同步完成！共 {len(notes)} 条日记")
+    else:
+        print("\n⚠️  没有日记需要同步")
+
+
 if __name__ == '__main__':
     main()
+    sync_reading_list()
+    sync_coffee_beans()
+    sync_cafe_visits()
+    sync_brewing_notes()

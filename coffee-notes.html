@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>随手记 - 咖啡角 | 计划李</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="咖啡日常随手记：冲煮记录、实验尝试、心情随想。咖啡时光里的碎片化思考。">
+    <meta name="keywords" content="咖啡日记, 冲煮记录, 咖啡心得, 咖啡随想">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Noto+Serif+SC:wght@400;700&family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+
+    <!-- RemixIcon -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            black: '#0a0a0a',
+                            white: '#f4f4f0',
+                            accent: '#FF4D00',
+                            blue: '#0047AB',
+                            green: '#059669',
+                            gray: '#8a8a8a'
+                        },
+                        coffee: {
+                            dark: '#3C2415',
+                            medium: '#6F4E37',
+                            light: '#A67B5B',
+                            cream: '#C4A484',
+                            foam: '#F5E6D3'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Noto Sans SC"', 'Inter', 'sans-serif'],
+                        serif: ['"Noto Serif SC"', 'serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/neo-brutalism.css">
+    <link rel="stylesheet" href="styles/coffee.css">
+</head>
+
+<body class="bg-grid min-h-screen">
+    <!-- 导航栏 -->
+    <nav class="nav">
+        <div class="container">
+            <div class="nav-content">
+                <a href="index.html" class="logo">计划李</a>
+                <ul class="nav-links">
+                    <li><a href="index.html">首页</a></li>
+                    <li><a href="blog.html">文章</a></li>
+                    <li><a href="visual-design.html">认知武器</a></li>
+                    <li><a href="coffee.html" class="active">咖啡角</a></li>
+                    <li><a href="about.html">关于</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 面包屑导航 -->
+    <div class="max-w-7xl mx-auto px-4 md:px-8 pt-8">
+        <nav class="flex items-center gap-2 text-sm font-mono">
+            <a href="coffee.html" class="text-coffee-medium hover:text-coffee-dark transition-colors">咖啡角</a>
+            <span class="text-gray-400">/</span>
+            <span class="text-coffee-dark font-bold">随手记</span>
+        </nav>
+    </div>
+
+    <!-- 页面头部 -->
+    <section class="py-8 md:py-12">
+        <div class="max-w-7xl mx-auto px-4 md:px-8">
+            <div class="reveal">
+                <div class="flex items-center gap-4 mb-4">
+                    <div class="w-16 h-16 bg-coffee-medium border-2 border-brand-black flex items-center justify-center flex-shrink-0">
+                        <i class="ri-quill-pen-line text-3xl text-white"></i>
+                    </div>
+                    <div>
+                        <span class="font-mono text-xs text-coffee-medium tracking-widest uppercase font-bold">DAILY NOTES</span>
+                        <h1 class="text-4xl md:text-5xl font-black display-text text-brand-black">随手记</h1>
+                    </div>
+                </div>
+                <p class="font-serif text-lg md:text-xl text-gray-700 max-w-2xl mt-4 border-l-4 border-coffee-medium pl-6">
+                    日常冲煮、心情随想、实验记录。咖啡时光里的碎片化思考。
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 分类标签 -->
+    <section class="py-4">
+        <div class="max-w-7xl mx-auto px-4 md:px-8">
+            <div class="flex flex-wrap gap-3 reveal">
+                <button class="coffee-tag coffee-tag--dark border-2">全部</button>
+                <button class="coffee-tag border-2 border-coffee-dark">冲煮记录</button>
+                <button class="coffee-tag border-2 border-coffee-dark">实验</button>
+                <button class="coffee-tag border-2 border-coffee-dark">心情</button>
+                <button class="coffee-tag border-2 border-coffee-dark">学习</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 随手记列表 -->
+    <section class="py-8">
+        <div class="max-w-7xl mx-auto px-4 md:px-8">
+            <!-- 时间线容器 -->
+            <div class="relative">
+                <!-- 时间线装饰 -->
+                <div
+                    class="hidden md:block absolute left-8 top-0 bottom-0 w-px bg-coffee-light">
+                </div>
+
+                <div class="space-y-8">
+                    <!-- 冲煮记录 1 -->
+                    <div class="note-card reveal md:ml-16 relative border-2 border-brand-black">
+                        <div
+                            class="hidden md:block absolute -left-12 top-6 w-6 h-6 bg-coffee-dark border-2 border-brand-black">
+                        </div>
+                        <div class="flex items-center gap-3 mb-3">
+                            <span class="text-2xl">☕</span>
+                            <div class="note-date">2025年12月28日 · 周六早晨</div>
+                        </div>
+                        <div class="note-content">
+                            <p>今天尝试用 V60 冲那支新到的耶加雪菲。用了 15g 粉，1:16 的粉水比，水温 92°C。</p>
+                            <p class="mt-3">第一次冲有点过萃，苦涩明显。第二次调整了注水节奏，放慢了闷蒸后的第一段注水，效果好很多。果酸变得柔和，尾韵有明显的茉莉花香。</p>
+                            <p class="mt-3">早晨的阳光透过窗户，咖啡香气弥漫，这大概就是冬日里最简单的幸福。</p>
+                        </div>
+                        <div class="note-tags">
+                            <span class="coffee-tag">冲煮记录</span>
+                            <span class="coffee-tag">V60</span>
+                            <span class="coffee-tag">耶加雪菲</span>
+                        </div>
+                    </div>
+
+                    <!-- 实验记录 -->
+                    <div class="note-card reveal md:ml-16 relative bg-white border-2 border-coffee-dark">
+                        <div
+                            class="hidden md:block absolute -left-12 top-6 w-6 h-6 bg-brand-accent border-2 border-brand-black">
+                        </div>
+                        <div class="flex items-center gap-3 mb-3">
+                            <span class="coffee-tag coffee-tag--dark">🔬 实验</span>
+                            <div class="note-date">2025年12月27日 · 周五下午</div>
+                        </div>
+                        <div class="note-content">
+                            <p><strong>实验：不同水温对酸度的影响</strong></p>
+                            <p class="mt-3">用同一款豆子（埃塞日晒），分别用 88°C、91°C、94°C 冲煮三杯。</p>
+                            <div class="mt-4 p-4 bg-coffee-foam rounded-lg">
+                                <ul class="space-y-2 text-gray-700">
+                                    <li class="flex items-center gap-2"><span
+                                            class="font-mono text-coffee-dark font-bold">88°C</span> 酸度最突出，略带青涩感</li>
+                                    <li class="flex items-center gap-2"><span
+                                            class="font-mono text-coffee-dark font-bold">91°C</span> 酸甜平衡，风味最清晰 ⭐</li>
+                                    <li class="flex items-center gap-2"><span
+                                            class="font-mono text-coffee-dark font-bold">94°C</span> 甜度上升，但尾韵略苦</li>
+                                </ul>
+                            </div>
+                            <p class="mt-4 font-bold text-coffee-dark">📝 结论：这支浅烘豆用 91°C 最合适。</p>
+                        </div>
+                    </div>
+
+                    <!-- 心情随想 -->
+                    <div class="note-card reveal md:ml-16 relative bg-coffee-foam border-2 border-brand-black">
+                        <div
+                            class="hidden md:block absolute -left-12 top-6 w-6 h-6 bg-coffee-cream border-2 border-brand-black">
+                        </div>
+                        <div class="flex items-center gap-3 mb-3">
+                            <span class="text-2xl">💭</span>
+                            <div class="note-date">2025年12月26日 · 周四晚上</div>
+                        </div>
+                        <div class="note-content">
+                            <p>最近在想，手冲咖啡对我来说意味着什么。</p>
+                            <p class="mt-3">不只是一杯好喝的饮品，更像是一种仪式感。磨豆的声音、热水注入时的香气、等待滴滤的时光……这些小事让每天都变得特别一点。</p>
+                            <p class="mt-3 italic text-coffee-medium">"在忙碌的生活里，给自己一个慢下来的理由。"</p>
+                        </div>
+                        <div class="note-tags">
+                            <span class="coffee-tag">心情</span>
+                            <span class="coffee-tag">随想</span>
+                        </div>
+                    </div>
+
+                    <!-- 学习笔记 -->
+                    <div class="note-card reveal md:ml-16 relative border-2 border-brand-black">
+                        <div
+                            class="hidden md:block absolute -left-12 top-6 w-6 h-6 bg-coffee-light border-2 border-brand-black">
+                        </div>
+                        <div class="flex items-center gap-3 mb-3">
+                            <span class="text-2xl">📚</span>
+                            <div class="note-date">2025年12月25日 · 周三</div>
+                        </div>
+                        <div class="note-content">
+                            <p><strong>今天学到：关于「萃取」的理解</strong></p>
+                            <p class="mt-3">萃取不足 → 酸、涩、水感<br>
+                                萃取过度 → 苦、涩、空洞</p>
+                            <p class="mt-3">影响萃取的变量：研磨度、水温、粉水比、时间、搅拌。调整任何一个都会改变最终风味。</p>
+                            <p class="mt-3 text-coffee-medium text-sm font-mono">来源：James Hoffmann 的 V60 教程</p>
+                        </div>
+                        <div class="note-tags">
+                            <span class="coffee-tag">学习</span>
+                            <span class="coffee-tag">萃取理论</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 返回咖啡角 -->
+    <section class="py-8">
+        <div class="max-w-7xl mx-auto px-4 md:px-8">
+            <a href="coffee.html"
+                class="inline-flex items-center font-mono font-bold text-sm text-coffee-medium hover:text-coffee-dark transition-colors">
+                <i class="ri-arrow-left-line mr-2"></i> 返回咖啡角
+            </a>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="border-t-2 border-brand-black mt-16 py-8">
+        <div class="max-w-7xl mx-auto px-4 md:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="font-mono text-xs text-gray-500">&copy; 2025 计划李. All rights reserved.</p>
+                <div class="flex gap-6">
+                    <a href="https://zhihu.com" target="_blank"
+                        class="font-mono text-xs font-bold hover:text-brand-accent transition-colors">知乎</a>
+                    <a href="https://github.com" target="_blank"
+                        class="font-mono text-xs font-bold hover:text-brand-accent transition-colors">GitHub</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 滚动显示动画
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+
+</html>

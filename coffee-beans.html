@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>豆子档案 - 咖啡角 | 计划李</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="咖啡豆品鉴记录：产地、处理法、烘焙度、风味笔记和冲煮参数。记录每一款豆子的独特风味。">
+    <meta name="keywords" content="咖啡豆, 精品咖啡, 咖啡风味, 产地咖啡, 咖啡品鉴">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Noto+Serif+SC:wght@400;700&family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+
+    <!-- RemixIcon -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            black: '#0a0a0a',
+                            white: '#f4f4f0',
+                            accent: '#FF4D00',
+                            blue: '#0047AB',
+                            green: '#059669',
+                            gray: '#8a8a8a'
+                        },
+                        coffee: {
+                            dark: '#3C2415',
+                            medium: '#6F4E37',
+                            light: '#A67B5B',
+                            cream: '#C4A484',
+                            foam: '#F5E6D3'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Noto Sans SC"', 'Inter', 'sans-serif'],
+                        serif: ['"Noto Serif SC"', 'serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/neo-brutalism.css">
+    <link rel="stylesheet" href="styles/coffee.css">
+</head>
+
+<body class="bg-grid min-h-screen">
+    <!-- 导航栏 -->
+    <nav class="nav">
+        <div class="container">
+            <div class="nav-content">
+                <a href="index.html" class="logo">计划李</a>
+                <ul class="nav-links">
+                    <li><a href="index.html">首页</a></li>
+                    <li><a href="blog.html">文章</a></li>
+                    <li><a href="visual-design.html">认知武器</a></li>
+                    <li><a href="coffee.html" class="active">咖啡角</a></li>
+                    <li><a href="about.html">关于</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 面包屑导航 -->
+    <div class="max-w-7xl mx-auto px-4 md:px-8 pt-8">
+        <nav class="flex items-center gap-2 text-sm font-mono">
+            <a href="coffee.html" class="text-coffee-medium hover:text-coffee-dark transition-colors">咖啡角</a>
+            <span class="text-gray-400">/</span>
+            <span class="text-coffee-dark font-bold">豆子档案</span>
+        </nav>
+    </div>
+
+    <!-- 页面头部 -->
+    <section class="py-8 md:py-12">
+        <div class="max-w-7xl mx-auto px-4 md:px-8">
+            <div class="reveal">
+                <div class="flex items-center gap-4 mb-4">
+                    <div class="w-16 h-16 bg-coffee-dark border-2 border-brand-black flex items-center justify-center flex-shrink-0">
+                        <i class="ri-seedling-line text-3xl text-white"></i>
+                    </div>
+                    <div>
+                        <span class="font-mono text-xs text-coffee-medium tracking-widest uppercase font-bold">BEANS</span>
+                        <h1 class="text-4xl md:text-5xl font-black display-text text-brand-black">豆子档案</h1>
+                    </div>
+                </div>
+                <p class="font-serif text-lg md:text-xl text-gray-700 max-w-2xl mt-4 border-l-4 border-coffee-dark pl-6">
+                    每一款豆子都值得被记录。产地、处理法、风味，以及最佳冲煮参数。
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 筛选器 -->
+    <section class="py-4">
+        <div class="max-w-7xl mx-auto px-4 md:px-8">
+            <div class="flex flex-wrap gap-3 reveal">
+                <button class="coffee-tag coffee-tag--dark border-2">全部</button>
+                <button class="coffee-tag border-2 border-coffee-dark">埃塞俄比亚</button>
+                <button class="coffee-tag border-2 border-coffee-dark">哥伦比亚</button>
+                <button class="coffee-tag border-2 border-coffee-dark">肯尼亚</button>
+                <button class="coffee-tag border-2 border-coffee-dark">日晒</button>
+                <button class="coffee-tag border-2 border-coffee-dark">水洗</button>
+                <button class="coffee-tag border-2 border-coffee-dark">蜜处理</button>
+            </div>
+        </div>
+    </section>
+    <!-- 豆子列表 -->
+    <section class="py-8">
+        <div class="max-w-7xl mx-auto px-4 md:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- 耶加雪菲 果丁丁 -->
+                <div class="bean-card reveal border-2 border-brand-black bg-white">
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="flex gap-2">
+                            <span class="coffee-tag border-2 border-coffee-dark">埃塞俄比亚</span>
+                            <span class="coffee-tag border-2 border-coffee-dark">日晒</span>
+                        </div>
+                        <div class="text-brand-accent text-lg font-bold">★★★★★</div>
+                    </div>
+                    <h3 class="text-2xl font-black mb-1 text-brand-black">耶加雪菲 果丁丁</h3>
+                    <p class="text-sm text-coffee-medium font-mono mb-4 uppercase tracking-wider">YIRGACHEFFE GUJI · 浅烘</p>
+                    <p class="font-serif text-gray-700 mb-4 leading-relaxed">
+                        浓郁的蓝莓和草莓果酱香气，带有柑橘和茉莉花的清新尾韵。酸质明亮活泼，甜感持久，余韵悠长。
+                    </p>
+
+                    <!-- 冲煮参数 -->
+                    <div class="brew-params">
+                        <div class="brew-param">
+                            <div class="brew-param-value">15g</div>
+                            <div class="brew-param-label">粉量</div>
+                        </div>
+                        <div class="brew-param">
+                            <div class="brew-param-value">240ml</div>
+                            <div class="brew-param-label">水量</div>
+                        </div>
+                        <div class="brew-param">
+                            <div class="brew-param-value">92°C</div>
+                            <div class="brew-param-label">水温</div>
+                        </div>
+                        <div class="brew-param">
+                            <div class="brew-param-value">2:30</div>
+                            <div class="brew-param-label">时间</div>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 flex flex-wrap gap-2">
+                        <span class="flavor-tag">蓝莓</span>
+                        <span class="flavor-tag">草莓</span>
+                        <span class="flavor-tag">柑橘</span>
+                        <span class="flavor-tag">茉莉花</span>
+                    </div>
+                </div>
+
+                <!-- 哥伦比亚 蕙兰 -->
+                <div class="bean-card reveal border-2 border-brand-black bg-coffee-foam">
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="flex gap-2">
+                            <span class="coffee-tag border-2 border-coffee-dark">哥伦比亚</span>
+                            <span class="coffee-tag border-2 border-coffee-dark">水洗</span>
+                        </div>
+                        <div class="text-brand-accent text-lg font-bold">★★★★☆</div>
+                    </div>
+                    <h3 class="text-2xl font-black mb-1 text-brand-black">蕙兰 粉波旁</h3>
+                    <p class="text-sm text-coffee-medium font-mono mb-4 uppercase tracking-wider">HUILA PINK BOURBON · 中浅烘</p>
+                    <p class="font-serif text-gray-700 mb-4 leading-relaxed">
+                        典型的坚果和焦糖甜感，伴随淡淡的红苹果酸。醇厚度适中，平衡感极佳，适合日常饮用。
+                    </p>
+
+                    <!-- 冲煮参数 -->
+                    <div class="brew-params">
+                        <div class="brew-param">
+                            <div class="brew-param-value">16g</div>
+                            <div class="brew-param-label">粉量</div>
+                        </div>
+                        <div class="brew-param">
+                            <div class="brew-param-value">250ml</div>
+                            <div class="brew-param-label">水量</div>
+                        </div>
+                        <div class="brew-param">
+                            <div class="brew-param-value">93°C</div>
+                            <div class="brew-param-label">水温</div>
+                        </div>
+                        <div class="brew-param">
+                            <div class="brew-param-value">2:45</div>
+                            <div class="brew-param-label">时间</div>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 flex flex-wrap gap-2">
+                        <span class="flavor-tag">坚果</span>
+                        <span class="flavor-tag">焦糖</span>
+                        <span class="flavor-tag">苹果</span>
+                        <span class="flavor-tag">可可</span>
+                    </div>
+                </div>
+
+                <!-- 肯尼亚 AA -->
+                <div class="bean-card reveal border-2 border-coffee-dark bg-white">
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="flex gap-2">
+                            <span class="coffee-tag coffee-tag--dark border-2">肯尼亚</span>
+                            <span class="coffee-tag border-2 border-coffee-dark">水洗</span>
+                        </div>
+                        <div class="text-brand-accent text-lg font-bold">★★★★★</div>
+                    </div>
+                    <h3 class="text-2xl font-black mb-1 text-brand-black">涅里 AA TOP</h3>
+                    <p class="text-sm text-coffee-medium font-mono mb-4 uppercase tracking-wider">NYERI AA TOP · 浅烘</p>
+                    <p class="font-serif text-gray-700 mb-4 leading-relaxed">
+                        经典的黑醋栗和番茄酸感，带有明显的红酒韵味。酸度锐利但不刺激，层次丰富。
+                    </p>
+
+                    <!-- 冲煮参数 -->
+                    <div class="brew-params">
+                        <div class="brew-param">
+                            <div class="brew-param-value">15g</div>
+                            <div class="brew-param-label">粉量</div>
+                        </div>
+                        <div class="brew-param">
+                            <div class="brew-param-value">225ml</div>
+                            <div class="brew-param-label">水量</div>
+                        </div>
+                        <div class="brew-param">
+                            <div class="brew-param-value">91°C</div>
+                            <div class="brew-param-label">水温</div>
+                        </div>
+                        <div class="brew-param">
+                            <div class="brew-param-value">2:20</div>
+                            <div class="brew-param-label">时间</div>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 flex flex-wrap gap-2">
+                        <span class="flavor-tag">黑醋栗</span>
+                        <span class="flavor-tag">番茄</span>
+                        <span class="flavor-tag">红酒</span>
+                        <span class="flavor-tag">柠檬</span>
+                    </div>
+                </div>
+
+                <!-- 云南 日晒 -->
+                <div class="bean-card reveal border-2 border-brand-black bg-coffee-foam">
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="flex gap-2">
+                            <span class="coffee-tag border-2 border-coffee-dark">云南</span>
+                            <span class="coffee-tag border-2 border-coffee-dark">日晒</span>
+                        </div>
+                        <div class="text-brand-accent text-lg font-bold">★★★★☆</div>
+                    </div>
+                    <h3 class="text-2xl font-black mb-1 text-brand-black">保山 小粒咖啡</h3>
+                    <p class="text-sm text-coffee-medium font-mono mb-4 uppercase tracking-wider">BAOSHAN ARABICA · 中烘</p>
+                    <p class="font-serif text-gray-700 mb-4 leading-relaxed">
+                        国产精品豆代表。甜感突出，有明显的红糖和坚果风味，尾韵带有淡淡的花香。
+                    </p>
+
+                    <!-- 冲煮参数 -->
+                    <div class="brew-params">
+                        <div class="brew-param">
+                            <div class="brew-param-value">16g</div>
+                            <div class="brew-param-label">粉量</div>
+                        </div>
+                        <div class="brew-param">
+                            <div class="brew-param-value">240ml</div>
+                            <div class="brew-param-label">水量</div>
+                        </div>
+                        <div class="brew-param">
+                            <div class="brew-param-value">94°C</div>
+                            <div class="brew-param-label">水温</div>
+                        </div>
+                        <div class="brew-param">
+                            <div class="brew-param-value">2:40</div>
+                            <div class="brew-param-label">时间</div>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 flex flex-wrap gap-2">
+                        <span class="flavor-tag">红糖</span>
+                        <span class="flavor-tag">坚果</span>
+                        <span class="flavor-tag">花香</span>
+                        <span class="flavor-tag">饼干</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 返回咖啡角 -->
+    <section class="py-8">
+        <div class="max-w-7xl mx-auto px-4 md:px-8">
+            <a href="coffee.html"
+                class="inline-flex items-center font-mono font-bold text-sm text-coffee-medium hover:text-coffee-dark transition-colors">
+                <i class="ri-arrow-left-line mr-2"></i> 返回咖啡角
+            </a>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="border-t-2 border-brand-black mt-16 py-8">
+        <div class="max-w-7xl mx-auto px-4 md:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="font-mono text-xs text-gray-500">&copy; 2025 计划李. All rights reserved.</p>
+                <div class="flex gap-6">
+                    <a href="https://zhihu.com" target="_blank"
+                        class="font-mono text-xs font-bold hover:text-brand-accent transition-colors">知乎</a>
+                    <a href="https://github.com" target="_blank"
+                        class="font-mono text-xs font-bold hover:text-brand-accent transition-colors">GitHub</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 滚动显示动画
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+
+</html>

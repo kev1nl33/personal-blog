@@ -1,0 +1,434 @@
+/* ================================
+   咖啡角页面样式
+   Coffee Corner Page Styles
+   ================================ */
+
+/* ================================
+   咖啡色系变量
+   ================================ */
+:root {
+    --coffee-dark: #3C2415;
+    --coffee-medium: #6F4E37;
+    --coffee-light: #A67B5B;
+    --coffee-cream: #C4A484;
+    --coffee-foam: #F5E6D3;
+}
+
+/* ================================
+   页面头部
+   ================================ */
+.coffee-header {
+    padding: var(--spacing-xl) 0 var(--spacing-lg);
+}
+
+/* ================================
+   咖啡卡片样式
+   ================================ */
+.coffee-card {
+    transition: all 0.3s ease;
+}
+
+.coffee-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 8px 8px 0px var(--brand-black) !important;
+}
+
+/* 咖啡图标徽章 - Neo-Brutalism 无圆角 */
+.coffee-icon-badge {
+    width: 4rem;
+    height: 4rem;
+    background: var(--coffee-dark);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border: 2px solid var(--brand-black);
+}
+
+.coffee-icon-badge--light {
+    background: var(--coffee-foam);
+    color: var(--coffee-dark);
+    border-color: var(--brand-black);
+}
+
+.coffee-icon-badge--accent {
+    background: var(--brand-accent);
+    color: white;
+    border-color: var(--brand-black);
+}
+
+/* 咖啡标签 */
+.coffee-tag {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    background: var(--coffee-foam);
+    color: var(--coffee-dark);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border: 2px solid var(--coffee-dark);
+}
+
+.coffee-tag--light {
+    background: transparent;
+    color: var(--coffee-cream);
+    border-color: var(--coffee-cream);
+}
+
+.coffee-tag--dark {
+    background: var(--coffee-dark);
+    color: var(--coffee-foam);
+    border-color: var(--brand-black);
+}
+
+/* ================================
+   器具展示卡片
+   ================================ */
+.equipment-card {
+    background: white;
+    border: 2px solid var(--brand-black);
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.equipment-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 8px 8px 0px var(--coffee-dark);
+}
+
+.equipment-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-bottom: 1px solid var(--brand-black);
+}
+
+.equipment-info {
+    padding: 1.5rem;
+}
+
+.equipment-name {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--coffee-dark);
+}
+
+.equipment-brand {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--coffee-medium);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+/* ================================
+   豆子档案卡片
+   ================================ */
+.bean-card {
+    background: white;
+    border: 2px solid var(--brand-black);
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.bean-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 8px 8px 0px var(--coffee-medium);
+}
+
+.bean-origin {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--coffee-medium);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.5rem;
+}
+
+.bean-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: var(--coffee-dark);
+}
+
+.bean-notes {
+    font-family: var(--font-serif);
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.bean-meta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.bean-meta-item {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--coffee-light);
+}
+
+/* ================================
+   探店笔记卡片
+   ================================ */
+.shop-card {
+    background: white;
+    border: 2px solid var(--brand-black);
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.shop-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 8px 8px 0px var(--brand-accent);
+}
+
+.shop-image {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-bottom: 1px solid var(--brand-black);
+}
+
+.shop-info {
+    padding: 1.5rem;
+}
+
+.shop-location {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--coffee-medium);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.shop-name {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--coffee-dark);
+}
+
+.shop-rating {
+    color: var(--brand-accent);
+    font-size: 0.875rem;
+    margin-bottom: 0.75rem;
+}
+
+.shop-highlight {
+    font-family: var(--font-serif);
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+/* ================================
+   随手记卡片
+   ================================ */
+.note-card {
+    background: var(--coffee-foam);
+    border: 2px solid var(--brand-black);
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.note-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 6px 6px 0px var(--coffee-dark);
+}
+
+.note-date {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--coffee-medium);
+    margin-bottom: 0.75rem;
+}
+
+.note-content {
+    font-family: var(--font-serif);
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--coffee-dark);
+}
+
+.note-tags {
+    margin-top: 1rem;
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+/* ================================
+   冲煮参数展示
+   ================================ */
+.brew-params {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 1rem;
+    padding: 1rem;
+    background: var(--coffee-foam);
+    border: 2px solid var(--brand-black);
+    margin: 1rem 0;
+}
+
+.brew-param {
+    text-align: center;
+}
+
+.brew-param-value {
+    font-family: var(--font-mono);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--coffee-dark);
+}
+
+.brew-param-label {
+    font-size: 0.7rem;
+    color: var(--coffee-medium);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-top: 0.25rem;
+}
+
+/* ================================
+   风味轮标签
+   ================================ */
+.flavor-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.flavor-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.25rem 0.75rem;
+    background: white;
+    border: 2px solid var(--coffee-light);
+    font-size: 0.8rem;
+    color: var(--coffee-dark);
+    transition: all 0.2s ease;
+    font-weight: 600;
+}
+
+.flavor-tag:hover {
+    background: var(--coffee-dark);
+    color: white;
+    border-color: var(--brand-black);
+    transform: translateY(-2px);
+}
+
+/* ================================
+   响应式设计
+   ================================ */
+@media (max-width: 768px) {
+    .coffee-header h1 {
+        font-size: 3rem;
+    }
+
+    .coffee-icon-badge {
+        width: 3rem;
+        height: 3rem;
+    }
+
+    .coffee-card h2 {
+        font-size: 1.5rem;
+    }
+
+    .brew-params {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .coffee-header h1 {
+        font-size: 2.5rem;
+    }
+
+    .brew-params {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ================================
+   时间线样式
+   ================================ */
+.timeline-dot {
+    transition: all 0.3s ease;
+}
+
+.note-card:hover .timeline-dot,
+.note-card.reveal.active:hover ~ .timeline-dot {
+    transform: scale(1.2);
+}
+
+/* ================================
+   卡片动画增强
+   ================================ */
+.equipment-card,
+.bean-card,
+.shop-card {
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.equipment-card:hover,
+.bean-card:hover,
+.shop-card:hover {
+    transform: translateY(-6px);
+}
+
+.equipment-card:hover {
+    box-shadow: 8px 8px 0px var(--coffee-dark);
+}
+
+.bean-card:hover {
+    box-shadow: 8px 8px 0px var(--coffee-medium);
+}
+
+.shop-card:hover {
+    box-shadow: 8px 8px 0px var(--brand-accent);
+}
+
+/* 风味标签悬浮效果 - 已合并到上方 .flavor-tag 中 */
+
+/* ================================
+   笔记卡片时间线增强
+   ================================ */
+.note-card {
+    position: relative;
+}
+
+.note-card::before {
+    content: '';
+    position: absolute;
+    left: -2rem;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: transparent;
+}
+
+@media (min-width: 768px) {
+    .note-card:hover::before {
+        background: linear-gradient(to bottom, var(--coffee-cream), transparent);
+    }
+}
+
+/* ================================
+   深色模式适配预留
+   ================================ */
+@media (prefers-color-scheme: dark) {
+    /* 预留深色模式样式 */
+}
