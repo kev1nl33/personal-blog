@@ -1160,28 +1160,20 @@ def query_brewing_notes():
 
 
 def generate_note_card_html(note):
-    """生成单个日记卡片HTML"""
-    # 生成标签
-    tags = note.get('tags', [])
-    tags_html = ''
-    if tags:
-        tags_html = f'''<div class="note-tags">
-                            {''.join([f'<span class="coffee-tag">{tag}</span>' for tag in tags])}
-                        </div>'''
-
+    """生成单个日记卡片HTML（方案C：卡片式布局）"""
     # 根据类型选择图标和颜色
     type_config = {
-        '冲煮记录': {'icon': '☕', 'dot_color': 'coffee-dark'},
-        '实验': {'icon': '🔬', 'dot_color': 'brand-accent', 'card_class': 'bg-white border-2 border-coffee-dark'},
-        '心情': {'icon': '💭', 'dot_color': 'coffee-cream', 'card_class': 'bg-coffee-foam'},
-        '学习': {'icon': '📚', 'dot_color': 'coffee-light'}
+        '冲煮记录': {'icon': '☕', 'dot_color': 'coffee-dark', 'bg_class': 'bg-white'},
+        '实验': {'icon': '🔬', 'dot_color': 'brand-accent', 'bg_class': 'bg-white'},
+        '心情': {'icon': '💭', 'dot_color': 'coffee-cream', 'bg_class': 'bg-coffee-foam'},
+        '学习': {'icon': '📚', 'dot_color': 'coffee-light', 'bg_class': 'bg-white'}
     }
 
     note_type = note.get('type', '冲煮记录')
     config = type_config.get(note_type, type_config['冲煮记录'])
     icon = config['icon']
     dot_color = config['dot_color']
-    card_class = config.get('card_class', 'border-2 border-brand-black')
+    bg_class = config['bg_class']
 
     # 格式化日期
     date_str = note.get('date', '')
@@ -1201,13 +1193,45 @@ def generate_note_card_html(note):
     else:
         formatted_date = '未知日期'
 
-    return f'''                    <div class="note-card reveal md:ml-16 relative {card_class}">
+    # 生成类型标签
+    type_tag = f'<span class="coffee-tag coffee-tag--dark border-2">{icon} {note_type}</span>'
+
+    # 生成冲煮器具信息
+    equipment = note.get('equipment', '')
+    equipment_html = ''
+    if equipment:
+        equipment_html = f' · <span class="text-coffee-medium">{equipment}</span>'
+
+    # 生成标签
+    tags = note.get('tags', [])
+    tags_html = ''
+    if tags and isinstance(tags, list):
+        tags_html = f'''
+                        <div class="pt-3 border-t border-gray-300">
+                            <div class="flex flex-wrap gap-2">
+                                {''.join([f'<span class="coffee-tag border-2 border-coffee-dark">{tag}</span>' for tag in tags])}
+                            </div>
+                        </div>'''
+
+    return f'''                    <div class="note-card reveal md:ml-16 relative {bg_class} border-2 border-brand-black">
                         <div class="hidden md:block absolute -left-12 top-6 w-6 h-6 bg-{dot_color} border-2 border-brand-black"></div>
-                        <div class="flex items-center gap-3 mb-3">
-                            <span class="text-2xl">{icon}</span>
-                            <div class="note-date">{formatted_date}</div>
+
+                        <!-- 标题栏 -->
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="text-xl font-black text-brand-black">{note.get('title', '无标题')}</h3>
+                            {type_tag}
                         </div>
-                        <div class="note-content">
+
+                        <!-- 元信息行 -->
+                        <div class="text-sm font-mono text-coffee-medium mb-4">
+                            {formatted_date}{equipment_html}
+                        </div>
+
+                        <!-- 分隔线 -->
+                        <div class="border-t border-gray-300 mb-4"></div>
+
+                        <!-- 内容 -->
+                        <div class="note-content mb-4">
                             {note.get('content', '暂无内容')}
                         </div>
                         {tags_html}
