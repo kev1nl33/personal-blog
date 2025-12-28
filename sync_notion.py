@@ -1263,13 +1263,20 @@ def sync_brewing_notes():
             # 获取日期
             date = get_property_value(properties, '日期')
 
-            # 获取内容 - 需要读取block内容
-            content_blocks = get_page_content(note_page['id'])
-            content_html = ''
-            for block in content_blocks:
-                if block['type'] == 'paragraph':
-                    text = rich_text_to_html(block['paragraph']['rich_text'])
-                    content_html += f'<p>{text}</p>'
+            # 获取内容 - 先尝试从属性字段读取，如果为空则读取页面block内容
+            content_text = get_property_value(properties, '内容')
+
+            if content_text:
+                # 如果内容字段有值，直接使用并转换为HTML段落
+                content_html = f'<p>{content_text}</p>'
+            else:
+                # 否则尝试读取页面block内容
+                content_blocks = get_page_content(note_page['id'])
+                content_html = ''
+                for block in content_blocks:
+                    if block['type'] == 'paragraph':
+                        text = rich_text_to_html(block['paragraph']['rich_text'])
+                        content_html += f'<p>{text}</p>'
 
             note = {
                 'title': get_property_value(properties, '标题'),
