@@ -144,12 +144,32 @@
         }
 
         .blog-card {
-            display: block;
+            display: flex;
+            flex-direction: column;
             transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            height: 100%;
         }
 
         .blog-card.hidden {
             display: none;
+        }
+
+        .blog-card > * {
+            flex-shrink: 0;
+        }
+
+        .blog-card p {
+            flex-grow: 0;
+            margin-bottom: auto !important;
+        }
+
+        .blog-card > div:last-child {
+            margin-top: auto;
+            padding-top: 1rem;
+        }
+
+        #blogGrid {
+            grid-auto-rows: 1fr;
         }
     </style>
 </head>

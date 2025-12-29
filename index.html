@@ -66,6 +66,28 @@
 
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/neo-brutalism.css">
+
+    <style>
+        /* 确保文章卡片底部信息对齐 */
+        article.bento-card:not(.bg-brand-accent) {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        article.bento-card:not(.bg-brand-accent) > * {
+            flex-shrink: 0;
+        }
+
+        article.bento-card:not(.bg-brand-accent) p {
+            flex-grow: 0;
+            margin-bottom: auto !important;
+        }
+
+        article.bento-card:not(.bg-brand-accent) > div:last-child {
+            margin-top: auto;
+        }
+    </style>
 </head>
 <body class="bg-grid min-h-screen">
 
@@ -145,7 +167,7 @@
                             <span>8分钟阅读</span>
                         </div>
                         <a href="Product-thinking.html" class="font-mono font-bold text-sm hover:text-brand-accent transition-colors">
-                            阅读全文 →
+                            阅读 →
                         </a>
                     </div>
                 </article>
@@ -161,10 +183,10 @@
                     <p class="text-sm text-gray-600 mb-4 font-serif">
                         女儿出生的那一刻，我比妻子更早看到她。三十而立，从一个人到三个人，责任变得具体，成长变得真实。
                     </p>
-                    <div class="flex flex-col gap-2">
+                    <div class="flex justify-between items-center">
                         <div class="text-xs text-gray-500 font-mono">2025-11-23 · 8分钟</div>
                         <a href="she-arrived.html" class="font-mono font-bold text-xs hover:text-brand-accent transition-colors">
-                            阅读全文 →
+                            阅读 →
                         </a>
                     </div>
                 </article>
@@ -180,10 +202,10 @@
                     <p class="text-sm opacity-90 mb-4 font-serif">
                         这本书帮助我理解了课题分离、个人价值与幸福的真谛。分享我在辞职、生活决策中的实践与思考。
                     </p>
-                    <div class="flex flex-col gap-2">
+                    <div class="flex justify-between items-center">
                         <div class="text-xs opacity-70 font-mono">2025-11-20 · 8分钟</div>
                         <a href="the-courage-to-be-disliked-reading-notes.html" class="font-mono font-bold text-xs text-brand-accent hover:text-white transition-colors">
-                            阅读全文 →
+                            阅读 →
                         </a>
                     </div>
                 </article>

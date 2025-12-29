@@ -10,6 +10,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Noto+Serif+SC:wght@400;700&family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 
+    <!-- RemixIcon -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
 
@@ -63,16 +66,158 @@
         <div class="max-w-7xl mx-auto px-4 md:px-8">
             <h1 class="page-title">🧠 108种认知武器</h1>
             <p class="page-subtitle">认知升级工具箱，助你突破思维局限</p>
+
+            <!-- 视图切换器 -->
+            <div class="view-switcher">
+                <button class="view-btn" data-view="gallery">
+                    <i class="ri-gallery-line"></i>
+                    <span>卡牌画廊</span>
+                </button>
+                <button class="view-btn active" data-view="scenario">
+                    <i class="ri-compass-3-line"></i>
+                    <span>应用场景</span>
+                </button>
+                <button class="view-btn" data-view="quadrant">
+                    <i class="ri-grid-line"></i>
+                    <span>能力象限</span>
+                </button>
+                <button class="view-btn" data-view="bauhaus">
+                    <i class="ri-shape-line"></i>
+                    <span>包豪斯</span>
+                </button>
+                <button class="view-btn" data-view="journal">
+                    <i class="ri-book-open-line"></i>
+                    <span>学术期刊</span>
+                </button>
+            </div>
         </div>
     </section>
 
-    <!-- 认知武器列表 -->
-    <section class="projects-section">
+    <!-- 卡牌画廊视图 -->
+    <section class="gallery-view view-container" id="gallery-view">
         <div class="max-w-7xl mx-auto px-4 md:px-8">
-            <div class="projects-grid" id="cognitive-weapons-grid">
-                <!-- 动态加载认知武器列表 -->
+            <div class="gallery-grid" id="gallery-grid">
                 <div class="loading-state" style="text-align: center; padding: 4rem 0;">
                     <p style="color: #666;">正在加载认知武器...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 场景视图 -->
+    <section class="scenario-view view-container active" id="scenario-view">
+        <div class="max-w-7xl mx-auto px-4 md:px-8">
+            <!-- 场景导航 -->
+            <div class="scenario-nav">
+                <button class="scenario-btn active" data-scenario="all">
+                    <span class="scenario-icon">🎯</span>
+                    <span class="scenario-name">全部</span>
+                </button>
+                <button class="scenario-btn" data-scenario="career">
+                    <span class="scenario-icon">💼</span>
+                    <span class="scenario-name">职场晋升</span>
+                </button>
+                <button class="scenario-btn" data-scenario="business">
+                    <span class="scenario-icon">🚀</span>
+                    <span class="scenario-name">创业/副业</span>
+                </button>
+                <button class="scenario-btn" data-scenario="growth">
+                    <span class="scenario-icon">🧠</span>
+                    <span class="scenario-name">个人成长</span>
+                </button>
+                <button class="scenario-btn" data-scenario="relationship">
+                    <span class="scenario-icon">👥</span>
+                    <span class="scenario-name">人际关系</span>
+                </button>
+                <button class="scenario-btn" data-scenario="efficiency">
+                    <span class="scenario-icon">⚡</span>
+                    <span class="scenario-name">效率提升</span>
+                </button>
+                <button class="scenario-btn" data-scenario="content">
+                    <span class="scenario-icon">📖</span>
+                    <span class="scenario-name">内容创作</span>
+                </button>
+            </div>
+
+            <!-- 武器网格 -->
+            <div class="projects-grid" id="scenario-grid">
+                <div class="loading-state" style="text-align: center; padding: 4rem 0;">
+                    <p style="color: #666;">正在加载认知武器...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 象限视图 -->
+    <section class="quadrant-view view-container" id="quadrant-view">
+        <div class="max-w-7xl mx-auto px-4 md:px-8">
+            <div class="quadrant-grid">
+                <!-- 领导者象限 -->
+                <div class="quadrant quadrant-leader" data-quadrant="leader">
+                    <div class="quadrant-header">
+                        <h3 class="quadrant-title">领导者象限</h3>
+                        <p class="quadrant-subtitle">领导力 · 规划力</p>
+                        <span class="quadrant-count">0 个武器</span>
+                    </div>
+                    <div class="quadrant-weapons" id="leader-weapons"></div>
+                </div>
+
+                <!-- 思想者象限 -->
+                <div class="quadrant quadrant-thinker" data-quadrant="thinker">
+                    <div class="quadrant-header">
+                        <h3 class="quadrant-title">思想者象限</h3>
+                        <p class="quadrant-subtitle">思考力 · 自识力</p>
+                        <span class="quadrant-count">0 个武器</span>
+                    </div>
+                    <div class="quadrant-weapons" id="thinker-weapons"></div>
+                </div>
+
+                <!-- 执行者象限 -->
+                <div class="quadrant quadrant-executor" data-quadrant="executor">
+                    <div class="quadrant-header">
+                        <h3 class="quadrant-title">执行者象限</h3>
+                        <p class="quadrant-subtitle">执行力 · 复盘力</p>
+                        <span class="quadrant-count">0 个武器</span>
+                    </div>
+                    <div class="quadrant-weapons" id="executor-weapons"></div>
+                </div>
+
+                <!-- 创造者象限 -->
+                <div class="quadrant quadrant-creator" data-quadrant="creator">
+                    <div class="quadrant-header">
+                        <h3 class="quadrant-title">创造者象限</h3>
+                        <p class="quadrant-subtitle">营销力 · 故事力</p>
+                        <span class="quadrant-count">0 个武器</span>
+                    </div>
+                    <div class="quadrant-weapons" id="creator-weapons"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 包豪斯进化视图 -->
+    <section class="bauhaus-view view-container" id="bauhaus-view">
+        <div class="max-w-7xl mx-auto px-4 md:px-8">
+            <div class="bauhaus-grid" id="bauhaus-grid">
+                <div class="loading-state" style="text-align: center; padding: 4rem 0;">
+                    <p style="color: #666;">正在加载认知武器...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 学术期刊视图 -->
+    <section class="journal-view view-container" id="journal-view">
+        <div class="max-w-7xl mx-auto px-4 md:px-8">
+            <div class="journal-container">
+                <div class="journal-header">
+                    <h2 class="journal-title">Journal of Cognitive Weapons</h2>
+                    <p class="journal-meta">Volume 1 · 2025 Edition · 108 Articles</p>
+                </div>
+                <div class="journal-table" id="journal-table">
+                    <div class="loading-state" style="text-align: center; padding: 4rem 0;">
+                        <p style="color: #666;">正在加载认知武器...</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -92,46 +237,323 @@
     </footer>
 
     <script>
+        // 武器分类映射数据
+        const weaponMetadata = {
+            scenarios: {
+                'career': [31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54],
+                'business': [68, 69, 70, 71, 72, 73, 74, 75, 102, 103, 104, 105, 106, 107, 108],
+                'growth': [1, 2, 3, 4, 5, 6, 7, 8, 23, 24, 25, 26, 27, 28, 29, 30, 76, 77, 78, 79, 80, 81, 82],
+                'relationship': [31, 34, 35, 36, 37, 55, 56, 57, 58, 59, 96, 97, 98, 99, 100, 101],
+                'efficiency': [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 61, 62, 63, 64, 65, 66, 67],
+                'content': [68, 72, 73, 74, 90, 91, 92, 93, 94, 95]
+            },
+            quadrants: {
+                'leader': [31, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 61, 62, 63, 64, 65, 66, 67],
+                'thinker': [23, 24, 25, 26, 27, 28, 29, 30, 55, 56, 57, 58, 59, 60, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89],
+                'executor': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22],
+                'creator': [68, 69, 70, 71, 72, 73, 74, 75, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108]
+            }
+        };
+
+        let allWeapons = [];
+        let currentView = 'scenario';
+        let currentScenario = 'all';
+
         // 动态加载108种认知武器
         document.addEventListener('DOMContentLoaded', async function() {
-            const grid = document.getElementById('cognitive-weapons-grid');
-            const loadingState = grid.querySelector('.loading-state');
-
             try {
                 // 加载JSON数据
                 const response = await fetch('data/cognitive-weapons.json');
-                const weapons = await response.json();
+                allWeapons = await response.json();
 
-                // 移除加载状态
-                if (loadingState) {
-                    loadingState.remove();
-                }
+                // 初始化所有视图
+                renderGalleryView(allWeapons);
+                renderScenarioView(allWeapons);
+                renderQuadrantView(allWeapons);
+                renderBauhausView(allWeapons);
+                renderJournalView(allWeapons);
 
-                // 生成项目卡片
-                weapons.forEach(weapon => {
-                    const card = document.createElement('article');
-                    card.className = 'project-card';
-
-                    card.innerHTML = `
-                        <a href="${weapon.url}" class="project-link">
-                            <div class="project-info">
-                                <h3 class="project-title">${weapon.number} ${weapon.cn_title}</h3>
-                                <p class="project-description">${weapon.description}</p>
-                            </div>
-                        </a>
-                    `;
-
-                    grid.appendChild(card);
+                // 绑定视图切换事件
+                document.querySelectorAll('.view-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const view = this.dataset.view;
+                        switchView(view);
+                    });
                 });
 
-                console.log(`✅ 成功加载 ${weapons.length} 个认知武器`);
+                // 绑定场景筛选事件
+                document.querySelectorAll('.scenario-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const scenario = this.dataset.scenario;
+                        filterByScenario(scenario);
+
+                        // 更新按钮状态
+                        document.querySelectorAll('.scenario-btn').forEach(b => b.classList.remove('active'));
+                        this.classList.add('active');
+                    });
+                });
+
+                console.log(`✅ 成功加载 ${allWeapons.length} 个认知武器`);
             } catch (error) {
                 console.error('加载认知武器数据失败:', error);
-                if (loadingState) {
-                    loadingState.innerHTML = '<p style="color: #e74c3c;">加载失败，请刷新页面重试</p>';
-                }
             }
         });
+
+        // 视图切换
+        function switchView(view) {
+            currentView = view;
+
+            // 更新按钮状态
+            document.querySelectorAll('.view-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.view === view);
+            });
+
+            // 切换视图容器
+            document.querySelectorAll('.view-container').forEach(container => {
+                container.classList.remove('active');
+            });
+
+            document.getElementById(`${view}-view`).classList.add('active');
+        }
+
+        // 渲染场景视图
+        function renderScenarioView(weapons) {
+            const grid = document.getElementById('scenario-grid');
+            grid.innerHTML = '';
+
+            weapons.forEach((weapon, index) => {
+                const card = createWeaponCard(weapon, index);
+                grid.appendChild(card);
+            });
+
+            initRevealAnimation();
+        }
+
+        // 按场景筛选
+        function filterByScenario(scenario) {
+            currentScenario = scenario;
+
+            if (scenario === 'all') {
+                renderScenarioView(allWeapons);
+            } else {
+                const scenarioWeaponIds = weaponMetadata.scenarios[scenario] || [];
+                const filteredWeapons = allWeapons.filter(w => {
+                    const id = parseInt(w.number);
+                    return scenarioWeaponIds.includes(id);
+                });
+                renderScenarioView(filteredWeapons);
+            }
+        }
+
+        // 渲染象限视图
+        function renderQuadrantView(weapons) {
+            const quadrants = ['leader', 'thinker', 'executor', 'creator'];
+
+            quadrants.forEach(quadrant => {
+                const container = document.getElementById(`${quadrant}-weapons`);
+                const quadrantWeaponIds = weaponMetadata.quadrants[quadrant] || [];
+
+                const quadrantWeapons = weapons.filter(w => {
+                    const id = parseInt(w.number);
+                    return quadrantWeaponIds.includes(id);
+                });
+
+                container.innerHTML = '';
+                quadrantWeapons.forEach(weapon => {
+                    const item = document.createElement('a');
+                    item.className = 'quadrant-weapon-item';
+                    item.href = weapon.url;
+                    item.innerHTML = `
+                        <div class="quadrant-weapon-number">${weapon.number}</div>
+                        <div class="quadrant-weapon-title">${weapon.cn_title}</div>
+                    `;
+                    container.appendChild(item);
+                });
+
+                // 更新数量
+                const countEl = document.querySelector(`[data-quadrant="${quadrant}"] .quadrant-count`);
+                if (countEl) {
+                    countEl.textContent = `${quadrantWeapons.length} 个武器`;
+                }
+            });
+        }
+
+        // 创建武器卡片
+        function createWeaponCard(weapon, index) {
+            const card = document.createElement('article');
+            card.className = 'project-card reveal';
+
+            card.innerHTML = `
+                <a href="${weapon.url}" class="project-link">
+                    <div class="project-info">
+                        <div class="project-number">${weapon.number}</div>
+                        <h3 class="project-title">${weapon.cn_title}</h3>
+                        <p class="project-description">${weapon.description}</p>
+                    </div>
+                </a>
+            `;
+
+            return card;
+        }
+
+        // 初始化滚动显示动画
+        function initRevealAnimation() {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.reveal').forEach(el => {
+                observer.observe(el);
+            });
+        }
+
+        // 渲染卡牌画廊视图
+        function renderGalleryView(weapons) {
+            const grid = document.getElementById('gallery-grid');
+            grid.innerHTML = '';
+
+            weapons.forEach((weapon, index) => {
+                const card = document.createElement('div');
+                card.className = 'gallery-card reveal';
+
+                card.innerHTML = `
+                    <div class="gallery-card-inner">
+                        <div class="gallery-card-front">
+                            <div class="gallery-number">${weapon.number}</div>
+                            <h3 class="gallery-title">${weapon.cn_title}</h3>
+                            <p class="gallery-subtitle">${weapon.en_title}</p>
+                            <div class="gallery-hint">
+                                <i class="ri-arrow-left-right-line"></i>
+                                <span>点击翻转</span>
+                            </div>
+                        </div>
+                        <div class="gallery-card-back">
+                            <p class="gallery-description">${weapon.description}</p>
+                            <a href="${weapon.url}" class="gallery-link">
+                                查看详情 <i class="ri-arrow-right-line"></i>
+                            </a>
+                        </div>
+                    </div>
+                `;
+
+                // 添加翻转事件
+                card.addEventListener('click', function() {
+                    this.classList.toggle('flipped');
+                });
+
+                grid.appendChild(card);
+            });
+
+            initRevealAnimation();
+        }
+
+        // 渲染包豪斯进化视图
+        function renderBauhausView(weapons) {
+            const grid = document.getElementById('bauhaus-grid');
+            grid.innerHTML = '';
+
+            weapons.forEach((weapon, index) => {
+                const card = document.createElement('article');
+                card.className = 'bauhaus-card reveal';
+
+                // 4色循环
+                const colorIndex = index % 4;
+                const colors = ['orange', 'blue', 'yellow', 'black'];
+                card.setAttribute('data-color', colors[colorIndex]);
+
+                card.innerHTML = `
+                    <a href="${weapon.url}" class="bauhaus-link">
+                        <div class="bauhaus-number">${weapon.number}</div>
+                        <div class="bauhaus-content">
+                            <h3 class="bauhaus-title">${weapon.cn_title}</h3>
+                            <p class="bauhaus-description">${weapon.description}</p>
+                        </div>
+                        <div class="bauhaus-decoration"></div>
+                    </a>
+                `;
+
+                grid.appendChild(card);
+            });
+
+            initRevealAnimation();
+        }
+
+        // 渲染学术期刊视图
+        function renderJournalView(weapons) {
+            const table = document.getElementById('journal-table');
+            table.innerHTML = '';
+
+            // 按象限分组
+            const quadrants = {
+                'executor': { name: '执行者象限', weapons: [] },
+                'thinker': { name: '思想者象限', weapons: [] },
+                'leader': { name: '领导者象限', weapons: [] },
+                'creator': { name: '创造者象限', weapons: [] }
+            };
+
+            weapons.forEach(weapon => {
+                const id = parseInt(weapon.number);
+                for (const [key, data] of Object.entries(weaponMetadata.quadrants)) {
+                    if (data.includes(id)) {
+                        quadrants[key].weapons.push(weapon);
+                        break;
+                    }
+                }
+            });
+
+            // 渲染每个象限的表格
+            for (const [key, data] of Object.entries(quadrants)) {
+                if (data.weapons.length === 0) continue;
+
+                const section = document.createElement('div');
+                section.className = 'journal-section reveal';
+
+                section.innerHTML = `
+                    <h3 class="journal-section-title">${data.name}</h3>
+                    <table class="journal-table-content">
+                        <thead>
+                            <tr>
+                                <th class="journal-col-number">No.</th>
+                                <th class="journal-col-title">Title</th>
+                                <th class="journal-col-description">Abstract</th>
+                                <th class="journal-col-link">Citation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${data.weapons.map(weapon => `
+                                <tr class="journal-row">
+                                    <td class="journal-cell-number">${weapon.number}</td>
+                                    <td class="journal-cell-title">
+                                        <div class="journal-title-cn">${weapon.cn_title}</div>
+                                        <div class="journal-title-en">${weapon.en_title}</div>
+                                    </td>
+                                    <td class="journal-cell-description">${weapon.description}</td>
+                                    <td class="journal-cell-link">
+                                        <a href="${weapon.url}" class="journal-cite-link">
+                                            [${weapon.number}]
+                                        </a>
+                                    </td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                `;
+
+                table.appendChild(section);
+            }
+
+            initRevealAnimation();
+        }
     </script>
 </body>
 </html>

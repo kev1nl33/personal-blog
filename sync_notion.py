@@ -566,12 +566,10 @@ def generate_article_html(article_data):
                 <p class="font-serif italic text-lg md:text-xl text-gray-600 mb-6">
                     {excerpt}
                 </p>
-                <div class="flex flex-wrap gap-4 text-sm font-mono text-gray-500">
-                    <span>计划李</span>
+                <div class="flex flex-wrap gap-2 text-xs font-mono text-gray-500">
+                    <span>{date_short}</span>
                     <span>·</span>
-                    <span>{date}</span>
-                    <span>·</span>
-                    <span>{read_time}分钟阅读</span>
+                    <span>{read_time}分钟</span>
                 </div>
             </div>
 

@@ -1,6 +1,6 @@
 /* ================================
-   认知武器页面包豪斯风格样式
-   Cognitive Weapons Page - Bauhaus Style
+   认知武器页面 - 包豪斯进化版
+   Cognitive Weapons Page - Bauhaus Evolution
    ================================ */
 
 /* ================================
@@ -9,84 +9,240 @@
 .visual-design-header {
     padding: var(--spacing-xl) 0 var(--spacing-lg);
     text-align: center;
+    position: relative;
 }
 
 .page-title {
-    font-size: 3.5rem;
-    font-weight: 800;
-    margin-bottom: var(--spacing-sm);
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 900;
+    margin-bottom: var(--spacing-md);
     color: var(--text-primary);
-    line-height: 1.1;
-    letter-spacing: -0.02em;
+    line-height: 1;
+    letter-spacing: -0.03em;
     position: relative;
     display: inline-block;
 }
 
-/* 包豪斯风格的标题装饰 */
+/* 包豪斯几何装饰 */
+.page-title::before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    left: -30px;
+    width: 40px;
+    height: 40px;
+    background: #FF4D00;
+    transform: rotate(45deg);
+    opacity: 0.2;
+    z-index: -1;
+}
+
 .page-title::after {
     content: '';
     display: block;
-    width: 150px;
-    height: 5px;
-    background: var(--accent-orange);
-    margin: var(--spacing-sm) auto 0;
+    width: 200px;
+    height: 8px;
+    background: linear-gradient(90deg, #FF4D00 0%, #0047AB 50%, #FFD60A 100%);
+    margin: var(--spacing-md) auto 0;
 }
 
 .page-subtitle {
     color: var(--text-secondary);
-    font-size: 1.2rem;
+    font-size: 1.25rem;
     line-height: 1.6;
-    font-weight: 500;
+    font-weight: 600;
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 2rem;
 }
 
 /* ================================
-   项目展示区域 - Projects Section
+   视图切换器 - View Switcher
    ================================ */
-.projects-section {
-    padding: var(--spacing-lg) 0 var(--spacing-xl);
-    min-height: 60vh;
+.view-switcher {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
 }
 
-.projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: var(--spacing-lg);
-    margin-bottom: var(--spacing-lg);
-}
-
-/* ================================
-   项目卡片 - Bento Card Style
-   ================================ */
-.project-card {
-    background: var(--bg-card);
-    border: var(--border-width) solid var(--border-color);
-    overflow: hidden;
-    transition: all 0.3s ease;
+.view-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.875rem 1.75rem;
+    background: white;
+    border: 2px solid #0a0a0a;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    cursor: pointer;
     position: relative;
 }
 
-/* 顶部彩条装饰 */
-.project-card::before {
+.view-btn i {
+    font-size: 1.25rem;
+}
+
+.view-btn::after {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: var(--accent-orange);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.4s ease;
-    z-index: 10;
+    top: 4px;
+    left: 4px;
+    right: -4px;
+    bottom: -4px;
+    background: #d4d4d4;
+    z-index: -1;
 }
 
-.project-card:hover {
-    transform: translate(-6px, -6px);
-    box-shadow: var(--shadow-large);
+.view-btn:hover::after {
+    background: #b8b8b8;
 }
 
-.project-card:hover::before {
-    transform: scaleX(1);
+.view-btn.active {
+    background: #FF4D00;
+    color: white;
+    border-color: #FF4D00;
+}
+
+.view-btn.active::after {
+    background: #0a0a0a;
+}
+
+/* ================================
+   视图容器 - View Container
+   ================================ */
+.view-container {
+    padding: 3rem 0 var(--spacing-xl);
+    min-height: 60vh;
+    display: none;
+}
+
+.view-container.active {
+    display: block;
+}
+
+/* ================================
+   场景导航 - Scenario Navigation
+   ================================ */
+.scenario-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 3rem;
+}
+
+.scenario-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1.25rem 1.5rem;
+    background: white;
+    border: 2px solid #0a0a0a;
+    cursor: pointer;
+    position: relative;
+    min-width: 120px;
+}
+
+.scenario-icon {
+    font-size: 2rem;
+    line-height: 1;
+}
+
+.scenario-name {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #0a0a0a;
+}
+
+.scenario-btn::after {
+    content: '';
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    right: -6px;
+    bottom: -6px;
+    background: #d4d4d4;
+    z-index: -1;
+}
+
+.scenario-btn:hover::after {
+    background: #b8b8b8;
+}
+
+.scenario-btn.active {
+    background: #FF4D00;
+    border-color: #FF4D00;
+}
+
+.scenario-btn.active::after {
+    background: #0a0a0a;
+}
+
+.scenario-btn.active .scenario-name {
+    color: white;
+}
+
+/* Bento Grid 不对称布局 */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-bottom: var(--spacing-lg);
+}
+
+@media (min-width: 768px) {
+    .projects-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2.5rem;
+    }
+
+    /* Bento不规则布局 - 部分卡片占双倍空间 */
+    .project-card:nth-child(7n+1) {
+        grid-column: span 2;
+    }
+
+    .project-card:nth-child(13n+3) {
+        grid-column: span 2;
+    }
+
+    .project-card:nth-child(19n+5) {
+        grid-row: span 2;
+    }
+}
+
+/* ================================
+   项目卡片 - 包豪斯进化版
+   ================================ */
+.project-card {
+    background: white;
+    border: 2px solid #0a0a0a;
+    overflow: visible;
+    position: relative;
+    transform-style: preserve-3d;
+}
+
+/* 硬阴影效果 */
+.project-card::after {
+    content: '';
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    right: -12px;
+    bottom: -12px;
+    background: #d4d4d4;
+    z-index: -1;
+}
+
+/* Hover - Z轴层次提升 */
+.project-card:hover::after {
+    background: #FF4D00;
 }
 
 .project-link {
@@ -159,25 +315,59 @@
    项目信息 - Project Info
    ================================ */
 .project-info {
-    padding: var(--spacing-md);
-    background: var(--bg-card);
+    padding: 2rem;
+    background: white;
+    position: relative;
+}
+
+/* 彩色编号块 - 循环颜色 */
+.project-number {
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    padding: 0.75rem 1.5rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.875rem;
+    font-weight: 900;
+    letter-spacing: 0.1em;
+    color: white;
+    z-index: 10;
+}
+
+/* 颜色循环：橙/蓝/黄/黑 */
+.project-card:nth-child(4n+1) .project-number {
+    background: #FF4D00;
+}
+
+.project-card:nth-child(4n+2) .project-number {
+    background: #0047AB;
+}
+
+.project-card:nth-child(4n+3) .project-number {
+    background: #FFD60A;
+    color: #0a0a0a;
+}
+
+.project-card:nth-child(4n) .project-number {
+    background: #0a0a0a;
 }
 
 .project-title {
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin-bottom: var(--spacing-sm);
-    color: var(--text-primary);
-    line-height: 1.3;
-    letter-spacing: -0.01em;
+    font-size: 1.35rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    margin-top: 2.5rem;
+    color: #0a0a0a;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
 }
 
 .project-description {
-    color: var(--text-secondary);
+    color: #666;
     font-size: 0.95rem;
-    line-height: 1.6;
+    line-height: 1.7;
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
@@ -210,47 +400,113 @@
 }
 
 /* ================================
+   滚动显示动画
+   ================================ */
+.reveal {
+    opacity: 1;
+}
+
+.reveal.active {
+    opacity: 1;
+}
+
+/* ================================
+   旋转装饰元素
+   ================================ */
+.project-card:nth-child(5n+1)::before {
+    content: '';
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    width: 30px;
+    height: 30px;
+    border: 2px solid #FF4D00;
+    transform: rotate(15deg);
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+.project-card:nth-child(5n+3)::before {
+    content: '';
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 25px;
+    height: 25px;
+    background: #0047AB;
+    transform: rotate(-12deg);
+    opacity: 0.2;
+    pointer-events: none;
+}
+
+/* ================================
    响应式设计 - Responsive
    ================================ */
-@media (max-width: 768px) {
-    .page-title {
-        font-size: 2.5rem;
-    }
-
-    .page-subtitle {
-        font-size: 1rem;
-    }
-
+@media (max-width: 1024px) {
     .projects-grid {
-        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-        gap: var(--spacing-md);
-    }
-
-    .project-thumbnail {
-        height: 200px;
-    }
-
-    .project-title {
-        font-size: 1.3rem;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
     }
 }
 
-@media (max-width: 480px) {
-    .page-title {
-        font-size: 2rem;
+@media (max-width: 768px) {
+    .page-title::before {
+        width: 30px;
+        height: 30px;
+        top: -15px;
+        left: -20px;
+    }
+
+    .page-subtitle {
+        font-size: 0.875rem;
     }
 
     .projects-grid {
         grid-template-columns: 1fr;
-        gap: var(--spacing-md);
+        gap: 2rem;
     }
 
-    .project-thumbnail {
-        height: 180px;
+    .project-card::after {
+        top: 8px;
+        left: 8px;
+    }
+
+    .project-card:hover::after {
+        top: 12px;
+        left: 12px;
     }
 
     .project-info {
-        padding: var(--spacing-sm);
+        padding: 1.5rem;
+    }
+
+    .project-title {
+        font-size: 1.25rem;
+        margin-top: 2rem;
+    }
+
+    .project-number {
+        padding: 0.5rem 1rem;
+        font-size: 0.75rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .visual-design-header {
+        padding: 2rem 0 1.5rem;
+    }
+
+    .page-title::after {
+        width: 150px;
+        height: 6px;
+    }
+
+    .projects-grid {
+        gap: 1.5rem;
+    }
+
+    .project-info {
+        padding: 1.25rem;
     }
 
     .empty-icon {
@@ -263,5 +519,778 @@
 
     .empty-description {
         font-size: 1rem;
+    }
+}
+
+/* ================================
+   象限视图 - Quadrant View
+   ================================ */
+.quadrant-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.quadrant {
+    border: 2px solid #0a0a0a;
+    padding: 2rem;
+    position: relative;
+    min-height: 500px;
+    cursor: pointer;
+}
+
+.quadrant::after {
+    content: '';
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    right: -8px;
+    bottom: -8px;
+    z-index: -1;
+}
+
+/* 象限配色 */
+.quadrant-leader {
+    background: linear-gradient(135deg, rgba(255, 77, 0, 0.05), rgba(255, 107, 53, 0.05));
+    border-color: #FF4D00;
+}
+
+.quadrant-leader::after {
+    background: #FF4D00;
+}
+
+.quadrant-leader:hover::after {
+    background: #FF6B35;
+}
+
+.quadrant-thinker {
+    background: linear-gradient(135deg, rgba(0, 71, 171, 0.05), rgba(0, 102, 204, 0.05));
+    border-color: #0047AB;
+}
+
+.quadrant-thinker::after {
+    background: #0047AB;
+}
+
+.quadrant-thinker:hover::after {
+    background: #0066CC;
+}
+
+.quadrant-executor {
+    background: linear-gradient(135deg, rgba(5, 150, 105, 0.05), rgba(16, 185, 129, 0.05));
+    border-color: #059669;
+}
+
+.quadrant-executor::after {
+    background: #059669;
+}
+
+.quadrant-executor:hover::after {
+    background: #10B981;
+}
+
+.quadrant-creator {
+    background: linear-gradient(135deg, rgba(255, 214, 10, 0.05), rgba(251, 191, 36, 0.05));
+    border-color: #FFD60A;
+}
+
+.quadrant-creator::after {
+    background: #FFD60A;
+}
+
+.quadrant-creator:hover::after {
+    background: #FBBF24;
+}
+
+/* 象限头部 */
+.quadrant-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid #0a0a0a;
+}
+
+.quadrant-title {
+    font-size: 1.75rem;
+    font-weight: 900;
+    margin-bottom: 0.5rem;
+    color: #0a0a0a;
+}
+
+.quadrant-subtitle {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.875rem;
+    color: #666;
+    margin-bottom: 1rem;
+}
+
+.quadrant-count {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    background: #0a0a0a;
+    color: white;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+/* 象限内的武器列表 */
+.quadrant-weapons {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.quadrant-weapon-item {
+    padding: 1rem;
+    background: white;
+    border: 1px solid #0a0a0a;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.quadrant-weapon-item:hover {
+    border-width: 2px;
+}
+
+.quadrant-weapon-number {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 900;
+    color: #666;
+    margin-bottom: 0.5rem;
+}
+
+.quadrant-weapon-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #0a0a0a;
+    line-height: 1.4;
+}
+
+/* 响应式 - 象限视图 */
+@media (max-width: 1024px) {
+    .quadrant-grid {
+        gap: 1.5rem;
+    }
+
+    .quadrant {
+        min-height: 400px;
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .view-switcher {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .view-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .scenario-nav {
+        gap: 0.75rem;
+    }
+
+    .scenario-btn {
+        min-width: 100px;
+        padding: 1rem;
+    }
+
+    .scenario-icon {
+        font-size: 1.5rem;
+    }
+
+    .scenario-name {
+        font-size: 0.75rem;
+    }
+
+    .quadrant-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .quadrant {
+        min-height: 350px;
+    }
+
+    .quadrant-title {
+        font-size: 1.5rem;
+    }
+}
+
+/* ================================
+   卡牌画廊视图 - Gallery View
+   ================================ */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 3rem;
+    perspective: 1000px;
+}
+
+.gallery-card {
+    height: 400px;
+    position: relative;
+    cursor: pointer;
+}
+
+.gallery-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+}
+
+.gallery-card.flipped .gallery-card-inner {
+    transform: rotateY(180deg);
+}
+
+.gallery-card-front,
+.gallery-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border: 3px solid #0a0a0a;
+    padding: 3rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.gallery-card-front {
+    background: linear-gradient(135deg, #ffffff 0%, #f4f4f0 100%);
+    box-shadow: 12px 12px 0px #d4d4d4;
+}
+
+.gallery-card-back {
+    background: #0a0a0a;
+    color: white;
+    transform: rotateY(180deg);
+    box-shadow: 12px 12px 0px #FF4D00;
+}
+
+.gallery-number {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 3rem;
+    font-weight: 900;
+    color: #FF4D00;
+    margin-bottom: 1.5rem;
+    line-height: 1;
+}
+
+.gallery-title {
+    font-size: 1.75rem;
+    font-weight: 900;
+    color: #0a0a0a;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+}
+
+.gallery-subtitle {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.875rem;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 2rem;
+}
+
+.gallery-hint {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: #999;
+    margin-top: auto;
+}
+
+.gallery-description {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+}
+
+.gallery-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    background: #FF4D00;
+    color: white;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    text-decoration: none;
+    border: 2px solid white;
+}
+
+.gallery-link:hover {
+    background: white;
+    color: #0a0a0a;
+    border-color: #0a0a0a;
+}
+
+/* Gallery响应式 */
+@media (max-width: 768px) {
+    .gallery-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .gallery-card {
+        height: 350px;
+    }
+
+    .gallery-card-front,
+    .gallery-card-back {
+        padding: 2rem 1.5rem;
+    }
+
+    .gallery-number {
+        font-size: 2.5rem;
+    }
+
+    .gallery-title {
+        font-size: 1.5rem;
+    }
+
+    .gallery-card-front {
+        box-shadow: 8px 8px 0px #d4d4d4;
+    }
+
+    .gallery-card-back {
+        box-shadow: 8px 8px 0px #FF4D00;
+    }
+}
+
+/* ================================
+   包豪斯进化独立视图 - Bauhaus View
+   ================================ */
+.bauhaus-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2.5rem;
+}
+
+.bauhaus-card {
+    background: white;
+    border: 2px solid #0a0a0a;
+    position: relative;
+    overflow: visible;
+}
+
+/* 硬阴影 - 根据颜色变化 */
+.bauhaus-card::after {
+    content: '';
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    right: -12px;
+    bottom: -12px;
+    z-index: -1;
+}
+
+.bauhaus-card[data-color="orange"]::after {
+    background: #FF4D00;
+}
+
+.bauhaus-card[data-color="blue"]::after {
+    background: #0047AB;
+}
+
+.bauhaus-card[data-color="yellow"]::after {
+    background: #FFD60A;
+}
+
+.bauhaus-card[data-color="black"]::after {
+    background: #0a0a0a;
+}
+
+
+.bauhaus-link {
+    display: block;
+    padding: 2.5rem 2rem 2rem;
+    text-decoration: none;
+    color: inherit;
+    position: relative;
+}
+
+/* 彩色编号块 - 左上角 */
+.bauhaus-number {
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    padding: 1rem 1.75rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.25rem;
+    font-weight: 900;
+    letter-spacing: 0.1em;
+    color: white;
+    z-index: 10;
+}
+
+.bauhaus-card[data-color="orange"] .bauhaus-number {
+    background: #FF4D00;
+}
+
+.bauhaus-card[data-color="blue"] .bauhaus-number {
+    background: #0047AB;
+}
+
+.bauhaus-card[data-color="yellow"] .bauhaus-number {
+    background: #FFD60A;
+    color: #0a0a0a;
+}
+
+.bauhaus-card[data-color="black"] .bauhaus-number {
+    background: #0a0a0a;
+}
+
+.bauhaus-content {
+    margin-top: 2rem;
+}
+
+.bauhaus-title {
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: #0a0a0a;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+}
+
+.bauhaus-description {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #666;
+}
+
+/* 旋转装饰块 */
+.bauhaus-decoration {
+    position: absolute;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    width: 40px;
+    height: 40px;
+    opacity: 0.15;
+    pointer-events: none;
+}
+
+.bauhaus-card[data-color="orange"] .bauhaus-decoration {
+    border: 3px solid #FF4D00;
+    transform: rotate(25deg);
+}
+
+.bauhaus-card[data-color="blue"] .bauhaus-decoration {
+    background: #0047AB;
+    transform: rotate(-15deg);
+}
+
+.bauhaus-card[data-color="yellow"] .bauhaus-decoration {
+    width: 0;
+    height: 0;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-bottom: 35px solid #FFD60A;
+    transform: rotate(30deg);
+}
+
+.bauhaus-card[data-color="black"] .bauhaus-decoration {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background: #0a0a0a;
+}
+
+/* Bauhaus响应式 */
+@media (max-width: 768px) {
+    .bauhaus-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .bauhaus-card::after {
+        top: 8px;
+        left: 8px;
+    }
+
+    .bauhaus-card:hover::after {
+        top: 12px;
+        left: 12px;
+    }
+
+    .bauhaus-link {
+        padding: 2rem 1.5rem 1.5rem;
+    }
+
+    .bauhaus-number {
+        padding: 0.75rem 1.25rem;
+        font-size: 1rem;
+    }
+
+    .bauhaus-title {
+        font-size: 1.25rem;
+    }
+}
+
+/* ================================
+   学术期刊视图 - Journal View
+   ================================ */
+.journal-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.journal-header {
+    text-align: center;
+    padding: 3rem 2rem;
+    border: 2px solid #0a0a0a;
+    background: white;
+    margin-bottom: 3rem;
+    position: relative;
+}
+
+.journal-header::after {
+    content: '';
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    right: -8px;
+    bottom: -8px;
+    background: #d4d4d4;
+    z-index: -1;
+}
+
+.journal-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #0a0a0a;
+    margin-bottom: 1rem;
+    letter-spacing: 0.02em;
+}
+
+.journal-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.875rem;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.journal-section {
+    margin-bottom: 3rem;
+}
+
+.journal-section-title {
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: #0a0a0a;
+    padding: 1rem 0;
+    border-bottom: 3px solid #0a0a0a;
+    margin-bottom: 1.5rem;
+    font-family: 'Noto Sans SC', sans-serif;
+}
+
+.journal-table-content {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border: 2px solid #0a0a0a;
+    background: white;
+}
+
+.journal-table-content thead {
+    background: #0a0a0a;
+    color: white;
+}
+
+.journal-table-content th {
+    padding: 1rem;
+    text-align: left;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-right: 1px solid #333;
+}
+
+.journal-table-content th:last-child {
+    border-right: none;
+}
+
+.journal-col-number {
+    width: 80px;
+}
+
+.journal-col-title {
+    width: 30%;
+}
+
+.journal-col-description {
+    width: 50%;
+}
+
+.journal-col-link {
+    width: 100px;
+    text-align: center;
+}
+
+.journal-row {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.journal-row:last-child {
+    border-bottom: none;
+}
+
+.journal-row:hover {
+    background: #f9f9f9;
+}
+
+.journal-table-content td {
+    padding: 1.25rem 1rem;
+    vertical-align: top;
+}
+
+.journal-cell-number {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 900;
+    font-size: 0.875rem;
+    color: #FF4D00;
+}
+
+.journal-title-cn {
+    font-weight: 700;
+    color: #0a0a0a;
+    margin-bottom: 0.25rem;
+    font-size: 0.95rem;
+}
+
+.journal-title-en {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: #999;
+    font-style: italic;
+}
+
+.journal-cell-description {
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: #666;
+}
+
+.journal-cite-link {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: #0a0a0a;
+    color: white;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-decoration: none;
+    border: 2px solid #0a0a0a;
+}
+
+.journal-cite-link:hover {
+    background: white;
+    color: #0a0a0a;
+}
+
+/* Journal响应式 */
+@media (max-width: 1024px) {
+    .journal-title {
+        font-size: 2rem;
+    }
+
+    .journal-col-title {
+        width: 35%;
+    }
+
+    .journal-col-description {
+        width: 45%;
+    }
+}
+
+@media (max-width: 768px) {
+    .journal-header {
+        padding: 2rem 1.5rem;
+    }
+
+    .journal-title {
+        font-size: 1.5rem;
+    }
+
+    .journal-meta {
+        font-size: 0.75rem;
+    }
+
+    /* 表格垂直布局 */
+    .journal-table-content,
+    .journal-table-content thead,
+    .journal-table-content tbody,
+    .journal-table-content tr,
+    .journal-table-content th,
+    .journal-table-content td {
+        display: block;
+        width: 100%;
+    }
+
+    .journal-table-content thead {
+        display: none;
+    }
+
+    .journal-row {
+        margin-bottom: 1.5rem;
+        border: 2px solid #0a0a0a;
+        background: white;
+        position: relative;
+        padding: 1rem;
+    }
+
+    .journal-row::after {
+        content: '';
+        position: absolute;
+        top: 4px;
+        left: 4px;
+        right: -4px;
+        bottom: -4px;
+        background: #e5e5e5;
+        z-index: -1;
+    }
+
+    .journal-table-content td {
+        padding: 0.75rem 0;
+        border: none;
+    }
+
+    .journal-cell-number {
+        font-size: 1.25rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .journal-title-cn {
+        font-size: 1.1rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .journal-cell-description {
+        margin: 1rem 0;
+    }
+
+    .journal-cite-link {
+        width: 100%;
+        text-align: center;
     }
 }
