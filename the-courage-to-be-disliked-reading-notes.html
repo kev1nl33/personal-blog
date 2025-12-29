@@ -260,6 +260,20 @@
             color: #FF4D00;
         }
 
+        .toc-link.toc-h4 {
+            font-size: 0.75rem;
+            padding-left: 1.75rem;
+            color: #d1d5db;
+        }
+
+        .toc-link.toc-h4:hover {
+            color: #9ca3af;
+        }
+
+        .toc-link.toc-h4.active {
+            color: #FF4D00;
+        }
+
         /* 隐藏目录在小屏幕 */
         @media (max-width: 1400px) {
             .toc-container {
@@ -473,7 +487,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             const articleContent = document.querySelector('.article-content');
             const tocList = document.getElementById('toc-list');
-            const headings = articleContent.querySelectorAll('h2, h3');
+            const headings = articleContent.querySelectorAll('h2, h3, h4');
 
             if (headings.length === 0) {
                 document.getElementById('toc').style.display = 'none';
