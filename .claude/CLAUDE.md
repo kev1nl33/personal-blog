@@ -109,6 +109,7 @@ CATEGORY_MAP = {
 **Styles:**
 - `main.css`: Global dark theme with gradients
 - `article.css`, `blog.css`, `books.css`: Page-specific styles
+- `visual-design.css`: Neo-Brutalism design system utilities and components
 
 ## Notion Database Schema
 
@@ -185,6 +186,7 @@ Required GitHub Secrets:
    - Style files (`styles/*.css`)
    - Script files (`scripts/*.js`)
    - Layout pages (`index.html`, `blog.html`, `books.html` - structural parts only)
+   - Design system page (`visual-design.html` - showcases Neo-Brutalism design components)
 
 3. **URL immutability**: Once published, don't change article URLs (breaks links)
 
