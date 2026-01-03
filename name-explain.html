@@ -188,29 +188,61 @@
         .toc-container {
             position: fixed;
             top: 120px;
-            right: calc((100vw - 960px) / 2 - 220px);
-            width: 200px;
+            right: calc((100vw - 960px) / 2 - 240px);
+            width: 220px;
             max-height: calc(100vh - 160px);
             overflow-y: auto;
             z-index: 100;
+            /* 自定义滚动条 */
+            scrollbar-width: thin;
+            scrollbar-color: #d1d5db transparent;
+        }
+
+        .toc-container::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .toc-container::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .toc-container::-webkit-scrollbar-thumb {
+            background-color: #d1d5db;
+            border-radius: 2px;
+        }
+
+        .toc-container::-webkit-scrollbar-thumb:hover {
+            background-color: #9ca3af;
         }
 
         .toc-card {
-            background: white;
-            border: 1px solid #0a0a0a;
-            padding: 1.25rem;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 2px solid #0a0a0a;
+            padding: 1.5rem;
+            box-shadow: 4px 4px 0px rgba(10, 10, 10, 0.1);
+            border-radius: 8px;
         }
 
         .toc-title {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: #8a8a8a;
+            letter-spacing: 0.15em;
+            color: #0a0a0a;
             margin-bottom: 1rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 1px solid #e5e5e5;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid #0a0a0a;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .toc-title::before {
+            content: '▸';
+            font-size: 0.9rem;
+            color: #FF4D00;
         }
 
         .toc-list {
@@ -220,58 +252,70 @@
         }
 
         .toc-item {
-            margin-bottom: 0.5rem;
+            margin-bottom: 0;
         }
 
         .toc-link {
             display: block;
-            font-size: 0.875rem;
-            color: #6b7280;
+            font-size: 0.825rem;
+            color: #4b5563;
             text-decoration: none;
-            padding: 0.25rem 0;
-            padding-left: 0.75rem;
-            border-left: 2px solid transparent;
+            padding: 0.4rem 0.75rem;
+            margin: 0.15rem 0;
+            border-left: 2px solid #e5e7eb;
             transition: all 0.2s ease;
-            line-height: 1.4;
+            line-height: 1.5;
+            border-radius: 0 4px 4px 0;
+            font-weight: 500;
         }
 
         .toc-link:hover {
             color: #0a0a0a;
-            border-left-color: #0a0a0a;
+            border-left-color: #FF4D00;
+            background: rgba(255, 77, 0, 0.05);
+            padding-left: 1rem;
+            transform: translateX(-2px);
         }
 
         .toc-link.active {
             color: #FF4D00;
             border-left-color: #FF4D00;
+            background: rgba(255, 77, 0, 0.08);
             font-weight: 600;
         }
 
         .toc-link.toc-h3 {
-            font-size: 0.8rem;
-            padding-left: 1.25rem;
-            color: #9ca3af;
+            font-size: 0.775rem;
+            padding-left: 1.5rem;
+            color: #6b7280;
+            border-left-width: 1.5px;
         }
 
         .toc-link.toc-h3:hover {
-            color: #6b7280;
+            color: #0a0a0a;
+            padding-left: 1.75rem;
         }
 
         .toc-link.toc-h3.active {
             color: #FF4D00;
+            border-left-color: #FF4D00;
         }
 
         .toc-link.toc-h4 {
-            font-size: 0.75rem;
-            padding-left: 1.75rem;
-            color: #d1d5db;
+            font-size: 0.725rem;
+            padding-left: 2rem;
+            color: #9ca3af;
+            border-left-width: 1px;
         }
 
         .toc-link.toc-h4:hover {
-            color: #9ca3af;
+            color: #4b5563;
+            padding-left: 2.25rem;
         }
 
         .toc-link.toc-h4.active {
             color: #FF4D00;
+            border-left-color: #FF4D00;
         }
 
         /* 隐藏目录在小屏幕 */
@@ -393,7 +437,7 @@
             </div>
 
             <!-- 文章正文 -->
-            <div class="bento-card p-8 md:p-12 reveal">
+            <div class="bento-card p-8 md:p-12">
                 <div class="article-content">
                     <p>李安岚</p>
 <h2>1 <strong>李安澄</strong></h2>
