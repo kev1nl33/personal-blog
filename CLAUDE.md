@@ -9,7 +9,7 @@ Notion 数据库 → GitHub Actions → sync_notion.py → HTML 文件 → Cloud
 ```
 
 **核心功能：**
-- 从 3 个 Notion 数据库自动同步内容（博客文章、阅读清单）
+- 从 Notion 数据库自动同步内容（博客文章）
 - 静态 HTML/CSS/JS 网站，无需复杂框架
 - Neo-Brutalism 新野兽派设计系统
 - 全站搜索、文章推荐、目录导航
@@ -29,7 +29,9 @@ pip install requests
 # 3. 配置环境变量（可选，用于本地同步）
 export NOTION_TOKEN="your_notion_token"
 export NOTION_DATABASE_ID="your_database_id"
-export NOTION_READING_LIST_DB_ID="your_reading_list_id"
+export COFFEE_BEANS_DB_ID="your_coffee_beans_id"
+export CAFE_VISITS_DB_ID="your_cafe_visits_id"
+export BREWING_NOTES_DB_ID="your_brewing_notes_id"
 
 # 4. 本地预览
 python -m http.server 8000
@@ -67,7 +69,7 @@ python sync_notion.py
 
 ```bash
 # 内容同步
-python sync_notion.py              # 同步博客文章和阅读清单
+python sync_notion.py              # 同步博客文章
 python generate_search_index.py    # 生成搜索索引
 python generate_sitemap.py         # 生成站点地图
 
@@ -128,7 +130,6 @@ personal-blog/
 │   └── blog.css           # 博客列表样式
 ├── index.html             # 首页
 ├── blog.html              # 博客列表
-├── books.html             # 阅读清单
 ├── visual-design.html     # 设计系统展示页
 ├── sync_notion.py         # Notion 同步脚本
 └── CLAUDE.md              # 本文档
@@ -147,16 +148,6 @@ personal-blog/
 - 阅读时间（Reading Time）- 可选
 - 已发布（Published）- 必填，勾选后才会同步
 - URL - 必填，kebab-case 格式
-
-**阅读清单（Reading List）：**
-- 书名（Title）- 必填
-- 作者（Author）
-- 状态（Status）- 想读/在读/已读
-- 评分（Rating）- ⭐-⭐⭐⭐⭐⭐
-- 类型（Genre）
-- 已发布（Published）- 勾选后显示
-- 封面图（Cover Image）
-- 豆瓣链接（Douban URL）- 自动抓取封面
 
 ### URL 规则
 
@@ -179,11 +170,11 @@ personal-blog/
 
 1. **不要直接编辑生成的文章 HTML** - `articles/` 目录下的文件会在每次同步时被覆盖
 2. **可以安全修改的文件：**
-   - `sync_notion.py` 中的 HTML 模板
-   - `styles/*.css` 样式文件
-   - `scripts/*.js` 脚本文件
-   - `index.html`, `blog.html`, `books.html` 的结构部分
-   - `visual-design.html` 设计系统展示页
+    - `sync_notion.py` 中的 HTML 模板
+    - `styles/*.css` 样式文件
+    - `scripts/*.js` 脚本文件
+    - `index.html`, `blog.html` 的结构部分
+    - `visual-design.html` 设计系统展示页
 
 3. **URL 不可变性** - 文章发布后，不要修改 URL（会破坏外部链接）
 

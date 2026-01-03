@@ -20,7 +20,6 @@ personal-blog/
 ├── index.html                    # 主页
 ├── blog.html                     # 文章列表页
 ├── about.html                    # 关于页面
-├── books.html                    # 读书笔记页面
 ├── weekly.html                   # 周报列表页
 ├── weekly-1.html                 # 周报文章
 ├── weekly-2.html

@@ -8,7 +8,6 @@ const CORE_ASSETS = [
     '/index.html',
     '/blog.html',
     '/about.html',
-    '/books.html',
     '/styles/main.css',
     '/scripts/main.js',
     '/scripts/search.js',
