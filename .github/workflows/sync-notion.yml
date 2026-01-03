@@ -28,12 +28,11 @@ jobs:
     - name: 安装依赖
       run: |
         pip install requests
-    
+
     - name: 从 Notion 同步内容
       env:
         NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
         NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
-        NOTION_READING_LIST_DB_ID: ${{ secrets.NOTION_READING_LIST_DB_ID }}
         COFFEE_BEANS_DB_ID: ${{ secrets.COFFEE_BEANS_DB_ID }}
         CAFE_VISITS_DB_ID: ${{ secrets.CAFE_VISITS_DB_ID }}
         BREWING_NOTES_DB_ID: ${{ secrets.BREWING_NOTES_DB_ID }}
