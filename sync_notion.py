@@ -58,11 +58,29 @@ def query_database():
     return response.json()['results']
 
 def get_page_content(page_id):
-    """获取页面内容（blocks）"""
+    """获取页面内容（blocks），支持分页获取"""
     url = f'https://api.notion.com/v1/blocks/{page_id}/children'
-    response = requests.get(url, headers=HEADERS)
-    response.raise_for_status()
-    return response.json()['results']
+    all_blocks = []
+    start_cursor = None
+
+    while True:
+        params = {}
+        if start_cursor:
+            params['start_cursor'] = start_cursor
+
+        response = requests.get(url, headers=HEADERS, params=params)
+        response.raise_for_status()
+        data = response.json()
+
+        all_blocks.extend(data['results'])
+
+        # 检查是否还有更多内容
+        if not data.get('has_more'):
+            break
+
+        start_cursor = data.get('next_cursor')
+
+    return all_blocks
 
 def block_to_html(block):
     """将 Notion block 转换为 HTML"""
