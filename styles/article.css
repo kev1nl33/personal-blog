@@ -372,4 +372,152 @@
     .related-grid {
         grid-template-columns: 1fr;
     }
+
+    .toc-container {
+        position: static !important;
+        margin-bottom: 1.5rem;
+        max-width: 100% !important;
+    }
+
+    .toc-nav {
+        max-height: 300px !important;
+    }
+}
+
+/* ================================
+   目录导航 - Table of Contents (TOC)
+   Neo-Brutalism 风格
+   ================================ */
+.toc-container {
+    position: fixed;
+    top: 120px;
+    right: 4rem;
+    width: auto;
+    min-width: 280px;
+    max-width: 400px;
+    max-height: calc(100vh - 140px);
+    overflow-y: auto;
+    z-index: 100;
+    background: #f4f4f0;
+    border: 2px solid #0a0a0a;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    transition: all 0.3s ease;
+    /* Neo-Brutalism: 无圆角 */
+    border-radius: 0;
+}
+
+.toc-container:hover {
+    /* Neo-Brutalism: 硬阴影 */
+    box-shadow: 8px 8px 0px #0a0a0a;
+    transform: translate(-4px, -4px);
+}
+
+.toc-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    /* Neo-Brutalism: 硬边框 */
+    border-bottom: 2px solid #0a0a0a;
+}
+
+.toc-title {
+    margin: 0;
+    font-size: 1.1rem;
+    /* Neo-Brutalism: 纯黑文本 */
+    color: #0a0a0a;
+    font-weight: 700;
+    font-family: 'JetBrains Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.toc-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.toc-item {
+    margin: 0.25rem 0;
+}
+
+.toc-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    color: #0a0a0a;
+    text-decoration: none;
+    border-radius: 0;
+    transition: all 0.2s;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    line-height: 1.4;
+    overflow: visible;
+    border: 1px solid transparent;
+}
+
+.toc-link:hover {
+    background: #0a0a0a;
+    color: #f4f4f0;
+    border: 1px solid #0a0a0a;
+}
+
+.toc-link.active {
+    background: #FF4D00;
+    color: #f4f4f0;
+    font-weight: 700;
+    border: 1px solid #FF4D00;
+}
+
+.toc-link.active .toc-bullet {
+    background: #f4f4f0;
+}
+
+.toc-bullet {
+    width: 8px;
+    height: 8px;
+    border-radius: 0;
+    background: #0a0a0a;
+    flex-shrink: 0;
+    transition: background 0.2s;
+}
+
+.toc-text {
+    flex: 0 1 auto;
+    white-space: nowrap;
+}
+
+.toc-nav {
+    max-height: 500px;
+    overflow-y: auto;
+    overflow-x: visible;
+    transition: max-height 0.3s ease;
+}
+
+.toc-nav::-webkit-scrollbar {
+    width: 8px;
+}
+
+.toc-nav::-webkit-scrollbar-track {
+    background: #f4f4f0;
+}
+
+.toc-nav::-webkit-scrollbar-thumb {
+    background: #0a0a0a;
+    border-radius: 0;
+}
+
+.toc-container.collapsed .toc-nav {
+    max-height: 0 !important;
+}
+
+/* 中等屏幕适配 */
+@media (max-width: 1200px) {
+    .toc-container {
+        right: 2rem;
+    }
 }
