@@ -203,13 +203,6 @@
             scrollbar-color: #d1d5db transparent;
         }
 
-        /* 当屏幕宽度不足以容纳正文+目录时，隐藏目录 */
-        @media (max-width: 1300px) {
-            .toc-container {
-                display: none;
-            }
-        }
-
         .toc-container::-webkit-scrollbar {
             width: 4px;
         }
@@ -227,6 +220,13 @@
             background-color: #9ca3af;
         }
 
+        /* 当屏幕宽度不足以容纳正文+目录时，隐藏目录 */
+        @media (max-width: 1300px) {
+            .toc-container {
+                display: none;
+            }
+        }
+
         .toc-card {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
@@ -236,6 +236,15 @@
             border-radius: 8px;
             width: max-content;
             max-width: 100%;
+        }
+
+        .toc-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid #e5e7eb;
         }
 
         .toc-title {
@@ -261,84 +270,105 @@
 
         .toc-list {
             list-style: none;
-            padding: 0;
             margin: 0;
+            padding: 0;
         }
 
         .toc-item {
-            margin-bottom: 0;
+            margin: 0.25rem 0;
         }
 
         .toc-link {
-            display: block;
-            font-size: 0.825rem;
-            color: #4b5563;
-            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
             padding: 0.4rem 0.75rem;
             margin: 0.15rem 0;
-            border-left: 2px solid #e5e7eb;
-            transition: all 0.2s ease;
-            line-height: 1.5;
+            color: #4b5563;
+            text-decoration: none;
             border-radius: 0 4px 4px 0;
+            transition: all 0.2s ease;
+            font-size: 0.825rem;
             font-weight: 500;
             white-space: nowrap;
+            line-height: 1.5;
         }
 
         .toc-link:hover {
             color: #0a0a0a;
-            border-left-color: #FF4D00;
             background: rgba(255, 77, 0, 0.05);
-            padding-left: 1rem;
-            transform: translateX(-2px);
         }
 
         .toc-link.active {
             color: #FF4D00;
-            border-left-color: #FF4D00;
             background: rgba(255, 77, 0, 0.08);
             font-weight: 600;
         }
 
-        .toc-link.toc-h3 {
-            font-size: 0.775rem;
-            padding-left: 1.5rem;
-            color: #6b7280;
-            border-left-width: 1.5px;
+        .toc-link.active .toc-bullet {
+            background: #FF4D00;
         }
 
-        .toc-link.toc-h3:hover {
-            color: #0a0a0a;
-            padding-left: 1.75rem;
+        .toc-bullet {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #666;
+            flex-shrink: 0;
+            transition: background 0.2s;
         }
 
-        .toc-link.toc-h3.active {
-            color: #FF4D00;
-            border-left-color: #FF4D00;
+        .toc-text {
+            flex: 1;
+            min-width: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
-        .toc-link.toc-h4 {
-            font-size: 0.725rem;
-            padding-left: 2rem;
-            color: #9ca3af;
-            border-left-width: 1px;
+        .toc-nav {
+            max-height: 500px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            transition: max-height 0.3s ease;
         }
 
-        .toc-link.toc-h4:hover {
-            color: #4b5563;
-            padding-left: 2.25rem;
+        .toc-nav::-webkit-scrollbar {
+            width: 4px;
         }
 
-        .toc-link.toc-h4.active {
-            color: #FF4D00;
-            border-left-color: #FF4D00;
+        .toc-nav::-webkit-scrollbar-track {
+            background: #f9fafb;
         }
 
-        /* 隐藏目录在小屏幕 */
-        @media (max-width: 1400px) {
+        .toc-nav::-webkit-scrollbar-thumb {
+            background: #d1d5db;
+            border-radius: 2px;
+        }
+
+        .toc-container.collapsed .toc-nav {
+            max-height: 0 !important;
+        }
+
+        /* 中等屏幕适配 */
+        @media (max-width: 1200px) {
             .toc-container {
-                display: none;
+                right: calc((100% - 960px) / 2);
             }
         }
+
+        /* 移动端适配 */
+        @media (max-width: 768px) {
+            .toc-container {
+                position: static;
+                margin-bottom: 1.5rem;
+            }
+
+            .toc-nav {
+                max-height: 300px;
+            }
+        }
+
+        /* 阅读进度条 */
 
         /* 阅读进度条 */
         .reading-progress {
