@@ -188,14 +188,26 @@
         .toc-container {
             position: fixed;
             top: 120px;
-            right: calc((100vw - 960px) / 2 - 240px);
-            width: 220px;
+            /* 居中定位：左右边距相等
+               计算：正文右边缘 = 50vw + 480px
+                    右侧空白中点 = 75vw + 240px
+                    使用 translateX(-50%) 实现目录自身居中 */
+            left: calc(75vw + 240px);
+            transform: translateX(-50%);
             max-height: calc(100vh - 160px);
             overflow-y: auto;
             z-index: 100;
+            padding: 0 1rem;
             /* 自定义滚动条 */
             scrollbar-width: thin;
             scrollbar-color: #d1d5db transparent;
+        }
+
+        /* 当屏幕宽度不足以容纳正文+目录时，隐藏目录 */
+        @media (max-width: 1300px) {
+            .toc-container {
+                display: none;
+            }
         }
 
         .toc-container::-webkit-scrollbar {
@@ -219,9 +231,11 @@
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             border: 2px solid #0a0a0a;
-            padding: 1.5rem;
+            padding: 1rem 1.25rem;
             box-shadow: 4px 4px 0px rgba(10, 10, 10, 0.1);
             border-radius: 8px;
+            width: max-content;
+            max-width: 100%;
         }
 
         .toc-title {
@@ -267,6 +281,7 @@
             line-height: 1.5;
             border-radius: 0 4px 4px 0;
             font-weight: 500;
+            white-space: nowrap;
         }
 
         .toc-link:hover {

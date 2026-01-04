@@ -213,10 +213,6 @@ class TableOfContents {
                 border-radius: 12px;
                 padding: 1.5rem;
                 margin-bottom: 2rem;
-                position: sticky;
-                top: 80px;
-                max-height: calc(100vh - 120px);
-                overflow: hidden;
                 transition: all 0.3s ease;
             }
 
@@ -298,7 +294,7 @@ class TableOfContents {
 
             .toc-link {
                 display: flex;
-                align-items: flex-start;
+                align-items: center;
                 gap: 0.5rem;
                 padding: 0.4rem 0.5rem;
                 color: #999;
@@ -306,6 +302,7 @@ class TableOfContents {
                 border-radius: 6px;
                 transition: all 0.2s;
                 font-size: 0.9rem;
+                white-space: nowrap;
                 line-height: 1.4;
             }
 
@@ -330,12 +327,14 @@ class TableOfContents {
                 border-radius: 50%;
                 background: #666;
                 flex-shrink: 0;
-                margin-top: 0.5rem;
                 transition: background 0.2s;
             }
 
             .toc-text {
                 flex: 1;
+                min-width: 0;
+                overflow: hidden;
+                text-overflow: ellipsis;
             }
 
             .toc-container.collapsed .toc-nav {
@@ -351,37 +350,6 @@ class TableOfContents {
 
                 .toc-nav {
                     max-height: 300px;
-                }
-            }
-
-            /* 为文章内容添加布局，使TOC在侧边 */
-            @media (min-width: 1200px) {
-                .article-container {
-                    max-width: 1200px !important;
-                }
-
-                .article-container .container {
-                    display: grid;
-                    grid-template-columns: 250px 1fr;
-                    gap: 2rem;
-                    align-items: start;
-                }
-
-                .article-header,
-                .article-footer,
-                .related-articles {
-                    grid-column: 1 / -1;
-                }
-
-                .toc-container {
-                    grid-column: 1;
-                    position: sticky;
-                    top: 100px;
-                }
-
-                .article-content {
-                    grid-column: 2;
-                    min-width: 0; /* 防止溢出 */
                 }
             }
         `;
