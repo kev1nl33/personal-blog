@@ -432,3 +432,468 @@
 @media (prefers-color-scheme: dark) {
     /* 预留深色模式样式 */
 }
+
+
+
+/* ================================
+   Statistics Cards
+   ================================ */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.stat-card {
+    background: white;
+    border: 2px solid var(--brand-black);
+    padding: 1.5rem 1rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 4px 4px 0 var(--brand-black);
+}
+
+.stat-number {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: var(--coffee-dark);
+    line-height: 1;
+    margin-bottom: 0.25rem;
+}
+
+.stat-label {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--coffee-medium);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-weight: 700;
+}
+
+.stat-icon {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    font-size: 1rem;
+    color: var(--coffee-light);
+    opacity: 0.5;
+}
+
+/* ================================
+   Coffee Bento Grid
+   ================================ */
+.coffee-bento-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+}
+
+.bento-card--large {
+    grid-column: span 2;
+}
+
+.bento-card--full {
+    grid-column: span 3;
+}
+
+/* Preview Cards */
+.preview-card {
+    background: white;
+    border: 2px solid var(--brand-black);
+    padding: 1.5rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.preview-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid var(--brand-black);
+}
+
+.preview-card-title {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--coffee-dark);
+}
+
+.preview-card-link {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--coffee-medium);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.preview-card-link:hover {
+    color: var(--brand-accent);
+}
+
+.preview-card-content {
+    flex: 1;
+}
+
+/* Bean Preview Mini Card */
+.bean-preview {
+    padding: 1rem;
+    background: var(--coffee-foam);
+    border: 1px solid var(--coffee-light);
+    margin-bottom: 0.75rem;
+}
+
+.bean-preview:last-child {
+    margin-bottom: 0;
+}
+
+.bean-preview-name {
+    font-weight: 700;
+    color: var(--brand-black);
+    margin-bottom: 0.25rem;
+}
+
+.bean-preview-meta {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--coffee-medium);
+    text-transform: uppercase;
+}
+
+/* Note Preview Mini Card */
+.note-preview {
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--coffee-cream);
+}
+
+.note-preview:last-child {
+    border-bottom: none;
+}
+
+.note-preview-title {
+    font-weight: 600;
+    color: var(--brand-black);
+    font-size: 0.9rem;
+    margin-bottom: 0.25rem;
+}
+
+.note-preview-date {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--coffee-medium);
+}
+
+/* City Tags for Cafe */
+.city-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.city-tag {
+    padding: 0.5rem 1rem;
+    background: var(--coffee-foam);
+    border: 2px solid var(--coffee-dark);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--coffee-dark);
+    transition: all 0.2s;
+}
+
+.city-tag:hover {
+    background: var(--coffee-dark);
+    color: white;
+}
+
+.city-tag-count {
+    display: inline-block;
+    margin-left: 0.5rem;
+    padding: 0.125rem 0.375rem;
+    background: var(--coffee-dark);
+    color: white;
+    font-size: 0.65rem;
+}
+
+.city-tag:hover .city-tag-count {
+    background: white;
+    color: var(--coffee-dark);
+}
+
+/* Equipment Quick View */
+.equipment-quick-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 1rem;
+}
+
+.equipment-quick-item {
+    text-align: center;
+    padding: 1rem;
+    background: var(--coffee-foam);
+    border: 1px solid var(--coffee-light);
+    transition: all 0.2s;
+}
+
+.equipment-quick-item:hover {
+    border-color: var(--coffee-dark);
+    transform: translateY(-2px);
+}
+
+.equipment-quick-icon {
+    font-size: 2rem;
+    color: var(--coffee-dark);
+    margin-bottom: 0.5rem;
+}
+
+.equipment-quick-name {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--coffee-dark);
+}
+
+/* ================================
+   Responsive: Coffee Bento
+   ================================ */
+@media (max-width: 1024px) {
+    .coffee-bento-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .bento-card--large {
+        grid-column: span 2;
+    }
+    
+    .bento-card--full {
+        grid-column: span 2;
+    }
+}
+
+@media (max-width: 768px) {
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .stat-number {
+        font-size: 2rem;
+    }
+    
+    .coffee-bento-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .bento-card--large,
+    .bento-card--full {
+        grid-column: span 1;
+    }
+    
+    .equipment-quick-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+     .stats-grid {
+         gap: 0.5rem;
+     }
+
+     .stat-card {
+         padding: 1rem 0.5rem;
+     }
+
+     .stat-number {
+         font-size: 1.5rem;
+     }
+
+     .equipment-quick-grid {
+         grid-template-columns: repeat(2, 1fr);
+     }
+
+     .coffee-tabs .tab-btn {
+         flex: 1;
+         font-size: 0.875rem;
+     }
+
+     .equipment-expandable-card .card-preview {
+         padding: 1rem;
+     }
+ }
+
+.tab-content {
+     display: none;
+ }
+
+.tab-content--active {
+     display: block;
+ }
+
+.coffee-tabs {
+     z-index: 50;
+ }
+
+.tab-btn {
+     padding: 0.75rem 1.5rem;
+     background: white;
+     border: 2px solid var(--brand-black);
+     font-family: var(--font-mono);
+     font-size: 0.875rem;
+     font-weight: 700;
+     text-transform: uppercase;
+     letter-spacing: 0.1em;
+     color: var(--coffee-medium);
+     transition: all 0.3s ease;
+     cursor: pointer;
+     display: inline-flex;
+     align-items: center;
+     gap: 0.5rem;
+ }
+
+.tab-btn:hover {
+     background: var(--coffee-foam);
+     color: var(--coffee-dark);
+     transform: translateY(-2px);
+ }
+
+.tab-btn--active {
+     background: var(--coffee-dark);
+     color: white;
+     border-color: var(--coffee-dark);
+ }
+
+.tab-btn--active:hover {
+     background: var(--coffee-dark);
+     color: white;
+ }
+
+.equipment-expandable-card {
+     background: white;
+     border: 2px solid var(--brand-black);
+     overflow: hidden;
+     transition: all 0.3s ease;
+}
+
+.equipment-expandable-card:hover {
+     box-shadow: 4px 4px 0 var(--brand-black);
+}
+
+.card-preview {
+     transition: all 0.3s ease;
+     overflow: hidden;
+}
+
+.card-preview:hover {
+     background: var(--coffee-foam);
+}
+
+.card-details {
+     display: none;
+}
+
+.card-details:not(.hidden) {
+     display: block;
+     animation: slideDown 0.3s ease;
+}
+
+.view-details-btn {
+     transition: all 0.3s ease;
+}
+
+@keyframes slideDown {
+     from {
+         opacity: 0;
+         transform: translateY(-10px);
+     }
+     to {
+         opacity: 1;
+         transform: translateY(0);
+     }
+}
+
+@media (max-width: 768px) {
+     .card-preview {
+         flex-direction: column;
+     }
+
+     .card-preview .md\\:w-5\\/12,
+     .card-preview .md\\:w-7\\/12 {
+         width: 100% !important;
+     }
+
+     .card-preview .border-r-2 {
+         border-right: none;
+         border-bottom: 2px solid var(--brand-black);
+     }
+
+     .card-preview img {
+         max-height: 200px;
+     }
+}
+
+.equipment-expandable-card:hover {
+     box-shadow: 4px 4px 0 var(--brand-black);
+}
+
+.card-preview {
+     transition: all 0.3s ease;
+     overflow: hidden;
+}
+
+.card-preview:hover {
+     background: var(--coffee-foam);
+ }
+
+.card-details:not(.hidden) {
+     display: block;
+     animation: slideDown 0.3s ease;
+}
+
+.card-details.revealing {
+     background: var(--coffee-foam);
+}
+
+
+@keyframes slideDown {
+     from {
+         opacity: 0;
+         transform: translateY(-10px);
+     }
+     to {
+         opacity: 1;
+         transform: translateY(0);
+     }
+ }
+
+@media (max-width: 768px) {
+     .card-preview {
+         flex-direction: column;
+     }
+
+     .card-preview .md\\:w-5\\/12,
+     .card-preview .md\\:w-7\\/12 {
+         width: 100% !important;
+     }
+
+     .card-preview .border-r-2 {
+         border-right: none;
+         border-bottom: 2px solid var(--brand-black);
+     }
+
+     .card-preview img {
+         max-height: 200px;
+     }
+ }
