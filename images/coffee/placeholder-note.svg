@@ -1,0 +1,25 @@
+<svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect x="0" y="0" width="400" height="300" fill="#F5E6D3"/>
+  
+  <!-- Icon: Notebook & Pen -->
+  <g transform="translate(100, 60)">
+    <!-- Paper Page -->
+    <rect x="0" y="0" width="140" height="180" fill="#F5E6D3" stroke="#3C2415" stroke-width="3"/>
+    <!-- Horizontal Lines -->
+    <line x1="20" y1="40" x2="120" y2="40" stroke="#C4A484" stroke-width="2"/>
+    <line x1="20" y1="70" x2="120" y2="70" stroke="#C4A484" stroke-width="2"/>
+    <line x1="20" y1="100" x2="120" y2="100" stroke="#C4A484" stroke-width="2"/>
+    <line x1="20" y1="130" x2="120" y2="130" stroke="#C4A484" stroke-width="2"/>
+    
+    <!-- Pen (Geometric) -->
+    <g transform="translate(150, 40) rotate(15)">
+       <rect x="0" y="0" width="20" height="120" fill="#3C2415" stroke="#3C2415" stroke-width="2"/>
+       <!-- Pen Tip -->
+       <polygon points="0,120 20,120 10,140" fill="#C4A484" stroke="#3C2415" stroke-width="2"/>
+    </g>
+  </g>
+
+  <!-- Neo-Brutalism Outer Border -->
+  <rect x="1" y="1" width="398" height="298" fill="none" stroke="#0a0a0a" stroke-width="2"/>
+</svg>

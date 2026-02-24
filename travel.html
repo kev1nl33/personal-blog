@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>看世界 - 计划李</title>
+
+    <meta name="description" content="记录每一次出发：行程规划、旅途见闻、城市印象。用脚步丈量世界。">
+    <meta name="keywords" content="旅行, 看世界, 行程规划, 旅途见闻, 澳大利亚, 墨尔本, 悉尼">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Noto+Serif+SC:wght@400;700&family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            black: '#0a0a0a',
+                            white: '#f4f4f0',
+                            accent: '#FF4D00',
+                            blue: '#0047AB',
+                            green: '#059669',
+                            gray: '#8a8a8a'
+                        },
+                        voyage: {
+                            navy:  '#1B2A4A',
+                            blue:  '#2563EB',
+                            sky:   '#60A5FA',
+                            sand:  '#D4A574',
+                            paper: '#FDF6EC',
+                            stamp: '#DC2626'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Noto Sans SC"', 'Inter', 'sans-serif'],
+                        serif: ['"Noto Serif SC"', 'serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/neo-brutalism.css">
+    <link rel="stylesheet" href="styles/travel.css">
+</head>
+<body class="bg-grid min-h-screen">
+    <!-- 导航栏 -->
+    <nav class="nav">
+        <div class="container">
+            <div class="nav-content">
+                <a href="index.html" class="logo">计划李</a>
+                <ul class="nav-links">
+                    <li><a href="index.html">首页</a></li>
+                    <li><a href="blog.html">文章</a></li>
+                    <li><a href="visual-design.html">认知武器</a></li>
+                    <li><a href="coffee.html">咖啡角</a></li>
+                    <li><a href="travel.html" class="active">看世界</a></li>
+                    <li><a href="about.html">关于</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero 区域 - 护照封面风格 -->
+    <section class="voyage-hero">
+        <div class="max-w-7xl mx-auto px-4 md:px-8 voyage-hero-content">
+            <div class="reveal active">
+                <div class="mb-4">
+                    <span class="font-mono text-voyage-sky text-xs md:text-sm tracking-widest uppercase font-bold">
+                        <span class="text-voyage-sand">●</span> SEE THE WORLD <span class="text-voyage-sand">●</span>
+                    </span>
+                </div>
+                <h1 class="text-6xl md:text-8xl font-black mb-6 leading-none">
+                    看世界
+                </h1>
+                <p class="font-serif text-lg md:text-xl text-voyage-sky max-w-xl leading-relaxed opacity-80">
+                    用脚步丈量世界，用镜头记录旅途，用文字沉淀记忆。
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 旅行统计条 -->
+    <div class="voyage-stats-bar">
+        <div class="voyage-stat">
+            <i class="ri-earth-line voyage-stat-icon"></i>
+            <div class="voyage-stat-value">1</div>
+            <div class="voyage-stat-label">Countries</div>
+        </div>
+        <div class="voyage-stat">
+            <i class="ri-building-2-line voyage-stat-icon"></i>
+            <div class="voyage-stat-value">3</div>
+            <div class="voyage-stat-label">Cities</div>
+        </div>
+        <div class="voyage-stat">
+            <i class="ri-calendar-event-line voyage-stat-icon"></i>
+            <div class="voyage-stat-value">12</div>
+            <div class="voyage-stat-label">Days</div>
+        </div>
+        <div class="voyage-stat">
+            <i class="ri-hotel-line voyage-stat-icon"></i>
+            <div class="voyage-stat-value">4</div>
+            <div class="voyage-stat-label">Hotels</div>
+        </div>
+    </div>
+
+    <!-- 即将出发 -->
+    <section class="py-12 md:py-16">
+        <div class="max-w-7xl mx-auto px-4 md:px-8">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="flex-1 h-px bg-brand-black opacity-20"></div>
+                <h2 class="font-mono text-sm tracking-widest uppercase">
+                    <span class="text-voyage-blue">●</span> 即将出发 <span class="text-voyage-blue">●</span>
+                </h2>
+                <div class="flex-1 h-px bg-brand-black opacity-20"></div>
+            </div>
+
+            <div class="voyage-departure-board reveal active">
+                <div class="flex flex-col md:flex-row md:items-center gap-6 md:gap-8">
+                    <!-- 倒计时 -->
+                    <div class="text-center md:text-left">
+                        <div class="departure-countdown" id="countdown-days">--</div>
+                        <div class="departure-label">Days to Go</div>
+                    </div>
+
+                    <!-- 分隔线 -->
+                    <div class="hidden md:block w-px h-20 bg-white opacity-20"></div>
+
+                    <!-- 航线信息 -->
+                    <div class="flex-1">
+                        <div class="departure-flight-info mb-3">CA165 · 公务舱 · 2026.03.04</div>
+                        <div class="departure-route">
+                            <div>
+                                <div class="departure-city-code">PEK</div>
+                                <div class="departure-city-name">北京</div>
+                            </div>
+                            <div class="departure-plane-line">
+                                <i class="ri-plane-fill"></i>
+                            </div>
+                            <div>
+                                <div class="departure-city-code">MEL</div>
+                                <div class="departure-city-name">墨尔本</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 目的地标签 -->
+                    <div class="flex flex-wrap gap-2 justify-center md:justify-end">
+                        <span class="font-mono text-xs font-bold uppercase tracking-wider px-3 py-1 border border-voyage-sky text-voyage-sky">Melbourne</span>
+                        <span class="font-mono text-xs font-bold uppercase tracking-wider px-3 py-1 border border-voyage-sky text-voyage-sky">Sydney</span>
+                        <span class="font-mono text-xs font-bold uppercase tracking-wider px-3 py-1 border border-voyage-sky text-voyage-sky">Hunter Valley</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 旅行亮点预览 -->
+    <section class="py-12 md:py-16">
+        <div class="max-w-7xl mx-auto px-4 md:px-8">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="flex-1 h-px bg-brand-black opacity-20"></div>
+                <h2 class="font-mono text-sm tracking-widest uppercase">
+                    <span class="text-voyage-sand">●</span> 行程亮点 <span class="text-voyage-sand">●</span>
+                </h2>
+                <div class="flex-1 h-px bg-brand-black opacity-20"></div>
+            </div>
+
+            <div class="highlights-grid">
+                <div class="highlight-card highlight-card--wide reveal">
+                    <span class="highlight-card-icon">🎈</span>
+                    <div class="highlight-card-title">热气球日出飞行</div>
+                    <div class="highlight-card-sub">猎人谷上空俯瞰葡萄园，含早餐与纪念照片</div>
+                    <span class="highlight-card-tag">D7 · Hunter Valley</span>
+                </div>
+                <div class="highlight-card reveal">
+                    <span class="highlight-card-icon">🎭</span>
+                    <div class="highlight-card-title">歌剧院《蝴蝶夫人》</div>
+                    <div class="highlight-card-sub">在世界最著名的歌剧院欣赏普契尼经典</div>
+                    <span class="highlight-card-tag">D10 · Sydney</span>
+                </div>
+                <div class="highlight-card reveal">
+                    <span class="highlight-card-icon">🏖</span>
+                    <div class="highlight-card-title">大洋路 · 十二门徒</div>
+                    <div class="highlight-card-sub">世界级海岸公路，壮观石灰岩柱群</div>
+                    <span class="highlight-card-tag">D1 · Great Ocean Road</span>
+                </div>
+                <div class="highlight-card reveal">
+                    <span class="highlight-card-icon">🍷</span>
+                    <div class="highlight-card-title">酒庄骑行 & 品鉴课</div>
+                    <div class="highlight-card-sub">山地自行车穿梭酒庄，每日 Masterclass</div>
+                    <span class="highlight-card-tag">D6-D8 · Hunter Valley</span>
+                </div>
+                <div class="highlight-card reveal">
+                    <span class="highlight-card-icon">☕</span>
+                    <div class="highlight-card-title">精品咖啡地图</div>
+                    <div class="highlight-card-sub">墨尔本 Fitzroy 街区，Lune 可颂与独立咖啡馆</div>
+                    <span class="highlight-card-tag">D2 · Melbourne CBD</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 签证印章墙 -->
+    <section class="py-12 md:py-16">
+        <div class="max-w-7xl mx-auto px-4 md:px-8">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="flex-1 h-px bg-brand-black opacity-20"></div>
+                <h2 class="font-mono text-sm tracking-widest uppercase">
+                    <span class="text-voyage-stamp">●</span> 旅行足迹 <span class="text-voyage-stamp">●</span>
+                </h2>
+                <div class="flex-1 h-px bg-brand-black opacity-20"></div>
+            </div>
+
+            <div class="stamp-wall">
+                <!-- 澳大利亚印章 -->
+                <a href="travel-australia-2026.html" class="stamp-card reveal" style="--stamp-rotate: -2deg;">
+                    <span class="stamp-status stamp-status--upcoming">即将出发</span>
+                    <div class="stamp-border">
+                        <div class="text-3xl mb-2">🇦🇺</div>
+                        <div class="stamp-country">Australia</div>
+                        <div class="stamp-date">2026.03.04 — 2026.03.15</div>
+                        <div class="stamp-cities">墨尔本 · 悉尼 · 猎人谷</div>
+                        <div class="font-mono text-xs mt-3 text-voyage-navy opacity-50">12 DAYS · 4 HOTELS</div>
+                    </div>
+                </a>
+
+                <!-- 占位印章 - 未来旅行 -->
+                <div class="stamp-card reveal" style="--stamp-rotate: 1.5deg; opacity: 0.4; cursor: default;">
+                    <div class="stamp-border" style="border-style: dashed;">
+                        <div class="text-3xl mb-2">🌏</div>
+                        <div class="stamp-country" style="color: var(--text-secondary);">Next Destination</div>
+                        <div class="stamp-date" style="color: var(--text-secondary);">TBD</div>
+                        <div class="stamp-cities" style="color: var(--text-secondary);">下一站，未知的远方</div>
+                        <div class="font-mono text-xs mt-3 opacity-30">COMING SOON</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="border-t-2 border-brand-black py-8 mt-12">
+        <div class="max-w-7xl mx-auto px-4 md:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                <div class="font-mono text-xs text-brand-gray tracking-wider uppercase">
+                    © 2026 计划李 · See The World
+                </div>
+                <div class="flex gap-6">
+                    <a href="index.html" class="font-mono text-xs text-brand-gray hover:text-brand-accent transition-colors uppercase tracking-wider">首页</a>
+                    <a href="blog.html" class="font-mono text-xs text-brand-gray hover:text-brand-accent transition-colors uppercase tracking-wider">文章</a>
+                    <a href="coffee.html" class="font-mono text-xs text-brand-gray hover:text-brand-accent transition-colors uppercase tracking-wider">咖啡角</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 倒计时脚本 -->
+    <script>
+        (function() {
+            const departureDate = new Date('2026-03-04T00:00:00+08:00');
+            function updateCountdown() {
+                const now = new Date();
+                const diff = departureDate - now;
+                const el = document.getElementById('countdown-days');
+                if (!el) return;
+                if (diff <= 0) {
+                    el.textContent = '出发!';
+                    return;
+                }
+                const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
+                el.textContent = days;
+            }
+            updateCountdown();
+            setInterval(updateCountdown, 60000);
+        })();
+    </script>
+
+    <!-- Scroll Reveal -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const reveals = document.querySelectorAll('.reveal');
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, { threshold: 0.1 });
+            reveals.forEach(function(el) { observer.observe(el); });
+        });
+    </script>
+</body>
+</html>
