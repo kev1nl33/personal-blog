@@ -1,0 +1,16 @@
+I have updated `~/.config/opencode/opencode.json` with the `opencode-antigravity-auth` plugin and the complete list of Antigravity model definitions as requested.
+
+The configuration now includes:
+- **Antigravity Gemini 3 models** (Flash, Pro Low/High)
+- **Antigravity Claude Sonnet 4.5** (including Thinking variants: Low/Medium/High)
+- **Antigravity Claude Opus 4.5** (Thinking variants: Low/Medium/High)
+- **Gemini CLI models** (2.5 Flash/Pro, 3 Flash/Pro Preview)
+
+You can now authenticate by running:
+```bash
+opencode auth login
+```
+And then use the models, for example:
+```bash
+opencode run "Hello" --model=google/antigravity-claude-sonnet-4-5
+```

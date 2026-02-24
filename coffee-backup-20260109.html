@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>咖啡角 - 计划李</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="记录我的咖啡之旅：器具收藏、豆子品鉴、探店笔记和日常冲煮随想。">
+    <meta name="keywords" content="咖啡, 手冲咖啡, 咖啡器具, 咖啡豆, 探店, 咖啡笔记">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Noto+Serif+SC:wght@400;700&family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- RemixIcon -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            black: '#0a0a0a',
+                            white: '#f4f4f0',
+                            accent: '#FF4D00',
+                            blue: '#0047AB',
+                            green: '#059669',
+                            gray: '#8a8a8a'
+                        },
+                        coffee: {
+                            dark: '#3C2415',
+                            medium: '#6F4E37',
+                            light: '#A67B5B',
+                            cream: '#C4A484',
+                            foam: '#F5E6D3'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Noto Sans SC"', 'Inter', 'sans-serif'],
+                        serif: ['"Noto Serif SC"', 'serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/neo-brutalism.css">
+    <link rel="stylesheet" href="styles/coffee.css">
+</head>
+<body class="bg-grid min-h-screen">
+    <!-- 导航栏 -->
+    <nav class="nav">
+        <div class="container">
+            <div class="nav-content">
+                <a href="index.html" class="logo">计划李</a>
+                <ul class="nav-links">
+                    <li><a href="index.html">首页</a></li>
+                    <li><a href="blog.html">文章</a></li>
+                    <li><a href="visual-design.html">认知武器</a></li>
+                    <li><a href="coffee.html" class="active">咖啡角</a></li>
+                    <li><a href="travel.html">看世界</a></li>
+                    <li><a href="about.html">关于</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="py-12 md:py-16">
+        <div class="max-w-7xl mx-auto px-4 md:px-8">
+            <div class="reveal">
+                <div class="mb-4">
+                    <span class="font-mono text-coffee-dark text-xs md:text-sm tracking-widest uppercase font-bold">
+                        <span class="text-brand-accent">●</span> MY COFFEE CORNER <span class="text-brand-accent">●</span>
+                    </span>
+                </div>
+                <h1 class="text-6xl md:text-8xl font-black mb-6 display-text leading-none text-brand-black">
+                    咖啡角
+                </h1>
+                <div class="max-w-2xl">
+                    <p class="font-serif text-xl md:text-2xl leading-relaxed text-gray-700 border-l-4 border-coffee-dark pl-6">
+                        一个人的咖啡时光，记录器具、豆子、探店与日常冲煮的点滴。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content Dashboard -->
+    <div class="max-w-7xl mx-auto px-4 md:px-8 pb-20">
+        
+        <!-- Statistics Section -->
+        <div class="stats-grid reveal mb-8">
+            <div class="stat-card group">
+                <i class="ri-scales-3-line stat-icon group-hover:scale-110 transition-transform"></i>
+                <span class="stat-number" id="stat-equipment">4</span>
+                <span class="stat-label">器具收藏</span>
+            </div>
+            <div class="stat-card group">
+                <i class="ri-seedling-line stat-icon group-hover:scale-110 transition-transform"></i>
+                <span class="stat-number" id="stat-beans">0</span>
+                <span class="stat-label">豆子档案</span>
+            </div>
+            <div class="stat-card group">
+                <i class="ri-store-2-line stat-icon group-hover:scale-110 transition-transform"></i>
+                <span class="stat-number" id="stat-cafes">0</span>
+                <span class="stat-label">探店足迹</span>
+            </div>
+            <div class="stat-card group">
+                <i class="ri-quill-pen-line stat-icon group-hover:scale-110 transition-transform"></i>
+                <span class="stat-number" id="stat-notes">0</span>
+                <span class="stat-label">冲煮日记</span>
+            </div>
+        </div>
+
+        <!-- Bento Grid Section -->
+        <div class="coffee-bento-grid reveal">
+            
+            <!-- Row 1 Left: Flagship Equipment (Span 2) -->
+            <article class="bento-card--large coffee-card bg-white border-2 border-brand-black p-0 overflow-hidden relative group">
+                <div class="absolute top-0 right-0 p-4 z-10">
+                    <span class="font-mono text-[10px] uppercase tracking-widest bg-brand-accent text-white px-2 py-1 font-bold border border-brand-black">Flagship</span>
+                </div>
+                <div class="h-full flex flex-col md:flex-row">
+                    <div class="p-8 md:p-10 flex flex-col justify-between md:w-1/2 relative z-10">
+                        <div>
+                            <div class="mb-4">
+                                <span class="font-mono text-xs text-coffee-medium tracking-widest uppercase font-bold">EQUIPMENT</span>
+                            </div>
+                            <h2 class="text-3xl md:text-4xl font-black mb-2 text-brand-black leading-tight">
+                                惠家 KD-310GB
+                            </h2>
+                            <p class="font-serif italic text-coffee-light text-lg mb-6">The Green Edition</p>
+                            <p class="text-gray-600 font-serif leading-relaxed mb-6">
+                                三加热块、PID温控、58mm商用冲煮头。我的家庭意式咖啡终极方案，兼顾性能与美学的完美平衡。
+                            </p>
+                        </div>
+                        <div>
+                            <a href="coffee-equipment.html" class="inline-flex items-center font-mono font-bold text-sm bg-brand-black text-white px-6 py-3 border-2 border-transparent hover:bg-white hover:text-brand-black hover:border-brand-black transition-all">
+                                查看全部器具 <i class="ri-arrow-right-line ml-2"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="md:w-1/2 bg-gray-50 relative overflow-hidden flex items-center justify-center p-8">
+                        <!-- Decorative background circle -->
+                        <div class="absolute w-64 h-64 bg-coffee-foam rounded-full blur-3xl opacity-50"></div>
+                        <img src="https://www.dankoff.com.my/cdn/shop/files/WPM_310-GB.png?v=1750404978&width=1000" 
+                             alt="WPM KD-310GB" 
+                             class="relative z-10 w-full h-auto object-contain drop-shadow-xl group-hover:scale-105 transition-transform duration-700">
+                    </div>
+                </div>
+            </article>
+
+            <!-- Row 1 Right: Recent Beans Preview (Span 1) -->
+            <div class="preview-card">
+                <div class="preview-card-header">
+                    <h3 class="preview-card-title">
+                        <i class="ri-seedling-line mr-2 align-bottom"></i>最近品鉴
+                    </h3>
+                    <a href="coffee-beans.html" class="preview-card-link">查看全部</a>
+                </div>
+                <div id="beans-preview" class="preview-card-content overflow-y-auto max-h-[300px] scrollbar-hide">
+                            <p class="text-sm text-coffee-medium font-serif italic">暂无豆子记录</p>                        </div>
+                </div>
+            </div>
+
+            <!-- Row 2 Left: Brewing Notes Preview (Span 1) -->
+            <div class="preview-card">
+                <div class="preview-card-header">
+                    <h3 class="preview-card-title">
+                        <i class="ri-book-open-line mr-2 align-bottom"></i>冲煮日记
+                    </h3>
+                    <a href="coffee-notes.html" class="preview-card-link">查看全部</a>
+                </div>
+                <div id="notes-preview" class="preview-card-content overflow-y-auto max-h-[300px] scrollbar-hide">
+                            <p class="text-sm text-coffee-medium font-serif italic">暂无冲煮日记</p>                        </div>
+                </div>
+            </div>
+
+            <!-- Row 2 Right: Cafe Map Preview (Span 2) -->
+            <article class="bento-card--large preview-card relative overflow-hidden">
+                <!-- Background Map Decoration -->
+                <div class="absolute inset-0 opacity-5 pointer-events-none" 
+                     style="background-image: url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23000000\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');">
+                </div>
+                
+                <div class="preview-card-header relative z-10">
+                    <h3 class="preview-card-title">
+                        <i class="ri-map-pin-line mr-2 align-bottom"></i>探店地图
+                    </h3>
+                    <a href="coffee-shops.html" class="preview-card-link">查看全部</a>
+                </div>
+                
+                <div class="flex flex-col md:flex-row h-full gap-6 relative z-10">
+                    <div class="flex-1">
+                        <p class="text-sm text-gray-500 font-serif mb-6 max-w-md">
+                            穿梭在城市的街巷，寻找那些值得停留的咖啡空间。从精品手冲店到社区烘焙坊，记录每一次惊喜的遇见。
+                        </p>
+                        <div id="cafes-preview" class="city-tags">
+                            <p class="text-sm text-coffee-medium font-serif italic">暂无探店记录</p>                        </div>
+                    </div>
+                    <div class="w-full md:w-1/3 flex items-center justify-center bg-coffee-foam border-2 border-coffee-light p-6">
+                        <div class="text-center">
+                            <i class="ri-compass-3-line text-4xl text-coffee-dark mb-2"></i>
+                            <div class="font-mono text-xs font-bold text-coffee-dark uppercase tracking-widest">Coffee Map</div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Row 3: Equipment Quick View (Full Width) -->
+            <div class="bento-card--full bg-white border-2 border-brand-black p-6 md:p-8">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="font-bold text-lg md:text-xl text-brand-black flex items-center gap-2">
+                        <i class="ri-tools-line text-brand-accent"></i> 器具速览
+                    </h3>
+                    <a href="coffee-equipment.html" class="font-mono text-xs font-bold text-coffee-medium hover:text-brand-accent transition-colors uppercase tracking-wider">
+                        View All Gear
+                    </a>
+                </div>
+                
+                <div class="equipment-quick-grid">
+                    <a href="coffee-equipment.html" class="equipment-quick-item group">
+                        <i class="ri-cup-line equipment-quick-icon group-hover:scale-110 transition-transform block"></i>
+                        <span class="equipment-quick-name">咖啡机</span>
+                    </a>
+                    <a href="coffee-equipment.html" class="equipment-quick-item group">
+                        <i class="ri-loader-line equipment-quick-icon group-hover:rotate-180 transition-transform block"></i>
+                        <span class="equipment-quick-name">磨豆机</span>
+                    </a>
+                    <a href="coffee-equipment.html" class="equipment-quick-item group">
+                        <i class="ri-drop-line equipment-quick-icon group-hover:-translate-y-1 transition-transform block"></i>
+                        <span class="equipment-quick-name">手冲壶</span>
+                    </a>
+                    <a href="coffee-equipment.html" class="equipment-quick-item group">
+                        <i class="ri-filter-line equipment-quick-icon group-hover:-translate-y-1 transition-transform block"></i>
+                        <span class="equipment-quick-name">滤杯</span>
+                    </a>
+                    <a href="coffee-equipment.html" class="equipment-quick-item group">
+                        <i class="ri-scales-line equipment-quick-icon group-hover:scale-110 transition-transform block"></i>
+                        <span class="equipment-quick-name">电子秤</span>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="border-t-2 border-brand-black mt-16 py-8">
+        <div class="max-w-7xl mx-auto px-4 md:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="font-mono text-xs text-gray-500">&copy; 2025 计划李. All rights reserved.</p>
+                <div class="flex gap-6">
+                    <a href="https://zhihu.com" target="_blank" class="font-mono text-xs font-bold hover:text-brand-accent transition-colors">知乎</a>
+                    <a href="https://github.com" target="_blank" class="font-mono text-xs font-bold hover:text-brand-accent transition-colors">GitHub</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 滚动显示动画
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

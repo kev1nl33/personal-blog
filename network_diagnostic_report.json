@@ -1,0 +1,64 @@
+{
+  "timestamp": "2026-01-08T20:24:49.464791",
+  "system": "Darwin",
+  "tests": {
+    "网关连接": {
+      "status": "ERROR",
+      "message": "无法获取默认网关"
+    },
+    "MESH节点": {
+      "status": "ERROR",
+      "message": "无法获取网关"
+    },
+    "DNS解析": {
+      "status": "OK",
+      "results": {
+        "默认": {
+          "avg_ms": 2.47,
+          "server": "系统默认"
+        },
+        "阿里DNS": {
+          "avg_ms": 2.07,
+          "server": "223.5.5.5"
+        },
+        "腾讯DNS": {
+          "avg_ms": 1.53,
+          "server": "119.29.29.29"
+        },
+        "Cloudflare": {
+          "avg_ms": 1.16,
+          "server": "1.1.1.1"
+        },
+        "Google": {
+          "avg_ms": 1.06,
+          "server": "8.8.8.8"
+        }
+      },
+      "recommendation": "推荐使用 Google (8.8.8.8)"
+    },
+    "互联网延迟": {
+      "status": "OK",
+      "results": {
+        "百度": {
+          "error": "解析失败"
+        },
+        "阿里": {
+          "error": "解析失败"
+        },
+        "Cloudflare": {
+          "error": "解析失败"
+        }
+      },
+      "overall_avg_ms": null,
+      "analysis": "⚠️ 无法测量"
+    },
+    "路由器管理界面": {
+      "status": "ERROR",
+      "message": "无法获取网关地址"
+    },
+    "带宽测试": {
+      "status": "SKIP",
+      "message": "未安装 speedtest-cli，请运行: pip install speedtest-cli"
+    }
+  }
+}

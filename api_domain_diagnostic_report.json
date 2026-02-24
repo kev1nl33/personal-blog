@@ -1,0 +1,75 @@
+{
+  "domain": "api.z.ai",
+  "port": 443,
+  "timestamp": "2026-01-09T18:17:42.104486",
+  "tests": {
+    "dns": {
+      "status": "OK",
+      "results": {
+        "系统默认": {
+          "ip": "198.18.70.211",
+          "resolve_time_ms": 17.47,
+          "server": "系统默认"
+        },
+        "阿里DNS": {
+          "ip": "128.1.150.233",
+          "resolve_time_ms": 35.79,
+          "server": "223.5.5.5"
+        },
+        "腾讯DNS": {
+          "ip": "128.1.150.233",
+          "resolve_time_ms": 155.51,
+          "server": "119.29.29.29"
+        },
+        "Cloudflare": {
+          "ip": null,
+          "resolve_time_ms": 15018.84,
+          "server": "1.1.1.1"
+        },
+        "Google": {
+          "ip": null,
+          "resolve_time_ms": 15026.97,
+          "server": "8.8.8.8"
+        }
+      },
+      "resolved_ips": [
+        "128.1.150.233",
+        "198.18.70.211"
+      ],
+      "fastest_dns": "系统默认"
+    },
+    "server_location": {
+      "ip": "128.1.150.233",
+      "country": "US",
+      "isp": "ZL-LAX3-003"
+    },
+    "tcp_connection": {
+      "status": "OK",
+      "success_rate": "10/10",
+      "min_ms": 0.5,
+      "avg_ms": 0.79,
+      "max_ms": 2.29,
+      "jitter_ms": 0.55
+    },
+    "ping": {
+      "status": "OK",
+      "avg_latency_ms": 0.467,
+      "packet_loss": "0.0%"
+    },
+    "route_trace": {
+      "status": "OK",
+      "hops_count": 0,
+      "network_type": [
+        "未知"
+      ],
+      "first_hops": []
+    }
+  },
+  "recommendation": {
+    "connection_method": "直连",
+    "reason": [
+      "延迟极低 (0.79ms)，直连表现优异"
+    ],
+    "latency_level": "优秀"
+  }
+}
