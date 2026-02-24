@@ -1,0 +1,1466 @@
+/* ================================
+   看世界 · 旅行专题样式
+   Voyage Section Styles
+   ================================ */
+
+/* ================================
+   航海蓝色系变量
+   ================================ */
+:root {
+    --voyage-navy:  #1B2A4A;
+    --voyage-blue:  #2563EB;
+    --voyage-sky:   #60A5FA;
+    --voyage-sand:  #D4A574;
+    --voyage-paper: #FDF6EC;
+    --voyage-stamp: #DC2626;
+}
+
+/* ================================
+   护照封面 Hero
+   ================================ */
+.voyage-hero {
+    background: var(--voyage-navy);
+    color: white;
+    padding: 5rem 0 4rem;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 3px solid var(--border-color);
+}
+
+.voyage-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+}
+
+/* 护照金色装饰线 */
+.voyage-hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--voyage-sand), transparent);
+}
+
+.voyage-hero-content {
+    position: relative;
+    z-index: 1;
+}
+
+/* ================================
+   旅行统计条
+   ================================ */
+.voyage-stats-bar {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    padding: 1.5rem 0;
+    border-bottom: 2px solid var(--border-color);
+    background: white;
+    flex-wrap: wrap;
+    position: relative;
+}
+
+.voyage-stats-bar .voyage-stat {
+    position: relative;
+}
+
+.voyage-stats-bar .voyage-stat + .voyage-stat::before {
+    content: '';
+    position: absolute;
+    left: -1.5rem;
+    top: 15%;
+    height: 70%;
+    width: 1px;
+    background: var(--voyage-navy);
+    opacity: 0.2;
+}
+
+.voyage-stat {
+    text-align: center;
+}
+
+.voyage-stat-value {
+    font-family: var(--font-mono);
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--voyage-navy);
+    line-height: 1;
+}
+
+.voyage-stat-label {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-weight: 700;
+    margin-top: 0.25rem;
+}
+
+/* ================================
+   倒计时出发牌
+   ================================ */
+.voyage-departure-board {
+    background: var(--voyage-navy);
+    border: 2px solid var(--border-color);
+    color: white;
+    padding: 2rem;
+    position: relative;
+}
+
+.departure-countdown {
+    font-family: var(--font-mono);
+    font-size: 4rem;
+    font-weight: 900;
+    color: var(--voyage-sand);
+    line-height: 1;
+    text-shadow: 0 0 30px rgba(212, 165, 116, 0.3);
+}
+
+.departure-label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--voyage-sky);
+    margin-top: 0.25rem;
+}
+
+.departure-flight-info {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    color: rgba(255,255,255,0.7);
+}
+
+.departure-route {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.departure-city-code {
+    font-family: var(--font-mono);
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: white;
+    letter-spacing: 0.05em;
+}
+
+.departure-city-name {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--voyage-sky);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.departure-plane-line {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--voyage-sky);
+    opacity: 0.6;
+}
+
+.departure-plane-line::before,
+.departure-plane-line::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: currentColor;
+    border-style: dashed;
+}
+
+/* ================================
+   签证印章墙
+   ================================ */
+.stamp-wall {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+.stamp-card {
+    background: var(--voyage-paper);
+    border: 2px solid var(--border-color);
+    padding: 2rem;
+    position: relative;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transform: rotate(var(--stamp-rotate, 0deg));
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    box-shadow: 2px 2px 0px var(--border-color);
+}
+
+.stamp-card:hover {
+    transform: rotate(0deg) translateY(-8px);
+    box-shadow: 8px 8px 0px var(--voyage-navy);
+}
+
+.stamp-border {
+    border: 3px double var(--voyage-stamp);
+    padding: 1.5rem;
+    text-align: center;
+    position: relative;
+}
+
+/* 印章圆形装饰角 */
+.stamp-border::before,
+.stamp-border::after {
+    content: '◆';
+    position: absolute;
+    font-size: 0.5rem;
+    color: var(--voyage-stamp);
+    opacity: 0.4;
+}
+
+.stamp-border::before {
+    top: 0.25rem;
+    left: 0.5rem;
+}
+
+.stamp-border::after {
+    bottom: 0.25rem;
+    right: 0.5rem;
+}
+
+.stamp-country {
+    font-family: var(--font-mono);
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: var(--voyage-stamp);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.stamp-date {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--voyage-navy);
+    margin-top: 0.5rem;
+    letter-spacing: 0.1em;
+}
+
+.stamp-cities {
+    font-family: var(--font-serif);
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-top: 0.75rem;
+}
+
+.stamp-status {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 0.25rem 0.5rem;
+    border: 2px solid;
+}
+
+.stamp-status--upcoming {
+    color: var(--voyage-blue);
+    border-color: var(--voyage-blue);
+    background: rgba(37, 99, 235, 0.1);
+}
+
+.stamp-status--completed {
+    color: var(--voyage-stamp);
+    border-color: var(--voyage-stamp);
+    background: rgba(220, 38, 38, 0.1);
+}
+
+/* ================================
+   登机牌 Hero（详情页）
+   ================================ */
+.boarding-pass {
+    background: var(--voyage-navy);
+    border: 2px solid var(--border-color);
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.boarding-pass::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 40px 40px;
+}
+
+/* 登机牌底部撕裂锯齿边 */
+.boarding-pass::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 8px;
+    background: repeating-linear-gradient(
+        90deg,
+        var(--bg-primary) 0px,
+        var(--bg-primary) 8px,
+        transparent 8px,
+        transparent 16px
+    );
+}
+
+.boarding-pass-content {
+    position: relative;
+    z-index: 1;
+    padding: 3rem 2rem;
+}
+
+.boarding-pass-header {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--voyage-sky);
+    margin-bottom: 2rem;
+}
+
+.boarding-pass-route {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.boarding-pass-city {
+    text-align: center;
+}
+
+.boarding-pass-code {
+    font-family: var(--font-mono);
+    font-size: 3.5rem;
+    font-weight: 900;
+    letter-spacing: 0.05em;
+    line-height: 1;
+    text-shadow: 0 0 40px rgba(96, 165, 250, 0.2);
+}
+
+.boarding-pass-name {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--voyage-sky);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-top: 0.25rem;
+}
+
+.boarding-pass-line {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    color: var(--voyage-sky);
+    opacity: 0.5;
+}
+
+.boarding-pass-line::before {
+    content: '';
+    flex: 1;
+    height: 1px;
+    border-top: 2px dashed currentColor;
+}
+
+.boarding-pass-meta {
+    display: flex;
+    gap: 3rem;
+    flex-wrap: wrap;
+}
+
+.boarding-pass-field {
+    display: flex;
+    flex-direction: column;
+}
+
+.boarding-pass-field-label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--voyage-sky);
+    margin-bottom: 0.25rem;
+}
+
+.boarding-pass-field-value {
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+}
+
+/* ================================
+   城市横向航线图
+   ================================ */
+.route-map {
+    display: flex;
+    align-items: center;
+    overflow-x: auto;
+    padding: 2rem 0;
+    gap: 0;
+    -webkit-overflow-scrolling: touch;
+}
+
+.route-node {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0 1rem;
+}
+
+.route-node:hover {
+    transform: translateY(-4px);
+}
+
+.route-node-dot {
+    width: 1.25rem;
+    height: 1.25rem;
+    background: var(--voyage-blue);
+    border: 3px solid var(--border-color);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.route-node:hover .route-node-dot,
+.route-node--active .route-node-dot {
+    background: var(--voyage-sand);
+    transform: scale(1.4);
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.2);
+}
+
+.route-node-city {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-top: 0.75rem;
+    color: var(--voyage-navy);
+    white-space: nowrap;
+}
+
+.route-node-days {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    margin-top: 0.25rem;
+}
+
+.route-line {
+    flex: 1;
+    min-width: 80px;
+    height: 2px;
+    background: repeating-linear-gradient(
+        90deg,
+        var(--voyage-navy) 0px,
+        var(--voyage-navy) 6px,
+        transparent 6px,
+        transparent 12px
+    );
+    position: relative;
+    opacity: 0.4;
+}
+
+.route-line::after {
+    content: '✈';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1rem;
+    color: var(--voyage-blue);
+    background: var(--bg-primary);
+    padding: 0 0.25rem;
+}
+
+/* ================================
+   每日手风琴
+   ================================ */
+.accordion-item {
+    border: 2px solid var(--border-color);
+    margin-bottom: -2px;
+    background: white;
+    border-left: 4px solid var(--voyage-blue);
+}
+
+.accordion-header {
+    display: flex;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    gap: 1rem;
+    user-select: none;
+}
+
+.accordion-header:hover {
+    background: var(--voyage-paper);
+    padding-left: 1.75rem;
+}
+
+.accordion-header--active {
+    background: var(--voyage-navy);
+    color: white;
+    padding-left: 1.75rem;
+}
+
+.accordion-day {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    min-width: 2.5rem;
+}
+
+.accordion-date {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    opacity: 0.7;
+}
+
+.accordion-city {
+    font-weight: 700;
+    font-size: 1.125rem;
+}
+
+.accordion-type {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 0.2rem 0.5rem;
+    border: 1px solid;
+    margin-left: auto;
+    flex-shrink: 0;
+}
+
+.accordion-arrow {
+    transition: transform 0.3s ease;
+    flex-shrink: 0;
+}
+
+.accordion-header--active .accordion-arrow {
+    transform: rotate(180deg);
+}
+
+.accordion-body {
+    display: none;
+    padding: 1.5rem;
+    border-top: 2px solid var(--border-color);
+    background: var(--voyage-paper);
+}
+
+.accordion-body--open {
+    display: block;
+    animation: accordionOpen 0.3s ease;
+}
+
+@keyframes accordionOpen {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* 活动时间轴 */
+.activity-timeline {
+    position: relative;
+    padding-left: 2rem;
+}
+
+.activity-timeline::before {
+    content: '';
+    position: absolute;
+    left: 0.5rem;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--voyage-blue);
+    opacity: 0.3;
+}
+
+.activity-item {
+    position: relative;
+    padding-bottom: 1.5rem;
+}
+
+.activity-item:last-child {
+    padding-bottom: 0;
+}
+
+.activity-item::before {
+    content: '';
+    position: absolute;
+    left: -1.65rem;
+    top: 0.4rem;
+    width: 0.6rem;
+    height: 0.6rem;
+    background: var(--voyage-blue);
+    border: 2px solid var(--voyage-navy);
+    border-radius: 0;
+    box-shadow: 0 0 0 3px var(--voyage-paper);
+}
+
+.activity-time {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--voyage-blue);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.25rem;
+}
+
+.activity-title {
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: var(--voyage-navy);
+    margin-bottom: 0.25rem;
+}
+
+.activity-desc {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+/* ================================
+   酒店卡片
+   ================================ */
+.hotel-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.hotel-card {
+    background: white;
+    border: 2px solid var(--border-color);
+    padding: 1.5rem;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    position: relative;
+    border-top: 4px solid var(--voyage-blue);
+}
+
+.hotel-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 6px 6px 0px var(--voyage-navy);
+}
+
+.hotel-city {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--voyage-blue);
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.hotel-name {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--voyage-navy);
+    margin-bottom: 0.75rem;
+}
+
+.hotel-dates {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+}
+
+.hotel-nights {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 0.2rem 0.5rem;
+    background: var(--voyage-paper);
+    border: 1px solid var(--voyage-sand);
+    color: var(--voyage-navy);
+}
+
+.hotel-detail {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-top: 0.75rem;
+}
+
+/* ================================
+   统计条图标增强
+   ================================ */
+.voyage-stat-icon {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.25rem;
+    transition: all 0.3s ease;
+    display: block;
+}
+
+.voyage-stat:hover .voyage-stat-icon {
+    transform: scale(1.3);
+    color: var(--voyage-blue);
+}
+
+/* ================================
+   旅行亮点预览区
+   ================================ */
+.highlights-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto auto;
+    gap: 1rem;
+}
+
+.highlight-card {
+    background: var(--voyage-paper);
+    border: 2px solid var(--border-color);
+    padding: 1.5rem;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    position: relative;
+    cursor: default;
+}
+
+.highlight-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 6px 6px 0px var(--voyage-navy);
+}
+
+.highlight-card--wide {
+    grid-column: span 2;
+}
+
+.highlight-card-icon {
+    font-size: 2rem;
+    margin-bottom: 0.75rem;
+    display: block;
+}
+
+.highlight-card-title {
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--voyage-navy);
+    margin-bottom: 0.25rem;
+}
+
+.highlight-card-sub {
+    font-family: var(--font-serif);
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+.highlight-card-tag {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 0.15rem 0.4rem;
+    background: var(--voyage-navy);
+    color: white;
+    margin-top: 0.75rem;
+}
+
+/* ================================
+   登机牌条形码装饰
+   ================================ */
+.boarding-pass-barcode {
+    display: flex;
+    gap: 2px;
+    align-items: flex-end;
+    height: 40px;
+    opacity: 0.25;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px dashed rgba(255,255,255,0.15);
+}
+
+.boarding-pass-barcode span {
+    display: block;
+    background: white;
+    width: 2px;
+}
+
+.boarding-pass-barcode span:nth-child(3n) {
+    width: 3px;
+}
+
+.boarding-pass-barcode span:nth-child(5n) {
+    width: 1px;
+}
+
+/* ================================
+   城市分组标题
+   ================================ */
+.city-group-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: var(--voyage-navy);
+    color: white;
+    padding: 0.6rem 1.5rem;
+    margin-bottom: -2px;
+    border: 2px solid var(--border-color);
+    position: relative;
+    z-index: 1;
+}
+
+.city-group-dot {
+    width: 10px;
+    height: 10px;
+    border: 2px solid white;
+    flex-shrink: 0;
+}
+
+.city-group-name {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+}
+
+.city-group-nights {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--voyage-sky);
+    margin-left: auto;
+    letter-spacing: 0.1em;
+}
+
+/* ================================
+   酒店卡片增强
+   ================================ */
+.hotel-stars {
+    color: var(--voyage-sand);
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    margin-bottom: 0.5rem;
+}
+
+.hotel-city i {
+    color: var(--voyage-stamp);
+    margin-right: 0.25rem;
+}
+
+/* ================================
+   旅行贴士网格
+   ================================ */
+.tips-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+.tip-card {
+    background: var(--voyage-paper);
+    border: 1px solid var(--border-color);
+    padding: 1.5rem;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.tip-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 4px 4px 0px var(--voyage-navy);
+}
+
+.tip-card-icon {
+    font-size: 1.75rem;
+    margin-bottom: 0.75rem;
+    display: block;
+}
+
+.tip-card-title {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--voyage-navy);
+    margin-bottom: 0.5rem;
+}
+
+.tip-card-value {
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--voyage-navy);
+    margin-bottom: 0.25rem;
+}
+
+.tip-card-desc {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+/* ================================
+   航线图住宿晚数气泡
+   ================================ */
+.route-node-bubble {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 700;
+    background: var(--voyage-navy);
+    color: white;
+    padding: 0.15rem 0.4rem;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.35rem;
+    white-space: nowrap;
+}
+
+/* ================================
+   响应式适配
+   ================================ */
+@media (max-width: 768px) {
+    .voyage-hero {
+        padding: 3rem 0 2.5rem;
+    }
+
+    .voyage-stats-bar {
+        gap: 1.5rem;
+        padding: 1rem 0;
+    }
+
+    .voyage-stat-value {
+        font-size: 1.5rem;
+    }
+
+    .departure-countdown {
+        font-size: 2.5rem;
+    }
+
+    .departure-city-code {
+        font-size: 1.75rem;
+    }
+
+    .boarding-pass-code {
+        font-size: 2.5rem;
+    }
+
+    .boarding-pass-route {
+        gap: 1rem;
+    }
+
+    .boarding-pass-meta {
+        gap: 1.5rem;
+    }
+
+    .stamp-wall {
+        grid-template-columns: 1fr;
+    }
+
+    .hotel-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .accordion-header {
+        padding: 0.75rem 1rem;
+        flex-wrap: wrap;
+    }
+
+    .route-map {
+        padding: 1.5rem 0;
+    }
+
+    .highlights-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .highlight-card--wide {
+        grid-column: span 1;
+    }
+
+    .tips-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .city-group-header {
+        padding: 0.5rem 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .voyage-stats-bar {
+        gap: 1rem;
+    }
+
+    .voyage-stat-value {
+        font-size: 1.25rem;
+    }
+
+    .departure-countdown {
+        font-size: 2rem;
+    }
+
+    .departure-city-code {
+        font-size: 1.5rem;
+    }
+
+    .boarding-pass-code {
+        font-size: 2rem;
+    }
+
+    .boarding-pass-meta {
+        gap: 1rem;
+    }
+}
+
+/* ================================
+   活动详情链接
+   ================================ */
+.activity-detail-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--voyage-blue);
+    border: 2px solid var(--voyage-blue);
+    padding: 0.35rem 0.75rem;
+    margin-top: 0.75rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.activity-detail-link:hover {
+    background: var(--voyage-blue);
+    color: white;
+    box-shadow: 4px 4px 0px var(--voyage-navy);
+    transform: translateX(4px);
+}
+
+.activity-detail-link i {
+    transition: transform 0.3s ease;
+}
+
+.activity-detail-link:hover i {
+    transform: translateX(3px);
+}
+
+/* ================================
+   酒店卡片链接化
+   ================================ */
+a.hotel-card {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.hotel-card .hotel-card-hint {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--voyage-blue);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.hotel-card:hover .hotel-card-hint {
+    opacity: 1;
+}
+
+/* ================================
+   详情页 Hero（景点）
+   ================================ */
+.spot-hero {
+    background: var(--voyage-paper);
+    border-bottom: 2px solid var(--border-color);
+    padding-top: 2rem;
+}
+
+.spot-hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+}
+
+.spot-hero-tag {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: white;
+    background: var(--voyage-navy);
+    padding: 0.3rem 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.spot-hero-title {
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: var(--voyage-navy);
+    line-height: 1.15;
+    margin-bottom: 0.75rem;
+}
+
+.spot-hero-subtitle {
+    font-family: var(--font-serif);
+    font-size: 1.125rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+
+.spot-hero-params {
+    display: flex;
+    gap: 2rem;
+    border-top: 2px solid var(--border-color);
+    padding-top: 1.5rem;
+}
+
+.spot-hero-param-value {
+    font-family: var(--font-mono);
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: var(--voyage-navy);
+    line-height: 1;
+}
+
+.spot-hero-param-label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-secondary);
+    margin-top: 0.25rem;
+}
+
+.spot-hero-image {
+    position: relative;
+}
+
+.spot-hero-image img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    border: 2px solid var(--border-color);
+    transition: transform 0.5s ease;
+}
+
+.spot-hero-image:hover img {
+    transform: scale(1.03);
+}
+
+.spot-hero-image::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    right: -8px;
+    width: 100%;
+    height: 100%;
+    border: 2px solid var(--voyage-navy);
+    z-index: -1;
+}
+
+/* ================================
+   详情页内容区
+   ================================ */
+.detail-content {
+    max-width: 56rem;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+}
+
+.detail-section-title {
+    font-size: 1.75rem;
+    font-weight: 900;
+    color: var(--voyage-navy);
+    border-left: 6px solid var(--voyage-blue);
+    padding-left: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.detail-intro {
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-bottom: 2.5rem;
+}
+
+.detail-highlights {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+    margin-bottom: 2.5rem;
+}
+
+.detail-highlight-card {
+    background: var(--voyage-paper);
+    border: 2px solid var(--border-color);
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.detail-highlight-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 4px 4px 0px var(--voyage-navy);
+}
+
+.detail-highlight-icon {
+    font-size: 1.75rem;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.detail-highlight-title {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--voyage-navy);
+    margin-bottom: 0.35rem;
+}
+
+.detail-highlight-desc {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+.detail-info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+}
+
+.detail-info-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 1rem;
+    background: white;
+    border: 1px solid var(--border-color);
+}
+
+.detail-info-item i {
+    color: var(--voyage-blue);
+    font-size: 1.25rem;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+}
+
+.detail-info-label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-secondary);
+    margin-bottom: 0.15rem;
+}
+
+.detail-info-value {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--voyage-navy);
+}
+
+.detail-photo {
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+    border: 2px solid var(--border-color);
+    margin-bottom: 1.5rem;
+}
+
+.detail-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: white;
+    background: var(--voyage-navy);
+    border: 2px solid var(--border-color);
+    padding: 0.75rem 1.5rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.detail-back:hover {
+    background: var(--voyage-blue);
+    box-shadow: 4px 4px 0px var(--border-color);
+    transform: translateX(-4px);
+}
+
+/* ================================
+   酒店详情页 Hero
+   ================================ */
+.hotel-hero {
+    position: relative;
+    height: 420px;
+    overflow: hidden;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.hotel-hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hotel-hero-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 3rem 2rem 2rem;
+    background: linear-gradient(transparent, rgba(27, 42, 74, 0.95));
+    color: white;
+}
+
+.hotel-hero-name {
+    font-size: 2.5rem;
+    font-weight: 900;
+    line-height: 1.15;
+    margin-bottom: 0.5rem;
+}
+
+.hotel-hero-meta {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--voyage-sky);
+    letter-spacing: 0.1em;
+}
+
+.hotel-params-bar {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    padding: 1.25rem 0;
+    border-bottom: 2px solid var(--border-color);
+    background: white;
+    flex-wrap: wrap;
+}
+
+.hotel-param {
+    text-align: center;
+}
+
+.hotel-param-value {
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--voyage-navy);
+}
+
+.hotel-param-label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-secondary);
+    margin-top: 0.15rem;
+}
+
+/* ================================
+   手风琴每日头图
+   ================================ */
+.accordion-hero-img {
+    width: calc(100% + 3rem);
+    height: 200px;
+    object-fit: cover;
+    border-bottom: 2px solid var(--border-color);
+    display: block;
+    margin: -1.5rem -1.5rem 1.5rem -1.5rem;
+}
+
+/* ================================
+   详情页响应式
+   ================================ */
+@media (max-width: 768px) {
+    .spot-hero-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        padding: 2rem 1rem;
+    }
+
+    .spot-hero-title {
+        font-size: 2rem;
+    }
+
+    .spot-hero-image img {
+        height: 280px;
+    }
+
+    .spot-hero-image::after {
+        display: none;
+    }
+
+    .detail-highlights {
+        grid-template-columns: 1fr;
+    }
+
+    .detail-info-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .detail-content {
+        padding: 2rem 1rem;
+    }
+
+    .hotel-hero {
+        height: 300px;
+    }
+
+    .hotel-hero-name {
+        font-size: 1.75rem;
+    }
+
+    .hotel-params-bar {
+        gap: 1rem;
+        padding: 1rem 0;
+    }
+
+    .accordion-hero-img {
+        height: 160px;
+    }
+}
