@@ -127,9 +127,64 @@
             <div class="voyage-departure-board reveal active">
                 <div class="flex flex-col md:flex-row md:items-center gap-6 md:gap-8">
                     <!-- 倒计时 -->
-                    <div class="text-center md:text-left">
-                        <div class="departure-countdown" id="countdown-days">--</div>
-                        <div class="departure-label">Days to Go</div>
+                    <div class="countdown-dual">
+                        <!-- 去程倒计时 -->
+                        <div class="countdown-block" id="countdown-depart">
+                            <div class="countdown-block-label">
+                                <i class="ri-flight-takeoff-line"></i> 出发
+                            </div>
+                            <div class="countdown-grid">
+                                <div class="countdown-unit">
+                                    <div class="countdown-value" id="cd-d-days">--</div>
+                                    <div class="countdown-label">Days</div>
+                                </div>
+                                <div class="countdown-sep">:</div>
+                                <div class="countdown-unit">
+                                    <div class="countdown-value" id="cd-d-hours">--</div>
+                                    <div class="countdown-label">Hrs</div>
+                                </div>
+                                <div class="countdown-sep">:</div>
+                                <div class="countdown-unit">
+                                    <div class="countdown-value" id="cd-d-mins">--</div>
+                                    <div class="countdown-label">Min</div>
+                                </div>
+                                <div class="countdown-sep">:</div>
+                                <div class="countdown-unit">
+                                    <div class="countdown-value" id="cd-d-secs">--</div>
+                                    <div class="countdown-label">Sec</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="countdown-dual-divider"></div>
+
+                        <!-- 返程倒计时 -->
+                        <div class="countdown-block" id="countdown-return">
+                            <div class="countdown-block-label countdown-block-label--return">
+                                <i class="ri-flight-land-line"></i> 回程
+                            </div>
+                            <div class="countdown-grid">
+                                <div class="countdown-unit">
+                                    <div class="countdown-value countdown-value--return" id="cd-r-days">--</div>
+                                    <div class="countdown-label">Days</div>
+                                </div>
+                                <div class="countdown-sep">:</div>
+                                <div class="countdown-unit">
+                                    <div class="countdown-value countdown-value--return" id="cd-r-hours">--</div>
+                                    <div class="countdown-label">Hrs</div>
+                                </div>
+                                <div class="countdown-sep">:</div>
+                                <div class="countdown-unit">
+                                    <div class="countdown-value countdown-value--return" id="cd-r-mins">--</div>
+                                    <div class="countdown-label">Min</div>
+                                </div>
+                                <div class="countdown-sep">:</div>
+                                <div class="countdown-unit">
+                                    <div class="countdown-value countdown-value--return" id="cd-r-secs">--</div>
+                                    <div class="countdown-label">Sec</div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- 分隔线 -->
@@ -137,11 +192,16 @@
 
                     <!-- 航线信息 -->
                     <div class="flex-1">
-                        <div class="departure-flight-info mb-3">CA165 · 公务舱 · 2026.03.04</div>
+                        <!-- 去程 -->
+                        <div class="departure-flight-info mb-2">
+                            <span class="departure-flight-tag">去程</span>
+                            CA165 · 公务舱 · 2026.03.04 · <a href="travel-australia-2026-aircraft-a330-300.html" class="aircraft-link">A330-300</a>
+                        </div>
                         <div class="departure-route">
                             <div>
                                 <div class="departure-city-code">PEK</div>
                                 <div class="departure-city-name">北京</div>
+                                <div class="departure-time">01:15</div>
                             </div>
                             <div class="departure-plane-line">
                                 <i class="ri-plane-fill"></i>
@@ -149,7 +209,38 @@
                             <div>
                                 <div class="departure-city-code">MEL</div>
                                 <div class="departure-city-name">墨尔本</div>
+                                <div class="departure-time">15:40</div>
                             </div>
+                        </div>
+                        <div class="departure-duration">
+                            <i class="ri-time-line"></i> 11h 25min
+                        </div>
+
+                        <!-- 分隔 -->
+                        <div class="departure-divider"></div>
+
+                        <!-- 回程 -->
+                        <div class="departure-flight-info mb-2">
+                            <span class="departure-flight-tag departure-flight-tag--return">回程</span>
+                            CA174 · 公务舱 · 2026.03.15 · <a href="travel-australia-2026-aircraft-b777.html" class="aircraft-link">B777</a>
+                        </div>
+                        <div class="departure-route">
+                            <div>
+                                <div class="departure-city-code">SYD</div>
+                                <div class="departure-city-name">悉尼</div>
+                                <div class="departure-time">20:40</div>
+                            </div>
+                            <div class="departure-plane-line departure-plane-line--return">
+                                <i class="ri-plane-fill"></i>
+                            </div>
+                            <div>
+                                <div class="departure-city-code">PEK</div>
+                                <div class="departure-city-name">北京</div>
+                                <div class="departure-time">05:10<span class="departure-time-plus">+1</span></div>
+                            </div>
+                        </div>
+                        <div class="departure-duration">
+                            <i class="ri-time-line"></i> 11h 30min
                         </div>
                     </div>
 
@@ -177,22 +268,16 @@
 
             <div class="highlights-grid">
                 <div class="highlight-card highlight-card--wide reveal">
-                    <span class="highlight-card-icon">🎈</span>
-                    <div class="highlight-card-title">热气球日出飞行</div>
-                    <div class="highlight-card-sub">猎人谷上空俯瞰葡萄园，含早餐与纪念照片</div>
-                    <span class="highlight-card-tag">D7 · Hunter Valley</span>
-                </div>
-                <div class="highlight-card reveal">
-                    <span class="highlight-card-icon">🎭</span>
-                    <div class="highlight-card-title">歌剧院《蝴蝶夫人》</div>
-                    <div class="highlight-card-sub">在世界最著名的歌剧院欣赏普契尼经典</div>
-                    <span class="highlight-card-tag">D10 · Sydney</span>
-                </div>
-                <div class="highlight-card reveal">
                     <span class="highlight-card-icon">🏖</span>
                     <div class="highlight-card-title">大洋路 · 十二门徒</div>
                     <div class="highlight-card-sub">世界级海岸公路，壮观石灰岩柱群</div>
                     <span class="highlight-card-tag">D1 · Great Ocean Road</span>
+                </div>
+                <div class="highlight-card reveal">
+                    <span class="highlight-card-icon">☕</span>
+                    <div class="highlight-card-title">精品咖啡地图</div>
+                    <div class="highlight-card-sub">墨尔本 Fitzroy 街区，Lune 可颂与独立咖啡馆</div>
+                    <span class="highlight-card-tag">D2 · Melbourne CBD</span>
                 </div>
                 <div class="highlight-card reveal">
                     <span class="highlight-card-icon">🍷</span>
@@ -201,10 +286,16 @@
                     <span class="highlight-card-tag">D6-D8 · Hunter Valley</span>
                 </div>
                 <div class="highlight-card reveal">
-                    <span class="highlight-card-icon">☕</span>
-                    <div class="highlight-card-title">精品咖啡地图</div>
-                    <div class="highlight-card-sub">墨尔本 Fitzroy 街区，Lune 可颂与独立咖啡馆</div>
-                    <span class="highlight-card-tag">D2 · Melbourne CBD</span>
+                    <span class="highlight-card-icon">🎈</span>
+                    <div class="highlight-card-title">热气球日出飞行</div>
+                    <div class="highlight-card-sub">猎人谷上空俯瞰葡萄园，含早餐与纪念照片</div>
+                    <span class="highlight-card-tag">D7 · Hunter Valley</span>
+                </div>
+                <div class="highlight-card highlight-card--wide reveal">
+                    <span class="highlight-card-icon">🎭</span>
+                    <div class="highlight-card-title">歌剧院《蝴蝶夫人》</div>
+                    <div class="highlight-card-sub">在世界最著名的歌剧院欣赏普契尼经典</div>
+                    <span class="highlight-card-tag">D10 · Sydney</span>
                 </div>
             </div>
         </div>
@@ -267,21 +358,35 @@
     <!-- 倒计时脚本 -->
     <script>
         (function() {
-            const departureDate = new Date('2026-03-04T00:00:00+08:00');
-            function updateCountdown() {
-                const now = new Date();
-                const diff = departureDate - now;
-                const el = document.getElementById('countdown-days');
-                if (!el) return;
+            var depart = new Date('2026-03-04T01:15:00+08:00');
+            var ret = new Date('2026-03-15T20:40:00+11:00');
+            function pad(n) { return String(n).padStart(2, '0'); }
+            function fill(prefix, diff, blockId) {
+                var el = document.getElementById(blockId);
                 if (diff <= 0) {
-                    el.textContent = '出发!';
+                    document.getElementById(prefix + '-days').textContent = '00';
+                    document.getElementById(prefix + '-hours').textContent = '00';
+                    document.getElementById(prefix + '-mins').textContent = '00';
+                    document.getElementById(prefix + '-secs').textContent = '00';
+                    if (el) el.classList.add('countdown-done');
                     return;
                 }
-                const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
-                el.textContent = days;
+                var d = Math.floor(diff / 86400000);
+                var h = Math.floor((diff % 86400000) / 3600000);
+                var m = Math.floor((diff % 3600000) / 60000);
+                var s = Math.floor((diff % 60000) / 1000);
+                document.getElementById(prefix + '-days').textContent = pad(d);
+                document.getElementById(prefix + '-hours').textContent = pad(h);
+                document.getElementById(prefix + '-mins').textContent = pad(m);
+                document.getElementById(prefix + '-secs').textContent = pad(s);
             }
-            updateCountdown();
-            setInterval(updateCountdown, 60000);
+            function tick() {
+                var now = Date.now();
+                fill('cd-d', depart - now, 'countdown-depart');
+                fill('cd-r', ret - now, 'countdown-return');
+            }
+            tick();
+            setInterval(tick, 1000);
         })();
     </script>
 

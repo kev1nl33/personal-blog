@@ -133,11 +133,168 @@
     margin-top: 0.25rem;
 }
 
+/* ================================
+   倒计时四格组件
+   ================================ */
+.countdown-dual {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.countdown-block {
+    text-align: center;
+}
+
+.countdown-block-label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--voyage-sky);
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+}
+
+.countdown-block-label--return {
+    color: var(--voyage-sand);
+}
+
+.countdown-dual-divider {
+    height: 1px;
+    background: rgba(255,255,255,0.1);
+    margin: 0.75rem 0;
+}
+
+.countdown-grid {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.countdown-unit {
+    text-align: center;
+}
+
+.countdown-value {
+    font-family: var(--font-mono);
+    font-size: 2.75rem;
+    font-weight: 900;
+    color: var(--voyage-sand);
+    line-height: 1;
+    text-shadow: 0 0 30px rgba(212, 165, 116, 0.3);
+    min-width: 2.5ch;
+    letter-spacing: 0.05em;
+}
+
+.countdown-label {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--voyage-sky);
+    margin-top: 0.25rem;
+}
+
+.countdown-sep {
+    font-family: var(--font-mono);
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--voyage-sky);
+    opacity: 0.4;
+    line-height: 1;
+    padding-bottom: 1rem;
+}
+
+.countdown-done .countdown-value {
+    color: var(--voyage-sky);
+    animation: countdownPulse 1.5s ease-in-out infinite;
+}
+
+.countdown-value--return {
+    color: var(--voyage-sky);
+    text-shadow: 0 0 30px rgba(96, 165, 250, 0.3);
+}
+
+@keyframes countdownPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
 .departure-flight-info {
     font-family: var(--font-mono);
     font-size: 0.8rem;
     letter-spacing: 0.1em;
     color: rgba(255,255,255,0.7);
+}
+
+/* 去程/回程标签 */
+.departure-flight-tag {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 0.15rem 0.4rem;
+    border: 1px solid var(--voyage-sky);
+    color: var(--voyage-sky);
+    margin-right: 0.5rem;
+    vertical-align: middle;
+}
+
+.departure-flight-tag--return {
+    border-color: var(--voyage-sand);
+    color: var(--voyage-sand);
+}
+
+/* 去回程分隔线 */
+.departure-divider {
+    height: 1px;
+    background: rgba(255,255,255,0.12);
+    margin: 1rem 0;
+}
+
+/* 回程飞机图标翻转 */
+.departure-plane-line--return i {
+    transform: scaleX(-1);
+}
+
+/* 起降时间 */
+.departure-time {
+    font-family: var(--font-mono);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--voyage-sand);
+    letter-spacing: 0.05em;
+    margin-top: 0.35rem;
+}
+
+.departure-time-plus {
+    font-size: 0.65rem;
+    color: var(--voyage-sky);
+    vertical-align: super;
+    margin-left: 0.1rem;
+}
+
+/* 飞行时长 */
+.departure-duration {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: rgba(255,255,255,0.45);
+    letter-spacing: 0.1em;
+    margin-top: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.departure-duration i {
+    font-size: 0.8rem;
 }
 
 .departure-route {
@@ -954,8 +1111,13 @@
         font-size: 1.5rem;
     }
 
-    .departure-countdown {
-        font-size: 2.5rem;
+    .countdown-value {
+        font-size: 1.75rem;
+    }
+
+    .countdown-sep {
+        font-size: 1.25rem;
+        padding-bottom: 0.75rem;
     }
 
     .departure-city-code {
@@ -1017,8 +1179,13 @@
         font-size: 1.25rem;
     }
 
-    .departure-countdown {
-        font-size: 2rem;
+    .countdown-value {
+        font-size: 1.5rem;
+    }
+
+    .countdown-sep {
+        font-size: 1rem;
+        padding-bottom: 0.5rem;
     }
 
     .departure-city-code {
@@ -1463,4 +1630,21 @@ a.hotel-card {
     .accordion-hero-img {
         height: 160px;
     }
+}
+
+/* ================================
+   机型链接（出发牌内）
+   ================================ */
+.aircraft-link {
+    color: var(--voyage-sand);
+    text-decoration: none;
+    border-bottom: 1px dashed var(--voyage-sand);
+    padding-bottom: 1px;
+    transition: all 0.3s ease;
+}
+
+.aircraft-link:hover {
+    color: white;
+    border-bottom-style: solid;
+    border-bottom-color: white;
 }
