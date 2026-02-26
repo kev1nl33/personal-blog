@@ -227,9 +227,10 @@
 
 .departure-flight-info {
     font-family: var(--font-mono);
-    font-size: 0.8rem;
-    letter-spacing: 0.1em;
+    font-size: 0.7rem;
+    letter-spacing: 0.05em;
     color: rgba(255,255,255,0.7);
+    white-space: nowrap;
 }
 
 /* 去程/回程标签 */
@@ -1641,6 +1642,7 @@ a.hotel-card {
     border-bottom: 1px dashed var(--voyage-sand);
     padding-bottom: 1px;
     transition: all 0.3s ease;
+    white-space: nowrap;
 }
 
 .aircraft-link:hover {
