@@ -110,7 +110,25 @@
 
     <!-- Hero 区域 -->
     <section class="py-16 md:py-24">
-        <div class="max-w-7xl mx-auto px-4 md:px-8">
+        <div class="max-w-7xl mx-auto px-4 md:px-8 relative">
+
+            <!-- 访客计数器 -->
+            <div class="visitor-counter" id="visitorCounter">
+                <div class="counter-label">VISITORS</div>
+                <div class="counter-display" id="counterDisplay">
+                    <span class="counter-digit">0</span>
+                    <span class="counter-digit">0</span>
+                    <span class="counter-digit">0</span>
+                    <span class="counter-digit">0</span>
+                    <span class="counter-digit">0</span>
+                    <span class="counter-digit">0</span>
+                </div>
+                <div class="counter-status">
+                    <span class="counter-status-dot"></span>
+                    <span class="counter-status-text">LIVE</span>
+                </div>
+            </div>
+
             <div class="reveal">
                 <div class="mb-8">
                     <span class="font-mono text-brand-accent text-xs md:text-sm tracking-widest uppercase font-bold">
@@ -327,5 +345,6 @@
 
     <script src="scripts/main.js"></script>
     <script src="scripts/search.js"></script>
+    <script src="scripts/counter.js"></script>
 </body>
 </html>

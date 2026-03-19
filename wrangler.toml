@@ -1,0 +1,6 @@
+# Cloudflare Pages KV 绑定配置
+# 需要在 Cloudflare 控制台创建 KV 命名空间后填入 id
+
+[[kv_namespaces]]
+binding = "VISITOR_COUNTER"
+id = "YOUR_KV_NAMESPACE_ID"

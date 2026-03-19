@@ -506,3 +506,105 @@ body {
     background: var(--accent-orange);
     transition: width 0.1s ease;
 }
+
+/* ========================================
+   访客计数器 - Visitor Counter
+   ======================================== */
+
+.visitor-counter {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: var(--bg-primary);
+    border: 2px solid var(--border-color);
+    padding: 1.25rem 1.75rem;
+    box-shadow: 8px 8px 0px var(--border-color);
+    z-index: 10;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.visitor-counter.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.counter-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: var(--text-secondary);
+    text-align: center;
+    margin-bottom: 0.6rem;
+}
+
+.counter-display {
+    display: flex;
+    gap: 4px;
+    justify-content: center;
+    margin-bottom: 0.6rem;
+}
+
+.counter-digit {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    background: var(--bg-secondary, #f4f4f0);
+    border: 1px solid var(--border-color);
+    width: 36px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+.counter-status {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+}
+
+.counter-status-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--accent-green, #059669);
+    border-radius: 50%;
+    animation: counter-pulse 2s ease-in-out infinite;
+}
+
+@keyframes counter-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+}
+
+.counter-status-text {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--accent-green, #059669);
+}
+
+/* 响应式：移动端居中显示 */
+@media (max-width: 768px) {
+    .visitor-counter {
+        position: relative;
+        top: auto;
+        right: auto;
+        width: fit-content;
+        margin: 0 auto 1.5rem auto;
+        box-shadow: 4px 4px 0px var(--border-color);
+        padding: 0.75rem 1rem;
+    }
+
+    .counter-digit {
+        font-size: 1.5rem;
+        width: 28px;
+        height: 38px;
+    }
+}
