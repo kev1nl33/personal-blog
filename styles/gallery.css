@@ -1,0 +1,721 @@
+/* ================================
+   画廊 · Gallery Styles
+   延续 Voyage 航海蓝色系 + Neo-Brutalism
+   ================================ */
+
+/* ================================
+   画廊 Hero
+   ================================ */
+.gallery-hero {
+    background: var(--voyage-navy);
+    color: white;
+    padding: 5rem 0 4rem;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 3px solid var(--border-color);
+}
+
+.gallery-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+}
+
+.gallery-hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--voyage-sand), transparent);
+}
+
+.gallery-hero-content {
+    position: relative;
+    z-index: 1;
+}
+
+/* ================================
+   统计条
+   ================================ */
+.gallery-stats-bar {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    padding: 1.5rem 0;
+    border-bottom: 2px solid var(--border-color);
+    background: white;
+    flex-wrap: wrap;
+}
+
+.gallery-stat {
+    text-align: center;
+    position: relative;
+}
+
+.gallery-stat + .gallery-stat::before {
+    content: '';
+    position: absolute;
+    left: -1.5rem;
+    top: 15%;
+    height: 70%;
+    width: 1px;
+    background: var(--voyage-navy);
+    opacity: 0.2;
+}
+
+.gallery-stat-value {
+    font-family: var(--font-mono);
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--voyage-navy);
+    line-height: 1;
+}
+
+.gallery-stat-label {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-weight: 700;
+    margin-top: 0.25rem;
+}
+
+/* ================================
+   筛选栏
+   ================================ */
+.gallery-filters {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    padding: 1.5rem 0;
+}
+
+.gallery-filter-btn {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 0.4rem 0.75rem;
+    border: 2px solid var(--border-color);
+    background: white;
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.gallery-filter-btn:hover {
+    background: var(--voyage-paper);
+    transform: translateY(-2px);
+    box-shadow: 3px 3px 0px var(--border-color);
+}
+
+.gallery-filter-btn--active {
+    background: var(--voyage-navy);
+    color: white;
+    border-color: var(--voyage-navy);
+}
+
+.gallery-filter-btn--active:hover {
+    background: var(--voyage-blue);
+    border-color: var(--voyage-blue);
+}
+
+.gallery-filter-divider {
+    width: 1px;
+    height: 1.5rem;
+    background: var(--border-color);
+    opacity: 0.2;
+}
+
+/* ================================
+   Bento Box 图片网格
+   ================================ */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+}
+
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+    border: 2px solid var(--border-color);
+    background: white;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.gallery-item:hover {
+    transform: translateY(-6px);
+    box-shadow: 8px 8px 0px var(--voyage-navy);
+    z-index: 2;
+}
+
+/* Bento 尺寸变体 */
+.gallery-item--wide {
+    grid-column: span 2;
+}
+
+.gallery-item--tall {
+    grid-row: span 2;
+}
+
+.gallery-item--featured {
+    grid-column: span 2;
+    grid-row: span 2;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.05);
+}
+
+/* 图片高度 */
+.gallery-item {
+    min-height: 220px;
+}
+
+.gallery-item--tall {
+    min-height: 460px;
+}
+
+.gallery-item--featured {
+    min-height: 460px;
+}
+
+/* 图片覆盖层信息 */
+.gallery-item-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1.5rem 1rem 1rem;
+    background: linear-gradient(transparent, rgba(27, 42, 74, 0.9));
+    color: white;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: all 0.3s ease;
+}
+
+.gallery-item:hover .gallery-item-overlay {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.gallery-item-caption {
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+}
+
+.gallery-item-meta {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--voyage-sky);
+}
+
+/* 删除按钮（管理模式） */
+.gallery-item-delete {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    width: 2rem;
+    height: 2rem;
+    background: var(--accent-red);
+    color: white;
+    border: 2px solid var(--border-color);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1rem;
+    z-index: 3;
+    transition: all 0.2s ease;
+}
+
+.gallery-item-delete:hover {
+    transform: scale(1.15);
+    box-shadow: 2px 2px 0px var(--border-color);
+}
+
+.admin-mode .gallery-item-delete {
+    display: flex;
+}
+
+/* ================================
+   Lightbox 灯箱
+   ================================ */
+.lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(10, 10, 10, 0.95);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.lightbox--open {
+    display: flex;
+    opacity: 1;
+}
+
+.lightbox-img {
+    max-width: 90vw;
+    max-height: 85vh;
+    object-fit: contain;
+    border: 3px solid white;
+    box-shadow: 0 0 60px rgba(0,0,0,0.5);
+    transition: transform 0.3s ease;
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    width: 3rem;
+    height: 3rem;
+    background: white;
+    border: 2px solid var(--border-color);
+    color: var(--text-primary);
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.lightbox-close:hover {
+    background: var(--accent-orange);
+    color: white;
+    box-shadow: 4px 4px 0px rgba(255,255,255,0.3);
+}
+
+.lightbox-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3.5rem;
+    height: 3.5rem;
+    background: white;
+    border: 2px solid var(--border-color);
+    color: var(--text-primary);
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.lightbox-nav:hover {
+    background: var(--voyage-navy);
+    color: white;
+    box-shadow: 4px 4px 0px rgba(255,255,255,0.3);
+}
+
+.lightbox-prev {
+    left: 1.5rem;
+}
+
+.lightbox-next {
+    right: 1.5rem;
+}
+
+.lightbox-info {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    color: white;
+    max-width: 600px;
+}
+
+.lightbox-caption {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+}
+
+.lightbox-counter {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--voyage-sky);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+/* ================================
+   上传面板
+   ================================ */
+.upload-panel {
+    position: fixed;
+    inset: 0;
+    z-index: 9998;
+    background: rgba(10, 10, 10, 0.9);
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.upload-panel--open {
+    display: flex;
+}
+
+.upload-box {
+    background: white;
+    border: 2px solid var(--border-color);
+    padding: 2.5rem;
+    width: 560px;
+    max-width: 95vw;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+.upload-box-title {
+    font-family: var(--font-mono);
+    font-size: 1.25rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--voyage-navy);
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.upload-dropzone {
+    border: 3px dashed var(--voyage-blue);
+    padding: 3rem 2rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 1.5rem;
+    background: var(--voyage-paper);
+}
+
+.upload-dropzone:hover,
+.upload-dropzone--dragover {
+    border-color: var(--accent-orange);
+    background: rgba(255, 77, 0, 0.05);
+    transform: translateY(-2px);
+    box-shadow: 4px 4px 0px var(--border-color);
+}
+
+.upload-dropzone-icon {
+    font-size: 3rem;
+    color: var(--voyage-blue);
+    margin-bottom: 0.75rem;
+    display: block;
+}
+
+.upload-dropzone-text {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--voyage-navy);
+}
+
+.upload-dropzone-hint {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-top: 0.5rem;
+}
+
+.upload-field {
+    margin-bottom: 1rem;
+}
+
+.upload-label {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--voyage-navy);
+    margin-bottom: 0.4rem;
+}
+
+.upload-input,
+.upload-select {
+    width: 100%;
+    padding: 0.6rem 0.75rem;
+    border: 2px solid var(--border-color);
+    background: white;
+    font-family: inherit;
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    transition: all 0.2s ease;
+}
+
+.upload-input:focus,
+.upload-select:focus {
+    outline: none;
+    border-color: var(--voyage-blue);
+    box-shadow: 3px 3px 0px var(--voyage-blue);
+}
+
+.upload-actions {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 2px solid var(--border-color);
+}
+
+.upload-btn {
+    flex: 1;
+    padding: 0.75rem 1.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    border: 2px solid var(--border-color);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.upload-btn--primary {
+    background: var(--voyage-navy);
+    color: white;
+    border-color: var(--voyage-navy);
+}
+
+.upload-btn--primary:hover {
+    background: var(--voyage-blue);
+    border-color: var(--voyage-blue);
+    box-shadow: 4px 4px 0px var(--border-color);
+    transform: translateY(-2px);
+}
+
+.upload-btn--secondary {
+    background: white;
+    color: var(--text-primary);
+}
+
+.upload-btn--secondary:hover {
+    background: var(--voyage-paper);
+    box-shadow: 4px 4px 0px var(--border-color);
+    transform: translateY(-2px);
+}
+
+.upload-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+/* 上传进度 */
+.upload-progress {
+    margin-top: 1rem;
+    display: none;
+}
+
+.upload-progress--active {
+    display: block;
+}
+
+.upload-progress-bar {
+    height: 4px;
+    background: var(--border-color);
+    position: relative;
+    overflow: hidden;
+}
+
+.upload-progress-fill {
+    height: 100%;
+    background: var(--voyage-blue);
+    width: 0%;
+    transition: width 0.3s ease;
+}
+
+.upload-progress-text {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+    margin-top: 0.4rem;
+    letter-spacing: 0.05em;
+}
+
+/* 预览列表 */
+.upload-previews {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+}
+
+.upload-preview {
+    width: 64px;
+    height: 64px;
+    object-fit: cover;
+    border: 2px solid var(--border-color);
+}
+
+/* ================================
+   空状态
+   ================================ */
+.gallery-empty {
+    text-align: center;
+    padding: 6rem 2rem;
+    border: 3px dashed var(--border-color);
+    background: var(--voyage-paper);
+}
+
+.gallery-empty-icon {
+    font-size: 4rem;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.gallery-empty-title {
+    font-family: var(--font-mono);
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--voyage-navy);
+    margin-bottom: 0.5rem;
+}
+
+.gallery-empty-desc {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+}
+
+/* ================================
+   管理工具栏
+   ================================ */
+.gallery-admin-bar {
+    display: none;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    background: var(--voyage-navy);
+    border: 2px solid var(--border-color);
+    margin-bottom: 1rem;
+}
+
+.gallery-admin-bar--visible {
+    display: flex;
+}
+
+.gallery-admin-indicator {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--voyage-sky);
+}
+
+/* ================================
+   响应式
+   ================================ */
+@media (max-width: 1024px) {
+    .gallery-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .gallery-hero {
+        padding: 3rem 0 2.5rem;
+    }
+
+    .gallery-stats-bar {
+        gap: 1.5rem;
+        padding: 1rem 0;
+    }
+
+    .gallery-stat-value {
+        font-size: 1.5rem;
+    }
+
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .gallery-item--featured {
+        grid-column: span 2;
+        grid-row: span 1;
+    }
+
+    .gallery-item--wide {
+        grid-column: span 2;
+    }
+
+    .gallery-item--tall {
+        grid-row: span 1;
+    }
+
+    .gallery-item {
+        min-height: 160px;
+    }
+
+    .gallery-item--tall,
+    .gallery-item--featured {
+        min-height: 220px;
+    }
+
+    .lightbox-nav {
+        width: 2.5rem;
+        height: 2.5rem;
+        font-size: 1.2rem;
+    }
+
+    .lightbox-prev {
+        left: 0.75rem;
+    }
+
+    .lightbox-next {
+        right: 0.75rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .gallery-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.5rem;
+    }
+
+    .gallery-filters {
+        gap: 0.5rem;
+    }
+
+    .gallery-filter-btn {
+        font-size: 0.65rem;
+        padding: 0.3rem 0.5rem;
+    }
+}

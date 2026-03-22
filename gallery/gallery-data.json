@@ -1,0 +1,24 @@
+{
+    "photos": [
+        {
+            "id": "demo-001",
+            "url": "gallery/photos/sydney-opera-house.jpg",
+            "originalName": "sydney-opera-house.jpg",
+            "album": "澳大利亚 2026",
+            "tags": ["建筑", "夜景"],
+            "caption": "悉尼歌剧院 · 夜幕下的白色风帆",
+            "uploadedAt": "2026-03-19T00:00:00Z"
+        },
+        {
+            "id": "demo-002",
+            "url": "gallery/photos/twelve-apostles.jpg",
+            "originalName": "twelve-apostles.jpg",
+            "album": "澳大利亚 2026",
+            "tags": ["自然", "海岸"],
+            "caption": "十二门徒岩 · 大洋路上的石灰岩守望者",
+            "uploadedAt": "2026-03-19T00:00:00Z"
+        }
+    ],
+    "albums": ["澳大利亚 2026"],
+    "tags": ["建筑", "夜景", "自然", "海岸"]
+}

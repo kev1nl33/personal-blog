@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>旅行相册 - 计划李</title>
+
+    <meta name="description" content="用镜头记录旅途中的每一个瞬间。旅行摄影画廊，按目的地和主题分类浏览。">
+    <meta name="keywords" content="旅行相册, 摄影, 画廊, 旅途记录, 计划李">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Noto+Serif+SC:wght@400;700&family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            black: '#0a0a0a',
+                            white: '#f4f4f0',
+                            accent: '#FF4D00',
+                            blue: '#0047AB',
+                            green: '#059669',
+                            gray: '#8a8a8a'
+                        },
+                        voyage: {
+                            navy:  '#1B2A4A',
+                            blue:  '#2563EB',
+                            sky:   '#60A5FA',
+                            sand:  '#D4A574',
+                            paper: '#FDF6EC',
+                            stamp: '#DC2626'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Noto Sans SC"', 'Inter', 'sans-serif'],
+                        serif: ['"Noto Serif SC"', 'serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/neo-brutalism.css">
+    <link rel="stylesheet" href="styles/gallery.css">
+</head>
+<body class="bg-grid min-h-screen">
+    <!-- 导航栏 -->
+    <nav class="nav">
+        <div class="container">
+            <div class="nav-content">
+                <a href="index.html" class="logo">计划李</a>
+                <ul class="nav-links">
+                    <li><a href="index.html">首页</a></li>
+                    <li><a href="blog.html">文章</a></li>
+                    <li><a href="visual-design.html">认知武器</a></li>
+                    <li><a href="coffee.html">咖啡角</a></li>
+                    <li><a href="travel.html">看世界</a></li>
+                    <li><a href="gallery.html" class="active">相册</a></li>
+                    <li><a href="about.html">关于</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero 区域 -->
+    <section class="gallery-hero">
+        <div class="max-w-7xl mx-auto px-4 md:px-8 gallery-hero-content">
+            <div class="reveal active">
+                <div class="mb-4">
+                    <span class="font-mono text-voyage-sky text-xs md:text-sm tracking-widest uppercase font-bold">
+                        <span class="text-voyage-sand">●</span> GALLERY <span class="text-voyage-sand">●</span>
+                    </span>
+                </div>
+                <h1 class="text-6xl md:text-8xl font-black mb-6 leading-none">
+                    旅行相册
+                </h1>
+                <p class="font-serif text-lg md:text-xl text-voyage-sky max-w-xl leading-relaxed opacity-80">
+                    每一张照片都是一段旅途的切片，一个瞬间的永恒。
+                </p>
+            </div>
+
+            <!-- 操作按钮 -->
+            <div class="flex gap-3 mt-8">
+                <button id="btn-upload"
+                    class="font-mono text-xs font-bold uppercase tracking-wider px-4 py-2 border-2 border-voyage-sky text-voyage-sky hover:bg-voyage-sky hover:text-voyage-navy transition-all">
+                    <i class="ri-upload-2-line"></i> 上传照片
+                </button>
+                <button id="btn-admin"
+                    class="font-mono text-xs font-bold uppercase tracking-wider px-4 py-2 border-2 border-voyage-sand text-voyage-sand hover:bg-voyage-sand hover:text-voyage-navy transition-all">
+                    管理
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 统计条 -->
+    <div class="gallery-stats-bar">
+        <div class="gallery-stat">
+            <div class="gallery-stat-value" id="stat-photos">0</div>
+            <div class="gallery-stat-label">Photos</div>
+        </div>
+        <div class="gallery-stat">
+            <div class="gallery-stat-value" id="stat-albums">0</div>
+            <div class="gallery-stat-label">Albums</div>
+        </div>
+    </div>
+
+    <!-- 管理工具栏 -->
+    <div class="max-w-7xl mx-auto px-4 md:px-8 mt-4">
+        <div class="gallery-admin-bar">
+            <span class="gallery-admin-indicator"><i class="ri-shield-keyhole-line"></i> 管理模式</span>
+            <span class="font-mono text-xs text-voyage-sky" style="margin-left: auto;">点击照片上的 × 可删除</span>
+        </div>
+    </div>
+
+    <!-- 筛选栏 -->
+    <section class="max-w-7xl mx-auto px-4 md:px-8">
+        <div id="gallery-filters" class="gallery-filters">
+            <button class="gallery-filter-btn gallery-filter-btn--active" data-filter="all">全部</button>
+        </div>
+    </section>
+
+    <!-- 图片网格 -->
+    <section class="py-8 md:py-12">
+        <div class="max-w-7xl mx-auto px-4 md:px-8">
+            <div id="gallery-grid" class="gallery-grid">
+                <!-- 由 JS 动态渲染 -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Lightbox 灯箱 -->
+    <div id="lightbox" class="lightbox">
+        <button id="lightbox-close" class="lightbox-close"><i class="ri-close-line"></i></button>
+        <button id="lightbox-prev" class="lightbox-nav lightbox-prev"><i class="ri-arrow-left-s-line"></i></button>
+        <button id="lightbox-next" class="lightbox-nav lightbox-next"><i class="ri-arrow-right-s-line"></i></button>
+        <img id="lightbox-img" class="lightbox-img" src="" alt="">
+        <div class="lightbox-info">
+            <div id="lightbox-caption" class="lightbox-caption"></div>
+            <div id="lightbox-counter" class="lightbox-counter"></div>
+        </div>
+    </div>
+
+    <!-- 上传面板 -->
+    <div id="upload-panel" class="upload-panel">
+        <div class="upload-box">
+            <button id="upload-close" style="position:absolute;top:1rem;right:1rem;background:none;border:none;font-size:1.5rem;cursor:pointer;color:var(--text-secondary);">
+                <i class="ri-close-line"></i>
+            </button>
+            <div class="upload-box-title">
+                <i class="ri-upload-cloud-2-line"></i> 上传照片
+            </div>
+
+            <!-- 拖拽区域 -->
+            <div id="upload-dropzone" class="upload-dropzone">
+                <span class="upload-dropzone-icon"><i class="ri-image-add-line"></i></span>
+                <div class="upload-dropzone-text">拖拽图片到此处，或点击选择</div>
+                <div class="upload-dropzone-hint">支持 JPG, PNG, WebP · 单张最大 10MB</div>
+                <input type="file" id="upload-file-input" multiple accept="image/jpeg,image/png,image/webp"
+                    style="display:none;">
+            </div>
+
+            <!-- 预览 -->
+            <div id="upload-previews" class="upload-previews"></div>
+
+            <!-- 元数据表单 -->
+            <div class="upload-field">
+                <label class="upload-label">相册</label>
+                <input type="text" id="upload-album" class="upload-input" placeholder="例如: 澳大利亚 2026">
+            </div>
+            <div class="upload-field">
+                <label class="upload-label">标签（逗号分隔）</label>
+                <input type="text" id="upload-tags" class="upload-input" placeholder="例如: 海滩, 日落, 建筑">
+            </div>
+            <div class="upload-field">
+                <label class="upload-label">说明</label>
+                <input type="text" id="upload-caption" class="upload-input" placeholder="这张照片的故事...">
+            </div>
+
+            <!-- 进度条 -->
+            <div id="upload-progress" class="upload-progress">
+                <div class="upload-progress-bar">
+                    <div id="upload-progress-fill" class="upload-progress-fill"></div>
+                </div>
+                <div id="upload-progress-text" class="upload-progress-text">准备中...</div>
+            </div>
+
+            <!-- 操作按钮 -->
+            <div class="upload-actions">
+                <button id="upload-submit" class="upload-btn upload-btn--primary">
+                    <i class="ri-upload-2-line"></i> 开始上传
+                </button>
+                <button onclick="document.getElementById('upload-panel').classList.remove('upload-panel--open');document.body.style.overflow='';"
+                    class="upload-btn upload-btn--secondary">
+                    取消
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="border-t-2 border-brand-black py-8 mt-12">
+        <div class="max-w-7xl mx-auto px-4 md:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                <div class="font-mono text-xs text-brand-gray tracking-wider uppercase">
+                    © 2026 计划李 · Gallery
+                </div>
+                <div class="flex gap-6">
+                    <a href="index.html" class="font-mono text-xs text-brand-gray hover:text-brand-accent transition-colors uppercase tracking-wider">首页</a>
+                    <a href="travel.html" class="font-mono text-xs text-brand-gray hover:text-brand-accent transition-colors uppercase tracking-wider">看世界</a>
+                    <a href="blog.html" class="font-mono text-xs text-brand-gray hover:text-brand-accent transition-colors uppercase tracking-wider">文章</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="scripts/gallery.js"></script>
+</body>
+</html>

@@ -1,6 +1,16 @@
-# Cloudflare Pages KV 绑定配置
-# 需要在 Cloudflare 控制台创建 KV 命名空间后填入 id
+# Cloudflare Pages 绑定配置
+# 需要在 Cloudflare 控制台创建对应资源后填入 id
 
 [[kv_namespaces]]
 binding = "VISITOR_COUNTER"
-id = "YOUR_KV_NAMESPACE_ID"
+id = "50173b8e150e485bb273b2b728dbd048"
+
+# 画廊图片元数据存储
+[[kv_namespaces]]
+binding = "GALLERY_META"
+id = "ab91b039fa344df88a515337f14e0672"
+
+# 画廊图片 R2 存储桶
+[[r2_buckets]]
+binding = "GALLERY_BUCKET"
+bucket_name = "blog-gallery"
