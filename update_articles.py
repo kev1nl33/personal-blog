@@ -506,7 +506,7 @@ def generate_new_article(info, filename):
             <div class="flex flex-col md:flex-row justify-between items-center gap-4">
                 <p class="font-mono text-xs text-gray-500">&copy; 2025 计划李. All rights reserved.</p>
                 <div class="flex gap-6">
-                    <a href="https://zhihu.com" target="_blank" class="font-mono text-xs font-bold hover:text-brand-accent transition-colors">知乎</a>
+                    <a href="https://www.zhihu.com/people/xia-yu-de-xia-tian-40" target="_blank" class="font-mono text-xs font-bold hover:text-brand-accent transition-colors">知乎</a>
                     <a href="https://github.com" target="_blank" class="font-mono text-xs font-bold hover:text-brand-accent transition-colors">GitHub</a>
                 </div>
             </div>

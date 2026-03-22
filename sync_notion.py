@@ -699,7 +699,7 @@ def generate_article_html(article_data):
             <div class="footer-content">
                 <p>&copy; 2025 计划李. All rights reserved.</p>
                 <div class="social-links">
-                    <a href="https://zhihu.com" target="_blank">知乎</a>
+                    <a href="https://www.zhihu.com/people/xia-yu-de-xia-tian-40" target="_blank">知乎</a>
                     <a href="https://github.com" target="_blank">GitHub</a>
                 </div>
             </div>
