@@ -7,12 +7,12 @@
    画廊 Hero
    ================================ */
 .gallery-hero {
-    background: var(--voyage-navy);
-    color: white;
+    background: var(--bg-primary);
+    color: var(--text-primary);
     padding: 5rem 0 4rem;
     position: relative;
     overflow: hidden;
-    border-bottom: 3px solid var(--border-color);
+    border-bottom: 2px solid var(--border-color);
 }
 
 .gallery-hero::before {
@@ -20,19 +20,9 @@
     position: absolute;
     inset: 0;
     background-image:
-        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+        linear-gradient(var(--grid-color) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
     background-size: 40px 40px;
-}
-
-.gallery-hero::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, transparent, var(--voyage-sand), transparent);
 }
 
 .gallery-hero-content {
