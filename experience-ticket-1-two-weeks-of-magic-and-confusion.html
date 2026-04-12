@@ -246,6 +246,70 @@
             }
         }
 
+        /* 右侧固定目录样式 */
+        .toc-sidebar {
+            position: fixed;
+            top: 120px;
+            left: calc(50% + 300px);
+            max-height: calc(100vh - 160px);
+            overflow-y: auto;
+            z-index: 100;
+            width: 200px;
+            scrollbar-width: thin;
+            scrollbar-color: #d1d5db transparent;
+        }
+
+        .toc-sidebar::-webkit-scrollbar { width: 4px; }
+        .toc-sidebar::-webkit-scrollbar-track { background: transparent; }
+        .toc-sidebar::-webkit-scrollbar-thumb { background-color: #d1d5db; border-radius: 2px; }
+
+        .toc-sidebar-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 2px solid #0a0a0a;
+            padding: 1rem 1.25rem;
+            box-shadow: 4px 4px 0px rgba(10, 10, 10, 0.1);
+            border-radius: 8px;
+        }
+
+        .toc-sidebar-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: #0a0a0a;
+            margin-bottom: 0.75rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #0a0a0a;
+        }
+
+        .toc-sidebar-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .toc-sidebar-item { margin: 0.2rem 0; }
+
+        .toc-sidebar-link {
+            display: block;
+            padding: 0.25rem 0.5rem;
+            font-size: 0.75rem;
+            color: #666;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: all 0.2s;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .toc-sidebar-link:hover { color: #0a0a0a; background: rgba(0, 0, 0, 0.04); }
+        .toc-sidebar-link.active { color: #FF4D00; background: rgba(255, 77, 0, 0.08); font-weight: 600; }
+
+        @media (max-width: 1300px) { .toc-sidebar { display: none; } }
+
         /* 文章署名样式 */
         .article-signature {
             margin-top: 3rem;
@@ -285,6 +349,16 @@
             </div>
         </div>
     </nav>
+
+    <!-- 右侧目录 -->
+    <aside class="toc-sidebar" id="tocSidebar">
+        <div class="toc-sidebar-card">
+            <div class="toc-sidebar-title">目录</div>
+            <ul class="toc-sidebar-list" id="tocSidebarList">
+                <!-- 由 JS 填充 -->
+            </ul>
+        </div>
+    </aside>
 
     <!-- 文章内容 -->
     <article class="py-12 md:py-16">
@@ -572,10 +646,60 @@
     </footer>
 
     <!-- Scripts -->
-    <script src="scripts/toc.js"></script>
-
     <script>
-        // 阅读进度条
+    (function() {
+        // 生成右侧目录
+        const content = document.querySelector('.article-content');
+        const tocList = document.getElementById('tocSidebarList');
+        if (!content || !tocList) return;
+
+        const headings = content.querySelectorAll('h2, h3');
+        if (headings.length < 3) return;
+
+        // 生成目录项
+        headings.forEach((h, i) => {
+            if (!h.id) h.id = 'heading-' + i;
+            const li = document.createElement('li');
+            li.className = 'toc-sidebar-item';
+            const a = document.createElement('a');
+            a.className = 'toc-sidebar-link';
+            a.href = '#' + h.id;
+            a.textContent = h.textContent;
+            // 点击平滑滚动（不触发 scrollIntoView 乱跳）
+            a.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.getElementById(h.id);
+                if (target) {
+                    window.scrollTo({ top: target.offsetTop - 80, behavior: 'smooth' });
+                    history.pushState(null, null, '#' + h.id);
+                }
+            });
+            li.appendChild(a);
+            tocList.appendChild(li);
+        });
+
+        // 滚动高亮（不 scrollIntoView，不会导致页面跳动）
+        const links = tocList.querySelectorAll('.toc-sidebar-link');
+        let ticking = false;
+        window.addEventListener('scroll', function() {
+            if (!ticking) {
+                requestAnimationFrame(function() {
+                    const scrollY = window.scrollY + 120;
+                    let activeIdx = -1;
+                    for (let i = headings.length - 1; i >= 0; i--) {
+                        if (headings[i].offsetTop <= scrollY) { activeIdx = i; break; }
+                    }
+                    links.forEach(function(l, j) {
+                        l.classList.toggle('active', j === activeIdx);
+                    });
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+    })();
+
+    // 阅读进度条
         window.addEventListener('scroll', () => {
             const progress = document.getElementById('reading-progress');
             const scrollTop = document.documentElement.scrollTop;
