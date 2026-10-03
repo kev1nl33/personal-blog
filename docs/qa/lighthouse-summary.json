@@ -1,0 +1,132 @@
+[
+  {
+    "report": "blog-final-blog-1.json",
+    "url": "http://127.0.0.1:8000/blog.html",
+    "scores": {
+      "performance": 99,
+      "accessibility": 100,
+      "best-practices": 96,
+      "seo": 100
+    },
+    "lcp_ms": 1652.4957,
+    "cls": 0,
+    "tbt_ms": 0
+  },
+  {
+    "report": "blog-final-blog-2.json",
+    "url": "http://127.0.0.1:8000/blog.html",
+    "scores": {
+      "performance": 100,
+      "accessibility": 100,
+      "best-practices": 96,
+      "seo": 100
+    },
+    "lcp_ms": 1501.54065,
+    "cls": 0,
+    "tbt_ms": 0
+  },
+  {
+    "report": "blog-final-blog-3.json",
+    "url": "http://127.0.0.1:8000/blog.html",
+    "scores": {
+      "performance": 99,
+      "accessibility": 100,
+      "best-practices": 96,
+      "seo": 100
+    },
+    "lcp_ms": 1651.86075,
+    "cls": 0,
+    "tbt_ms": 0
+  },
+  {
+    "report": "blog-final-experience-ticket-1-two-weeks-of-magic-and-confusion-1.json",
+    "url": "http://127.0.0.1:8000/experience-ticket-1-two-weeks-of-magic-and-confusion.html",
+    "scores": {
+      "performance": 99,
+      "accessibility": 100,
+      "best-practices": 96,
+      "seo": 100
+    },
+    "lcp_ms": 1652.3883,
+    "cls": 0,
+    "tbt_ms": 0
+  },
+  {
+    "report": "blog-final-experience-ticket-1-two-weeks-of-magic-and-confusion-2.json",
+    "url": "http://127.0.0.1:8000/experience-ticket-1-two-weeks-of-magic-and-confusion.html",
+    "scores": {
+      "performance": 99,
+      "accessibility": 100,
+      "best-practices": 96,
+      "seo": 100
+    },
+    "lcp_ms": 1652.41365,
+    "cls": 0,
+    "tbt_ms": 0
+  },
+  {
+    "report": "blog-final-experience-ticket-1-two-weeks-of-magic-and-confusion-3.json",
+    "url": "http://127.0.0.1:8000/experience-ticket-1-two-weeks-of-magic-and-confusion.html",
+    "scores": {
+      "performance": 99,
+      "accessibility": 100,
+      "best-practices": 96,
+      "seo": 100
+    },
+    "lcp_ms": 1801.9536,
+    "cls": 0,
+    "tbt_ms": 0
+  },
+  {
+    "report": "blog-final-home-fixed.json",
+    "url": "http://127.0.0.1:8000/index.html",
+    "scores": {
+      "performance": 100,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 100
+    },
+    "lcp_ms": 1351.8282000000002,
+    "cls": 0,
+    "tbt_ms": 0
+  },
+  {
+    "report": "blog-final-index-1.json",
+    "url": "http://127.0.0.1:8000/index.html",
+    "scores": {
+      "performance": 100,
+      "accessibility": 100,
+      "best-practices": 96,
+      "seo": 100
+    },
+    "lcp_ms": 1201.93485,
+    "cls": 0,
+    "tbt_ms": 0
+  },
+  {
+    "report": "blog-final-index-2.json",
+    "url": "http://127.0.0.1:8000/index.html",
+    "scores": {
+      "performance": 100,
+      "accessibility": 100,
+      "best-practices": 96,
+      "seo": 100
+    },
+    "lcp_ms": 1351.4243999999999,
+    "cls": 0,
+    "tbt_ms": 0
+  },
+  {
+    "report": "blog-final-index-3.json",
+    "url": "http://127.0.0.1:8000/index.html",
+    "scores": {
+      "performance": 100,
+      "accessibility": 100,
+      "best-practices": 96,
+      "seo": 100
+    },
+    "lcp_ms": 1351.6869000000002,
+    "cls": 0,
+    "tbt_ms": 0
+  }
+]

@@ -27,7 +27,7 @@ jobs:
     
     - name: 安装依赖
       run: |
-        pip install requests
+        pip install -r requirements.txt
 
     - name: 从 Notion 同步内容
       env:
@@ -38,6 +38,13 @@ jobs:
         BREWING_NOTES_DB_ID: ${{ secrets.BREWING_NOTES_DB_ID }}
       run: |
         python sync_notion.py
+
+    - name: 检查模板与生成输出
+      run: |
+        python -m unittest discover -s tests -v
+        python validate_site.py
+        python generate_search_index.py
+        python generate_sitemap.py
 
     - name: 提交更改
       run: |

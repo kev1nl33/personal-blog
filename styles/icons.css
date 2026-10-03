@@ -1,0 +1,92 @@
+/*
+* Remix Icon v3.5.0
+* https://remixicon.com
+* https://github.com/Remix-Design/RemixIcon
+*
+* Copyright RemixIcon.com
+* Released under the Apache License Version 2.0
+*
+* Date: 2023-07-30
+*/
+@font-face {font-family:'remixicon';src:url('../assets/fonts/remixicon.woff2') format('woff2');font-display:block;}
+
+[class^="ri-"], [class*=" ri-"] {
+  font-family: 'remixicon' !important;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+.ri-alert-fill:before { content: "\ea20"; }
+.ri-arrow-down-s-line:before { content: "\ea4e"; }
+.ri-arrow-left-line:before { content: "\ea60"; }
+.ri-arrow-left-right-line:before { content: "\ea62"; }
+.ri-arrow-left-s-line:before { content: "\ea64"; }
+.ri-arrow-right-line:before { content: "\ea6c"; }
+.ri-arrow-right-s-line:before { content: "\ea6e"; }
+.ri-arrow-right-up-line:before { content: "\ea70"; }
+.ri-bike-fill:before { content: "\eabd"; }
+.ri-book-open-line:before { content: "\eadb"; }
+.ri-building-2-line:before { content: "\eb09"; }
+.ri-building-fill:before { content: "\eb0e"; }
+.ri-bus-fill:before { content: "\eb12"; }
+.ri-calendar-event-line:before { content: "\eb25"; }
+.ri-calendar-fill:before { content: "\eb26"; }
+.ri-camera-line:before { content: "\eb31"; }
+.ri-car-fill:before { content: "\eb38"; }
+.ri-check-line:before { content: "\eb7b"; }
+.ri-close-line:before { content: "\eb99"; }
+.ri-compass-3-fill:before { content: "\ebbd"; }
+.ri-compass-3-line:before { content: "\ebbe"; }
+.ri-cup-line:before { content: "\ec06"; }
+.ri-delete-bin-line:before { content: "\ec2a"; }
+.ri-drop-line:before { content: "\ec6a"; }
+.ri-earth-line:before { content: "\ec7a"; }
+.ri-error-warning-line:before { content: "\eca1"; }
+.ri-file-pdf-line:before { content: "\ecfd"; }
+.ri-file-text-fill:before { content: "\ed0e"; }
+.ri-file-text-line:before { content: "\ed0f"; }
+.ri-filter-line:before { content: "\ed27"; }
+.ri-flight-land-fill:before { content: "\ed40"; }
+.ri-flight-takeoff-fill:before { content: "\ed42"; }
+.ri-gallery-line:before { content: "\eda5"; }
+.ri-grid-line:before { content: "\eddf"; }
+.ri-group-fill:before { content: "\ede2"; }
+.ri-hotel-line:before { content: "\ee3b"; }
+.ri-image-add-line:before { content: "\ee47"; }
+.ri-information-line:before { content: "\ee59"; }
+.ri-lightbulb-fill:before { content: "\eea6"; }
+.ri-lightbulb-line:before { content: "\eea9"; }
+.ri-loader-line:before { content: "\eeca"; }
+.ri-map-pin-2-fill:before { content: "\ef09"; }
+.ri-map-pin-fill:before { content: "\ef13"; }
+.ri-map-pin-line:before { content: "\ef14"; }
+.ri-money-dollar-circle-fill:before { content: "\ef64"; }
+.ri-plane-fill:before { content: "\f004"; }
+.ri-quill-pen-line:before { content: "\f04a"; }
+.ri-restaurant-fill:before { content: "\f083"; }
+.ri-route-fill:before { content: "\f09a"; }
+.ri-ruler-fill:before { content: "\f0a2"; }
+.ri-scales-3-line:before { content: "\f0b7"; }
+.ri-scales-line:before { content: "\f0b9"; }
+.ri-seedling-line:before { content: "\f0d5"; }
+.ri-settings-2-fill:before { content: "\f0e3"; }
+.ri-shape-line:before { content: "\f0f2"; }
+.ri-shield-keyhole-line:before { content: "\f107"; }
+.ri-shirt-fill:before { content: "\f111"; }
+.ri-shopping-bag-line:before { content: "\f118"; }
+.ri-speed-fill:before { content: "\f176"; }
+.ri-star-fill:before { content: "\f186"; }
+.ri-store-2-line:before { content: "\f1a5"; }
+.ri-sun-fill:before { content: "\f1bc"; }
+.ri-ticket-fill:before { content: "\f20c"; }
+.ri-time-fill:before { content: "\f20e"; }
+.ri-time-line:before { content: "\f20f"; }
+.ri-tools-line:before { content: "\f21b"; }
+.ri-train-fill:before { content: "\f222"; }
+.ri-upload-2-line:before { content: "\f24a"; }
+.ri-upload-cloud-2-line:before { content: "\f24c"; }
+.ri-vip-crown-fill:before { content: "\f28d"; }
+.ri-walk-fill:before { content: "\f2a7"; }
+.ri-wifi-fill:before { content: "\f2bf"; }

@@ -4,6 +4,16 @@
 (function () {
     'use strict';
 
+    function escapeHtml(value) {
+        return String(value ?? '').replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+    }
+    function safeImageUrl(value) {
+        try {
+            const url = new URL(value, location.href);
+            return ['http:', 'https:', 'blob:'].includes(url.protocol) ? escapeHtml(url.href) : '';
+        } catch { return ''; }
+    }
+
     // ========== 状态 ==========
     let photos = [];
     let filteredPhotos = [];
@@ -13,6 +23,8 @@
     let lightboxIndex = -1;
     let isAdmin = false;
     let apiKey = '';
+    let apiAvailable = false;
+    let loadError = false;
 
     // ========== DOM 缓存 ==========
     const $ = (sel) => document.querySelector(sel);
@@ -46,26 +58,34 @@
 
             const res = await fetch(`/api/gallery/list?${params}`);
             if (!res.ok) throw new Error('API 不可用');
+            apiAvailable = true;
+            loadError = false;
             const data = await res.json();
             photos = data.photos || [];
             albums = data.albums || [];
             tags = data.tags || [];
         } catch (err) {
             // API 不可用时回退到本地静态 JSON
+            apiAvailable = false;
             console.warn('API 不可用，使用本地数据:', err.message);
             try {
                 const fallback = await fetch('gallery/gallery-data.json');
+                if (!fallback.ok) throw new Error('静态相册不可用');
                 const data = await fallback.json();
-                photos = data.photos || [];
-                albums = data.albums || [];
-                tags = data.tags || [];
+                loadError = false;
+                photos = (data.photos || []).filter(photo => !String(photo.id).startsWith("demo-"));
+                albums = [...new Set(photos.map(photo=>photo.album).filter(Boolean))];
+                tags = [...new Set(photos.flatMap(photo=>photo.tags || []))];
             } catch {
+                loadError = true;
                 photos = [];
                 albums = [];
                 tags = [];
             }
         }
         applyFilter();
+        const authorTools = $('#gallery-author-tools');
+        if (authorTools) authorTools.hidden = !apiAvailable;
     }
 
     function applyFilter() {
@@ -85,21 +105,24 @@
         if (filteredPhotos.length === 0) {
             grid.innerHTML = `
                 <div class="gallery-empty" style="grid-column: 1 / -1;">
-                    <span class="gallery-empty-icon"><i class="ri-camera-line"></i></span>
-                    <div class="gallery-empty-title">暂无照片</div>
-                    <div class="gallery-empty-desc">点击右上角上传按钮添加第一张照片</div>
+                    <span class="gallery-empty-number" aria-hidden="true">01 / ◇</span>
+                    <div class="gallery-empty-title">${loadError ? '影像暂时无法读取' : '有些画面，还在路上。'}</div>
+                    <div class="gallery-empty-desc">${loadError ? '相册加载遇到问题，请稍后再试。' : '照片正在整理。这里会慢慢收下旅途与日常的片段。'}</div>
                 </div>`;
             return;
         }
 
         // 分配 Bento 尺寸
-        const sized = assignBentoSizes(filteredPhotos);
+        const sized = assignBentoSizes(filteredPhotos).map(photo => ({...photo,
+            id:escapeHtml(photo.id),url:safeImageUrl(photo.url),caption:escapeHtml(photo.caption),
+            originalName:escapeHtml(photo.originalName),album:escapeHtml(photo.album),
+            tags:(photo.tags || []).map(escapeHtml)}));
 
         grid.innerHTML = sized.map((photo, i) => `
             <div class="gallery-item ${photo._bentoClass} reveal"
-                 data-index="${i}" data-id="${photo.id}">
+                 data-index="${i}" data-id="${photo.id}" role="button" tabindex="0" aria-label="查看照片：${photo.caption || photo.originalName}">
                 <img src="${photo.url}" alt="${photo.caption || photo.originalName}"
-                     loading="lazy">
+                     loading="lazy" width="1200" height="900">
                 <div class="gallery-item-overlay">
                     <div class="gallery-item-caption">${photo.caption || ''}</div>
                     <div class="gallery-item-meta">${photo.album}${photo.tags?.length ? ' · ' + photo.tags.join(' · ') : ''}</div>
@@ -135,14 +158,14 @@
         if (albums.length > 0) {
             html += `<div class="gallery-filter-divider"></div>`;
             html += albums.map(a =>
-                `<button class="gallery-filter-btn" data-filter="album" data-value="${a}">${a}</button>`
+                `<button class="gallery-filter-btn" data-filter="album" data-value="${escapeHtml(a)}">${escapeHtml(a)}</button>`
             ).join('');
         }
 
         if (tags.length > 0) {
             html += `<div class="gallery-filter-divider"></div>`;
             html += tags.map(t =>
-                `<button class="gallery-filter-btn" data-filter="tag" data-value="${t}">#${t}</button>`
+                `<button class="gallery-filter-btn" data-filter="tag" data-value="${escapeHtml(t)}">#${escapeHtml(t)}</button>`
             ).join('');
         }
 
@@ -153,6 +176,11 @@
     function updateStats() {
         if (statPhotos) statPhotos.textContent = photos.length;
         if (statAlbums) statAlbums.textContent = albums.length;
+        const stats = $('#gallery-stats');
+        if (stats) stats.hidden = photos.length === 0;
+        if (filtersContainer) filtersContainer.hidden = photos.length === 0;
+        const related = $('#memory-related');
+        if (related) related.hidden = photos.length > 0;
     }
 
     // ========== 事件绑定 ==========
@@ -188,6 +216,11 @@
             openLightbox(parseInt(item.dataset.index, 10));
         });
 
+        grid?.addEventListener('keydown', event => {
+            const item=event.target.closest('.gallery-item');
+            if(item && event.target===item && ['Enter',' '].includes(event.key)){event.preventDefault();openLightbox(Number(item.dataset.index));}
+        });
+
         // Lightbox 关闭
         $('#lightbox-close')?.addEventListener('click', closeLightbox);
         lightbox?.addEventListener('click', (e) => {
@@ -201,6 +234,12 @@
         // 键盘快捷键
         document.addEventListener('keydown', (e) => {
             if (!lightbox?.classList.contains('lightbox--open')) return;
+            if (e.key === 'Tab') {
+                const controls = [...lightbox.querySelectorAll('button')].filter(b => !b.disabled);
+                const first=controls[0], last=controls[controls.length-1];
+                if(e.shiftKey && document.activeElement===first){e.preventDefault();last?.focus();}
+                else if(!e.shiftKey && document.activeElement===last){e.preventDefault();first?.focus();}
+            }
             if (e.key === 'Escape') closeLightbox();
             if (e.key === 'ArrowLeft') navigateLightbox(-1);
             if (e.key === 'ArrowRight') navigateLightbox(1);
@@ -254,16 +293,19 @@
     }
 
     // ========== Lightbox ==========
+    let dialogReturnFocus = null;
     function openLightbox(index) {
         if (index < 0 || index >= filteredPhotos.length) return;
+        if (!lightbox?.classList.contains('lightbox--open')) dialogReturnFocus = document.activeElement;
         lightboxIndex = index;
         const photo = filteredPhotos[index];
 
-        if (lightboxImg) lightboxImg.src = photo.url;
+        if (lightboxImg) { lightboxImg.src = safeImageUrl(photo.url); lightboxImg.alt = photo.caption || '照片预览'; }
         if (lightboxCaption) lightboxCaption.textContent = photo.caption || '';
         if (lightboxCounter) lightboxCounter.textContent = `${index + 1} / ${filteredPhotos.length}`;
 
         lightbox?.classList.add('lightbox--open');
+        $('#lightbox-close')?.focus();
         document.body.style.overflow = 'hidden';
     }
 
@@ -271,6 +313,7 @@
         lightbox?.classList.remove('lightbox--open');
         document.body.style.overflow = '';
         lightboxIndex = -1;
+        dialogReturnFocus?.focus();
     }
 
     function navigateLightbox(dir) {
@@ -308,7 +351,7 @@
 
         previews.innerHTML = pendingFiles.map(f => {
             const url = URL.createObjectURL(f);
-            return `<img src="${url}" class="upload-preview" alt="${f.name}">`;
+            return `<img src="${url}" class="upload-preview" alt="${escapeHtml(f.name)}">`;
         }).join('');
     }
 

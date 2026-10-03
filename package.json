@@ -1,0 +1,12 @@
+{
+  "name": "personal-blog-static-build",
+  "private": true,
+  "scripts": {
+    "build:css": "tailwindcss -i styles/utilities-source.css -o styles/utilities.css --minify",
+    "build": "npm run build:css && python3 site_builder.py",
+    "test": "python3 -m unittest discover -s tests -v"
+  },
+  "devDependencies": {
+    "tailwindcss": "3.4.17"
+  }
+}

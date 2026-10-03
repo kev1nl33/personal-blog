@@ -37,7 +37,7 @@ def generate_search_index():
     excluded_files = {'books-preview.html', 'test.html', 'article1.html'}
 
     for html_file in html_files:
-        if html_file in excluded_files:
+        if html_file in excluded_files or '-backup-' in html_file:
             continue
 
         try:

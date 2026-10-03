@@ -2,193 +2,427 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://kev1nl33.github.io/personal-blog/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://kev1nl33.github.io/personal-blog/blog.html</loc>
-    <lastmod>2025-12-30</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://kev1nl33.github.io/personal-blog/about.html</loc>
-    <lastmod>2025-12-28</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://kev1nl33.github.io/personal-blog/2025_Year_Report.html</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://kev1nl33.github.io/personal-blog/Product-thinking.html</loc>
-    <lastmod>2025-12-30</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://kev1nl33.github.io/personal-blog/ai-career-tools.html</loc>
-    <lastmod>2025-12-30</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://kev1nl33.github.io/personal-blog/ai-subscriptions-review.html</loc>
-    <lastmod>2025-12-30</lastmod>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://kev1nl33.github.io/personal-blog/ai-tools-without-illusions.html</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://kev1nl33.github.io/personal-blog/borrowed-uniform.html</loc>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://kev1nl33.github.io/personal-blog/breaking-decision-paralysis-with-ai.html</loc>
-    <lastmod>2025-12-30</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://kev1nl33.github.io/personal-blog/career-transition.html</loc>
-    <lastmod>2025-12-30</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://kev1nl33.github.io/personal-blog/chatgpt-vs-claude-communication.html</loc>
-    <lastmod>2025-12-30</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://kev1nl33.github.io/personal-blog/claude-skills-deep-dive.html</loc>
-    <lastmod>2025-12-30</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://kev1nl33.github.io/personal-blog/coffee-beans.html</loc>
-    <lastmod>2025-12-28</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://kev1nl33.github.io/personal-blog/coffee-equipment-brikka.html</loc>
-    <lastmod>2025-12-30</lastmod>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://kev1nl33.github.io/personal-blog/coffee-equipment-heater.html</loc>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://kev1nl33.github.io/personal-blog/coffee-equipment-kd310gb.html</loc>
-    <lastmod>2025-12-28</lastmod>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://kev1nl33.github.io/personal-blog/coffee-equipment-scale.html</loc>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://kev1nl33.github.io/personal-blog/coffee-equipment.html</loc>
-    <lastmod>2025-12-30</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://kev1nl33.github.io/personal-blog/coffee-notes.html</loc>
-    <lastmod>2025-12-28</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://kev1nl33.github.io/personal-blog/coffee-shops.html</loc>
-    <lastmod>2025-12-28</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://kev1nl33.github.io/personal-blog/coffee.html</loc>
-    <lastmod>2025-12-28</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://kev1nl33.github.io/personal-blog/cycling-weight-loss-journey.html</loc>
-    <lastmod>2025-12-30</lastmod>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://kev1nl33.github.io/personal-blog/escape-mode-and-shiny-objects.html</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://kev1nl33.github.io/personal-blog/experience-ticket-1-two-weeks-of-magic-and-confusion.html</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://kev1nl33.github.io/personal-blog/experience-ticket-2-from-77-posts-to-banned-account.html</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://kev1nl33.github.io/personal-blog/experience-ticket-3-toutiao-automation-daydream.html</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://kev1nl33.github.io/personal-blog/experience-ticket-4-thirty-days-of-honest-writing.html</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://kev1nl33.github.io/personal-blog/experience-ticket-5-family-farm-and-reality-check.html</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://kev1nl33.github.io/personal-blog/experience-ticket-6-stock-operator-mental-lab.html</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://kev1nl33.github.io/personal-blog/fable-mr-wei-kitchen.html</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://kev1nl33.github.io/personal-blog/five-iron-rules-naval.html</loc>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://kev1nl33.github.io/personal-blog/freelance-first-year.html</loc>
-    <lastmod>2025-12-30</lastmod>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://kev1nl33.github.io/personal-blog/from-contempt-to-kline.html</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://kev1nl33.github.io/personal-blog/gallery.html</loc>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://kev1nl33.github.io/personal-blog/gcdf-certification-guide.html</loc>
-    <lastmod>2025-12-30</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://kev1nl33.github.io/personal-blog/knowledge-management-evolution.html</loc>
-    <lastmod>2025-12-30</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://kev1nl33.github.io/personal-blog/living-in-the-moment.html</loc>
-    <lastmod>2025-12-30</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://kev1nl33.github.io/personal-blog/minimalism-digital-life.html</loc>
-    <lastmod>2025-12-30</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://kev1nl33.github.io/personal-blog/name-explain.html</loc>
-    <lastmod>2025-12-30</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://kev1nl33.github.io/personal-blog/npc-principle.html</loc>
-    <lastmod>2025-12-30</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://kev1nl33.github.io/personal-blog/overcoming-instincts.html</loc>
-    <lastmod>2025-12-30</lastmod>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://kev1nl33.github.io/personal-blog/parking-lot-three-minutes.html</loc>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://kev1nl33.github.io/personal-blog/resignation-decision-process.html</loc>
-    <lastmod>2025-12-30</lastmod>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://kev1nl33.github.io/personal-blog/seventy-posts-dead-silence.html</loc>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://kev1nl33.github.io/personal-blog/she-arrived.html</loc>
-    <lastmod>2025-12-30</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://kev1nl33.github.io/personal-blog/tech-stock-analysis.html</loc>
-    <lastmod>2025-12-30</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://kev1nl33.github.io/personal-blog/the-courage-to-be-disliked-reading-notes.html</loc>
-    <lastmod>2025-12-30</lastmod>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://kev1nl33.github.io/personal-blog/travel-australia-2026-aircraft-a330-300.html</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://kev1nl33.github.io/personal-blog/travel-australia-2026-aircraft-b777.html</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://kev1nl33.github.io/personal-blog/travel-australia-2026-hotel-four-seasons-sydney.html</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://kev1nl33.github.io/personal-blog/travel-australia-2026-hotel-marriott-melbourne.html</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://kev1nl33.github.io/personal-blog/travel-australia-2026-hotel-shangri-la-sydney.html</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://kev1nl33.github.io/personal-blog/travel-australia-2026-hotel-tower-lodge.html</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://kev1nl33.github.io/personal-blog/travel-australia-2026-spot-art-gallery-nsw.html</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://kev1nl33.github.io/personal-blog/travel-australia-2026-spot-bondi-coogee.html</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://kev1nl33.github.io/personal-blog/travel-australia-2026-spot-darling-harbour.html</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://kev1nl33.github.io/personal-blog/travel-australia-2026-spot-fitzroy.html</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://kev1nl33.github.io/personal-blog/travel-australia-2026-spot-hot-air-balloon.html</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://kev1nl33.github.io/personal-blog/travel-australia-2026-spot-opera-house.html</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://kev1nl33.github.io/personal-blog/travel-australia-2026-spot-puffing-billy.html</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://kev1nl33.github.io/personal-blog/travel-australia-2026-spot-qvb.html</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://kev1nl33.github.io/personal-blog/travel-australia-2026-spot-sea-life-aquarium.html</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://kev1nl33.github.io/personal-blog/travel-australia-2026-spot-twelve-apostles.html</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://kev1nl33.github.io/personal-blog/travel-australia-2026-spot-winery-cycling.html</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://kev1nl33.github.io/personal-blog/travel-australia-2026.html</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://kev1nl33.github.io/personal-blog/travel.html</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://kev1nl33.github.io/personal-blog/turning-32-mid-tier-reboot.html</loc>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://kev1nl33.github.io/personal-blog/vision-pro-office-experience.html</loc>
-    <lastmod>2025-12-30</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://kev1nl33.github.io/personal-blog/visual-design.html</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://kev1nl33.github.io/personal-blog/why-prenatal-app-succeeded.html</loc>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

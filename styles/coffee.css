@@ -897,3 +897,53 @@
          max-height: 200px;
      }
  }
+/* Shared design refinement, including image failure and keyboard states. */
+.coffee-page .coffee-tabs {position:static;display:flex;gap:0;border-bottom:1px solid #0a0a0a;margin-bottom:24px;overflow-x:auto;white-space:nowrap}
+.coffee-page .coffee-tabs .tab-btn {flex:1;min-width:76px;padding:12px;border:0;border-bottom:3px solid transparent;background:transparent;color:#3c2415;font-size:14px}
+.coffee-page .coffee-tabs .tab-btn--active {border-bottom-color:#3c2415;font-weight:700}
+.coffee-page .card-preview>div:first-child {min-height:210px}
+.coffee-page .equipment-photo {aspect-ratio:4/3;object-fit:contain;width:100%;height:auto}
+.equipment-photo-fallback {font-family:var(--font-mono);font-size:13px;text-align:center;align-self:center;color:#6f4e37;padding:30px;line-height:1.8}
+.coffee-page .card-details[hidden] {display:none!important}
+.coffee-page .card-preview h3 {font-size:26px}
+@media(max-width:540px){.coffee-page .card-preview h3{font-size:22px}.coffee-page .card-details .grid-cols-3{grid-template-columns:1fr}.coffee-page .card-preview>div:first-child{min-height:190px}}
+
+/* Coffee journal: editorial cover, product image labeled as source material. */
+.coffee-editorial-hero{background:#eee8dc;border-bottom:1px solid #3c2415;overflow:hidden}
+.coffee-editorial-grid{display:grid;grid-template-columns:1.03fr .97fr;min-height:580px;padding-block:44px 56px;gap:44px;align-items:stretch}
+.coffee-editorial-copy{display:flex;flex-direction:column;align-items:flex-start;padding:34px 0 16px;position:relative}
+.coffee-kicker{font:700 12px var(--font-mono);letter-spacing:.12em;color:#6f4e37;text-transform:uppercase}
+.coffee-editorial-copy h1{font-size:clamp(58px,7vw,108px);line-height:1.08;letter-spacing:-.075em;margin:54px 0 28px;color:#241c16}
+.coffee-editorial-copy h1 span{color:#4c613e}
+.coffee-intro{max-width:520px;font:19px/1.85 var(--font-serif);color:#453b32}
+.coffee-hero-link{display:inline-flex;align-items:center;gap:56px;padding:12px 0;border-bottom:2px solid #3c2415;margin-top:32px;font-weight:800;color:#241c16;min-height:48px}
+.coffee-hero-link:hover{color:#a33f18;border-color:#a33f18}
+.coffee-hero-index{font:11px var(--font-mono);letter-spacing:.08em;color:#765e4d;margin-top:auto;padding-top:36px}
+.coffee-editorial-art{margin:0;background:#d5d7c5;border:1px solid #3c2415;position:relative;display:flex;align-items:center;justify-content:center;isolation:isolate;min-height:430px}
+.coffee-editorial-art::before{content:'';position:absolute;inset:24px;border:1px solid #827f67;z-index:-1}
+.coffee-editorial-art::after{content:'';width:72%;aspect-ratio:1;border-radius:50%;background:#bbc6ad;position:absolute;z-index:-1;left:14%;top:12%}
+.coffee-editorial-art img{width:80%;height:78%;object-fit:contain;mix-blend-mode:multiply;filter:drop-shadow(14px 16px 8px #1d281d44)}
+.coffee-art-label{position:absolute;top:44px;left:44px;font:700 11px/1.7 var(--font-mono);letter-spacing:.12em;color:#313d2a}
+.coffee-editorial-art figcaption{position:absolute;right:24px;bottom:20px;font:11px var(--font-mono);color:#414b37}
+.coffee-latest{display:grid;grid-template-columns:1fr 1fr;gap:70px;padding-top:54px;padding-bottom:48px;border-bottom:1px solid #b2a79b}
+.coffee-latest h2{font-size:clamp(28px,3vw,42px);line-height:1.3;letter-spacing:-.04em;margin-top:10px}
+.coffee-latest-copy p{font:17px/1.9 var(--font-serif);color:#4b4138}
+.coffee-latest-copy a{display:inline-block;margin:18px 24px 0 0;text-decoration:underline;text-underline-offset:6px;font-weight:700;color:#3c2415}
+.coffee-page .stats-grid{margin-top:12px;margin-bottom:32px;grid-template-columns:repeat(4,1fr)}
+.coffee-page .stat-card{padding-block:12px}
+.coffee-page .stat-number{font-size:24px}
+.coffee-page .stat-icon{opacity:.5}
+.coffee-page .card-preview{position:relative}
+.coffee-page .equipment-expandable-card .card-preview:focus-visible{outline:3px solid #0047ab;outline-offset:4px}
+.coffee-page .equipment-expandable-card .card-preview+*{scroll-margin-top:100px}
+.coffee-page .equipment-expandable-card a.absolute{opacity:1;position:relative;top:auto;right:auto;display:inline-flex;margin:0 0 18px 24px}
+@media(max-width:800px){.coffee-editorial-grid{grid-template-columns:1fr;gap:20px;min-height:0;padding-block:26px 36px}.coffee-editorial-copy{padding:10px 0 0}.coffee-editorial-copy h1{margin:28px 0 18px;font-size:clamp(50px,9vw,76px)}.coffee-hero-index{padding-top:28px}.coffee-editorial-art{min-height:360px}.coffee-latest{grid-template-columns:1fr;gap:18px;padding-top:36px;padding-bottom:34px}}
+@media(max-width:540px){.coffee-editorial-copy h1{font-size:52px}.coffee-intro{font-size:17px}.coffee-editorial-art{min-height:310px}.coffee-art-label{top:24px;left:24px}.coffee-page .stats-grid{grid-template-columns:repeat(4,1fr);gap:0}.coffee-page .stat-card{padding:10px 4px}.coffee-page .stat-number{font-size:20px}.coffee-page .stat-label{font-size:10px}}
+
+/* Keep the four existing equipment reports visually connected to the coffee journal. */
+section.hero-pattern{background:#eee8dc;padding-top:66px;padding-bottom:76px;border-bottom:1px solid #3c2415}
+section.hero-pattern h1{font-size:clamp(38px,5vw,70px);line-height:1.2;letter-spacing:-.06em;color:#241c16}
+section.hero-pattern .rounded-full{border-radius:0}
+section.hero-pattern .blur-3xl{opacity:.3}
+.coffee-product-source{display:block;text-align:right;margin-top:8px;font:11px var(--font-mono);color:#54493e}
+@media(max-width:540px){section.hero-pattern{padding-top:42px;padding-bottom:48px}section.hero-pattern h1{font-size:43px}}

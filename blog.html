@@ -1,704 +1,189 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>所有文章 - 职业规划、AI应用、投资思考 | 计划李</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>所有文章 - 计划李</title>
+<meta name="description" content="按主题与关键词浏览计划李的文章：职业发展、AI应用、投资思考、个人成长、读书笔记。">
+<meta name="keywords" content="计划李,职业转型,AI应用,个人成长,咖啡,生活记录">
+<meta name="author" content="计划李">
+<meta property="og:type" content="website">
+<meta property="og:title" content="所有文章 - 计划李">
+<meta property="og:description" content="按主题与关键词浏览计划李的文章：职业发展、AI应用、投资思考、个人成长、读书笔记。">
+<meta property="og:url" content="https://kev1nl33.github.io/personal-blog/blog.html">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="canonical" href="https://kev1nl33.github.io/personal-blog/blog.html">
+<link rel="stylesheet" href="styles/main.css?v=335dd96da0">
 
-    <!-- SEO Meta Tags -->
-    <meta name="description" content="浏览计划李的所有博客文章，涵盖职业发展、AI应用、投资思考、个人成长和读书笔记。GCDF职业规划师分享真实经验和深度思考。">
-    <meta name="keywords" content="博客文章, 职业规划, AI应用, 投资思考, 个人成长, 读书笔记, GCDF, 计划李">
-    <meta name="author" content="计划李 (Kevin)">
-    <meta name="robots" content="index, follow">
-
-    <!-- Open Graph Meta Tags -->
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="所有文章 - 计划李的博客">
-    <meta property="og:description" content="浏览计划李的所有博客文章，涵盖职业发展、AI应用、投资思考、个人成长和读书笔记。">
-    <meta property="og:url" content="https://kev1nl33.github.io/personal-blog/blog.html">
-    <meta property="og:site_name" content="计划李的个人博客">
-
-    <!-- Twitter Card Meta Tags -->
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="所有文章 - 计划李的博客">
-    <meta name="twitter:description" content="浏览计划李的所有博客文章，涵盖职业发展、AI应用、投资思考、个人成长和读书笔记。">
-
-    <!-- Canonical URL -->
-    <link rel="canonical" href="https://kev1nl33.github.io/personal-blog/blog.html">
-
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Noto+Serif+SC:wght@400;700&family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-
-    <!-- RemixIcon -->
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
-
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            black: '#0a0a0a',
-                            white: '#f4f4f0',
-                            accent: '#FF4D00',
-                            blue: '#0047AB',
-                            green: '#059669',
-                            gray: '#8a8a8a'
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['"Noto Sans SC"', 'Inter', 'sans-serif'],
-                        serif: ['"Noto Serif SC"', 'serif'],
-                        mono: ['"JetBrains Mono"', 'monospace'],
-                    }
-                }
-            }
-        }
-    </script>
-
-    <link rel="stylesheet" href="styles/main.css">
-    <link rel="stylesheet" href="styles/neo-brutalism.css">
-
-    <style>
-        .category-btn, .tag-btn {
-            padding: 0.5rem 1rem;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            background: white;
-            border: 2px solid #0a0a0a;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .category-btn:hover, .tag-btn:hover {
-            background: #0a0a0a;
-            color: white;
-        }
-
-        /* 全部 - 默认橙色 */
-        .category-btn.active[data-category="all"] {
-            background: #FF4D00;
-            border-color: #FF4D00;
-            color: white;
-        }
-
-        /* 职业发展 - 青色 */
-        .category-btn[data-category="career"]:hover,
-        .category-btn.active[data-category="career"] {
-            background: #0891B2;
-            border-color: #0891B2;
-            color: white;
-        }
-
-        /* AI应用 - 蓝色 */
-        .category-btn[data-category="ai"]:hover,
-        .category-btn.active[data-category="ai"] {
-            background: #0047AB;
-            border-color: #0047AB;
-            color: white;
-        }
-
-        /* 投资思考 - 绿色 */
-        .category-btn[data-category="investment"]:hover,
-        .category-btn.active[data-category="investment"] {
-            background: #059669;
-            border-color: #059669;
-            color: white;
-        }
-
-        /* 个人成长 - 淡紫丁香 */
-        .category-btn[data-category="personal"]:hover,
-        .category-btn.active[data-category="personal"] {
-            background: #E6E6FA;
-            border-color: #E6E6FA;
-            color: #0a0a0a;
-        }
-
-        /* 读书笔记 - 棕色 */
-        .category-btn[data-category="reading"]:hover,
-        .category-btn.active[data-category="reading"] {
-            background: #92400E;
-            border-color: #92400E;
-            color: white;
-        }
-
-        /* Tag 颜色 - 个人成长 淡紫丁香 */
-        .tag--personal {
-            background: #E6E6FA;
-            color: #0a0a0a;
-            border: 2px solid #E6E6FA;
-        }
-
-        /* Tag 颜色 - 读书笔记 棕色 */
-        .tag--reading {
-            background: #92400E;
-            color: white;
-        }
-
-        .blog-card {
-            display: flex;
-            flex-direction: column;
-            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-            height: 100%;
-        }
-
-        .blog-card.hidden {
-            display: none;
-        }
-
-        .blog-card > * {
-            flex-shrink: 0;
-        }
-
-        .blog-card p {
-            flex-grow: 0;
-            margin-bottom: auto !important;
-        }
-
-        .blog-card > div:last-child {
-            margin-top: auto;
-            padding-top: 1rem;
-        }
-
-        #blogGrid {
-            grid-auto-rows: 1fr;
-        }
-    </style>
+<link rel="stylesheet" href="styles/motion.css?v=ab6622564641">
 </head>
-<body class="bg-grid min-h-screen">
+<body class="archive-page">
+<a class="skip-link" href="#main">跳到内容</a>
+<nav class="site-nav" aria-label="主导航"><div class="container nav-inner">
+<a class="nav-logo" href="index.html" aria-label="计划李 首页">计划李<span aria-hidden="true">▪</span></a>
+<button class="nav-toggle" aria-controls="site-menu" aria-expanded="false" aria-label="打开菜单" hidden>菜单 <span aria-hidden="true">＋</span></button>
+<ul class="nav-links" id="site-menu"><li><a href="index.html" class="nav-link">首页</a></li><li><a href="blog.html" class="nav-link" aria-current=page>文章</a></li><li><a href="visual-design.html" class="nav-link">认知武器</a></li><li><a href="coffee.html" class="nav-link">咖啡角</a></li><li><a href="travel.html" class="nav-link">看世界</a></li><li><a href="gallery.html" class="nav-link">回忆录</a></li><li><a href="about.html" class="nav-link">关于</a></li></ul></div></nav>
+<main id="main" tabindex="-1">
+<header class="page-header container"><p class="coordinate">01 / 文章档案</p><h1>把想法写下来。</h1><p>职业转型、AI 应用、投资思考，以及日常中的观察。</p></header>
+<section class="container archive-controls" aria-label="文章筛选"><div class="filter-buttons"><button class="category-btn active" data-category="all" aria-pressed="true">全部<span class="count-pill">38</span></button><button class="category-btn" data-category="career" aria-pressed="false">职业发展<span class="count-pill">5</span></button><button class="category-btn" data-category="ai" aria-pressed="false">AI应用<span class="count-pill">8</span></button><button class="category-btn" data-category="investment" aria-pressed="false">投资思考<span class="count-pill">4</span></button><button class="category-btn" data-category="personal" aria-pressed="false">个人成长<span class="count-pill">20</span></button><button class="category-btn" data-category="reading" aria-pressed="false">读书笔记<span class="count-pill">1</span></button></div><div class="search-row"><div class="search-wrapper"><label class="sr-only" for="searchInput">搜索文章标题、摘要与标签</label><input id="searchInput" type="search" placeholder="搜索标题、摘要或标签" autocomplete="off"><button id="searchClear" aria-label="清空搜索" hidden>×</button></div><label class="tag-select">标签<select id="tagFilter"><option value="all">全部标签</option><option value="32岁">32岁</option><option value="AI">AI</option><option value="AI全自动">AI全自动</option><option value="AI写作反思">AI写作反思</option><option value="AI工具">AI工具</option><option value="AI应用">AI应用</option><option value="AI投资">AI投资</option><option value="Claude">Claude</option><option value="Dan Koe">Dan Koe</option><option value="Gemini">Gemini</option><option value="K线">K线</option><option value="Vibe Coding">Vibe Coding</option><option value="一人公司">一人公司</option><option value="三分钟热度">三分钟热度</option><option value="个人成长">个人成长</option><option value="中登">中登</option><option value="交易心理">交易心理</option><option value="产品思维">产品思维</option><option value="人机协作">人机协作</option><option value="人生体验券">人生体验券</option><option value="人生铁律">人生铁律</option><option value="今日头条">今日头条</option><option value="体制内">体制内</option><option value="全职炒股">全职炒股</option><option value="养殖场">养殖场</option><option value="内容创作">内容创作</option><option value="决策系统">决策系统</option><option value="创造力">创造力</option><option value="原生家庭">原生家庭</option><option value="去神话">去神话</option><option value="商业寓言">商业寓言</option><option value="商业认知">商业认知</option><option value="家族生意">家族生意</option><option value="封号">封号</option><option value="小红书">小红书</option><option value="情绪管理">情绪管理</option><option value="投资思考">投资思考</option><option value="斯多葛">斯多葛</option><option value="流量变现">流量变现</option><option value="瓶颈链式传导">瓶颈链式传导</option><option value="生活体感">生活体感</option><option value="生活结构感">生活结构感</option><option value="真实写作">真实写作</option><option value="真实连接">真实连接</option><option value="硬件产业链">硬件产业链</option><option value="精神带宽">精神带宽</option><option value="纳瓦尔">纳瓦尔</option><option value="美股投资">美股投资</option><option value="老魏的后厨">老魏的后厨</option><option value="职业发展">职业发展</option><option value="自媒体">自媒体</option><option value="自我管理">自我管理</option><option value="自我觉察">自我觉察</option><option value="自由职业">自由职业</option><option value="认知升级">认知升级</option><option value="身份认同">身份认同</option><option value="身份重建">身份重建</option><option value="辞职">辞职</option><option value="逃跑模式">逃跑模式</option><option value="逃避模式">逃避模式</option></select></label></div><p id="searchCount" role="status" aria-live="polite">共 38 篇文章</p></section>
+<section class="container section archive-results" aria-label="文章列表"><div class="blog-grid" id="blogGrid"><article class="blog-card" data-category="personal" data-tags="32岁,自由职业,身份重建,中登,个人成长">
+<div class="story-meta"><span class="card-tag">个人成长</span><time datetime="2026-10-02">2026-10-02</time></div>
+<h2 class="blog-card-title"><a href="turning-32-mid-tier-reboot.html">正式成为一名「中登」：32岁这一天，我重新盘了盘手里的牌</a></h2>
+<p class="blog-card-excerpt">32岁生日当天，我正式跨入「中登」行列。没有三十而立的豪言壮语，只有手头尚未盈利的股票账户、熟睡的女儿和不再浮躁的日常。</p>
+<div class="story-foot"><span>9 分钟阅读</span><a href="turning-32-mid-tier-reboot.html" aria-label="阅读全文：正式成为一名「中登」：32岁这一天，我重新盘了盘手里的牌">阅读全文 <span aria-hidden="true">↗</span></a></div></article><article class="blog-card" data-category="career" data-tags="辞职,体制内,身份认同,自由职业">
+<div class="story-meta"><span class="card-tag">职业发展</span><time datetime="2026-09-28">2026-09-28</time></div>
+<h2 class="blog-card-title"><a href="borrowed-uniform.html">脱掉那件借来的校服：辞职后，我花了一年多学穿自己的衣服</a></h2>
+<p class="blog-card-excerpt">编制就像学校发的校服，遮盖了所有差异，也免去了思考。脱下校服后，面对空荡荡的衣柜，我才开始真正寻找「我是谁」。</p>
+<div class="story-foot"><span>8 分钟阅读</span><a href="borrowed-uniform.html" aria-label="阅读全文：脱掉那件借来的校服：辞职后，我花了一年多学穿自己的衣服">阅读全文 <span aria-hidden="true">↗</span></a></div></article><article class="blog-card" data-category="personal" data-tags="产品思维,Vibe Coding,创造力,逃避模式">
+<div class="story-meta"><span class="card-tag">个人成长</span><time datetime="2026-09-15">2026-09-15</time></div>
+<h2 class="blog-card-title"><a href="why-prenatal-app-succeeded.html">为什么我做胎教程序能做完，其他十个商业项目全停了？</a></h2>
+<p class="blog-card-excerpt">辞职一年多做了十件事，真正做完的只有一个给老婆孩子听故事的小网页。为什么面对爱的人能毫无阻碍地交付，面对商业市场却屡屡死在半路？</p>
+<div class="story-foot"><span>9 分钟阅读</span><a href="why-prenatal-app-succeeded.html" aria-label="阅读全文：为什么我做胎教程序能做完，其他十个商业项目全停了？">阅读全文 <span aria-hidden="true">↗</span></a></div></article><article class="blog-card" data-category="investment" data-tags="AI投资,老魏的后厨,商业寓言,瓶颈链式传导,硬件产业链">
+<div class="story-meta"><span class="card-tag">投资思考</span><time datetime="2026-08-30">2026-08-30</time></div>
+<h2 class="blog-card-title"><a href="fable-mr-wei-kitchen.html">老魏的后厨：用一个饭馆跳闸的故事，讲透这轮 AI 投资浪潮</a></h2>
+<p class="blog-card-excerpt">灶台换了配菜崩，配菜大了冷库崩，冷库建了电网崩，电网通了厨房热死换液冷。用三十年老饭馆的扩张悲喜剧，看懂技术产业链的瓶颈传导。</p>
+<div class="story-foot"><span>10 分钟阅读</span><a href="fable-mr-wei-kitchen.html" aria-label="阅读全文：老魏的后厨：用一个饭馆跳闸的故事，讲透这轮 AI 投资浪潮">阅读全文 <span aria-hidden="true">↗</span></a></div></article><article class="blog-card" data-category="investment" data-tags="美股投资,K线,交易心理,认知升级">
+<div class="story-meta"><span class="card-tag">投资思考</span><time datetime="2026-08-25">2026-08-25</time></div>
+<h2 class="blog-card-title"><a href="from-contempt-to-kline.html">从鄙视技术面到敬畏 K 线：一个前部委青年的炒股心理学</a></h2>
+<p class="blog-card-excerpt">曾经我以看技术面为耻，觉得那是散户的自欺欺人。直到真金白银跌出教训，我才看懂：K线的本质不是玄学指标，而是站在山头上的人。</p>
+<div class="story-foot"><span>9 分钟阅读</span><a href="from-contempt-to-kline.html" aria-label="阅读全文：从鄙视技术面到敬畏 K 线：一个前部委青年的炒股心理学">阅读全文 <span aria-hidden="true">↗</span></a></div></article><article class="blog-card" data-category="investment" data-tags="人生体验券,全职炒股,投资思考,交易心理,生活结构感">
+<div class="story-meta"><span class="card-tag">投资思考</span><time datetime="2026-08-22">2026-08-22</time></div>
+<h2 class="blog-card-title"><a href="experience-ticket-6-stock-operator-mental-lab.html">6号体验券：全职炒股两个月，我终于找到了生活的「上班感」</a></h2>
+<p class="blog-card-excerpt">从鄙视技术面到敬畏人性，从盲目跟风追高到建立交易防线。在账户仍然亏损的两个月里，全职投资竟然治愈了我辞职以来的失重与虚无，让我给自己的生活状态打了 8 分。记录一次由内而外的认知重构。</p>
+<div class="story-foot"><span>11 分钟阅读</span><a href="experience-ticket-6-stock-operator-mental-lab.html" aria-label="阅读全文：6号体验券：全职炒股两个月，我终于找到了生活的「上班感」">阅读全文 <span aria-hidden="true">↗</span></a></div></article><article class="blog-card" data-category="personal" data-tags="逃跑模式,三分钟热度,自我觉察,纳瓦尔">
+<div class="story-meta"><span class="card-tag">个人成长</span><time datetime="2026-07-15">2026-07-15</time></div>
+<h2 class="blog-card-title"><a href="escape-mode-and-shiny-objects.html">我脑子里住着的「逃跑模式」：写给经常三分钟热度的自己</a></h2>
+<p class="blog-card-excerpt">每次遇到不确定，我就本能地想换个更安全的方向：换工具、换平台、学新东西。拆穿遮羞布后，我发现那不是好奇心，是对失败的恐惧。</p>
+<div class="story-foot"><span>9 分钟阅读</span><a href="escape-mode-and-shiny-objects.html" aria-label="阅读全文：我脑子里住着的「逃跑模式」：写给经常三分钟热度的自己">阅读全文 <span aria-hidden="true">↗</span></a></div></article><article class="blog-card" data-category="personal" data-tags="情绪管理,斯多葛,精神带宽,生活体感">
+<div class="story-meta"><span class="card-tag">个人成长</span><time datetime="2026-06-25">2026-06-25</time></div>
+<h2 class="blog-card-title"><a href="parking-lot-three-minutes.html">在停车场生了三分钟闷气后，我算了一笔精神带宽的账</a></h2>
+<p class="blog-card-excerpt">一辆横在入口的车让我坐在车里闷气了三分钟。后来我问了自己一个问题：我到底在气什么？用今天的注意力，去支付一笔零回报的账单究竟值不值？</p>
+<div class="story-foot"><span>7 分钟阅读</span><a href="parking-lot-three-minutes.html" aria-label="阅读全文：在停车场生了三分钟闷气后，我算了一笔精神带宽的账">阅读全文 <span aria-hidden="true">↗</span></a></div></article><article class="blog-card" data-category="career" data-tags="人生体验券,家族生意,养殖场,商业认知,职业发展">
+<div class="story-meta"><span class="card-tag">职业发展</span><time datetime="2026-06-20">2026-06-20</time></div>
+<h2 class="blog-card-title"><a href="experience-ticket-5-family-farm-and-reality-check.html">5号体验券：回内蒙古卖牛羊肉？一次家族资源的现实拷打</a></h2>
+<p class="blog-card-excerpt">家里有宴会酒店、有养殖场、有肥沃土地。本想借高端牛羊肉礼盒切入实体电商、撬动家族话语权，却在严苛的实地调查与供应链重力面前被狠狠上了一课。记录一次清醒的商业撤退。</p>
+<div class="story-foot"><span>10 分钟阅读</span><a href="experience-ticket-5-family-farm-and-reality-check.html" aria-label="阅读全文：5号体验券：回内蒙古卖牛羊肉？一次家族资源的现实拷打">阅读全文 <span aria-hidden="true">↗</span></a></div></article><article class="blog-card" data-category="personal" data-tags="人生铁律,决策系统,纳瓦尔,自我管理">
+<div class="story-meta"><span class="card-tag">个人成长</span><time datetime="2026-06-05">2026-06-05</time></div>
+<h2 class="blog-card-title"><a href="five-iron-rules-naval.html">建资产还是逃焦虑？我和 Naval 聊完后定下的五条人生铁律</a></h2>
+<p class="blog-card-excerpt">红灯等24小时、先做成1次再做1万次、AI是手臂不是大脑、不知道写什么时写过程、盘前盘后不交易。五条用踩坑与真金白银换来的底线。</p>
+<div class="story-foot"><span>10 分钟阅读</span><a href="five-iron-rules-naval.html" aria-label="阅读全文：建资产还是逃焦虑？我和 Naval 聊完后定下的五条人生铁律">阅读全文 <span aria-hidden="true">↗</span></a></div></article><article class="blog-card" data-category="personal" data-tags="人生体验券,真实写作,原生家庭,个人成长">
+<div class="story-meta"><span class="card-tag">个人成长</span><time datetime="2026-05-30">2026-05-30</time></div>
+<h2 class="blog-card-title"><a href="experience-ticket-4-thirty-days-of-honest-writing.html">4号体验券：30天真实写作，写那些我最不敢面对的狼狈</a></h2>
+<p class="blog-card-excerpt">停止搬运别人的思想，放下全自动流水线的虚妄。用30天时间专挑最难受、最狼狈的真实经历开刀。当文字剥离掉所有包装，我才第一次体会到人与人之间真实的连接。</p>
+<div class="story-foot"><span>11 分钟阅读</span><a href="experience-ticket-4-thirty-days-of-honest-writing.html" aria-label="阅读全文：4号体验券：30天真实写作，写那些我最不敢面对的狼狈">阅读全文 <span aria-hidden="true">↗</span></a></div></article><article class="blog-card" data-category="ai" data-tags="AI工具,Claude,Gemini,人机协作,去神话">
+<div class="story-meta"><span class="card-tag">AI应用</span><time datetime="2026-05-20">2026-05-20</time></div>
+<h2 class="blog-card-title"><a href="ai-tools-without-illusions.html">账号被封之后：我退订了所有幻想，才真正看懂 AI 这把工具</a></h2>
+<p class="blog-card-excerpt">封号、限流、全自动流水线翻车。从沉迷“AI替我躺赚”的白日梦，到认清“AI是手臂，人是大脑”。没有人类的真实审美与体感，AI产出的不过是一堆垃圾。</p>
+<div class="story-foot"><span>9 分钟阅读</span><a href="ai-tools-without-illusions.html" aria-label="阅读全文：账号被封之后：我退订了所有幻想，才真正看懂 AI 这把工具">阅读全文 <span aria-hidden="true">↗</span></a></div></article><article class="blog-card" data-category="personal" data-tags="内容创作,真实连接,小红书,AI写作反思">
+<div class="story-meta"><span class="card-tag">个人成长</span><time datetime="2026-05-08">2026-05-08</time></div>
+<h2 class="blog-card-title"><a href="seventy-posts-dead-silence.html">我发了 70 篇帖子，评论区安静得像一潭死水</a></h2>
+<p class="blog-card-excerpt">点赞不少，收藏挺多，但没有一个人跟我说话。就像办了一场派对，桌上东西被吃光了，客人们拿完就走。机器生成的正确废话，永远换不来真实的共鸣。</p>
+<div class="story-foot"><span>8 分钟阅读</span><a href="seventy-posts-dead-silence.html" aria-label="阅读全文：我发了 70 篇帖子，评论区安静得像一潭死水">阅读全文 <span aria-hidden="true">↗</span></a></div></article><article class="blog-card" data-category="ai" data-tags="人生体验券,今日头条,AI全自动,流量变现,AI应用">
+<div class="story-meta"><span class="card-tag">AI应用</span><time datetime="2026-05-02">2026-05-02</time></div>
+<h2 class="blog-card-title"><a href="experience-ticket-3-toutiao-automation-daydream.html">3号体验券：用 AI 搞头条全自动流量，一场看似精密的虚无实验</a></h2>
+<p class="blog-card-excerpt">试图用AI批量生产「历史冷知识+职场痛点」，靠今日头条算法推荐赚取被动收入。从雄心勃勃的自动化流水线，到几毛钱收益与深深的灵魂虚无，记录一次清醒的止步。</p>
+<div class="story-foot"><span>10 分钟阅读</span><a href="experience-ticket-3-toutiao-automation-daydream.html" aria-label="阅读全文：3号体验券：用 AI 搞头条全自动流量，一场看似精密的虚无实验">阅读全文 <span aria-hidden="true">↗</span></a></div></article><article class="blog-card" data-category="personal" data-tags="人生体验券,小红书,自媒体,封号,个人成长">
+<div class="story-meta"><span class="card-tag">个人成长</span><time datetime="2026-04-20">2026-04-20</time></div>
+<h2 class="blog-card-title"><a href="experience-ticket-2-from-77-posts-to-banned-account.html">2号体验券：三周发了77篇帖子，账号被封那天我才想明白的事</a></h2>
+<p class="blog-card-excerpt">用AI流水线狂发77篇小红书，1篇爆款拿下近三分之一流量，其余76篇形同虚设。直到账号被平台冻结7天，妻子的一句话把我从虚妄的效率狂热中拉回了现实。</p>
+<div class="story-foot"><span>11 分钟阅读</span><a href="experience-ticket-2-from-77-posts-to-banned-account.html" aria-label="阅读全文：2号体验券：三周发了77篇帖子，账号被封那天我才想明白的事">阅读全文 <span aria-hidden="true">↗</span></a></div></article><article class="blog-card" data-category="personal" data-tags="AI,小红书,一人公司,Dan Koe">
+<div class="story-meta"><span class="card-tag">个人成长</span><time datetime="2026-04-11">2026-04-11</time></div>
+<h2 class="blog-card-title"><a href="experience-ticket-1-two-weeks-of-magic-and-confusion.html">1号体验券：两周的魔法与迷茫</a></h2>
+<p class="blog-card-excerpt">从27个粉丝到51个，从手动发文到15个AI Agent同时工作。两周的「人生体验券」实验，让我发现AI工作流才是真正的核心竞争力——不是一个人干所有人的活，而是一个人指挥一群人干活。</p>
+<div class="story-foot"><span>12 分钟阅读</span><a href="experience-ticket-1-two-weeks-of-magic-and-confusion.html" aria-label="阅读全文：1号体验券：两周的魔法与迷茫">阅读全文 <span aria-hidden="true">↗</span></a></div></article><article class="blog-card" data-category="personal" data-tags="">
+<div class="story-meta"><span class="card-tag">个人成长</span><time datetime="2026-01-03">2026-01-03</time></div>
+<h2 class="blog-card-title"><a href="2025_Year_Report.html">2025：身份的断裂与重建</a></h2>
+<p class="blog-card-excerpt">2025年，我离开了工作近五年的部委。这一年，我经历了身份的断裂、心理的波动、身体的变化，也完成了从体制内到自由职业者的转变。这是一篇写给自己的真诚反思，记录了迷茫、探索、挣扎与成长的全过程。</p>
+<div class="story-foot"><span>15 分钟阅读</span><a href="2025_Year_Report.html" aria-label="阅读全文：2025：身份的断裂与重建">阅读全文 <span aria-hidden="true">↗</span></a></div></article><article class="blog-card" data-category="personal" data-tags="">
+<div class="story-meta"><span class="card-tag">个人成长</span><time datetime="2025-11-24">2025-11-24</time></div>
+<h2 class="blog-card-title"><a href="Product-thinking.html">产品思维 vs 问题思维：为什么我做胎教程序时很快乐,但想做其他项目时总是焦虑?</a></h2>
+<p class="blog-card-excerpt">通过对比开发胎教程序时的快乐状态与后续项目想法时的焦虑,揭示产品思维和问题思维的本质区别...</p>
+<div class="story-foot"><span>8 分钟阅读</span><a href="Product-thinking.html" aria-label="阅读全文：产品思维 vs 问题思维：为什么我做胎教程序时很快乐,但想做其他项目时总是焦虑?">阅读全文 <span aria-hidden="true">↗</span></a></div></article><article class="blog-card" data-category="personal" data-tags="">
+<div class="story-meta"><span class="card-tag">个人成长</span><time datetime="2025-11-23">2025-11-23</time></div>
+<h2 class="blog-card-title"><a href="she-arrived.html">她来了</a></h2>
+<p class="blog-card-excerpt">女儿出生的那一刻，我比妻子更早看到她。三十而立，从一个人到三个人，责任变得具体，成长变得真实。</p>
+<div class="story-foot"><span>8 分钟阅读</span><a href="she-arrived.html" aria-label="阅读全文：她来了">阅读全文 <span aria-hidden="true">↗</span></a></div></article><article class="blog-card" data-category="reading" data-tags="">
+<div class="story-meta"><span class="card-tag">读书笔记</span><time datetime="2025-11-20">2025-11-20</time></div>
+<h2 class="blog-card-title"><a href="the-courage-to-be-disliked-reading-notes.html">《被讨厌的勇气》读书笔记：走出舒适区的勇气从何而来</a></h2>
+<p class="blog-card-excerpt">这本书帮助我理解了课题分离、个人价值与幸福的真谛。分享我在辞职、生活决策中的实践与思考。</p>
+<div class="story-foot"><span>8 分钟阅读</span><a href="the-courage-to-be-disliked-reading-notes.html" aria-label="阅读全文：《被讨厌的勇气》读书笔记：走出舒适区的勇气从何而来">阅读全文 <span aria-hidden="true">↗</span></a></div></article><article class="blog-card" data-category="personal" data-tags="">
+<div class="story-meta"><span class="card-tag">个人成长</span><time datetime="2025-11-20">2025-11-20</time></div>
+<h2 class="blog-card-title"><a href="name-explain.html">李小满小朋友起名记录</a></h2>
+<p class="blog-card-excerpt">为女儿取名记录，「李安澄」，取《大学》之「安」与《楚辞》之「澄」，寓意心安而神澄。</p>
+<div class="story-foot"><span>3 分钟阅读</span><a href="name-explain.html" aria-label="阅读全文：李小满小朋友起名记录">阅读全文 <span aria-hidden="true">↗</span></a></div></article><article class="blog-card" data-category="personal" data-tags="">
+<div class="story-meta"><span class="card-tag">个人成长</span><time datetime="2025-11-17">2025-11-17</time></div>
+<h2 class="blog-card-title"><a href="npc-principle.html">NPC原则：如何建立强大的内心</a></h2>
+<p class="blog-card-excerpt">在日常生活中，我摸索出了一个提升自信的思维框架：NPC原则。把自己当作人生的主角，把他人看作游戏中的NPC...</p>
+<div class="story-foot"><span>6 分钟阅读</span><a href="npc-principle.html" aria-label="阅读全文：NPC原则：如何建立强大的内心">阅读全文 <span aria-hidden="true">↗</span></a></div></article><article class="blog-card" data-category="personal" data-tags="">
+<div class="story-meta"><span class="card-tag">个人成长</span><time datetime="2025-11-17">2025-11-17</time></div>
+<h2 class="blog-card-title"><a href="overcoming-instincts.html">对抗本能：成功者的逆向思维</a></h2>
+<p class="blog-card-excerpt">阅读《认知觉醒》时，我理解了成功者为什么能对抗本能。从学习编程到坚持运动，我逐渐体会到：与其逃避困难，不如拥抱失败...</p>
+<div class="story-foot"><span>7 分钟阅读</span><a href="overcoming-instincts.html" aria-label="阅读全文：对抗本能：成功者的逆向思维">阅读全文 <span aria-hidden="true">↗</span></a></div></article><article class="blog-card" data-category="personal" data-tags="">
+<div class="story-meta"><span class="card-tag">个人成长</span><time datetime="2025-11-17">2025-11-17</time></div>
+<h2 class="blog-card-title"><a href="minimalism-digital-life.html">极简生活：从微信臃肿到生活精简的思考</a></h2>
+<p class="blog-card-excerpt">在换手机整理微信时，我意识到生活被繁杂的数字内容裹挟。这引发了我对极简主义的思考...</p>
+<div class="story-foot"><span>6 分钟阅读</span><a href="minimalism-digital-life.html" aria-label="阅读全文：极简生活：从微信臃肿到生活精简的思考">阅读全文 <span aria-hidden="true">↗</span></a></div></article><article class="blog-card" data-category="career" data-tags="">
+<div class="story-meta"><span class="card-tag">职业发展</span><time datetime="2025-11-15">2025-11-15</time></div>
+<h2 class="blog-card-title"><a href="resignation-decision-process.html">我是如何下定决心从体制内辞职的</a></h2>
+<p class="blog-card-excerpt">从第一次想辞职到真正递交辞呈，我用了整整两年。这篇文章详细记录了我在部委工作五年的心路历程...</p>
+<div class="story-foot"><span>12 分钟阅读</span><a href="resignation-decision-process.html" aria-label="阅读全文：我是如何下定决心从体制内辞职的">阅读全文 <span aria-hidden="true">↗</span></a></div></article><article class="blog-card" data-category="career" data-tags="">
+<div class="story-meta"><span class="card-tag">职业发展</span><time datetime="2025-11-15">2025-11-15</time></div>
+<h2 class="blog-card-title"><a href="career-transition.html">离开体制内的五年反思</a></h2>
+<p class="blog-card-excerpt">在政府部门工作近五年后正式离职。这五年的经历让我深刻理解了体制内工作的优势与局限...</p>
+<div class="story-foot"><span>5 分钟阅读</span><a href="career-transition.html" aria-label="阅读全文：离开体制内的五年反思">阅读全文 <span aria-hidden="true">↗</span></a></div></article><article class="blog-card" data-category="personal" data-tags="">
+<div class="story-meta"><span class="card-tag">个人成长</span><time datetime="2025-11-14">2025-11-14</time></div>
+<h2 class="blog-card-title"><a href="freelance-first-year.html">辞职近一年，我是如何度过这段等待期的</a></h2>
+<p class="blog-card-excerpt">辞职后的这几个月，我通过骑行减重20磅、自学编程、阅读提升认知，建立了属于自己的生活节奏...</p>
+<div class="story-foot"><span>10 分钟阅读</span><a href="freelance-first-year.html" aria-label="阅读全文：辞职近一年，我是如何度过这段等待期的">阅读全文 <span aria-hidden="true">↗</span></a></div></article><article class="blog-card" data-category="ai" data-tags="">
+<div class="story-meta"><span class="card-tag">AI应用</span><time datetime="2025-11-12">2025-11-12</time></div>
+<h2 class="blog-card-title"><a href="chatgpt-vs-claude-communication.html">ChatGPT与Claude的使用体验对比:简洁vs冗长的沟通风格</a></h2>
+<p class="blog-card-excerpt">实际使用中发现ChatGPT过于礼貌冗长,而Claude更简洁直接。分享如何优化AI助手的沟通风格。</p>
+<div class="story-foot"><span>6 分钟阅读</span><a href="chatgpt-vs-claude-communication.html" aria-label="阅读全文：ChatGPT与Claude的使用体验对比:简洁vs冗长的沟通风格">阅读全文 <span aria-hidden="true">↗</span></a></div></article><article class="blog-card" data-category="ai" data-tags="">
+<div class="story-meta"><span class="card-tag">AI应用</span><time datetime="2025-11-10">2025-11-10</time></div>
+<h2 class="blog-card-title"><a href="vision-pro-office-experience.html">Vision Pro办公实战:从硬件惊艳到软件妥协</a></h2>
+<p class="blog-card-excerpt">租用Vision Pro一个月的真实体验。硬件完美但软件生态不足,虚拟键盘显示等问题待解决。</p>
+<div class="story-foot"><span>8 分钟阅读</span><a href="vision-pro-office-experience.html" aria-label="阅读全文：Vision Pro办公实战:从硬件惊艳到软件妥协">阅读全文 <span aria-hidden="true">↗</span></a></div></article><article class="blog-card" data-category="personal" data-tags="">
+<div class="story-meta"><span class="card-tag">个人成长</span><time datetime="2025-11-08">2025-11-08</time></div>
+<h2 class="blog-card-title"><a href="cycling-weight-loss-journey.html">骑行减重：20磅的改变之旅</a></h2>
+<p class="blog-card-excerpt">通过坚持骑行，我在几个月内减重近20磅。这不仅是身体的改变，更是意志力和习惯养成的过程。</p>
+<div class="story-foot"><span>5 分钟阅读</span><a href="cycling-weight-loss-journey.html" aria-label="阅读全文：骑行减重：20磅的改变之旅">阅读全文 <span aria-hidden="true">↗</span></a></div></article><article class="blog-card" data-category="ai" data-tags="">
+<div class="story-meta"><span class="card-tag">AI应用</span><time datetime="2025-11-05">2025-11-05</time></div>
+<h2 class="blog-card-title"><a href="claude-skills-deep-dive.html">Claude Skills深度体验:如何让AI更懂你的工作</a></h2>
+<p class="blog-card-excerpt">探索Claude Skills功能,将专业知识打包成可复用的技能包,提升AI协作效率。</p>
+<div class="story-foot"><span>7 分钟阅读</span><a href="claude-skills-deep-dive.html" aria-label="阅读全文：Claude Skills深度体验:如何让AI更懂你的工作">阅读全文 <span aria-hidden="true">↗</span></a></div></article><article class="blog-card" data-category="ai" data-tags="">
+<div class="story-meta"><span class="card-tag">AI应用</span><time datetime="2025-11-05">2025-11-05</time></div>
+<h2 class="blog-card-title"><a href="ai-subscriptions-review.html">多个AI订阅的实用价值评估</a></h2>
+<p class="blog-card-excerpt">同时订阅Claude、ChatGPT、Gemini、Perplexity是否必要？经过几个月的使用，我总结了各个平台的优势场景...</p>
+<div class="story-foot"><span>7 分钟阅读</span><a href="ai-subscriptions-review.html" aria-label="阅读全文：多个AI订阅的实用价值评估">阅读全文 <span aria-hidden="true">↗</span></a></div></article><article class="blog-card" data-category="personal" data-tags="">
+<div class="story-meta"><span class="card-tag">个人成长</span><time datetime="2025-11-01">2025-11-01</time></div>
+<h2 class="blog-card-title"><a href="knowledge-management-evolution.html">从Notion到Flomo：我的知识管理演进</a></h2>
+<p class="blog-card-excerpt">曾经沉迷于复杂的Notion系统，最终发现简单的Flomo更适合日常记录。工具不在于功能强大，而在于是否真正使用。</p>
+<div class="story-foot"><span>6 分钟阅读</span><a href="knowledge-management-evolution.html" aria-label="阅读全文：从Notion到Flomo：我的知识管理演进">阅读全文 <span aria-hidden="true">↗</span></a></div></article><article class="blog-card" data-category="ai" data-tags="">
+<div class="story-meta"><span class="card-tag">AI应用</span><time datetime="2025-10-28">2025-10-28</time></div>
+<h2 class="blog-card-title"><a href="breaking-decision-paralysis-with-ai.html">从决策瘫痪到行动:AI工具如何帮我突破思维困局</a></h2>
+<p class="blog-card-excerpt">拥有多个方向和想法,却难以开始行动?分享用AI工具快速原型化想法,打破行动障碍。</p>
+<div class="story-foot"><span>5 分钟阅读</span><a href="breaking-decision-paralysis-with-ai.html" aria-label="阅读全文：从决策瘫痪到行动:AI工具如何帮我突破思维困局">阅读全文 <span aria-hidden="true">↗</span></a></div></article><article class="blog-card" data-category="career" data-tags="">
+<div class="story-meta"><span class="card-tag">职业发展</span><time datetime="2025-10-15">2025-10-15</time></div>
+<h2 class="blog-card-title"><a href="gcdf-certification-guide.html">GCDF认证：职业规划师的必备技能</a></h2>
+<p class="blog-card-excerpt">获得GCDF证书后，我为6-7位前同事提供了职业转型咨询。这段经历让我理解了专业职业规划的价值和方法论。</p>
+<div class="story-foot"><span>10 分钟阅读</span><a href="gcdf-certification-guide.html" aria-label="阅读全文：GCDF认证：职业规划师的必备技能">阅读全文 <span aria-hidden="true">↗</span></a></div></article><article class="blog-card" data-category="personal" data-tags="">
+<div class="story-meta"><span class="card-tag">个人成长</span><time datetime="2025-07-30">2025-07-30</time></div>
+<h2 class="blog-card-title"><a href="living-in-the-moment.html">从&quot;目标驱动&quot;到&quot;活在当下&quot;：我的思维转变</a></h2>
+<p class="blog-card-excerpt">过去我总是在设定目标、追求结果，但这种方式让我越来越焦虑。直到我开始尝试&quot;活在当下&quot;...</p>
+<div class="story-foot"><span>8 分钟阅读</span><a href="living-in-the-moment.html" aria-label="阅读全文：从&quot;目标驱动&quot;到&quot;活在当下&quot;：我的思维转变">阅读全文 <span aria-hidden="true">↗</span></a></div></article><article class="blog-card" data-category="ai" data-tags="">
+<div class="story-meta"><span class="card-tag">AI应用</span><time datetime="2025-02-20">2025-02-20</time></div>
+<h2 class="blog-card-title"><a href="ai-career-tools.html">AI驱动的职业规划工具开发实践</a></h2>
+<p class="blog-card-excerpt">作为GCDF持证者，我尝试将Claude、ChatGPT等AI工具整合到职业咨询流程中。从简历优化到面试准备...</p>
+<div class="story-foot"><span>10 分钟阅读</span><a href="ai-career-tools.html" aria-label="阅读全文：AI驱动的职业规划工具开发实践">阅读全文 <span aria-hidden="true">↗</span></a></div></article><article class="blog-card" data-category="investment" data-tags="">
+<div class="story-meta"><span class="card-tag">投资思考</span><time datetime="2025-01-10">2025-01-10</time></div>
+<h2 class="blog-card-title"><a href="tech-stock-analysis.html">科技股投资：从P/E比率到基本面分析</a></h2>
+<p class="blog-card-excerpt">投资IREN、CIFR、腾讯、小米等科技股的过程中，我逐渐理解了财务指标背后的商业逻辑...</p>
+<div class="story-foot"><span>12 分钟阅读</span><a href="tech-stock-analysis.html" aria-label="阅读全文：科技股投资：从P/E比率到基本面分析">阅读全文 <span aria-hidden="true">↗</span></a></div></article></div><div class="search-empty" id="searchEmpty" hidden><p class="coordinate">没有匹配结果</p><h2>换个词，再找找。</h2><p>试试其他关键词，或清除当前的分类和标签。</p><button class="btn btn--primary" id="resetFilters">重置所有筛选条件 ↗</button></div></section>
 
-    <!-- 导航栏 -->
-    <nav class="nav">
-        <div class="container">
-            <div class="nav-content">
-                <a href="index.html" class="logo">计划李</a>
-                <ul class="nav-links">
-                    <li><a href="index.html">首页</a></li>
-                    <li><a href="blog.html" class="active">文章</a></li>
-                    <li><a href="visual-design.html">认知武器</a></li>
-                    <li><a href="coffee.html">咖啡角</a></li>
-                    <li><a href="travel.html">看世界</a></li>
-                    <li><a href="gallery.html">回忆录</a></li>
-                    <li><a href="about.html">关于</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-    <!-- 页面标题 -->
-    <section class="py-12 md:py-16">
-        <div class="max-w-7xl mx-auto px-4 md:px-8">
-            <div class="reveal">
-                <span class="font-mono text-brand-accent text-xs md:text-sm tracking-widest uppercase font-bold mb-4 block">
-                    <span class="text-brand-accent">●</span> BLOG ARCHIVE <span class="text-brand-accent">●</span>
-                </span>
-                <h1 class="text-4xl md:text-6xl font-black mb-6 display-text">所有文章</h1>
-                <p class="font-serif text-lg md:text-xl text-gray-600 max-w-2xl">
-                    探索职业发展、AI应用、投资思考与个人成长的深度思考
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <!-- 筛选区域 -->
-    <section class="pb-8">
-        <div class="max-w-7xl mx-auto px-4 md:px-8">
-            <!-- 分类筛选 -->
-            <div class="mb-6 reveal">
-                <h3 class="font-mono text-xs uppercase tracking-widest mb-3 font-bold">分类筛选</h3>
-                <div class="flex flex-wrap gap-3">
-                    <button class="category-btn active" data-category="all">全部</button>
-                    <button class="category-btn" data-category="career">职业发展</button>
-                    <button class="category-btn" data-category="ai">AI应用</button>
-                    <button class="category-btn" data-category="investment">投资思考</button>
-                    <button class="category-btn" data-category="personal">个人成长</button>
-                    <button class="category-btn" data-category="reading">读书笔记</button>
-                </div>
-            </div>
-
-            <!-- 搜索框 -->
-            <div class="reveal">
-                <h3 class="font-mono text-xs uppercase tracking-widest mb-3 font-bold">搜索文章</h3>
-                <div class="relative max-w-xl">
-                    <input
-                        type="text"
-                        id="searchInput"
-                        placeholder="输入关键词搜索..."
-                        class="w-full px-4 py-3 border-2 border-brand-black font-sans focus:outline-none focus:border-brand-accent transition-colors"
-                    >
-                    <i class="ri-search-line absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 文章列表 -->
-    <section class="pb-16">
-        <div class="max-w-7xl mx-auto px-4 md:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="blogGrid">
-
-                <article class="bento-card p-6 blog-card reveal" data-category="personal" data-tags="AI,小红书,一人公司,Dan Koe">
-                    <div class="mb-3">
-                        <span class="tag tag--personal">个人成长</span>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3 leading-tight">
-                        1号体验券：两周的魔法与迷茫
-                    </h3>
-                    <p class="text-sm text-gray-600 mb-4 font-serif line-clamp-3">
-                        从27个粉丝到51个，从手动发文到15个AI Agent同时工作。两周的「人生体验券」实验，让我发现AI工作流才是真正的核心竞争力——不是一个人干所有人的活，而是一个人指挥一群人干活。
-                    </p>
-                    <div class="flex justify-between items-center">
-                        <div class="text-xs text-gray-500 font-mono">2026-04-11 · 12分钟</div>
-                        <a href="experience-ticket-1-two-weeks-of-magic-and-confusion.html" class="font-mono font-bold text-xs hover:text-brand-accent transition-colors">
-                            阅读 →
-                        </a>
-                    </div>
-                </article>
-
-                <article class="bento-card p-6 blog-card reveal" data-category="personal" data-tags="">
-                    <div class="mb-3">
-                        <span class="tag tag--personal">个人成长</span>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3 leading-tight">
-                        2025：身份的断裂与重建
-                    </h3>
-                    <p class="text-sm text-gray-600 mb-4 font-serif line-clamp-3">
-                        2025年，我离开了工作近五年的部委。这一年，我经历了身份的断裂、心理的波动、身体的变化，也完成了从体制内到自由职业者的转变。这是一篇写给自己的真诚反思，记录了迷茫、探索、挣扎与成长的全过程。
-                    </p>
-                    <div class="flex justify-between items-center">
-                        <div class="text-xs text-gray-500 font-mono">2026-01-03 · 15分钟</div>
-                        <a href="2025_Year_Report.html" class="font-mono font-bold text-xs hover:text-brand-accent transition-colors">
-                            阅读 →
-                        </a>
-                    </div>
-                </article>
-
-                <article class="bento-card p-6 blog-card reveal" data-category="personal" data-tags="">
-                    <div class="mb-3">
-                        <span class="tag tag--personal">个人成长</span>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3 leading-tight">
-                        产品思维 vs 问题思维：为什么我做胎教程序时很快乐,但想做其他项目时总是焦虑?
-                    </h3>
-                    <p class="text-sm text-gray-600 mb-4 font-serif line-clamp-3">
-                        通过对比开发胎教程序时的快乐状态与后续项目想法时的焦虑,揭示产品思维和问题思维的本质区别...
-                    </p>
-                    <div class="flex justify-between items-center">
-                        <div class="text-xs text-gray-500 font-mono">2025-11-24 · 8分钟</div>
-                        <a href="Product-thinking.html" class="font-mono font-bold text-xs hover:text-brand-accent transition-colors">
-                            阅读 →
-                        </a>
-                    </div>
-                </article>
-
-                <article class="bento-card p-6 blog-card reveal" data-category="personal" data-tags="">
-                    <div class="mb-3">
-                        <span class="tag tag--personal">个人成长</span>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3 leading-tight">她来了</h3>
-                    <p class="text-sm text-gray-600 mb-4 font-serif line-clamp-3">
-                        女儿出生的那一刻，我比妻子更早看到她。三十而立，从一个人到三个人，责任变得具体，成长变得真实。
-                    </p>
-                    <div class="flex justify-between items-center">
-                        <div class="text-xs text-gray-500 font-mono">2025-11-23 · 8分钟</div>
-                        <a href="she-arrived.html" class="font-mono font-bold text-xs hover:text-brand-accent transition-colors">
-                            阅读 →
-                        </a>
-                    </div>
-                </article>
-
-                <article class="bento-card p-6 blog-card reveal" data-category="reading" data-tags="">
-                    <div class="mb-3">
-                        <span class="tag tag--reading">读书笔记</span>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3 leading-tight">
-                        《被讨厌的勇气》读书笔记：走出舒适区的勇气从何而来
-                    </h3>
-                    <p class="text-sm text-gray-600 mb-4 font-serif line-clamp-3">
-                        这本书帮助我理解了课题分离、个人价值与幸福的真谛。分享我在辞职、生活决策中的实践与思考。
-                    </p>
-                    <div class="flex justify-between items-center">
-                        <div class="text-xs text-gray-500 font-mono">2025-11-20 · 8分钟</div>
-                        <a href="the-courage-to-be-disliked-reading-notes.html" class="font-mono font-bold text-xs hover:text-brand-accent transition-colors">
-                            阅读 →
-                        </a>
-                    </div>
-                </article>
-
-                <article class="bento-card p-6 blog-card reveal" data-category="personal" data-tags="">
-                    <div class="mb-3">
-                        <span class="tag tag--personal">个人成长</span>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3 leading-tight">李小满小朋友起名记录</h3>
-                    <p class="text-sm text-gray-600 mb-4 font-serif line-clamp-3">
-                        为女儿取名记录，「李安澄」，取《大学》之「安」与《楚辞》之「澄」，寓意心安而神澄。
-                    </p>
-                    <div class="flex justify-between items-center">
-                        <div class="text-xs text-gray-500 font-mono">2025-11-20 · 3分钟</div>
-                        <a href="name-explain.html" class="font-mono font-bold text-xs hover:text-brand-accent transition-colors">
-                            阅读 →
-                        </a>
-                    </div>
-                </article>
-
-                <article class="bento-card p-6 blog-card reveal" data-category="personal" data-tags="">
-                    <div class="mb-3">
-                        <span class="tag tag--personal">个人成长</span>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3 leading-tight">NPC原则：如何建立强大的内心</h3>
-                    <p class="text-sm text-gray-600 mb-4 font-serif line-clamp-3">
-                        在日常生活中，我摸索出了一个提升自信的思维框架：NPC原则。把自己当作人生的主角，把他人看作游戏中的NPC...
-                    </p>
-                    <div class="flex justify-between items-center">
-                        <div class="text-xs text-gray-500 font-mono">2025-11-17 · 6分钟</div>
-                        <a href="npc-principle.html" class="font-mono font-bold text-xs hover:text-brand-accent transition-colors">
-                            阅读 →
-                        </a>
-                    </div>
-                </article>
-
-                <article class="bento-card p-6 blog-card reveal" data-category="personal" data-tags="">
-                    <div class="mb-3">
-                        <span class="tag tag--personal">个人成长</span>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3 leading-tight">对抗本能：成功者的逆向思维</h3>
-                    <p class="text-sm text-gray-600 mb-4 font-serif line-clamp-3">
-                        阅读《认知觉醒》时，我理解了成功者为什么能对抗本能。从学习编程到坚持运动，我逐渐体会到：与其逃避困难，不如拥抱失败...
-                    </p>
-                    <div class="flex justify-between items-center">
-                        <div class="text-xs text-gray-500 font-mono">2025-11-17 · 7分钟</div>
-                        <a href="overcoming-instincts.html" class="font-mono font-bold text-xs hover:text-brand-accent transition-colors">
-                            阅读 →
-                        </a>
-                    </div>
-                </article>
-
-                <article class="bento-card p-6 blog-card reveal" data-category="personal" data-tags="">
-                    <div class="mb-3">
-                        <span class="tag tag--personal">个人成长</span>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3 leading-tight">极简生活：从微信臃肿到生活精简的思考</h3>
-                    <p class="text-sm text-gray-600 mb-4 font-serif line-clamp-3">
-                        在换手机整理微信时，我意识到生活被繁杂的数字内容裹挟。这引发了我对极简主义的思考...
-                    </p>
-                    <div class="flex justify-between items-center">
-                        <div class="text-xs text-gray-500 font-mono">2025-11-17 · 6分钟</div>
-                        <a href="minimalism-digital-life.html" class="font-mono font-bold text-xs hover:text-brand-accent transition-colors">
-                            阅读 →
-                        </a>
-                    </div>
-                </article>
-
-                <article class="bento-card p-6 blog-card reveal" data-category="career" data-tags="">
-                    <div class="mb-3">
-                        <span class="tag tag--career">职业发展</span>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3 leading-tight">我是如何下定决心从体制内辞职的</h3>
-                    <p class="text-sm text-gray-600 mb-4 font-serif line-clamp-3">
-                        从第一次想辞职到真正递交辞呈，我用了整整两年。这篇文章详细记录了我在部委工作五年的心路历程...
-                    </p>
-                    <div class="flex justify-between items-center">
-                        <div class="text-xs text-gray-500 font-mono">2025-11-15 · 12分钟</div>
-                        <a href="resignation-decision-process.html" class="font-mono font-bold text-xs hover:text-brand-accent transition-colors">
-                            阅读 →
-                        </a>
-                    </div>
-                </article>
-
-                <article class="bento-card p-6 blog-card reveal" data-category="career" data-tags="">
-                    <div class="mb-3">
-                        <span class="tag tag--career">职业发展</span>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3 leading-tight">离开体制内的五年反思</h3>
-                    <p class="text-sm text-gray-600 mb-4 font-serif line-clamp-3">
-                        在政府部门工作近五年后正式离职。这五年的经历让我深刻理解了体制内工作的优势与局限...
-                    </p>
-                    <div class="flex justify-between items-center">
-                        <div class="text-xs text-gray-500 font-mono">2025-11-15 · 5分钟</div>
-                        <a href="career-transition.html" class="font-mono font-bold text-xs hover:text-brand-accent transition-colors">
-                            阅读 →
-                        </a>
-                    </div>
-                </article>
-
-                <article class="bento-card p-6 blog-card reveal" data-category="personal" data-tags="">
-                    <div class="mb-3">
-                        <span class="tag tag--personal">个人成长</span>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3 leading-tight">辞职近一年，我是如何度过这段等待期的</h3>
-                    <p class="text-sm text-gray-600 mb-4 font-serif line-clamp-3">
-                        辞职后的这几个月，我通过骑行减重20磅、自学编程、阅读提升认知，建立了属于自己的生活节奏...
-                    </p>
-                    <div class="flex justify-between items-center">
-                        <div class="text-xs text-gray-500 font-mono">2025-11-14 · 10分钟</div>
-                        <a href="freelance-first-year.html" class="font-mono font-bold text-xs hover:text-brand-accent transition-colors">
-                            阅读 →
-                        </a>
-                    </div>
-                </article>
-
-                <article class="bento-card p-6 blog-card reveal" data-category="personal" data-tags="">
-                    <div class="mb-3">
-                        <span class="tag tag--personal">个人成长</span>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3 leading-tight">从"目标驱动"到"活在当下"：我的思维转变</h3>
-                    <p class="text-sm text-gray-600 mb-4 font-serif line-clamp-3">
-                        过去我总是在设定目标、追求结果，但这种方式让我越来越焦虑。直到我开始尝试"活在当下"...
-                    </p>
-                    <div class="flex justify-between items-center">
-                        <div class="text-xs text-gray-500 font-mono">2025-11-13 · 8分钟</div>
-                        <a href="living-in-the-moment.html" class="font-mono font-bold text-xs hover:text-brand-accent transition-colors">
-                            阅读 →
-                        </a>
-                    </div>
-                </article>
-
-                <article class="bento-card p-6 blog-card reveal" data-category="ai" data-tags="">
-                    <div class="mb-3">
-                        <span class="tag" style="background: #0047AB;">AI应用</span>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3 leading-tight">
-                        ChatGPT与Claude的使用体验对比:简洁vs冗长的沟通风格
-                    </h3>
-                    <p class="text-sm text-gray-600 mb-4 font-serif line-clamp-3">
-                        实际使用中发现ChatGPT过于礼貌冗长,而Claude更简洁直接。分享如何优化AI助手的沟通风格。
-                    </p>
-                    <div class="flex justify-between items-center">
-                        <div class="text-xs text-gray-500 font-mono">2025-11-12 · 6分钟</div>
-                        <a href="chatgpt-vs-claude-communication.html" class="font-mono font-bold text-xs hover:text-brand-accent transition-colors">
-                            阅读 →
-                        </a>
-                    </div>
-                </article>
-
-                <article class="bento-card p-6 blog-card reveal" data-category="ai" data-tags="">
-                    <div class="mb-3">
-                        <span class="tag" style="background: #0047AB;">AI应用</span>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3 leading-tight">Vision Pro办公实战:从硬件惊艳到软件妥协</h3>
-                    <p class="text-sm text-gray-600 mb-4 font-serif line-clamp-3">
-                        租用Vision Pro一个月的真实体验。硬件完美但软件生态不足,虚拟键盘显示等问题待解决。
-                    </p>
-                    <div class="flex justify-between items-center">
-                        <div class="text-xs text-gray-500 font-mono">2025-11-10 · 8分钟</div>
-                        <a href="vision-pro-office-experience.html" class="font-mono font-bold text-xs hover:text-brand-accent transition-colors">
-                            阅读 →
-                        </a>
-                    </div>
-                </article>
-
-                <article class="bento-card p-6 blog-card reveal" data-category="personal" data-tags="">
-                    <div class="mb-3">
-                        <span class="tag tag--personal">个人成长</span>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3 leading-tight">骑行减重：20磅的改变之旅</h3>
-                    <p class="text-sm text-gray-600 mb-4 font-serif line-clamp-3">
-                        通过坚持骑行，我在几个月内减重近20磅。这不仅是身体的改变，更是意志力和习惯养成的过程。
-                    </p>
-                    <div class="flex justify-between items-center">
-                        <div class="text-xs text-gray-500 font-mono">2025-11-08 · 5分钟</div>
-                        <a href="cycling-weight-loss-journey.html" class="font-mono font-bold text-xs hover:text-brand-accent transition-colors">
-                            阅读 →
-                        </a>
-                    </div>
-                </article>
-
-                <article class="bento-card p-6 blog-card reveal" data-category="ai" data-tags="">
-                    <div class="mb-3">
-                        <span class="tag" style="background: #0047AB;">AI应用</span>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3 leading-tight">Claude Skills深度体验:如何让AI更懂你的工作</h3>
-                    <p class="text-sm text-gray-600 mb-4 font-serif line-clamp-3">
-                        探索Claude Skills功能,将专业知识打包成可复用的技能包,提升AI协作效率。
-                    </p>
-                    <div class="flex justify-between items-center">
-                        <div class="text-xs text-gray-500 font-mono">2025-11-05 · 7分钟</div>
-                        <a href="claude-skills-deep-dive.html" class="font-mono font-bold text-xs hover:text-brand-accent transition-colors">
-                            阅读 →
-                        </a>
-                    </div>
-                </article>
-
-                <article class="bento-card p-6 blog-card reveal" data-category="ai" data-tags="">
-                    <div class="mb-3">
-                        <span class="tag" style="background: #0047AB;">AI应用</span>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3 leading-tight">多个AI订阅的实用价值评估</h3>
-                    <p class="text-sm text-gray-600 mb-4 font-serif line-clamp-3">
-                        同时订阅Claude、ChatGPT、Gemini、Perplexity是否必要？经过几个月的使用，我总结了各个平台的优势场景...
-                    </p>
-                    <div class="flex justify-between items-center">
-                        <div class="text-xs text-gray-500 font-mono">2025-11-05 · 7分钟</div>
-                        <a href="ai-subscriptions-review.html" class="font-mono font-bold text-xs hover:text-brand-accent transition-colors">
-                            阅读 →
-                        </a>
-                    </div>
-                </article>
-
-                <article class="bento-card p-6 blog-card reveal" data-category="personal" data-tags="">
-                    <div class="mb-3">
-                        <span class="tag tag--personal">个人成长</span>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3 leading-tight">从Notion到Flomo：我的知识管理演进</h3>
-                    <p class="text-sm text-gray-600 mb-4 font-serif line-clamp-3">
-                        曾经沉迷于复杂的Notion系统，最终发现简单的Flomo更适合日常记录。工具不在于功能强大，而在于是否真正使用。
-                    </p>
-                    <div class="flex justify-between items-center">
-                        <div class="text-xs text-gray-500 font-mono">2025-11-01 · 6分钟</div>
-                        <a href="knowledge-management-evolution.html" class="font-mono font-bold text-xs hover:text-brand-accent transition-colors">
-                            阅读 →
-                        </a>
-                    </div>
-                </article>
-
-                <article class="bento-card p-6 blog-card reveal" data-category="ai" data-tags="">
-                    <div class="mb-3">
-                        <span class="tag" style="background: #0047AB;">AI应用</span>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3 leading-tight">从决策瘫痪到行动:AI工具如何帮我突破思维困局</h3>
-                    <p class="text-sm text-gray-600 mb-4 font-serif line-clamp-3">
-                        拥有多个方向和想法,却难以开始行动?分享用AI工具快速原型化想法,打破行动障碍。
-                    </p>
-                    <div class="flex justify-between items-center">
-                        <div class="text-xs text-gray-500 font-mono">2025-10-28 · 5分钟</div>
-                        <a href="breaking-decision-paralysis-with-ai.html" class="font-mono font-bold text-xs hover:text-brand-accent transition-colors">
-                            阅读 →
-                        </a>
-                    </div>
-                </article>
-
-                <article class="bento-card p-6 blog-card reveal" data-category="career" data-tags="">
-                    <div class="mb-3">
-                        <span class="tag tag--career">职业发展</span>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3 leading-tight">GCDF认证：职业规划师的必备技能</h3>
-                    <p class="text-sm text-gray-600 mb-4 font-serif line-clamp-3">
-                        获得GCDF证书后，我为6-7位前同事提供了职业转型咨询。这段经历让我理解了专业职业规划的价值和方法论。
-                    </p>
-                    <div class="flex justify-between items-center">
-                        <div class="text-xs text-gray-500 font-mono">2025-10-15 · 10分钟</div>
-                        <a href="gcdf-certification-guide.html" class="font-mono font-bold text-xs hover:text-brand-accent transition-colors">
-                            阅读 →
-                        </a>
-                    </div>
-                </article>
-
-                <article class="bento-card p-6 blog-card reveal" data-category="ai" data-tags="">
-                    <div class="mb-3">
-                        <span class="tag" style="background: #0047AB;">AI应用</span>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3 leading-tight">AI驱动的职业规划工具开发实践</h3>
-                    <p class="text-sm text-gray-600 mb-4 font-serif line-clamp-3">
-                        作为GCDF持证者，我尝试将Claude、ChatGPT等AI工具整合到职业咨询流程中。从简历优化到面试准备...
-                    </p>
-                    <div class="flex justify-between items-center">
-                        <div class="text-xs text-gray-500 font-mono">2025-02-20</div>
-                        <a href="ai-career-tools.html" class="font-mono font-bold text-xs hover:text-brand-accent transition-colors">
-                            阅读 →
-                        </a>
-                    </div>
-                </article>
-
-                <article class="bento-card p-6 blog-card reveal" data-category="investment" data-tags="">
-                    <div class="mb-3">
-                        <span class="tag" style="background: #059669;">投资思考</span>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3 leading-tight">科技股投资：从P/E比率到基本面分析</h3>
-                    <p class="text-sm text-gray-600 mb-4 font-serif line-clamp-3">
-                        投资IREN、CIFR、腾讯、小米等科技股的过程中，我逐渐理解了财务指标背后的商业逻辑...
-                    </p>
-                    <div class="flex justify-between items-center">
-                        <div class="text-xs text-gray-500 font-mono">2025-01-10 · 12分钟</div>
-                        <a href="tech-stock-analysis.html" class="font-mono font-bold text-xs hover:text-brand-accent transition-colors">
-                            阅读 →
-                        </a>
-                    </div>
-                </article>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- 页脚 -->
-    <footer class="border-t-2 border-brand-black mt-16 py-8">
-        <div class="max-w-7xl mx-auto px-4 md:px-8">
-            <div class="flex flex-col md:flex-row justify-between items-center gap-4">
-                <p class="font-mono text-xs text-gray-500">&copy; 2025 计划李. All rights reserved.</p>
-                <div class="flex gap-6">
-                    <a href="https://www.zhihu.com/people/xia-yu-de-xia-tian-40" target="_blank" class="font-mono text-xs font-bold hover:text-brand-accent transition-colors">知乎</a>
-                    <a href="https://github.com" target="_blank" class="font-mono text-xs font-bold hover:text-brand-accent transition-colors">GitHub</a>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <script>
-        // 滚动显示动画
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.1
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.reveal').forEach(el => {
-            observer.observe(el);
-        });
-
-        // 分类筛选
-        const categoryBtns = document.querySelectorAll('.category-btn');
-        const blogCards = document.querySelectorAll('.blog-card');
-        const searchInput = document.getElementById('searchInput');
-
-        categoryBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                categoryBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-
-                const category = btn.dataset.category;
-
-                blogCards.forEach(card => {
-                    if (category === 'all' || card.dataset.category === category) {
-                        card.classList.remove('hidden');
-                    } else {
-                        card.classList.add('hidden');
-                    }
-                });
-            });
-        });
-
-        // 搜索功能
-        searchInput.addEventListener('input', (e) => {
-            const searchTerm = e.target.value.toLowerCase();
-
-            blogCards.forEach(card => {
-                const title = card.querySelector('h3').textContent.toLowerCase();
-                const excerpt = card.querySelector('p').textContent.toLowerCase();
-
-                if (title.includes(searchTerm) || excerpt.includes(searchTerm)) {
-                    card.classList.remove('hidden');
-                } else {
-                    card.classList.add('hidden');
-                }
-            });
-        });
-    </script>
-
-    <script src="scripts/blog.js"></script>
-</body>
-</html>
+</main>
+<footer class="site-footer"><div class="container footer-inner"><a class="footer-brand" href="index.html">计划李<span aria-hidden="true">▪</span></a><p>持续观察，认真生活。<br><span class="footer-copy">© 2026 Kevin · 计划李</span></p><nav aria-label="页脚"><a href="about.html">关于</a><a href="https://www.zhihu.com/people/xia-yu-de-xia-tian-40" target="_blank" rel="noopener noreferrer">知乎 ↗</a><a href="https://github.com/kev1nl33" target="_blank" rel="noopener noreferrer">GitHub ↗</a></nav></div></footer>
+<button class="back-to-top" aria-label="回到顶部" hidden>↑</button>
+<script src="scripts/main.js?v=335dd96da0" defer></script>
+<script src="scripts/blog.js?v=335dd96da0" defer></script>
+<script src="scripts/motion.js?v=ab6622564641" defer></script>
+</body></html>

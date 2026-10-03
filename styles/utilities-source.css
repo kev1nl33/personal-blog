@@ -1,0 +1,2 @@
+/* Compatibility utilities compiled at build time, never in the reader's browser. */
+@tailwind utilities;

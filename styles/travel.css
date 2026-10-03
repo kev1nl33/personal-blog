@@ -1650,3 +1650,100 @@ a.hotel-card {
     border-bottom-style: solid;
     border-bottom-color: white;
 }
+/* Archived itinerary stays legible on small screens. */
+.travel-page .aircraft-link{display:inline-flex;white-space:normal;overflow-wrap:anywhere;max-width:100%}
+.travel-page .boarding-pass-grid,.travel-page .flight-row,.travel-page .flight-info,.travel-page .flight-detail,.travel-page .stamp-grid>*{min-width:0}
+.travel-page .stamp-card{transform:none;max-width:100%}
+.travel-page .stamp-card:hover{transform:translateY(-2px)}
+.trip-date-label{font-size:13px;color:#eee;margin-bottom:8px}
+.trip-date{font:clamp(24px,4vw,34px)/1.4 var(--font-mono);color:#fff}
+@media(max-width:800px){.travel-page .flight-aircraft{flex-wrap:wrap}.travel-page .boarding-pass-grid{grid-template-columns:1fr}.travel-page .stamp-card{padding:20px}.travel-page .aircraft-link{font-size:11px}}
+.travel-page .departure-flight-info{display:flex;align-items:center;flex-wrap:wrap;gap:8px;white-space:normal}
+.travel-page .departure-card .flex-1{min-width:0}
+.travel-page .departure-card>.flex{flex-wrap:wrap}
+@media(max-width:800px){.travel-page .departure-card .md\:flex-row{flex-direction:column}.travel-page .departure-card .flex-1{width:100%}}
+
+/* Destination-first editorial cover and accessible route. */
+.voyage-cover{min-height:610px;position:relative;isolation:isolate;background:#17243b;color:#f4f4f0;overflow:hidden}
+.voyage-cover-image,.voyage-cover-shade{position:absolute;inset:0;width:100%;height:100%}
+.voyage-cover-image{object-fit:cover;z-index:-2}
+.voyage-cover-shade{z-index:-1;background:linear-gradient(90deg,#0d1c30ed 0%,#0d1c30a8 47%,#0d1c3020 100%),linear-gradient(0deg,#0d1c3055,transparent 45%)}
+.voyage-cover-content{min-height:610px;display:flex;flex-direction:column;align-items:flex-start;padding-top:70px;padding-bottom:32px}
+.voyage-cover-kicker,.voyage-kicker{font:700 12px var(--font-mono);letter-spacing:.13em;color:#d8ad7e}
+.voyage-cover h1{font-size:clamp(64px,8vw,112px);line-height:1.1;letter-spacing:-.075em;margin:42px 0 20px;max-width:850px}
+.voyage-cover h1 em{font-style:normal;color:#f5e8d3}
+.voyage-cover-content>p:not(.voyage-cover-kicker){font:19px/1.85 var(--font-serif);max-width:570px;color:#e5e7e9}
+.voyage-cover-content>a{border-bottom:2px solid #d8ad7e;padding:12px 0;margin-top:22px;min-height:48px;font-weight:700;display:inline-flex;gap:36px;align-items:center}
+.voyage-cover-content>a:hover{color:#ffd2a1}
+.voyage-cover-content small{font:11px var(--font-mono);margin-top:auto;color:#e8e8e8;background:#0d1c30a0;padding:3px 7px}
+.voyage-route-section{padding-top:92px;padding-bottom:72px}
+.voyage-section-intro{display:grid;grid-template-columns:1.25fr 1fr;gap:10px 70px;align-items:end;margin-bottom:44px}
+.voyage-section-intro .voyage-kicker{grid-column:1/-1;color:#8b4c29}
+.voyage-section-intro h2{font-size:clamp(34px,4vw,56px);line-height:1.25;letter-spacing:-.06em;max-width:620px}
+.voyage-section-intro>p:last-child{font:17px/1.85 var(--font-serif);color:#414650;max-width:460px}
+.voyage-route-list{counter-reset:route;display:grid;grid-template-columns:repeat(3,1fr);padding:0;margin:0;list-style:none;border-top:1px solid #1b2a4a;border-bottom:1px solid #1b2a4a}
+.voyage-route-list li+li{border-left:1px solid #1b2a4a}
+.voyage-route-list a{display:flex;flex-direction:column;gap:7px;padding:24px;min-height:310px;position:relative;transition:background .25s ease}
+.voyage-route-list a:hover,.voyage-route-list a:focus-visible{background:#eee8dc}
+.route-index{font:700 12px var(--font-mono);letter-spacing:.12em;color:#915031}
+.voyage-route-list strong{font-size:32px;letter-spacing:-.04em}
+.voyage-route-list a>span:nth-child(3){font:15px var(--font-serif);color:#4a4a4a}
+.voyage-route-list img{display:block;width:100%;height:135px;object-fit:cover;margin-top:auto;filter:saturate(.74)}
+.voyage-route-list a:hover img{filter:saturate(1)}
+.voyage-full-link{display:inline-flex;gap:70px;align-items:center;border-bottom:2px solid #1b2a4a;padding:12px 0;margin-top:26px;font-weight:700}
+.travel-page .voyage-stats-bar{justify-content:flex-start;padding:12px max(32px,calc((100% - 1136px)/2));gap:32px;background:#e8e5de;border-block:1px solid #a9a9a1}
+.travel-page .voyage-stat{display:flex;align-items:center;gap:7px}
+.travel-page .voyage-stat-icon{font-size:14px;opacity:.65}
+.travel-page .voyage-stat-value{font-size:16px}
+.travel-page .voyage-stat-label{font-size:10px;margin:0}
+.travel-page .voyage-stats-bar .voyage-stat+.voyage-stat::before{display:none}
+@media(max-width:800px){.voyage-cover,.voyage-cover-content{min-height:540px}.voyage-cover-content{padding-top:55px}.voyage-cover h1{font-size:clamp(52px,9vw,76px)}.voyage-section-intro{grid-template-columns:1fr;gap:18px}.voyage-section-intro .voyage-kicker{grid-column:auto}.voyage-route-section{padding-top:62px}.voyage-route-list{grid-template-columns:1fr}.voyage-route-list li+li{border-left:0;border-top:1px solid #1b2a4a}.voyage-route-list a{min-height:0;display:grid;grid-template-columns:1fr 110px;grid-template-rows:auto auto auto;gap:3px 15px}.voyage-route-list img{grid-column:2;grid-row:1/4;height:95px;margin:0}.voyage-route-list strong{font-size:27px}.travel-page .voyage-stats-bar{padding:12px 24px}}
+@media(max-width:540px){.voyage-cover,.voyage-cover-content{min-height:560px}.voyage-cover-shade{background:linear-gradient(90deg,#0d1c30e8,#0d1c3055),linear-gradient(0deg,#0d1c30a8,transparent)}.voyage-cover h1{font-size:52px}.voyage-cover-content>p:not(.voyage-cover-kicker){font-size:16px}.voyage-route-section{padding-top:48px;padding-bottom:42px}.voyage-section-intro h2{font-size:32px}.travel-page .voyage-stats-bar{gap:12px 20px;justify-content:flex-start}.travel-page .voyage-stat-label{font-size:9px}}
+
+/* Australia feature retains every itinerary detail while moving logistics after the story. */
+.voyage-detail-cover{position:relative;min-height:530px;background:#17243b;color:#f4f4f0;isolation:isolate;overflow:hidden}
+.voyage-detail-cover>img,.voyage-detail-cover-shade{position:absolute;inset:0;width:100%;height:100%}
+.voyage-detail-cover>img{object-fit:cover;z-index:-2}
+.voyage-detail-cover-shade{z-index:-1;background:linear-gradient(90deg,#102039e8,#10203995 55%,#10203933)}
+.voyage-detail-cover-copy{min-height:530px;display:flex;flex-direction:column;align-items:flex-start;padding-top:28px;padding-bottom:24px}
+.voyage-detail-cover-copy>a:first-child{font-size:13px;min-height:44px;display:inline-flex;align-items:center}
+.voyage-detail-cover-copy .voyage-kicker{margin-top:45px;color:#eed7b5}
+.voyage-detail-cover h1{font-size:clamp(48px,6vw,84px);line-height:1.15;letter-spacing:-.06em;margin:16px 0}
+.voyage-detail-cover-copy>p:not(.voyage-kicker){max-width:610px;font:17px/1.8 var(--font-serif)}
+.voyage-detail-start{margin-top:20px;padding:10px 0;border-bottom:2px solid #d8ad7e;font-weight:700}
+.voyage-detail-cover small{margin-top:auto;font:11px var(--font-mono);color:#eee}
+.route-node[role=link],.accordion-header[role=button]{cursor:pointer}
+.route-node:focus-visible,.accordion-header:focus-visible{outline:3px solid #0047ab;outline-offset:3px}
+.accordion-item{scroll-margin-top:100px}
+@media(max-width:540px){.voyage-detail-cover,.voyage-detail-cover-copy{min-height:520px}.voyage-detail-cover h1{font-size:48px}.voyage-detail-cover-copy .voyage-kicker{margin-top:32px}}
+
+/* Detail pages use the same chapter typography and provenance as the travel feature. */
+.spot-hero{background:#eee9df;padding-top:0;border-bottom:1px solid #1b2a4a}
+.spot-hero-grid{max-width:1200px;gap:56px;padding-block:70px}
+.spot-hero-title{font-size:clamp(42px,5vw,72px);letter-spacing:-.06em;line-height:1.18}
+.spot-hero-tag{background:transparent;color:#855133;border:1px solid #855133;padding:5px 9px}
+.spot-hero-subtitle{font-size:18px;line-height:1.8;max-width:560px}
+.spot-hero-image img{height:430px;box-shadow:8px 8px 0 #1b2a4a}
+.spot-hero-image::after{display:none}
+.detail-source-label{position:absolute;bottom:14px;right:14px;background:#101b2bdc;color:#fff;font:11px var(--font-mono);padding:6px 8px;z-index:3}
+.hotel-hero{position:relative}
+.hotel-hero .detail-source-label{bottom:auto;top:15px;right:15px}
+.hotel-hero-name{font-weight:900;letter-spacing:-.04em}
+.detail-content{max-width:1140px;margin-inline:auto}
+@media(max-width:800px){.spot-hero-grid{gap:25px;padding-block:40px}.spot-hero-image img{height:320px}}
+@media(max-width:540px){.spot-hero-grid{grid-template-columns:1fr;padding-inline:20px}.spot-hero-image img{height:255px}.spot-hero-title{font-size:42px}}
+
+/* Independent itinerary navigation and horizontal route on phones. */
+.route-scroll-hint{display:none}
+@media(max-width:540px){
+  .nav .nav-content{display:block;padding:10px 0}
+  .nav .logo{display:block;white-space:nowrap;margin-bottom:6px}
+  .nav .nav-links{display:flex;flex-wrap:nowrap;gap:18px;overflow-x:auto;padding:0 0 4px;scrollbar-width:none}
+  .nav .nav-links::-webkit-scrollbar{display:none}
+  .nav .nav-links li{flex:none}
+  .nav .nav-links a{white-space:nowrap}
+  .route-scroll-hint{display:block;font:11px var(--font-mono);letter-spacing:.04em;color:#596174;margin:0 0 -12px}
+  .route-map.justify-center{justify-content:flex-start}
+  .route-map{scroll-snap-type:x proximity}
+  .route-node{scroll-snap-align:start}
+}

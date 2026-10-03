@@ -15,7 +15,7 @@
     --brand-accent: #FF4D00;
     --brand-blue: #0047AB;
     --brand-green: #059669;
-    --brand-gray: #8a8a8a;
+    --brand-gray: #4a4a4a;
 
     /* Grid */
     --grid-line: #e5e5e5;
@@ -24,9 +24,9 @@
     /* Spacing */
     --spacing-xs: 0.5rem;
     --spacing-sm: 1rem;
-    --spacing-md: 1.5rem;
-    --spacing-lg: 2rem;
-    --spacing-xl: 3rem;
+    --spacing-md: 2rem;
+    --spacing-lg: 3rem;
+    --spacing-xl: 5rem;
 
     /* Typography */
     --font-sans: 'Noto Sans SC', 'Inter', sans-serif;

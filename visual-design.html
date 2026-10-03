@@ -1,561 +1,173 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>108种认知武器 - 计划李</title>
-
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Noto+Serif+SC:wght@400;700&family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-
-    <!-- RemixIcon -->
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
-
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            black: '#0a0a0a',
-                            white: '#f4f4f0',
-                            accent: '#FF4D00',
-                            blue: '#0047AB',
-                            green: '#059669',
-                            gray: '#8a8a8a'
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['"Noto Sans SC"', 'Inter', 'sans-serif'],
-                        serif: ['"Noto Serif SC"', 'serif'],
-                        mono: ['"JetBrains Mono"', 'monospace'],
-                    }
-                }
-            }
-        }
-    </script>
-
-    <link rel="stylesheet" href="styles/main.css">
-    <link rel="stylesheet" href="styles/neo-brutalism.css">
-    <link rel="stylesheet" href="styles/visual-design.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>108种认知武器 - 计划李</title>
+<meta name="description" content="思维模型、认知工具与个人笔记。">
+<meta name="keywords" content="计划李,职业转型,AI应用,个人成长,咖啡,生活记录">
+<meta name="author" content="计划李">
+<meta property="og:type" content="website">
+<meta property="og:title" content="108种认知武器 - 计划李">
+<meta property="og:description" content="思维模型、认知工具与个人笔记。">
+<meta property="og:url" content="https://kev1nl33.github.io/personal-blog/visual-design.html">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="canonical" href="https://kev1nl33.github.io/personal-blog/visual-design.html">
+<link rel="stylesheet" href="styles/main.css?v=335dd96da0">
+<link rel="stylesheet" href="styles/visual-design.css?v=335dd96da0">
+<link rel="stylesheet" href="styles/motion.css?v=ab6622564641">
 </head>
-<body class="bg-grid min-h-screen">
-    <!-- 导航栏 -->
-    <nav class="nav">
-        <div class="container">
-            <div class="nav-content">
-                <a href="index.html" class="logo">计划李</a>
-                <ul class="nav-links">
-                    <li><a href="index.html">首页</a></li>
-                    <li><a href="blog.html">文章</a></li>
-                    <li><a href="visual-design.html" class="active">认知武器</a></li>
-                    <li><a href="coffee.html">咖啡角</a></li>
-                    <li><a href="travel.html">看世界</a></li>
-                    <li><a href="gallery.html">回忆录</a></li>
-                    <li><a href="about.html">关于</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+<body class="visual-design-page">
+<a class="skip-link" href="#main">跳到内容</a>
+<nav class="site-nav" aria-label="主导航"><div class="container nav-inner">
+<a class="nav-logo" href="index.html" aria-label="计划李 首页">计划李<span aria-hidden="true">▪</span></a>
+<button class="nav-toggle" aria-controls="site-menu" aria-expanded="false" aria-label="打开菜单" hidden>菜单 <span aria-hidden="true">＋</span></button>
+<ul class="nav-links" id="site-menu"><li><a href="index.html" class="nav-link">首页</a></li><li><a href="blog.html" class="nav-link">文章</a></li><li><a href="visual-design.html" class="nav-link" aria-current=page>认知武器</a></li><li><a href="coffee.html" class="nav-link">咖啡角</a></li><li><a href="travel.html" class="nav-link">看世界</a></li><li><a href="gallery.html" class="nav-link">回忆录</a></li><li><a href="about.html" class="nav-link">关于</a></li></ul></div></nav>
+<main id="main" tabindex="-1">
 
-    <!-- 页面头部 -->
-    <section class="visual-design-header">
-        <div class="max-w-7xl mx-auto px-4 md:px-8">
-            <h1 class="page-title">🧠 108种认知武器</h1>
-            <p class="page-subtitle">认知升级工具箱，助你突破思维局限</p>
+<section class="visual-design-header">
+<div class="max-w-7xl mx-auto px-4 md:px-8">
+<h1 class="page-title">🧠 108种认知武器</h1>
+<p class="page-subtitle">认知升级工具箱，助你突破思维局限</p>
+<div class="view-switcher">
+<button class="view-btn" data-view="gallery">
+<i class="ri-gallery-line"></i>
+<span>卡牌画廊</span>
+</button>
+<button class="view-btn active" data-view="scenario">
+<i class="ri-compass-3-line"></i>
+<span>应用场景</span>
+</button>
+<button class="view-btn" data-view="quadrant">
+<i class="ri-grid-line"></i>
+<span>能力象限</span>
+</button>
+<button class="view-btn" data-view="bauhaus">
+<i class="ri-shape-line"></i>
+<span>包豪斯</span>
+</button>
+<button class="view-btn" data-view="journal">
+<i class="ri-book-open-line"></i>
+<span>学术期刊</span>
+</button>
+</div>
+</div>
+</section>
+<section class="gallery-view view-container" id="gallery-view">
+<div class="max-w-7xl mx-auto px-4 md:px-8">
+<div class="gallery-grid" id="gallery-grid">
+<div class="loading-state" style="text-align: center; padding: 4rem 0;">
+<p style="color: #666;">正在加载认知武器...</p>
+</div>
+</div>
+</div>
+</section>
+<section class="scenario-view view-container active" id="scenario-view">
+<div class="max-w-7xl mx-auto px-4 md:px-8">
+<div class="scenario-nav">
+<button class="scenario-btn active" data-scenario="all">
+<span class="scenario-icon">🎯</span>
+<span class="scenario-name">全部</span>
+</button>
+<button class="scenario-btn" data-scenario="career">
+<span class="scenario-icon">💼</span>
+<span class="scenario-name">职场晋升</span>
+</button>
+<button class="scenario-btn" data-scenario="business">
+<span class="scenario-icon">🚀</span>
+<span class="scenario-name">创业/副业</span>
+</button>
+<button class="scenario-btn" data-scenario="growth">
+<span class="scenario-icon">🧠</span>
+<span class="scenario-name">个人成长</span>
+</button>
+<button class="scenario-btn" data-scenario="relationship">
+<span class="scenario-icon">👥</span>
+<span class="scenario-name">人际关系</span>
+</button>
+<button class="scenario-btn" data-scenario="efficiency">
+<span class="scenario-icon">⚡</span>
+<span class="scenario-name">效率提升</span>
+</button>
+<button class="scenario-btn" data-scenario="content">
+<span class="scenario-icon">📖</span>
+<span class="scenario-name">内容创作</span>
+</button>
+</div>
+<div class="projects-grid" id="scenario-grid">
+<div class="loading-state" style="text-align: center; padding: 4rem 0;">
+<p style="color: #666;">正在加载认知武器...</p>
+</div>
+<article class="project-card"><span class="coordinate">001</span><h2><a href="projects/108 Cognitive Weapons/001_The Learning Pyramid.html">学习金字塔</a></h2><p>The Learning Pyramid - 学习金字塔</p></article><article class="project-card"><span class="coordinate">002</span><h2><a href="projects/108 Cognitive Weapons/002_Feynman Technique.html">术语的表演者</a></h2><p>The Jargon Performer - 术语的表演者</p></article><article class="project-card"><span class="coordinate">003</span><h2><a href="projects/108 Cognitive Weapons/003_The Thought Peddler.html">布鲁姆深度学习</a></h2><p>Bloom's Taxonomy - 布鲁姆深度学习</p></article><article class="project-card"><span class="coordinate">004</span><h2><a href="projects/108 Cognitive Weapons/004_The Low-Quality Hard Worker.html">低质努力家</a></h2><p>The Low - 低质努力家</p></article><article class="project-card"><span class="coordinate">005</span><h2><a href="projects/108 Cognitive Weapons/005_The Comfort Zone of Fake Diligence.html">伪勤奋的舒适区</a></h2><p>The Comfort Zone of Fake Diligence - 伪勤奋的舒适区</p></article><article class="project-card"><span class="coordinate">006</span><h2><a href="projects/108 Cognitive Weapons/006_The Closed-Door Creator.html">闭门造车</a></h2><p>The Closed - 闭门造车</p></article><article class="project-card"><span class="coordinate">007</span><h2><a href="projects/108 Cognitive Weapons/007_The Shallow Generalist.html">认知浅薄</a></h2><p>The Shallow Generalist - 认知浅薄</p></article><article class="project-card"><span class="coordinate">008</span><h2><a href="projects/108 Cognitive Weapons/008_Inefficient Diligence.html">低效勤奋</a></h2><p>Inefficient Diligence - 低效勤奋</p></article><article class="project-card"><span class="coordinate">009</span><h2><a href="projects/108 Cognitive Weapons/009_Ineffective Diligence.html">无效勤奋</a></h2><p>Ineffective Diligence - 无效勤奋</p></article><article class="project-card"><span class="coordinate">010</span><h2><a href="projects/108 Cognitive Weapons/010_Fake Busyness.html">无效忙碌</a></h2><p>Fake Busyness - 无效忙碌</p></article><article class="project-card"><span class="coordinate">011</span><h2><a href="projects/108 Cognitive Weapons/011_Blind Execution.html">盲目执行</a></h2><p>Blind Execution - 盲目执行</p></article><article class="project-card"><span class="coordinate">012</span><h2><a href="projects/108 Cognitive Weapons/012_Megalith Phobia.html">巨石恐惧症</a></h2><p>Megalith Phobia - 巨石恐惧症</p></article><article class="project-card"><span class="coordinate">013</span><h2><a href="projects/108 Cognitive Weapons/013_The Checklist Manifesto.html">清单革命</a></h2><p>The Checklist Manifesto - 清单革命</p></article><article class="project-card"><span class="coordinate">014</span><h2><a href="projects/108 Cognitive Weapons/014_The Positive Fantasy Trap.html">积极幻想之毒</a></h2><p>The Positive Fantasy Trap - 积极幻想之毒</p></article><article class="project-card"><span class="coordinate">015</span><h2><a href="projects/108 Cognitive Weapons/015_The Urgency Trap.html">紧急的奴隶</a></h2><p>The Urgency Trap - 紧急的奴隶</p></article><article class="project-card"><span class="coordinate">016</span><h2><a href="projects/108 Cognitive Weapons/016_The Fake Goal Trap.html">伪目标陷阱</a></h2><p>The Fake Goal Trap - 伪目标陷阱</p></article><article class="project-card"><span class="coordinate">017</span><h2><a href="projects/108 Cognitive Weapons/017_The Review Trap.html">总在同一个坑摔倒？</a></h2><p>The Review Trap - 总在同一个坑摔倒？</p></article><article class="project-card"><span class="coordinate">018</span><h2><a href="projects/108 Cognitive Weapons/018_The Epic Review Curse.html">史诗级复盘的诅咒</a></h2><p>The Epic Review Curse - 史诗级复盘的诅咒</p></article><article class="project-card"><span class="coordinate">019</span><h2><a href="projects/108 Cognitive Weapons/019_The Ineffective Reviewer.html">复盘无效的忙碌者</a></h2><p>The Ineffective Reviewer - 复盘无效的忙碌者</p></article><article class="project-card"><span class="coordinate">020</span><h2><a href="projects/108 Cognitive Weapons/020_The Diligence Trap.html">无效勤奋的陷阱</a></h2><p>The Diligence Trap - 无效勤奋的陷阱</p></article><article class="project-card"><span class="coordinate">021</span><h2><a href="projects/108 Cognitive Weapons/021_The Fake Discipline.html">伪自律的陷阱</a></h2><p>The Fake Discipline - 伪自律的陷阱</p></article><article class="project-card"><span class="coordinate">022</span><h2><a href="projects/108 Cognitive Weapons/022_King of Flops.html">年度翻车王</a></h2><p>King of Flops - 年度翻车王</p></article><article class="project-card"><span class="coordinate">023</span><h2><a href="projects/108 Cognitive Weapons/023_The Good Student Trap.html">“好学生”的困局</a></h2><p>The Good Student Trap - “好学生”的困局</p></article><article class="project-card"><span class="coordinate">024</span><h2><a href="projects/108 Cognitive Weapons/024_The Instant Gratification Addict.html">“即时满足”的瘾君子</a></h2><p>The Instant Gratification Addict - “即时满足”的瘾君子</p></article><article class="project-card"><span class="coordinate">025</span><h2><a href="projects/108 Cognitive Weapons/025_The Experience Trap.html">你的“宝贵经验”</a></h2><p>The Experience Trap - 你的“宝贵经验”</p></article><article class="project-card"><span class="coordinate">026</span><h2><a href="projects/108 Cognitive Weapons/026_The Blabbermouth Trap.html">“废话王”的勤奋陷阱</a></h2><p>The Blabbermouth Trap - “废话王”的勤奋陷阱</p></article><article class="project-card"><span class="coordinate">027</span><h2><a href="projects/108 Cognitive Weapons/027_The Meeting Chaos.html">会议开成“一锅粥”？</a></h2><p>The Meeting Chaos - 会议开成“一锅粥”？</p></article><article class="project-card"><span class="coordinate">028</span><h2><a href="projects/108 Cognitive Weapons/028_The Hollow Elite.html">精英的“空心病”</a></h2><p>The Hollow Elite - 精英的“空心病”</p></article><article class="project-card"><span class="coordinate">029</span><h2><a href="projects/108 Cognitive Weapons/029_The Silent Carnival.html">集体沉默的狂欢</a></h2><p>The Silent Carnival - 集体沉默的狂欢</p></article><article class="project-card"><span class="coordinate">030</span><h2><a href="projects/108 Cognitive Weapons/030_The Furthest from Answer.html">离答案最远的人</a></h2><p>The Furthest from Answer - 离答案最远的人</p></article><article class="project-card"><span class="coordinate">031</span><h2><a href="projects/108 Cognitive Weapons/031_Execution Collapse.html">执行力崩盘的真相</a></h2><p>Execution Collapse - 执行力崩盘的真相</p></article><article class="project-card"><span class="coordinate">032</span><h2><a href="projects/108 Cognitive Weapons/032_Career Suicide.html">职场慢性自杀</a></h2><p>Career Suicide - 职场慢性自杀</p></article><article class="project-card"><span class="coordinate">033</span><h2><a href="projects/108 Cognitive Weapons/033_Good Work, Bad Talk.html">干得好却说不清</a></h2><p>Good Work, Bad Talk - 干得好却说不清</p></article><article class="project-card"><span class="coordinate">034</span><h2><a href="projects/108 Cognitive Weapons/034_The Nanny Manager.html">管不住下属的“好领导”</a></h2><p>The Nanny Manager - 管不住下属的“好领导”</p></article><article class="project-card"><span class="coordinate">035</span><h2><a href="projects/108 Cognitive Weapons/035_Stop Useless Meetings.html">90%的讨论都是浪费</a></h2><p>Stop Useless Meetings - 90%的讨论都是浪费</p></article><article class="project-card"><span class="coordinate">036</span><h2><a href="projects/108 Cognitive Weapons/036_Communication Fail.html">沟通无效的根源</a></h2><p>Communication Fail - 沟通无效的根源</p></article><article class="project-card"><span class="coordinate">037</span><h2><a href="projects/108 Cognitive Weapons/037_The Invisible Man.html">职场隐形人，恭喜你</a></h2><p>The Invisible Man - 职场隐形人，恭喜你</p></article><article class="project-card"><span class="coordinate">038</span><h2><a href="projects/108 Cognitive Weapons/038_Stop Saying Good Job.html">别再“你好强”了</a></h2><p>Stop Saying &amp;quot;Good Job&amp;quot; - 别再“你好强”了</p></article><article class="project-card"><span class="coordinate">039</span><h2><a href="projects/108 Cognitive Weapons/039_The Founder's Burnout.html">“过劳死”的创始人</a></h2><p>The Founder - “过劳死”的创始人</p></article><article class="project-card"><span class="coordinate">040</span><h2><a href="projects/108 Cognitive Weapons/040_The Heart Attack Achiever.html">那个35岁心梗的卷王</a></h2><p>The Heart Attack Achiever - 那个35岁心梗的卷王</p></article><article class="project-card"><span class="coordinate">041</span><h2><a href="projects/108 Cognitive Weapons/041_The Hollow Elite.html">高薪的“空心人”</a></h2><p>The Hollow Elite - 高薪的“空心人”</p></article><article class="project-card"><span class="coordinate">042</span><h2><a href="projects/108 Cognitive Weapons/042_The Void of High Pay.html">跳槽也填不满的空虚</a></h2><p>The Void of High Pay - 跳槽也填不满的空虚</p></article><article class="project-card"><span class="coordinate">043</span><h2><a href="projects/108 Cognitive Weapons/043_The Slasher Trap.html">“斜杠”青年陷阱</a></h2><p>The Slasher Trap - “斜杠”青年陷阱</p></article><article class="project-card"><span class="coordinate">044</span><h2><a href="projects/108 Cognitive Weapons/044_The Self-Friction.html">自我内耗的真相</a></h2><p>The Self-Friction - 自我内耗的真相</p></article><article class="project-card"><span class="coordinate">045</span><h2><a href="projects/108 Cognitive Weapons/045_The Efficiency Trap.html">996的“伪勤奋”</a></h2><p>The Efficiency Trap - 996的“伪勤奋”</p></article><article class="project-card"><span class="coordinate">046</span><h2><a href="projects/108 Cognitive Weapons/046_The Busy Poor.html">35岁的穷忙</a></h2><p>The Busy Poor - 35岁的穷忙</p></article><article class="project-card"><span class="coordinate">047</span><h2><a href="projects/108 Cognitive Weapons/047_The Manager's Burnout.html">累死你的不是猪队友</a></h2><p>The Manager - 累死你的不是猪队友</p></article><article class="project-card"><span class="coordinate">048</span><h2><a href="projects/108 Cognitive Weapons/048_The Rockstar Trap.html">别再招“牛人”了</a></h2><p>The Rockstar Trap - 别再招“牛人”了</p></article><article class="project-card"><span class="coordinate">049</span><h2><a href="projects/108 Cognitive Weapons/049_The Nice Guy Trap.html">团队死气沉沉？</a></h2><p>The Nice Guy Trap - 团队死气沉沉？</p></article><article class="project-card"><span class="coordinate">050</span><h2><a href="projects/108 Cognitive Weapons/050_The Ace Trap.html">别把“业务王牌”当领导力</a></h2><p>The Ace Trap - 别把“业务王牌”当领导力</p></article><article class="project-card"><span class="coordinate">051</span><h2><a href="projects/108 Cognitive Weapons/051_The Nanny Trap.html">累死你的不是KPI</a></h2><p>The Nanny Trap - 累死你的不是KPI</p></article><article class="project-card"><span class="coordinate">052</span><h2><a href="projects/108 Cognitive Weapons/052_The Pseudo-Leader.html">累死你的不是执行</a></h2><p>The Pseudo-Leader - 累死你的不是执行</p></article><article class="project-card"><span class="coordinate">053</span><h2><a href="projects/108 Cognitive Weapons/053_The All-Star Chaos.html">团队越管越乱？</a></h2><p>The All-Star Chaos - 团队越管越乱？</p></article><article class="project-card"><span class="coordinate">054</span><h2><a href="projects/108 Cognitive Weapons/054_The Paralyzed Manager.html">“高位截瘫”的管理者</a></h2><p>The Paralyzed Manager - “高位截瘫”的管理者</p></article><article class="project-card"><span class="coordinate">055</span><h2><a href="projects/108 Cognitive Weapons/055_The Adult Meltdown.html">崩溃的成年人</a></h2><p>The Adult Meltdown - 崩溃的成年人</p></article><article class="project-card"><span class="coordinate">056</span><h2><a href="projects/108 Cognitive Weapons/056_The Glass Heart.html">职场玻璃心</a></h2><p>The Glass Heart - 职场玻璃心</p></article><article class="project-card"><span class="coordinate">057</span><h2><a href="projects/108 Cognitive Weapons/057_The Ruined Day.html">失控的一天</a></h2><p>The Ruined Day - 失控的一天</p></article><article class="project-card"><span class="coordinate">058</span><h2><a href="projects/108 Cognitive Weapons/058_The Last Straw.html">被稻草压垮的人</a></h2><p>The Last Straw - 被稻草压垮的人</p></article><article class="project-card"><span class="coordinate">059</span><h2><a href="projects/108 Cognitive Weapons/059_The Nice Guy Injury.html">职场“老好人”的内伤</a></h2><p>The Nice Guy Injury - 职场“老好人”的内伤</p></article><article class="project-card"><span class="coordinate">060</span><h2><a href="projects/108 Cognitive Weapons/060_Destined Collapse.html">你的溃败早已注定</a></h2><p>Destined Collapse - 你的溃败早已注定</p></article><article class="project-card"><span class="coordinate">061</span><h2><a href="projects/108 Cognitive Weapons/061_The Missing Brake.html">你缺的不是冷静</a></h2><p>The Missing Brake - 你缺的不是冷静</p></article><article class="project-card"><span class="coordinate">062</span><h2><a href="projects/108 Cognitive Weapons/062_The Bystander Truth.html">“当局者清”才是真相</a></h2><p>The Bystander Truth - “当局者清”才是真相</p></article><article class="project-card"><span class="coordinate">063</span><h2><a href="projects/108 Cognitive Weapons/063_The Wait and See Trap.html">“再等等，会回本的”</a></h2><p>The  - “再等等，会回本的”</p></article><article class="project-card"><span class="coordinate">064</span><h2><a href="projects/108 Cognitive Weapons/064_Defeated by 'Now'.html">你不是败给了冲动</a></h2><p>Defeated by  - 你不是败给了冲动</p></article><article class="project-card"><span class="coordinate">065</span><h2><a href="projects/108 Cognitive Weapons/065_Choice Paralysis.html">选择困难症的穷忙</a></h2><p>Choice Paralysis - 选择困难症的穷忙</p></article><article class="project-card"><span class="coordinate">066</span><h2><a href="projects/108 Cognitive Weapons/066_Fear of Wrong Choice.html">你不是怕选错</a></h2><p>Fear of Wrong Choice - 你不是怕选错</p></article><article class="project-card"><span class="coordinate">067</span><h2><a href="projects/108 Cognitive Weapons/067_The Free Birdcage.html">那个免费的“鸟笼”</a></h2><p>The Free Birdcage - 那个免费的“鸟笼”</p></article><article class="project-card"><span class="coordinate">068</span><h2><a href="projects/108 Cognitive Weapons/068_The Good Product Curse.html">“好产品”的诅咒</a></h2><p>The Good Product Curse - “好产品”的诅咒</p></article><article class="project-card"><span class="coordinate">069</span><h2><a href="projects/108 Cognitive Weapons/069_Slave to Traffic.html">流量的奴隶</a></h2><p>Slave to Traffic - 流量的奴隶</p></article><article class="project-card"><span class="coordinate">070</span><h2><a href="projects/108 Cognitive Weapons/070_The Good Product Curse.html">“好产品”的诅咒</a></h2><p>The Good Product Curse - “好产品”的诅咒</p></article><article class="project-card"><span class="coordinate">071</span><h2><a href="projects/108 Cognitive Weapons/071_Right but Defeated.html">你没错，但你输了</a></h2><p>Right but Defeated - 你没错，但你输了</p></article><article class="project-card"><span class="coordinate">072</span><h2><a href="projects/108 Cognitive Weapons/072_Stop Licking Clients.html">停止“跪舔”客户</a></h2><p>Stop Licking Clients - 停止“跪舔”客户</p></article><article class="project-card"><span class="coordinate">073</span><h2><a href="projects/108 Cognitive Weapons/073_Stop Vanity Seeding.html">停止自嗨式“种草”</a></h2><p>Stop Vanity Seeding - 停止自嗨式“种草”</p></article><article class="project-card"><span class="coordinate">074</span><h2><a href="projects/108 Cognitive Weapons/074_The Lie of Perfection.html">“十年磨一剑”是谎言</a></h2><p>The Lie of Perfection - “十年磨一剑”是谎言</p></article><article class="project-card"><span class="coordinate">075</span><h2><a href="projects/108 Cognitive Weapons/075_100 Visitors, 1 Sale.html">进店100人，成交1个？</a></h2><p>100 Visitors, 1 Sale? - 进店100人，成交1个？</p></article><article class="project-card"><span class="coordinate">076</span><h2><a href="projects/108 Cognitive Weapons/076_High-Spec Poor Busy.html">“高配”的穷忙</a></h2><p>High-Spec Poor Busy - “高配”的穷忙</p></article><article class="project-card"><span class="coordinate">077</span><h2><a href="projects/108 Cognitive Weapons/077_The Nice Guy's Rage.html">情绪失控的烂好人</a></h2><p>The Nice Guy - 情绪失控的烂好人</p></article><article class="project-card"><span class="coordinate">078</span><h2><a href="projects/108 Cognitive Weapons/078_The Confident Idiot.html">自信的笨蛋</a></h2><p>The Confident Idiot - 自信的笨蛋</p></article><article class="project-card"><span class="coordinate">079</span><h2><a href="projects/108 Cognitive Weapons/079_The High-IQ Fool.html">高智商的“穷忙徒”</a></h2><p>The High-IQ Fool - 高智商的“穷忙徒”</p></article><article class="project-card"><span class="coordinate">080</span><h2><a href="projects/108 Cognitive Weapons/080_Habitual Failure.html">习惯性搞砸</a></h2><p>Habitual Failure - 习惯性搞砸</p></article><article class="project-card"><span class="coordinate">081</span><h2><a href="projects/108 Cognitive Weapons/081_Inefficient Diligence.html">低效勤奋者</a></h2><p>Inefficient Diligence - 低效勤奋者</p></article><article class="project-card"><span class="coordinate">082</span><h2><a href="projects/108 Cognitive Weapons/082_The Willpower Scam.html">“坚持”的骗局</a></h2><p>The Willpower Scam - “坚持”的骗局</p></article><article class="project-card"><span class="coordinate">083</span><h2><a href="projects/108 Cognitive Weapons/083_The Memory Illusion.html">回忆全是假象</a></h2><p>The Memory Illusion - 回忆全是假象</p></article><article class="project-card"><span class="coordinate">084</span><h2><a href="projects/108 Cognitive Weapons/084_The Labor Trap.html">努力的真相</a></h2><p>The Labor Trap - 努力的真相</p></article><article class="project-card"><span class="coordinate">085</span><h2><a href="projects/108 Cognitive Weapons/085_Masters Don't Balance.html">高手从不平衡</a></h2><p>Masters Don - 高手从不平衡</p></article><article class="project-card"><span class="coordinate">086</span><h2><a href="projects/108 Cognitive Weapons/086_The Hard Sell Fail.html">越用力推销越卖不掉</a></h2><p>The Hard Sell Fail - 越用力推销越卖不掉</p></article><article class="project-card"><span class="coordinate">087</span><h2><a href="projects/108 Cognitive Weapons/087_Stop Symptom Fixing.html">别再“头痛医头”了</a></h2><p>Stop Symptom Fixing - 别再“头痛医头”了</p></article><article class="project-card"><span class="coordinate">088</span><h2><a href="projects/108 Cognitive Weapons/088_Resource Gravity.html">总抱怨没资源？</a></h2><p>Resource Gravity - 总抱怨没资源？</p></article><article class="project-card"><span class="coordinate">089</span><h2><a href="projects/108 Cognitive Weapons/089_Essence of Mediocrity.html">平庸的本质</a></h2><p>Essence of Mediocrity - 平庸的本质</p></article><article class="project-card"><span class="coordinate">090</span><h2><a href="projects/108 Cognitive Weapons/090_Emotional Numbness.html">情绪麻木？</a></h2><p>Emotional Numbness - 情绪麻木？</p></article><article class="project-card"><span class="coordinate">091</span><h2><a href="projects/108 Cognitive Weapons/091_Self-High Value is Trash.html">自嗨式“价值”一文不值</a></h2><p>Self-High Value is Trash - 自嗨式“价值”一文不值</p></article><article class="project-card"><span class="coordinate">092</span><h2><a href="projects/108 Cognitive Weapons/092_Facts are Worthless.html">事实一文不值</a></h2><p>Facts are Worthless - 事实一文不值</p></article><article class="project-card"><span class="coordinate">093</span><h2><a href="projects/108 Cognitive Weapons/093_The Conversation Killer.html">开口冷场王？</a></h2><p>The Conversation Killer - 开口冷场王？</p></article><article class="project-card"><span class="coordinate">094</span><h2><a href="projects/108 Cognitive Weapons/094_Right but Ignored.html">我是对的，但没人听</a></h2><p>Right but Ignored - 我是对的，但没人听</p></article><article class="project-card"><span class="coordinate">095</span><h2><a href="projects/108 Cognitive Weapons/095_The Muted Talent.html">怀才不遇的真相</a></h2><p>The Muted Talent - 怀才不遇的真相</p></article><article class="project-card"><span class="coordinate">096</span><h2><a href="projects/108 Cognitive Weapons/096_Nice Guy's Crash.html">职场老好人的崩溃</a></h2><p>Nice Guy - 职场老好人的崩溃</p></article><article class="project-card"><span class="coordinate">097</span><h2><a href="projects/108 Cognitive Weapons/097_Team Friction.html">团队内耗严重？</a></h2><p>Team Friction - 团队内耗严重？</p></article><article class="project-card"><span class="coordinate">098</span><h2><a href="projects/108 Cognitive Weapons/098_The Nice Guy Crash.html">“职场老好人”的崩溃</a></h2><p>The Nice Guy Crash - “职场老好人”的崩溃</p></article><article class="project-card"><span class="coordinate">099</span><h2><a href="projects/108 Cognitive Weapons/099_The Superiority Trap.html">优越感正在杀死你的团队</a></h2><p>The Superiority Trap - 优越感正在杀死你的团队</p></article><article class="project-card"><span class="coordinate">100</span><h2><a href="projects/108 Cognitive Weapons/100_Stop Blaming.html">停止“归咎于外”</a></h2><p>Stop Blaming - 停止“归咎于外”</p></article><article class="project-card"><span class="coordinate">101</span><h2><a href="projects/108 Cognitive Weapons/101_Bad Good Intentions.html">好心办坏事</a></h2><p>Bad Good Intentions - 好心办坏事</p></article><article class="project-card"><span class="coordinate">102</span><h2><a href="projects/108 Cognitive Weapons/102_Hitting the Wall.html">越努力越碰壁？</a></h2><p>Hitting the Wall? - 越努力越碰壁？</p></article><article class="project-card"><span class="coordinate">103</span><h2><a href="projects/108 Cognitive Weapons/103_High-Paid Poor.html">35岁的“高薪穷人”</a></h2><p>High-Paid Poor - 35岁的“高薪穷人”</p></article><article class="project-card"><span class="coordinate">104</span><h2><a href="projects/108 Cognitive Weapons/104_Millionaire Custodian.html">手握百万存款</a></h2><p>Millionaire Custodian - 手握百万存款</p></article><article class="project-card"><span class="coordinate">105</span><h2><a href="projects/108 Cognitive Weapons/105_Poorer by Grabbing.html">越抢越穷</a></h2><p>Poorer by Grabbing - 越抢越穷</p></article><article class="project-card"><span class="coordinate">106</span><h2><a href="projects/108 Cognitive Weapons/106_High-Paid but Broke.html">高薪月光族的真相</a></h2><p>High-Paid but Broke - 高薪月光族的真相</p></article><article class="project-card"><span class="coordinate">107</span><h2><a href="projects/108 Cognitive Weapons/107_Saving Won't Save You.html">别再幻想靠“省钱”翻身</a></h2><p>Saving Won - 别再幻想靠“省钱”翻身</p></article><article class="project-card"><span class="coordinate">108</span><h2><a href="projects/108 Cognitive Weapons/108_The Poor Busy Ceiling.html">穷忙天花板</a></h2><p>The Poor Busy Ceiling - 穷忙天花板</p></article></div>
+</div>
+</section>
+<section class="quadrant-view view-container" id="quadrant-view">
+<div class="max-w-7xl mx-auto px-4 md:px-8">
+<div class="quadrant-grid">
+<div class="quadrant quadrant-leader" data-quadrant="leader">
+<div class="quadrant-header">
+<h3 class="quadrant-title">领导者象限</h3>
+<p class="quadrant-subtitle">领导力 · 规划力</p>
+<span class="quadrant-count">0 个武器</span>
+</div>
+<div class="quadrant-weapons" id="leader-weapons"></div>
+</div>
+<div class="quadrant quadrant-thinker" data-quadrant="thinker">
+<div class="quadrant-header">
+<h3 class="quadrant-title">思想者象限</h3>
+<p class="quadrant-subtitle">思考力 · 自识力</p>
+<span class="quadrant-count">0 个武器</span>
+</div>
+<div class="quadrant-weapons" id="thinker-weapons"></div>
+</div>
+<div class="quadrant quadrant-executor" data-quadrant="executor">
+<div class="quadrant-header">
+<h3 class="quadrant-title">执行者象限</h3>
+<p class="quadrant-subtitle">执行力 · 复盘力</p>
+<span class="quadrant-count">0 个武器</span>
+</div>
+<div class="quadrant-weapons" id="executor-weapons"></div>
+</div>
+<div class="quadrant quadrant-creator" data-quadrant="creator">
+<div class="quadrant-header">
+<h3 class="quadrant-title">创造者象限</h3>
+<p class="quadrant-subtitle">营销力 · 故事力</p>
+<span class="quadrant-count">0 个武器</span>
+</div>
+<div class="quadrant-weapons" id="creator-weapons"></div>
+</div>
+</div>
+</div>
+</section>
+<section class="bauhaus-view view-container" id="bauhaus-view">
+<div class="max-w-7xl mx-auto px-4 md:px-8">
+<div class="bauhaus-grid" id="bauhaus-grid">
+<div class="loading-state" style="text-align: center; padding: 4rem 0;">
+<p style="color: #666;">正在加载认知武器...</p>
+</div>
+</div>
+</div>
+</section>
+<section class="journal-view view-container" id="journal-view">
+<div class="max-w-7xl mx-auto px-4 md:px-8">
+<div class="journal-container">
+<div class="journal-header">
+<h2 class="journal-title">Journal of Cognitive Weapons</h2>
+<p class="journal-meta">Volume 1 · 2025 Edition · 108 Articles</p>
+</div>
+<div class="journal-table" id="journal-table">
+<div class="loading-state" style="text-align: center; padding: 4rem 0;">
+<p style="color: #666;">正在加载认知武器...</p>
+</div>
+</div>
+</div>
+</div>
+</section>
 
-            <!-- 视图切换器 -->
-            <div class="view-switcher">
-                <button class="view-btn" data-view="gallery">
-                    <i class="ri-gallery-line"></i>
-                    <span>卡牌画廊</span>
-                </button>
-                <button class="view-btn active" data-view="scenario">
-                    <i class="ri-compass-3-line"></i>
-                    <span>应用场景</span>
-                </button>
-                <button class="view-btn" data-view="quadrant">
-                    <i class="ri-grid-line"></i>
-                    <span>能力象限</span>
-                </button>
-                <button class="view-btn" data-view="bauhaus">
-                    <i class="ri-shape-line"></i>
-                    <span>包豪斯</span>
-                </button>
-                <button class="view-btn" data-view="journal">
-                    <i class="ri-book-open-line"></i>
-                    <span>学术期刊</span>
-                </button>
-            </div>
-        </div>
-    </section>
-
-    <!-- 卡牌画廊视图 -->
-    <section class="gallery-view view-container" id="gallery-view">
-        <div class="max-w-7xl mx-auto px-4 md:px-8">
-            <div class="gallery-grid" id="gallery-grid">
-                <div class="loading-state" style="text-align: center; padding: 4rem 0;">
-                    <p style="color: #666;">正在加载认知武器...</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 场景视图 -->
-    <section class="scenario-view view-container active" id="scenario-view">
-        <div class="max-w-7xl mx-auto px-4 md:px-8">
-            <!-- 场景导航 -->
-            <div class="scenario-nav">
-                <button class="scenario-btn active" data-scenario="all">
-                    <span class="scenario-icon">🎯</span>
-                    <span class="scenario-name">全部</span>
-                </button>
-                <button class="scenario-btn" data-scenario="career">
-                    <span class="scenario-icon">💼</span>
-                    <span class="scenario-name">职场晋升</span>
-                </button>
-                <button class="scenario-btn" data-scenario="business">
-                    <span class="scenario-icon">🚀</span>
-                    <span class="scenario-name">创业/副业</span>
-                </button>
-                <button class="scenario-btn" data-scenario="growth">
-                    <span class="scenario-icon">🧠</span>
-                    <span class="scenario-name">个人成长</span>
-                </button>
-                <button class="scenario-btn" data-scenario="relationship">
-                    <span class="scenario-icon">👥</span>
-                    <span class="scenario-name">人际关系</span>
-                </button>
-                <button class="scenario-btn" data-scenario="efficiency">
-                    <span class="scenario-icon">⚡</span>
-                    <span class="scenario-name">效率提升</span>
-                </button>
-                <button class="scenario-btn" data-scenario="content">
-                    <span class="scenario-icon">📖</span>
-                    <span class="scenario-name">内容创作</span>
-                </button>
-            </div>
-
-            <!-- 武器网格 -->
-            <div class="projects-grid" id="scenario-grid">
-                <div class="loading-state" style="text-align: center; padding: 4rem 0;">
-                    <p style="color: #666;">正在加载认知武器...</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 象限视图 -->
-    <section class="quadrant-view view-container" id="quadrant-view">
-        <div class="max-w-7xl mx-auto px-4 md:px-8">
-            <div class="quadrant-grid">
-                <!-- 领导者象限 -->
-                <div class="quadrant quadrant-leader" data-quadrant="leader">
-                    <div class="quadrant-header">
-                        <h3 class="quadrant-title">领导者象限</h3>
-                        <p class="quadrant-subtitle">领导力 · 规划力</p>
-                        <span class="quadrant-count">0 个武器</span>
-                    </div>
-                    <div class="quadrant-weapons" id="leader-weapons"></div>
-                </div>
-
-                <!-- 思想者象限 -->
-                <div class="quadrant quadrant-thinker" data-quadrant="thinker">
-                    <div class="quadrant-header">
-                        <h3 class="quadrant-title">思想者象限</h3>
-                        <p class="quadrant-subtitle">思考力 · 自识力</p>
-                        <span class="quadrant-count">0 个武器</span>
-                    </div>
-                    <div class="quadrant-weapons" id="thinker-weapons"></div>
-                </div>
-
-                <!-- 执行者象限 -->
-                <div class="quadrant quadrant-executor" data-quadrant="executor">
-                    <div class="quadrant-header">
-                        <h3 class="quadrant-title">执行者象限</h3>
-                        <p class="quadrant-subtitle">执行力 · 复盘力</p>
-                        <span class="quadrant-count">0 个武器</span>
-                    </div>
-                    <div class="quadrant-weapons" id="executor-weapons"></div>
-                </div>
-
-                <!-- 创造者象限 -->
-                <div class="quadrant quadrant-creator" data-quadrant="creator">
-                    <div class="quadrant-header">
-                        <h3 class="quadrant-title">创造者象限</h3>
-                        <p class="quadrant-subtitle">营销力 · 故事力</p>
-                        <span class="quadrant-count">0 个武器</span>
-                    </div>
-                    <div class="quadrant-weapons" id="creator-weapons"></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 包豪斯进化视图 -->
-    <section class="bauhaus-view view-container" id="bauhaus-view">
-        <div class="max-w-7xl mx-auto px-4 md:px-8">
-            <div class="bauhaus-grid" id="bauhaus-grid">
-                <div class="loading-state" style="text-align: center; padding: 4rem 0;">
-                    <p style="color: #666;">正在加载认知武器...</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 学术期刊视图 -->
-    <section class="journal-view view-container" id="journal-view">
-        <div class="max-w-7xl mx-auto px-4 md:px-8">
-            <div class="journal-container">
-                <div class="journal-header">
-                    <h2 class="journal-title">Journal of Cognitive Weapons</h2>
-                    <p class="journal-meta">Volume 1 · 2025 Edition · 108 Articles</p>
-                </div>
-                <div class="journal-table" id="journal-table">
-                    <div class="loading-state" style="text-align: center; padding: 4rem 0;">
-                        <p style="color: #666;">正在加载认知武器...</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 页脚 -->
-    <footer class="border-t-2 border-brand-black mt-16 py-8">
-        <div class="max-w-7xl mx-auto px-4 md:px-8">
-            <div class="flex flex-col md:flex-row justify-between items-center gap-4">
-                <p class="font-mono text-xs text-gray-500">&copy; 2025 计划李. All rights reserved.</p>
-                <div class="flex gap-6">
-                    <a href="https://www.zhihu.com/people/xia-yu-de-xia-tian-40" target="_blank" class="font-mono text-xs font-bold hover:text-brand-accent transition-colors">知乎</a>
-                    <a href="https://github.com" target="_blank" class="font-mono text-xs font-bold hover:text-brand-accent transition-colors">GitHub</a>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <script>
-        // 武器分类映射数据
-        const weaponMetadata = {
-            scenarios: {
-                'career': [31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54],
-                'business': [68, 69, 70, 71, 72, 73, 74, 75, 102, 103, 104, 105, 106, 107, 108],
-                'growth': [1, 2, 3, 4, 5, 6, 7, 8, 23, 24, 25, 26, 27, 28, 29, 30, 76, 77, 78, 79, 80, 81, 82],
-                'relationship': [31, 34, 35, 36, 37, 55, 56, 57, 58, 59, 96, 97, 98, 99, 100, 101],
-                'efficiency': [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 61, 62, 63, 64, 65, 66, 67],
-                'content': [68, 72, 73, 74, 90, 91, 92, 93, 94, 95]
-            },
-            quadrants: {
-                'leader': [31, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 61, 62, 63, 64, 65, 66, 67],
-                'thinker': [23, 24, 25, 26, 27, 28, 29, 30, 55, 56, 57, 58, 59, 60, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89],
-                'executor': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22],
-                'creator': [68, 69, 70, 71, 72, 73, 74, 75, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108]
-            }
-        };
-
-        let allWeapons = [];
-        let currentView = 'scenario';
-        let currentScenario = 'all';
-
-        // 动态加载108种认知武器
-        document.addEventListener('DOMContentLoaded', async function() {
-            try {
-                // 加载JSON数据
-                const response = await fetch('data/cognitive-weapons.json');
-                allWeapons = await response.json();
-
-                // 初始化所有视图
-                renderGalleryView(allWeapons);
-                renderScenarioView(allWeapons);
-                renderQuadrantView(allWeapons);
-                renderBauhausView(allWeapons);
-                renderJournalView(allWeapons);
-
-                // 绑定视图切换事件
-                document.querySelectorAll('.view-btn').forEach(btn => {
-                    btn.addEventListener('click', function() {
-                        const view = this.dataset.view;
-                        switchView(view);
-                    });
-                });
-
-                // 绑定场景筛选事件
-                document.querySelectorAll('.scenario-btn').forEach(btn => {
-                    btn.addEventListener('click', function() {
-                        const scenario = this.dataset.scenario;
-                        filterByScenario(scenario);
-
-                        // 更新按钮状态
-                        document.querySelectorAll('.scenario-btn').forEach(b => b.classList.remove('active'));
-                        this.classList.add('active');
-                    });
-                });
-
-                console.log(`✅ 成功加载 ${allWeapons.length} 个认知武器`);
-            } catch (error) {
-                console.error('加载认知武器数据失败:', error);
-            }
-        });
-
-        // 视图切换
-        function switchView(view) {
-            currentView = view;
-
-            // 更新按钮状态
-            document.querySelectorAll('.view-btn').forEach(btn => {
-                btn.classList.toggle('active', btn.dataset.view === view);
-            });
-
-            // 切换视图容器
-            document.querySelectorAll('.view-container').forEach(container => {
-                container.classList.remove('active');
-            });
-
-            document.getElementById(`${view}-view`).classList.add('active');
-        }
-
-        // 渲染场景视图
-        function renderScenarioView(weapons) {
-            const grid = document.getElementById('scenario-grid');
-            grid.innerHTML = '';
-
-            weapons.forEach((weapon, index) => {
-                const card = createWeaponCard(weapon, index);
-                grid.appendChild(card);
-            });
-
-            initRevealAnimation();
-        }
-
-        // 按场景筛选
-        function filterByScenario(scenario) {
-            currentScenario = scenario;
-
-            if (scenario === 'all') {
-                renderScenarioView(allWeapons);
-            } else {
-                const scenarioWeaponIds = weaponMetadata.scenarios[scenario] || [];
-                const filteredWeapons = allWeapons.filter(w => {
-                    const id = parseInt(w.number);
-                    return scenarioWeaponIds.includes(id);
-                });
-                renderScenarioView(filteredWeapons);
-            }
-        }
-
-        // 渲染象限视图
-        function renderQuadrantView(weapons) {
-            const quadrants = ['leader', 'thinker', 'executor', 'creator'];
-
-            quadrants.forEach(quadrant => {
-                const container = document.getElementById(`${quadrant}-weapons`);
-                const quadrantWeaponIds = weaponMetadata.quadrants[quadrant] || [];
-
-                const quadrantWeapons = weapons.filter(w => {
-                    const id = parseInt(w.number);
-                    return quadrantWeaponIds.includes(id);
-                });
-
-                container.innerHTML = '';
-                quadrantWeapons.forEach(weapon => {
-                    const item = document.createElement('a');
-                    item.className = 'quadrant-weapon-item';
-                    item.href = weapon.url;
-                    item.innerHTML = `
-                        <div class="quadrant-weapon-number">${weapon.number}</div>
-                        <div class="quadrant-weapon-title">${weapon.cn_title}</div>
-                    `;
-                    container.appendChild(item);
-                });
-
-                // 更新数量
-                const countEl = document.querySelector(`[data-quadrant="${quadrant}"] .quadrant-count`);
-                if (countEl) {
-                    countEl.textContent = `${quadrantWeapons.length} 个武器`;
-                }
-            });
-        }
-
-        // 创建武器卡片
-        function createWeaponCard(weapon, index) {
-            const card = document.createElement('article');
-            card.className = 'project-card reveal';
-
-            card.innerHTML = `
-                <a href="${weapon.url}" class="project-link">
-                    <div class="project-info">
-                        <div class="project-number">${weapon.number}</div>
-                        <h3 class="project-title">${weapon.cn_title}</h3>
-                        <p class="project-description">${weapon.description}</p>
-                    </div>
-                </a>
-            `;
-
-            return card;
-        }
-
-        // 初始化滚动显示动画
-        function initRevealAnimation() {
-            const observerOptions = {
-                root: null,
-                rootMargin: '0px',
-                threshold: 0.1
-            };
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('active');
-                    }
-                });
-            }, observerOptions);
-
-            document.querySelectorAll('.reveal').forEach(el => {
-                observer.observe(el);
-            });
-        }
-
-        // 渲染卡牌画廊视图
-        function renderGalleryView(weapons) {
-            const grid = document.getElementById('gallery-grid');
-            grid.innerHTML = '';
-
-            weapons.forEach((weapon, index) => {
-                const card = document.createElement('div');
-                card.className = 'gallery-card reveal';
-
-                card.innerHTML = `
-                    <div class="gallery-card-inner">
-                        <div class="gallery-card-front">
-                            <div class="gallery-number">${weapon.number}</div>
-                            <h3 class="gallery-title">${weapon.cn_title}</h3>
-                            <p class="gallery-subtitle">${weapon.en_title}</p>
-                            <div class="gallery-hint">
-                                <i class="ri-arrow-left-right-line"></i>
-                                <span>点击翻转</span>
-                            </div>
-                        </div>
-                        <div class="gallery-card-back">
-                            <p class="gallery-description">${weapon.description}</p>
-                            <a href="${weapon.url}" class="gallery-link">
-                                查看详情 <i class="ri-arrow-right-line"></i>
-                            </a>
-                        </div>
-                    </div>
-                `;
-
-                // 添加翻转事件
-                card.addEventListener('click', function() {
-                    this.classList.toggle('flipped');
-                });
-
-                grid.appendChild(card);
-            });
-
-            initRevealAnimation();
-        }
-
-        // 渲染包豪斯进化视图
-        function renderBauhausView(weapons) {
-            const grid = document.getElementById('bauhaus-grid');
-            grid.innerHTML = '';
-
-            weapons.forEach((weapon, index) => {
-                const card = document.createElement('article');
-                card.className = 'bauhaus-card reveal';
-
-                // 4色循环
-                const colorIndex = index % 4;
-                const colors = ['orange', 'blue', 'yellow', 'black'];
-                card.setAttribute('data-color', colors[colorIndex]);
-
-                card.innerHTML = `
-                    <a href="${weapon.url}" class="bauhaus-link">
-                        <div class="bauhaus-number">${weapon.number}</div>
-                        <div class="bauhaus-content">
-                            <h3 class="bauhaus-title">${weapon.cn_title}</h3>
-                            <p class="bauhaus-description">${weapon.description}</p>
-                        </div>
-                        <div class="bauhaus-decoration"></div>
-                    </a>
-                `;
-
-                grid.appendChild(card);
-            });
-
-            initRevealAnimation();
-        }
-
-        // 渲染学术期刊视图
-        function renderJournalView(weapons) {
-            const table = document.getElementById('journal-table');
-            table.innerHTML = '';
-
-            // 按象限分组
-            const quadrants = {
-                'executor': { name: '执行者象限', weapons: [] },
-                'thinker': { name: '思想者象限', weapons: [] },
-                'leader': { name: '领导者象限', weapons: [] },
-                'creator': { name: '创造者象限', weapons: [] }
-            };
-
-            weapons.forEach(weapon => {
-                const id = parseInt(weapon.number);
-                for (const [key, data] of Object.entries(weaponMetadata.quadrants)) {
-                    if (data.includes(id)) {
-                        quadrants[key].weapons.push(weapon);
-                        break;
-                    }
-                }
-            });
-
-            // 渲染每个象限的表格
-            for (const [key, data] of Object.entries(quadrants)) {
-                if (data.weapons.length === 0) continue;
-
-                const section = document.createElement('div');
-                section.className = 'journal-section reveal';
-
-                section.innerHTML = `
-                    <h3 class="journal-section-title">${data.name}</h3>
-                    <table class="journal-table-content">
-                        <thead>
-                            <tr>
-                                <th class="journal-col-number">No.</th>
-                                <th class="journal-col-title">Title</th>
-                                <th class="journal-col-description">Abstract</th>
-                                <th class="journal-col-link">Citation</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            ${data.weapons.map(weapon => `
-                                <tr class="journal-row">
-                                    <td class="journal-cell-number">${weapon.number}</td>
-                                    <td class="journal-cell-title">
-                                        <div class="journal-title-cn">${weapon.cn_title}</div>
-                                        <div class="journal-title-en">${weapon.en_title}</div>
-                                    </td>
-                                    <td class="journal-cell-description">${weapon.description}</td>
-                                    <td class="journal-cell-link">
-                                        <a href="${weapon.url}" class="journal-cite-link">
-                                            [${weapon.number}]
-                                        </a>
-                                    </td>
-                                </tr>
-                            `).join('')}
-                        </tbody>
-                    </table>
-                `;
-
-                table.appendChild(section);
-            }
-
-            initRevealAnimation();
-        }
-    </script>
-</body>
-</html>
+</main>
+<footer class="site-footer"><div class="container footer-inner"><a class="footer-brand" href="index.html">计划李<span aria-hidden="true">▪</span></a><p>持续观察，认真生活。<br><span class="footer-copy">© 2026 Kevin · 计划李</span></p><nav aria-label="页脚"><a href="about.html">关于</a><a href="https://www.zhihu.com/people/xia-yu-de-xia-tian-40" target="_blank" rel="noopener noreferrer">知乎 ↗</a><a href="https://github.com/kev1nl33" target="_blank" rel="noopener noreferrer">GitHub ↗</a></nav></div></footer>
+<button class="back-to-top" aria-label="回到顶部" hidden>↑</button>
+<script src="scripts/main.js?v=335dd96da0" defer></script>
+<script src="scripts/cognitive.js?v=335dd96da0" defer></script>
+<script src="scripts/motion.js?v=ab6622564641" defer></script>
+</body></html>

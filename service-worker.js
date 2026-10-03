@@ -1,5 +1,5 @@
 // Service Worker for offline functionality
-const CACHE_VERSION = 'v1.0.0';
+const CACHE_VERSION = 'v1.0.1';
 const CACHE_NAME = `personal-blog-${CACHE_VERSION}`;
 
 // 需要缓存的核心资源

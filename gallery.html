@@ -1,228 +1,129 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>旅行相册 - 计划李</title>
-
-    <meta name="description" content="用镜头记录旅途中的每一个瞬间。旅行摄影画廊，按目的地和主题分类浏览。">
-    <meta name="keywords" content="旅行相册, 摄影, 画廊, 旅途记录, 计划李">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Noto+Serif+SC:wght@400;700&family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
-
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            black: '#0a0a0a',
-                            white: '#f4f4f0',
-                            accent: '#FF4D00',
-                            blue: '#0047AB',
-                            green: '#059669',
-                            gray: '#8a8a8a'
-                        },
-                        voyage: {
-                            navy:  '#1B2A4A',
-                            blue:  '#2563EB',
-                            sky:   '#60A5FA',
-                            sand:  '#D4A574',
-                            paper: '#FDF6EC',
-                            stamp: '#DC2626'
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['"Noto Sans SC"', 'Inter', 'sans-serif'],
-                        serif: ['"Noto Serif SC"', 'serif'],
-                        mono: ['"JetBrains Mono"', 'monospace'],
-                    }
-                }
-            }
-        }
-    </script>
-
-    <link rel="stylesheet" href="styles/main.css">
-    <link rel="stylesheet" href="styles/neo-brutalism.css">
-    <link rel="stylesheet" href="styles/gallery.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>回忆录 - 计划李</title>
+<meta name="description" content="旅行相册与日常光影记录。">
+<meta name="keywords" content="计划李,职业转型,AI应用,个人成长,咖啡,生活记录">
+<meta name="author" content="计划李">
+<meta property="og:type" content="website">
+<meta property="og:title" content="回忆录 - 计划李">
+<meta property="og:description" content="旅行相册与日常光影记录。">
+<meta property="og:url" content="https://kev1nl33.github.io/personal-blog/gallery.html">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="canonical" href="https://kev1nl33.github.io/personal-blog/gallery.html">
+<link rel="stylesheet" href="styles/main.css?v=335dd96da0">
+<link rel="stylesheet" href="styles/gallery.css?v=335dd96da0">
+<link rel="stylesheet" href="styles/motion.css?v=ab6622564641">
 </head>
-<body class="bg-grid min-h-screen">
-    <!-- 导航栏 -->
-    <nav class="nav">
-        <div class="container">
-            <div class="nav-content">
-                <a href="index.html" class="logo">计划李</a>
-                <ul class="nav-links">
-                    <li><a href="index.html">首页</a></li>
-                    <li><a href="blog.html">文章</a></li>
-                    <li><a href="visual-design.html">认知武器</a></li>
-                    <li><a href="coffee.html">咖啡角</a></li>
-                    <li><a href="travel.html">看世界</a></li>
-                    <li><a href="gallery.html" class="active">回忆录</a></li>
-                    <li><a href="about.html">关于</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Hero 区域 -->
-    <section class="gallery-hero">
-        <div class="max-w-7xl mx-auto px-4 md:px-8 gallery-hero-content">
-            <div class="reveal active">
-                <div class="mb-4">
-                    <span class="font-mono text-brand-accent text-xs md:text-sm tracking-widest uppercase font-bold">
-                        <span class="text-brand-black">●</span> GALLERY <span class="text-brand-black">●</span>
-                    </span>
-                </div>
-                <h1 class="text-6xl md:text-8xl font-black mb-6 leading-none text-brand-black">
-                    旅行相册
-                </h1>
-                <p class="font-serif text-lg md:text-xl text-brand-gray max-w-xl leading-relaxed">
-                    每一张照片都是一段旅途的切片，一个瞬间的永恒。
-                </p>
-            </div>
-
-            <!-- 操作按钮 -->
-            <div class="flex gap-3 mt-8">
-                <button id="btn-upload"
-                    class="font-mono text-xs font-bold uppercase tracking-wider px-4 py-2 border-2 border-brand-black text-brand-black hover:bg-brand-black hover:text-brand-white transition-all hover:shadow-[4px_4px_0px_#0a0a0a]">
-                    <i class="ri-upload-2-line"></i> 上传照片
-                </button>
-                <button id="btn-admin"
-                    class="font-mono text-xs font-bold uppercase tracking-wider px-4 py-2 border-2 border-brand-black text-brand-black hover:bg-brand-accent hover:text-white hover:border-brand-accent transition-all">
-                    管理
-                </button>
-            </div>
-        </div>
-    </section>
-
-    <!-- 统计条 -->
-    <div class="gallery-stats-bar">
-        <div class="gallery-stat">
-            <div class="gallery-stat-value" id="stat-photos">0</div>
-            <div class="gallery-stat-label">Photos</div>
-        </div>
-        <div class="gallery-stat">
-            <div class="gallery-stat-value" id="stat-albums">0</div>
-            <div class="gallery-stat-label">Albums</div>
-        </div>
+<body class="gallery-page">
+<a class="skip-link" href="#main">跳到内容</a>
+<nav class="site-nav" aria-label="主导航"><div class="container nav-inner">
+<a class="nav-logo" href="index.html" aria-label="计划李 首页">计划李<span aria-hidden="true">▪</span></a>
+<button class="nav-toggle" aria-controls="site-menu" aria-expanded="false" aria-label="打开菜单" hidden>菜单 <span aria-hidden="true">＋</span></button>
+<ul class="nav-links" id="site-menu"><li><a href="index.html" class="nav-link">首页</a></li><li><a href="blog.html" class="nav-link">文章</a></li><li><a href="visual-design.html" class="nav-link">认知武器</a></li><li><a href="coffee.html" class="nav-link">咖啡角</a></li><li><a href="travel.html" class="nav-link">看世界</a></li><li><a href="gallery.html" class="nav-link" aria-current=page>回忆录</a></li><li><a href="about.html" class="nav-link">关于</a></li></ul></div></nav>
+<main id="main" tabindex="-1">
+<section class="memory-cover" aria-labelledby="memory-title">
+  <div class="max-w-7xl mx-auto memory-cover-grid">
+    <div class="memory-cover-copy">
+      <p class="memory-kicker">+ MEMORY ARCHIVE / 私人影像</p>
+      <h1 id="memory-title">回忆，<br>有自己的<span>形状。</span></h1>
+      <p>一些地方，一些普通的日子。照片和文字会慢慢来到这里，留下当时看到的光、走过的路。</p>
+      <a href="#gallery-collection">翻阅影像 <span aria-hidden="true">↓</span></a>
     </div>
-
-    <!-- 管理工具栏 -->
-    <div class="max-w-7xl mx-auto px-4 md:px-8 mt-4">
-        <div class="gallery-admin-bar">
-            <span class="gallery-admin-indicator"><i class="ri-shield-keyhole-line"></i> 管理模式</span>
-            <span class="font-mono text-xs text-voyage-sky" style="margin-left: auto;">点击照片上的 × 可删除</span>
-        </div>
-    </div>
-
-    <!-- 筛选栏 -->
-    <section class="max-w-7xl mx-auto px-4 md:px-8">
-        <div id="gallery-filters" class="gallery-filters">
-            <button class="gallery-filter-btn gallery-filter-btn--active" data-filter="all">全部</button>
-        </div>
-    </section>
-
-    <!-- 图片网格 -->
-    <section class="py-8 md:py-12">
-        <div class="max-w-7xl mx-auto px-4 md:px-8">
-            <div id="gallery-grid" class="gallery-grid">
-                <!-- 由 JS 动态渲染 -->
+    <div class="memory-cover-art" aria-hidden="true"><div class="memory-frame memory-frame--back"></div><div class="memory-frame memory-frame--front"><span>一个瞬间<br>一段生活</span></div><span class="memory-art-index">VOL. 01 / CONTINUED</span></div>
+  </div>
+</section>
+<div class="gallery-stats-bar" id="gallery-stats" hidden>
+<div class="gallery-stat">
+<div class="gallery-stat-value" id="stat-photos">0</div>
+<div class="gallery-stat-label">Photos</div>
+</div>
+<div class="gallery-stat">
+<div class="gallery-stat-value" id="stat-albums">0</div>
+<div class="gallery-stat-label">Albums</div>
+</div>
+</div>
+<div class="max-w-7xl mx-auto px-4 md:px-8 mt-4">
+<div class="gallery-admin-bar">
+<span class="gallery-admin-indicator"><i class="ri-shield-keyhole-line"></i> 管理模式</span>
+<span class="font-mono text-xs text-voyage-sky" style="margin-left: auto;">点击照片上的 × 可删除</span>
+</div>
+</div>
+<section class="max-w-7xl mx-auto px-4 md:px-8" id="gallery-collection">
+<div class="gallery-filters" id="gallery-filters">
+<button class="gallery-filter-btn gallery-filter-btn--active" data-filter="all">全部</button>
+</div>
+</section>
+<section class="py-8 md:py-12 gallery-collection-section">
+<div class="max-w-7xl mx-auto px-4 md:px-8">
+<div class="gallery-grid" id="gallery-grid"><p class="gallery-empty">照片正在整理。新的旅途记录会在这里慢慢展开。</p></div>
+</div>
+</section>
+<section class="memory-related max-w-7xl mx-auto" id="memory-related">
+  <p class="memory-kicker">ANOTHER WAY TO REMEMBER / 从旅途开始</p>
+  <div><h2>照片还在整理，故事已经有了开头。</h2><p>翻开澳大利亚行程计划，从墨尔本的街区、猎人谷的葡萄园，一路读到悉尼的海港。</p><a href="travel.html">先去看世界 <span aria-hidden="true">↗</span></a></div>
+</section>
+<details class="gallery-author-tools max-w-7xl mx-auto" id="gallery-author-tools" hidden><summary>作者工具</summary><div class="gallery-author-actions"><button id="btn-upload" type="button">上传照片</button><button id="btn-admin" type="button">管理</button><p>此操作需要已配置的相册服务和管理密钥。</p></div></details>
+<div aria-label="照片查看" aria-modal="true" class="lightbox" id="lightbox" role="dialog">
+<button aria-label="关闭照片" class="lightbox-close" id="lightbox-close"><i class="ri-close-line"></i></button>
+<button aria-label="上一张照片" class="lightbox-nav lightbox-prev" id="lightbox-prev"><i class="ri-arrow-left-s-line"></i></button>
+<button aria-label="下一张照片" class="lightbox-nav lightbox-next" id="lightbox-next"><i class="ri-arrow-right-s-line"></i></button>
+<img alt="照片预览" class="lightbox-img" id="lightbox-img" src=""/>
+<div class="lightbox-info">
+<div class="lightbox-caption" id="lightbox-caption"></div>
+<div class="lightbox-counter" id="lightbox-counter"></div>
+</div>
+</div>
+<div aria-label="上传照片" aria-modal="true" class="upload-panel" id="upload-panel" role="dialog">
+<div class="upload-box">
+<button aria-label="关闭上传窗口" id="upload-close" style="position:absolute;top:1rem;right:1rem;background:none;border:none;font-size:1.5rem;cursor:pointer;color:var(--text-secondary);">
+<i class="ri-close-line"></i>
+</button>
+<div class="upload-box-title">
+<i class="ri-upload-cloud-2-line"></i> 上传照片
             </div>
-        </div>
-    </section>
-
-    <!-- Lightbox 灯箱 -->
-    <div id="lightbox" class="lightbox">
-        <button id="lightbox-close" class="lightbox-close"><i class="ri-close-line"></i></button>
-        <button id="lightbox-prev" class="lightbox-nav lightbox-prev"><i class="ri-arrow-left-s-line"></i></button>
-        <button id="lightbox-next" class="lightbox-nav lightbox-next"><i class="ri-arrow-right-s-line"></i></button>
-        <img id="lightbox-img" class="lightbox-img" src="" alt="">
-        <div class="lightbox-info">
-            <div id="lightbox-caption" class="lightbox-caption"></div>
-            <div id="lightbox-counter" class="lightbox-counter"></div>
-        </div>
-    </div>
-
-    <!-- 上传面板 -->
-    <div id="upload-panel" class="upload-panel">
-        <div class="upload-box">
-            <button id="upload-close" style="position:absolute;top:1rem;right:1rem;background:none;border:none;font-size:1.5rem;cursor:pointer;color:var(--text-secondary);">
-                <i class="ri-close-line"></i>
-            </button>
-            <div class="upload-box-title">
-                <i class="ri-upload-cloud-2-line"></i> 上传照片
-            </div>
-
-            <!-- 拖拽区域 -->
-            <div id="upload-dropzone" class="upload-dropzone">
-                <span class="upload-dropzone-icon"><i class="ri-image-add-line"></i></span>
-                <div class="upload-dropzone-text">拖拽图片到此处，或点击选择</div>
-                <div class="upload-dropzone-hint">支持 JPG, PNG, WebP · 单张最大 10MB</div>
-                <input type="file" id="upload-file-input" multiple accept="image/jpeg,image/png,image/webp"
-                    style="display:none;">
-            </div>
-
-            <!-- 预览 -->
-            <div id="upload-previews" class="upload-previews"></div>
-
-            <!-- 元数据表单 -->
-            <div class="upload-field">
-                <label class="upload-label">相册</label>
-                <input type="text" id="upload-album" class="upload-input" placeholder="例如: 澳大利亚 2026">
-            </div>
-            <div class="upload-field">
-                <label class="upload-label">标签（逗号分隔）</label>
-                <input type="text" id="upload-tags" class="upload-input" placeholder="例如: 海滩, 日落, 建筑">
-            </div>
-            <div class="upload-field">
-                <label class="upload-label">说明</label>
-                <input type="text" id="upload-caption" class="upload-input" placeholder="这张照片的故事...">
-            </div>
-
-            <!-- 操作按钮 -->
-            <div class="upload-actions">
-                <button id="upload-submit" class="upload-btn upload-btn--primary">
-                    <i class="ri-upload-2-line"></i> 开始上传
+<div class="upload-dropzone" id="upload-dropzone">
+<span class="upload-dropzone-icon"><i class="ri-image-add-line"></i></span>
+<div class="upload-dropzone-text">拖拽图片到此处，或点击选择</div>
+<div class="upload-dropzone-hint">支持 JPG, PNG, WebP · 单张最大 10MB</div>
+<input accept="image/jpeg,image/png,image/webp" id="upload-file-input" multiple="" style="display:none;" type="file"/>
+</div>
+<div class="upload-previews" id="upload-previews"></div>
+<div class="upload-field">
+<label class="upload-label">相册</label>
+<input class="upload-input" id="upload-album" placeholder="例如: 澳大利亚 2026" type="text"/>
+</div>
+<div class="upload-field">
+<label class="upload-label">标签（逗号分隔）</label>
+<input class="upload-input" id="upload-tags" placeholder="例如: 海滩, 日落, 建筑" type="text"/>
+</div>
+<div class="upload-field">
+<label class="upload-label">说明</label>
+<input class="upload-input" id="upload-caption" placeholder="这张照片的故事..." type="text"/>
+</div>
+<div class="upload-actions">
+<button class="upload-btn upload-btn--primary" id="upload-submit">
+<i class="ri-upload-2-line"></i> 开始上传
                 </button>
-                <button onclick="document.getElementById('upload-panel').classList.remove('upload-panel--open');document.body.style.overflow='';"
-                    class="upload-btn upload-btn--secondary">
+<button class="upload-btn upload-btn--secondary" onclick="document.getElementById('upload-panel').classList.remove('upload-panel--open');document.body.style.overflow='';">
                     取消
                 </button>
-            </div>
+</div>
+<div class="upload-progress" id="upload-progress">
+<div class="upload-progress-bar">
+<div class="upload-progress-fill" id="upload-progress-fill"></div>
+</div>
+<div class="upload-progress-text" id="upload-progress-text">准备中...</div>
+</div>
+</div>
+</div>
 
-            <!-- 进度条 -->
-            <div id="upload-progress" class="upload-progress">
-                <div class="upload-progress-bar">
-                    <div id="upload-progress-fill" class="upload-progress-fill"></div>
-                </div>
-                <div id="upload-progress-text" class="upload-progress-text">准备中...</div>
-            </div>
-        </div>
-    </div>
-
-    <!-- 页脚 -->
-    <footer class="border-t-2 border-brand-black py-8 mt-12">
-        <div class="max-w-7xl mx-auto px-4 md:px-8">
-            <div class="flex flex-col md:flex-row justify-between items-center gap-4">
-                <div class="font-mono text-xs text-brand-gray tracking-wider uppercase">
-                    © 2026 计划李 · Gallery
-                </div>
-                <div class="flex gap-6">
-                    <a href="index.html" class="font-mono text-xs text-brand-gray hover:text-brand-accent transition-colors uppercase tracking-wider">首页</a>
-                    <a href="travel.html" class="font-mono text-xs text-brand-gray hover:text-brand-accent transition-colors uppercase tracking-wider">看世界</a>
-                    <a href="blog.html" class="font-mono text-xs text-brand-gray hover:text-brand-accent transition-colors uppercase tracking-wider">文章</a>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <script src="scripts/gallery.js"></script>
-</body>
-</html>
+</main>
+<footer class="site-footer"><div class="container footer-inner"><a class="footer-brand" href="index.html">计划李<span aria-hidden="true">▪</span></a><p>持续观察，认真生活。<br><span class="footer-copy">© 2026 Kevin · 计划李</span></p><nav aria-label="页脚"><a href="about.html">关于</a><a href="https://www.zhihu.com/people/xia-yu-de-xia-tian-40" target="_blank" rel="noopener noreferrer">知乎 ↗</a><a href="https://github.com/kev1nl33" target="_blank" rel="noopener noreferrer">GitHub ↗</a></nav></div></footer>
+<button class="back-to-top" aria-label="回到顶部" hidden>↑</button>
+<script src="scripts/main.js?v=335dd96da0" defer></script>
+<script src="scripts/gallery.js?v=335dd96da0" defer></script>
+<script src="scripts/motion.js?v=ab6622564641" defer></script>
+</body></html>

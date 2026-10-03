@@ -1,87 +1,59 @@
-// 博客筛选和搜索功能
-document.addEventListener('DOMContentLoaded', function() {
-    const categoryBtns = document.querySelectorAll('.category-btn');
-    const tagBtns = document.querySelectorAll('.tag-btn');
-    const blogCards = document.querySelectorAll('.blog-card');
-    const searchInput = document.getElementById('searchInput');
-
-    // 当前筛选状态
-    let currentCategory = 'all';
-    let currentTag = 'all';
-
-    // 应用筛选
-    function applyFilters() {
-        blogCards.forEach(card => {
-            const categoryMatch = currentCategory === 'all' || card.dataset.category === currentCategory;
-            const cardTags = card.dataset.tags || '';
-            const tagMatch = currentTag === 'all' || cardTags.includes(currentTag);
-
-            if (categoryMatch && tagMatch) {
-                card.classList.remove('hidden');
-                card.style.animation = 'fadeIn 0.5s ease-in-out';
-            } else {
-                card.classList.add('hidden');
-            }
-        });
+document.addEventListener('DOMContentLoaded', () => {
+  const grid = document.getElementById('blogGrid');
+  if (!grid) return;
+  const cards = [...grid.querySelectorAll('.blog-card')];
+  const input = document.getElementById('searchInput');
+  const tag = document.getElementById('tagFilter');
+  const clear = document.getElementById('searchClear');
+  const reset = document.getElementById('resetFilters');
+  const count = document.getElementById('searchCount');
+  const empty = document.getElementById('searchEmpty');
+  const buttons = [...document.querySelectorAll('.category-btn')];
+  let category = 'all';
+  const records = cards.map(card => ({card, category:card.dataset.category,
+    tags:card.dataset.tags.split(',').filter(Boolean),
+    text:[card.querySelector('h2').textContent,card.querySelector('p').textContent,card.dataset.tags].join(' ').toLocaleLowerCase()}));
+  function applyFilters(save = false) {
+    const query = input.value.trim().toLocaleLowerCase();
+    let visible = 0;
+    records.forEach(record => {
+      const match = (category === 'all' || category === record.category) &&
+        (tag.value === 'all' || record.tags.includes(tag.value)) && (!query || record.text.includes(query));
+      record.card.hidden = !match;
+      if (match) visible++;
+    });
+    buttons.forEach(button => {
+      const active = button.dataset.category === category;
+      button.classList.toggle('active',active); button.setAttribute('aria-pressed',String(active));
+    });
+    count.textContent = query || category !== 'all' || tag.value !== 'all' ? `已筛选出 ${visible} 篇相关文章` : `共 ${visible} 篇文章`;
+    empty.hidden = visible !== 0;
+    clear.hidden = input.value === '';
+    if (save) {
+      const url = new URL(location.href);
+      for (const [key,value] of [['category',category === 'all' ? '' : category],['q',input.value],['tag',tag.value === 'all' ? '' : tag.value]]) {
+        if (value) url.searchParams.set(key,value); else url.searchParams.delete(key);
+      }
+      if (url.href !== location.href) history.pushState(null,'',url);
     }
-
-    // 分类筛选功能
-    categoryBtns.forEach(btn => {
-        btn.addEventListener('click', function() {
-            categoryBtns.forEach(b => b.classList.remove('active'));
-            this.classList.add('active');
-            currentCategory = this.dataset.category;
-            applyFilters();
-        });
-    });
-
-    // 标签筛选功能
-    tagBtns.forEach(btn => {
-        btn.addEventListener('click', function() {
-            tagBtns.forEach(b => b.classList.remove('active'));
-            this.classList.add('active');
-            currentTag = this.dataset.tag;
-            applyFilters();
-        });
-    });
-
-    // 搜索功能
-    searchInput.addEventListener('input', function() {
-        const searchTerm = this.value.toLowerCase();
-
-        blogCards.forEach(card => {
-            const title = card.querySelector('.blog-title').textContent.toLowerCase();
-            const excerpt = card.querySelector('.blog-excerpt').textContent.toLowerCase();
-            const tag = card.querySelector('.blog-tag').textContent.toLowerCase();
-            const itemTags = card.dataset.tags ? card.dataset.tags.toLowerCase() : '';
-
-            if (title.includes(searchTerm) || excerpt.includes(searchTerm) || tag.includes(searchTerm) || itemTags.includes(searchTerm)) {
-                card.classList.remove('hidden');
-                card.style.animation = 'fadeIn 0.5s ease-in-out';
-            } else {
-                card.classList.add('hidden');
-            }
-        });
-
-        // 如果搜索框清空，恢复当前筛选
-        if (searchTerm === '') {
-            applyFilters();
-        }
-    });
+  }
+  function restore() {
+    const params = new URLSearchParams(location.search);
+    category = buttons.some(b => b.dataset.category === params.get('category')) ? params.get('category') : 'all';
+    input.value = params.get('q') || '';
+    tag.value = [...tag.options].some(o => o.value === params.get('tag')) ? params.get('tag') : 'all';
+    applyFilters();
+  }
+  buttons.forEach(button => button.addEventListener('click', () => {category=button.dataset.category;applyFilters(true);}));
+  input.addEventListener('input', () => applyFilters(true));
+  tag.addEventListener('change', () => applyFilters(true));
+  clear.addEventListener('click', () => { input.value='';applyFilters(true);input.focus(); });
+  reset.addEventListener('click', () => { category='all';input.value='';tag.value='all';applyFilters(true);input.focus(); });
+  window.addEventListener('popstate', restore);
+  window.addEventListener('keydown', event => {
+    if (event.key === '/' && !event.ctrlKey && !event.metaKey && !event.altKey && !event.target.closest('input,textarea,select,[contenteditable]')) {
+      event.preventDefault();input.focus();
+    }
+  });
+  restore();
 });
-
-// 添加淡入动画的CSS
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes fadeIn {
-        from {
-            opacity: 0;
-            transform: translateY(20px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-`;
-document.head.appendChild(style);

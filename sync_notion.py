@@ -4,10 +4,19 @@ Notion 博客同步脚本（完整版）
 从 Notion Database 读取文章并生成 HTML，同时更新文章列表
 """
 
+import json
 import os
 import re
-import requests
+import shutil
+import tempfile
 from datetime import datetime
+from html import escape
+from pathlib import Path
+from urllib.parse import urlparse
+
+import requests
+
+from site_builder import (ROOT, article_card, build_outputs, commit_outputs, render_article, render_blog, render_home, safe_slug)
 
 # Notion API 配置
 NOTION_TOKEN = os.environ.get("NOTION_TOKEN", "")
@@ -41,6 +50,30 @@ CATEGORY_MAP = {
 }
 
 
+def notion_query(url, payload):
+    if not NOTION_TOKEN:
+        raise RuntimeError('NOTION_TOKEN is not configured')
+    results, cursor = [], None
+    while True:
+        request_payload = dict(payload)
+        if cursor:
+            request_payload['start_cursor'] = cursor
+        response = requests.post(url, headers=HEADERS, json=request_payload, timeout=30)
+        response.raise_for_status()
+        data = response.json()
+        results.extend(data['results'])
+        if not data.get('has_more'):
+            return results
+        next_cursor = data.get('next_cursor')
+        if not next_cursor or next_cursor == cursor:
+            raise ValueError('Invalid Notion pagination cursor')
+        cursor = next_cursor
+
+
+def safe_content_url(value):
+    return value if urlparse(value).scheme in ('http', 'https', 'mailto') else '#'
+
+
 def query_database():
     """查询 Notion 数据库获取所有已发布的文章"""
     url = f"https://api.notion.com/v1/databases/{DATABASE_ID}/query"
@@ -50,9 +83,7 @@ def query_database():
         "sorts": [{"property": "发布日期", "direction": "descending"}],
     }
 
-    response = requests.post(url, headers=HEADERS, json=payload)
-    response.raise_for_status()
-    return response.json()["results"]
+    return notion_query(url, payload)
 
 
 def get_page_content(page_id):
@@ -66,7 +97,7 @@ def get_page_content(page_id):
         if start_cursor:
             params["start_cursor"] = start_cursor
 
-        response = requests.get(url, headers=HEADERS, params=params)
+        response = requests.get(url, headers=HEADERS, params=params, timeout=30)
         response.raise_for_status()
         data = response.json()
 
@@ -115,7 +146,7 @@ def block_to_html(block):
 
     elif block_type == "code":
         text = plain_text(block["code"]["rich_text"])
-        return f"<pre><code>{text}</code></pre>\n"
+        return f"<pre><code>{escape(text)}</code></pre>\n"
 
     return ""
 
@@ -140,7 +171,7 @@ def rich_text_to_html(rich_text):
             content = f"<code>{content}</code>"
 
         if text.get("href"):
-            content = f'<a href="{text["href"]}">{content}</a>'
+            content = f'<a href="{escape(safe_content_url(text["href"]), quote=True)}">{content}</a>'
 
         html += content
 
@@ -189,758 +220,22 @@ def get_property_value(properties, prop_name):
 
 
 def generate_article_html(article_data):
-    """生成文章 HTML（Neo-Brutalism 设计）"""
-    # 生成分类标签的CSS类
-    category_class_map = {
-        "career": "tag--teal",
-        "ai": "tag--ai",
-        "investment": "tag--investment",
-        "personal": "tag--personal",
-        "reading": "tag--reading",
-    }
-    category_en = article_data.get("category_en", "personal")
-    tag_class = category_class_map.get(category_en, "tag--personal")
-
-    template = """<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{title} - 计划李</title>
-
-    <!-- SEO Meta Tags -->
-    <meta name="description" content="{description}">
-    <meta name="keywords" content="{keywords}">
-    <meta name="author" content="计划李 (Kevin)">
-    <meta name="robots" content="index, follow">
-    <meta name="language" content="zh-CN">
-
-    <!-- Open Graph Meta Tags -->
-    <meta property="og:type" content="article">
-    <meta property="og:title" content="{title}">
-    <meta property="og:description" content="{description}">
-    <meta property="og:url" content="{article_url}">
-    <meta property="og:site_name" content="计划李的个人博客">
-    <meta property="og:locale" content="zh_CN">
-    <meta property="article:author" content="计划李">
-    <meta property="article:published_time" content="{date_short}">
-    <meta property="article:section" content="{category}">
-
-    <!-- Twitter Card Meta Tags -->
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="{title}">
-    <meta name="twitter:description" content="{description}">
-    <meta name="twitter:creator" content="@计划李">
-
-    <!-- Canonical URL -->
-    <link rel="canonical" href="{article_url}">
-
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Noto+Serif+SC:wght@400;700&family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <script>
-        tailwind.config = {{
-            theme: {{
-                extend: {{
-                    colors: {{
-                        brand: {{
-                            black: '#0a0a0a',
-                            white: '#f4f4f0',
-                            accent: '#FF4D00',
-                            blue: '#0047AB',
-                            green: '#059669',
-                            gray: '#8a8a8a'
-                        }}
-                    }},
-                    fontFamily: {{
-                        sans: ['"Noto Sans SC"', 'Inter', 'sans-serif'],
-                        serif: ['"Noto Serif SC"', 'serif'],
-                        mono: ['"JetBrains Mono"', 'monospace'],
-                    }}
-                }}
-            }}
-        }}
-    </script>
-
-    <link rel="stylesheet" href="styles/main.css">
-    <link rel="stylesheet" href="styles/neo-brutalism.css">
-
-    <style>
-        /* 文章页面专用样式 */
-        .article-wrapper {{
-            max-width: 960px;
-            margin: 0 auto;
-            padding: 0 1rem;
-        }}
-
-        @media (min-width: 768px) {{
-            .article-wrapper {{
-                padding: 0 2rem;
-            }}
-        }}
-
-        .article-content p {{
-            font-family: 'Noto Serif SC', Georgia, serif;
-            font-size: 1.175rem;
-            line-height: 2;
-            margin-bottom: 1.75rem;
-            color: #1f2937;
-            letter-spacing: 0.01em;
-        }}
-
-        .article-content h2 {{
-            font-size: 1.75rem;
-            font-weight: 700;
-            margin-top: 3rem;
-            margin-bottom: 1rem;
-            color: #0a0a0a;
-            padding-left: 1rem;
-            border-left: 4px solid #FF4D00;
-        }}
-
-        .article-content h3 {{
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-top: 2.5rem;
-            margin-bottom: 1rem;
-            color: #0a0a0a;
-            padding-left: 1rem;
-            border-left: 4px solid #0a0a0a;
-        }}
-
-        .article-content h4 {{
-            font-size: 1.25rem;
-            font-weight: 700;
-            margin-top: 2rem;
-            margin-bottom: 0.75rem;
-            color: #0a0a0a;
-        }}
-
-        .article-content blockquote {{
-            background: white;
-            border: 1px solid #0a0a0a;
-            border-left: 4px solid #FF4D00;
-            padding: 1.5rem;
-            margin: 2rem 0;
-            font-family: 'Noto Serif SC', serif;
-            font-style: italic;
-        }}
-
-        .article-content ul,
-        .article-content ol {{
-            margin-bottom: 1.5rem;
-            padding-left: 1.5rem;
-        }}
-
-        .article-content li {{
-            font-family: 'Noto Serif SC', Georgia, serif;
-            margin-bottom: 0.75rem;
-            font-size: 1.175rem;
-            line-height: 2;
-            color: #1f2937;
-        }}
-
-        .article-content a {{
-            color: #FF4D00;
-            text-decoration: underline;
-            text-underline-offset: 2px;
-        }}
-
-        .article-content a:hover {{
-            background: #FF4D00;
-            color: white;
-            text-decoration: none;
-            padding: 0 0.25rem;
-        }}
-
-        .article-content code {{
-            background: #f4f4f0;
-            border: 1px solid #0a0a0a;
-            padding: 0.125rem 0.375rem;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.9em;
-        }}
-
-        .article-content pre {{
-            background: #0a0a0a;
-            color: #f4f4f0;
-            padding: 1.5rem;
-            border: 2px solid #0a0a0a;
-            overflow-x: auto;
-            margin: 2rem 0;
-        }}
-
-        .article-content pre code {{
-            background: none;
-            border: none;
-            padding: 0;
-            color: inherit;
-        }}
-
-        .article-content strong {{
-            font-weight: 700;
-            color: #0a0a0a;
-        }}
-
-        /* 目录导航样式 */
-        .toc-container {{
-            position: fixed;
-            top: 120px;
-            /* 居中定位：左右边距相等
-               计算：正文右边缘 = 50vw + 480px
-                    右侧空白中点 = 75vw + 240px
-                    使用 translateX(-50%) 实现目录自身居中 */
-            left: calc(75vw + 240px);
-            transform: translateX(-50%);
-            max-height: calc(100vh - 160px);
-            overflow-y: auto;
-            z-index: 100;
-            padding: 0 1rem;
-            /* 自定义滚动条 */
-            scrollbar-width: thin;
-            scrollbar-color: #d1d5db transparent;
-        }}
-
-        .toc-container::-webkit-scrollbar {{
-            width: 4px;
-        }}
-
-        .toc-container::-webkit-scrollbar-track {{
-            background: transparent;
-        }}
-
-        .toc-container::-webkit-scrollbar-thumb {{
-            background-color: #d1d5db;
-            border-radius: 2px;
-        }}
-
-        .toc-container::-webkit-scrollbar-thumb:hover {{
-            background-color: #9ca3af;
-        }}
-
-        /* 当屏幕宽度不足以容纳正文+目录时，隐藏目录 */
-        @media (max-width: 1300px) {{
-            .toc-container {{
-                display: none;
-            }}
-        }}
-
-        .toc-card {{
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border: 2px solid #0a0a0a;
-            padding: 1rem 1.25rem;
-            box-shadow: 4px 4px 0px rgba(10, 10, 10, 0.1);
-            border-radius: 8px;
-            width: max-content;
-            max-width: 100%;
-        }}
-
-        .toc-header {{
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-            padding-bottom: 0.75rem;
-            border-bottom: 1px solid #e5e7eb;
-        }}
-
-        .toc-title {{
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            color: #0a0a0a;
-            margin-bottom: 1rem;
-            padding-bottom: 0.75rem;
-            border-bottom: 2px solid #0a0a0a;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }}
-
-        .toc-title::before {{
-            content: '▸';
-            font-size: 0.9rem;
-            color: #FF4D00;
-        }}
-
-        .toc-list {{
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }}
-
-        .toc-item {{
-            margin: 0.25rem 0;
-        }}
-
-        .toc-link {{
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.4rem 0.75rem;
-            margin: 0.15rem 0;
-            color: #4b5563;
-            text-decoration: none;
-            border-radius: 0 4px 4px 0;
-            transition: all 0.2s ease;
-            font-size: 0.825rem;
-            font-weight: 500;
-            white-space: nowrap;
-            line-height: 1.5;
-        }}
-
-        .toc-link:hover {{
-            color: #0a0a0a;
-            background: rgba(255, 77, 0, 0.05);
-        }}
-
-        .toc-link.active {{
-            color: #FF4D00;
-            background: rgba(255, 77, 0, 0.08);
-            font-weight: 600;
-        }}
-
-        .toc-link.active .toc-bullet {{
-            background: #FF4D00;
-        }}
-
-        .toc-bullet {{
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: #666;
-            flex-shrink: 0;
-            transition: background 0.2s;
-        }}
-
-        .toc-text {{
-            flex: 1;
-            min-width: 0;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }}
-
-        .toc-nav {{
-            max-height: 500px;
-            overflow-y: auto;
-            overflow-x: hidden;
-            transition: max-height 0.3s ease;
-        }}
-
-        .toc-nav::-webkit-scrollbar {{
-            width: 4px;
-        }}
-
-        .toc-nav::-webkit-scrollbar-track {{
-            background: #f9fafb;
-        }}
-
-        .toc-nav::-webkit-scrollbar-thumb {{
-            background: #d1d5db;
-            border-radius: 2px;
-        }}
-
-        .toc-container.collapsed .toc-nav {{
-            max-height: 0 !important;
-        }}
-
-        /* 中等屏幕适配 */
-        @media (max-width: 1200px) {{
-            .toc-container {{
-                right: calc((100% - 960px) / 2);
-            }}
-        }}
-
-        /* 移动端适配 */
-        @media (max-width: 768px) {{
-            .toc-container {{
-                position: static;
-                margin-bottom: 1.5rem;
-            }}
-
-            .toc-nav {{
-                max-height: 300px;
-            }}
-        }}
-
-        /* 阅读进度条 */
-
-        /* 阅读进度条 */
-        .reading-progress {{
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 0%;
-            height: 3px;
-            background: #FF4D00;
-            z-index: 9999;
-            transition: width 0.1s ease-out;
-        }}
-
-        /* 返回顶部按钮 */
-        .back-to-top {{
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            width: 48px;
-            height: 48px;
-            background: #0a0a0a;
-            color: white;
-            border: 2px solid #0a0a0a;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(20px);
-            transition: all 0.3s ease;
-            z-index: 1000;
-            font-size: 1.25rem;
-        }}
-
-        .back-to-top:hover {{
-            background: #FF4D00;
-            border-color: #FF4D00;
-            transform: translateY(-4px);
-            box-shadow: 4px 4px 0px #0a0a0a;
-        }}
-
-        .back-to-top.visible {{
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }}
-
-        @media (max-width: 768px) {{
-            .back-to-top {{
-                bottom: 1rem;
-                right: 1rem;
-                width: 40px;
-                height: 40px;
-            }}
-        }}
-    </style>
-</head>
-<body class="bg-grid min-h-screen">
-    <!-- 阅读进度条 -->
-    <div class="reading-progress" id="reading-progress"></div>
-
-    <!-- 返回顶部按钮 -->
-    <button class="back-to-top" id="back-to-top" title="返回顶部">↑</button>
-
-    <!-- 导航栏 -->
-    <nav class="nav">
-        <div class="container">
-            <div class="nav-content">
-                <a href="index.html" class="logo">计划李</a>
-                <ul class="nav-links">
-                    <li><a href="index.html">首页</a></li>
-                    <li><a href="blog.html">文章</a></li>
-                    <li><a href="visual-design.html">认知武器</a></li>
-                    <li><a href="coffee.html">咖啡角</a></li>
-                    <li><a href="about.html">关于</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-    <!-- 目录导航 -->
-    <aside class="toc-container" id="toc">
-        <div class="toc-card">
-            <div class="toc-title">目录</div>
-            <ul class="toc-list" id="toc-list">
-                <!-- 由 JavaScript 动态生成 -->
-            </ul>
-        </div>
-    </aside>
-
-    <!-- 文章内容 -->
-    <article class="py-12 md:py-16">
-        <div class="article-wrapper">
-            <!-- 文章头部卡片 -->
-            <div class="bento-card p-8 md:p-12 mb-8 reveal">
-                <div class="mb-4">
-                    <span class="tag {tag_class}">{category}</span>
-                </div>
-                <h1 class="text-3xl md:text-4xl lg:text-5xl font-black mb-6 leading-tight display-text">
-                    {title}
-                </h1>
-                <p class="font-serif italic text-lg md:text-xl text-gray-600 mb-6">
-                    {excerpt}
-                </p>
-                <div class="flex flex-wrap gap-2 text-xs font-mono text-gray-500">
-                    <span>{date_short}</span>
-                    <span>·</span>
-                    <span>{read_time}分钟</span>
-                </div>
-            </div>
-
-            <!-- 文章正文 -->
-            <div class="bento-card p-8 md:p-12">
-                <div class="article-content">
-                    {content}
-                </div>
-            </div>
-        </div>
-    </article>
-
-    <!-- 页脚 -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <p>&copy; 2025 计划李. All rights reserved.</p>
-                <div class="social-links">
-                    <a href="https://www.zhihu.com/people/xia-yu-de-xia-tian-40" target="_blank">知乎</a>
-                    <a href="https://github.com" target="_blank">GitHub</a>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <script>
-        // Reveal 动画
-        const revealElements = document.querySelectorAll('.reveal');
-        const observer = new IntersectionObserver((entries) => {{
-            entries.forEach(entry => {{
-                if (entry.isIntersecting) {{
-                    entry.target.classList.add('active');
-                }}
-            }});
-        }}, {{ threshold: 0.1 }});
-
-        revealElements.forEach(el => {{
-            observer.observe(el);
-        }});
-
-        // 目录导航生成
-        document.addEventListener('DOMContentLoaded', function() {{
-            const articleContent = document.querySelector('.article-content');
-            const tocList = document.getElementById('toc-list');
-            const headings = articleContent.querySelectorAll('h2, h3, h4');
-
-            if (headings.length === 0) {{
-                document.getElementById('toc').style.display = 'none';
-                return;
-            }}
-
-            // 生成目录
-            headings.forEach((heading, index) => {{
-                // 为标题添加 ID
-                const id = 'heading-' + index;
-                heading.id = id;
-
-                // 创建目录项
-                const li = document.createElement('li');
-                li.className = 'toc-item';
-
-                const a = document.createElement('a');
-                a.href = '#' + id;
-                a.className = 'toc-link toc-' + heading.tagName.toLowerCase();
-                a.textContent = heading.textContent;
-
-                // 点击平滑滚动
-                a.addEventListener('click', function(e) {{
-                    e.preventDefault();
-                    heading.scrollIntoView({{ behavior: 'smooth', block: 'start' }});
-                }});
-
-                li.appendChild(a);
-                tocList.appendChild(li);
-            }});
-
-            // 滚动高亮当前章节
-            const tocLinks = document.querySelectorAll('.toc-link');
-
-            function updateActiveLink() {{
-                let currentHeading = null;
-                const scrollPosition = window.scrollY + 150;
-
-                headings.forEach(heading => {{
-                    if (heading.offsetTop <= scrollPosition) {{
-                        currentHeading = heading;
-                    }}
-                }});
-
-                tocLinks.forEach(link => {{
-                    link.classList.remove('active');
-                    if (currentHeading && link.getAttribute('href') === '#' + currentHeading.id) {{
-                        link.classList.add('active');
-                    }}
-                }});
-            }}
-
-            window.addEventListener('scroll', updateActiveLink);
-            updateActiveLink();
-        }});
-
-        // 阅读进度条
-        const progressBar = document.getElementById('reading-progress');
-
-        function updateProgressBar() {{
-            const scrollTop = window.scrollY;
-            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-            const progress = (scrollTop / docHeight) * 100;
-            progressBar.style.width = Math.min(progress, 100) + '%';
-        }}
-
-        window.addEventListener('scroll', updateProgressBar);
-        updateProgressBar();
-
-        // 返回顶部按钮
-        const backToTop = document.getElementById('back-to-top');
-
-        function toggleBackToTop() {{
-            if (window.scrollY > 400) {{
-                backToTop.classList.add('visible');
-            }} else {{
-                backToTop.classList.remove('visible');
-            }}
-        }}
-
-        backToTop.addEventListener('click', function() {{
-            window.scrollTo({{
-                top: 0,
-                behavior: 'smooth'
-            }});
-        }});
-
-        window.addEventListener('scroll', toggleBackToTop);
-        toggleBackToTop();
-    </script>
-</body>
-</html>"""
-
-    # 添加tag_class到article_data
-    article_data["tag_class"] = tag_class
-    return template.format(**article_data)
+    """Render from the same template as the local site build."""
+    return render_article(article_data)
 
 
 def generate_blog_card(article):
-    """生成单个文章卡片 HTML"""
-    # 生成标签HTML
-    tags_data = ",".join(article.get("tags", []))
-    tags_html = ""
-    if article.get("tags"):
-        tags_html = (
-            '<div class="blog-tags">'
-            + "".join(
-                [f'<span class="blog-item-tag">{tag}</span>' for tag in article["tags"]]
-            )
-            + "</div>"
-        )
-
-    return f'''                <article class="blog-card" data-category="{article["category_en"]}" data-tags="{tags_data}">
-                    <div class="blog-tag">{article["category"]}</div>
-                    <h2 class="blog-title">{article["title"]}</h2>
-                    <p class="blog-excerpt">{article["excerpt"]}</p>
-                    {tags_html}
-                    <div class="blog-meta">
-                        <span class="blog-date">{article["date_short"]}</span>
-                        <span class="blog-read">{article["read_time"]}分钟阅读</span>
-                    </div>
-                    <a href="{article["url"]}.html" class="read-more">阅读全文 →</a>
-                </article>
-
-'''
+    return article_card(article)
 
 
 def update_blog_html(articles):
-    """更新 blog.html 的文章列表"""
-    try:
-        with open("blog.html", "r", encoding="utf-8") as f:
-            content = f.read()
-
-        # 收集所有唯一标签
-        all_tags = set()
-        for article in articles:
-            for tag in article.get("tags", []):
-                all_tags.add(tag)
-
-        # 生成标签筛选按钮HTML
-        tags_buttons_html = (
-            '<button class="tag-btn active" data-tag="all">全部标签</button>'
-        )
-        for tag in sorted(all_tags):
-            tags_buttons_html += (
-                f'<button class="tag-btn" data-tag="{tag}">{tag}</button>'
-            )
-
-        # 替换标签筛选区域
-        tag_pattern = r'(<div class="tag-filters" id="tagFilters">)(.*?)(</div>)'
-        if re.search(tag_pattern, content, flags=re.DOTALL):
-            content = re.sub(
-                tag_pattern,
-                r"\1\n                " + tags_buttons_html + r"\n            \3",
-                content,
-                flags=re.DOTALL,
-            )
-
-        # 生成所有文章卡片
-        cards_html = "".join([generate_blog_card(article) for article in articles])
-
-        # 替换文章列表部分
-        # 查找 <div class="blog-grid" id="blogGrid"> 到下一个 </div> 之间的内容
-        pattern = r'(<div class="blog-grid" id="blogGrid">)(.*?)(</div>\s*</div>\s*</section>)'
-        replacement = r"\1\n" + cards_html + r"            \3"
-
-        new_content = re.sub(pattern, replacement, content, flags=re.DOTALL)
-
-        with open("blog.html", "w", encoding="utf-8") as f:
-            f.write(new_content)
-
-        print("✅ blog.html 更新成功")
-        return True
-    except Exception as e:
-        print(f"❌ 更新 blog.html 失败: {e}")
-        return False
+    commit_outputs({'blog.html': render_blog(articles)}, Path.cwd())
+    return True
 
 
 def update_index_html(articles):
-    """更新 index.html 的精选文章"""
-    try:
-        with open("index.html", "r", encoding="utf-8") as f:
-            content = f.read()
-
-        # 只取前3篇文章作为精选
-        featured = articles[:3]
-
-        cards_html = ""
-        for article in featured:
-            cards_html += f"""                <article class="article-card">
-                    <div class="article-tag">{article["category"]}</div>
-                    <h3 class="article-title">{article["title"]}</h3>
-                    <p class="article-excerpt">{article["excerpt"][:50]}...</p>
-                    <div class="article-meta">
-                        <span class="article-date">{article["date_short"]}</span>
-                        <span class="article-read">{article["read_time"]}分钟阅读</span>
-                    </div>
-                </article>
-
-"""
-
-        # 替换精选文章部分
-        pattern = r'(<div class="articles-grid">)(.*?)(</div>\s*</div>\s*</section>\s*<!-- 关于简介 -->)'
-        replacement = r"\1\n" + cards_html + r"            \3"
-
-        new_content = re.sub(pattern, replacement, content, flags=re.DOTALL)
-
-        with open("index.html", "w", encoding="utf-8") as f:
-            f.write(new_content)
-
-        print("✅ index.html 更新成功")
-        return True
-    except Exception as e:
-        print(f"❌ 更新 index.html 失败: {e}")
-        return False
+    commit_outputs({'index.html': render_home(articles)}, Path.cwd())
+    return True
 
 
 def main():
@@ -1055,28 +350,19 @@ def main():
             # 生成文章 HTML
             article_html = generate_article_html(article_data)
 
-            # 保存文章
-            filename = f"{url}.html"
-            with open(filename, "w", encoding="utf-8") as f:
-                f.write(article_html)
-            print(f"  ✅ 已生成: {filename}")
+            safe_slug(url)
+            print(f"  ✅ 已验证: {url}.html")
 
         except Exception as e:
             print(f"  ❌ 处理文章失败: {e}")
-            continue
+            return False
 
-    if articles:
-        # 更新文章列表页
-        print("\n📋 更新文章列表...")
-        update_blog_html(articles)
-
-        # 更新首页
-        print("🏠 更新首页...")
-        update_index_html(articles)
-
-        print(f"\n🎉 同步完成！共生成 {len(articles)} 篇文章")
-    else:
-        print("\n⚠️  没有文章需要同步")
+    articles.sort(key=lambda article: article.get('date_short', ''), reverse=True)
+    outputs = build_outputs(articles)
+    outputs['data/articles.json'] = json.dumps(articles, ensure_ascii=False, indent=2) + '\n'
+    commit_outputs(outputs, Path.cwd())
+    print(f"同步完成：{len(articles)} 篇文章")
+    return True
 
 
 def query_coffee_beans():
@@ -1088,13 +374,18 @@ def query_coffee_beans():
         "sorts": [{"property": "购买日期", "direction": "descending"}],
     }
 
-    response = requests.post(url, headers=HEADERS, json=payload)
-    response.raise_for_status()
-    return response.json()["results"]
+    return notion_query(url, payload)
+
+
+def escape_fields(record):
+    return {key: escape(value, quote=True) if isinstance(value, str)
+            else [escape(item, quote=True) if isinstance(item, str) else item for item in value]
+            if isinstance(value, list) else value for key, value in record.items()}
 
 
 def generate_bean_card_html(bean):
     """生成单个咖啡豆卡片HTML"""
+    bean = escape_fields(bean)
     # 生成风味标签
     flavors = bean.get("flavor_notes", "").split("、")
     flavor_tags = "".join(
@@ -1165,10 +456,10 @@ def update_coffee_beans_html(beans):
         pattern = r'(<div class="grid grid-cols-1 md:grid-cols-2 gap-6">)(.*?)(</div>\s*</div>\s*</section>)'
         replacement = r"\1\n" + cards_html + r"            \3"
 
-        new_content = re.sub(pattern, replacement, content, flags=re.DOTALL)
-
-        with open("coffee-beans.html", "w", encoding="utf-8") as f:
-            f.write(new_content)
+        new_content, count = re.subn(pattern, lambda match: match[1] + '\n' + cards_html + match[3], content, flags=re.DOTALL)
+        if count != 1:
+            raise ValueError('Expected one coffee beans content region')
+        commit_outputs({'coffee-beans.html': new_content}, Path.cwd())
 
         print("✅ coffee-beans.html 更新成功")
         return True
@@ -1189,7 +480,7 @@ def sync_coffee_beans():
         print(f"📦 找到 {len(beans_data)} 款已发布的咖啡豆")
     except Exception as e:
         print(f"❌ 查询咖啡豆档案数据库失败: {e}")
-        return
+        return False
 
     beans = []
 
@@ -1221,14 +512,9 @@ def sync_coffee_beans():
             import traceback
 
             traceback.print_exc()
-            continue
+            return False
 
-    if beans:
-        print("\n📋 更新咖啡豆页面...")
-        update_coffee_beans_html(beans)
-        print(f"\n🎉 咖啡豆同步完成！共 {len(beans)} 款咖啡豆")
-    else:
-        print("\n⚠️  没有咖啡豆需要同步")
+    return update_coffee_beans_html(beans)
 
 
 def query_cafe_visits():
@@ -1240,13 +526,12 @@ def query_cafe_visits():
         "sorts": [{"property": "访问日期", "direction": "descending"}],
     }
 
-    response = requests.post(url, headers=HEADERS, json=payload)
-    response.raise_for_status()
-    return response.json()["results"]
+    return notion_query(url, payload)
 
 
 def generate_shop_card_html(shop):
     """生成单个咖啡馆卡片HTML"""
+    shop = escape_fields(shop)
     # 生成标签
     tags = shop.get("tags", [])
     tags_html = "".join(
@@ -1318,10 +603,10 @@ def update_coffee_shops_html(shops):
         pattern = r'(<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">)(.*?)(</div>\s*</div>\s*</section>\s*<!-- 返回咖啡角 -->)'
         replacement = r"\1\n" + cards_html + r"            \3"
 
-        new_content = re.sub(pattern, replacement, content, flags=re.DOTALL)
-
-        with open("coffee-shops.html", "w", encoding="utf-8") as f:
-            f.write(new_content)
+        new_content, count = re.subn(pattern, lambda match: match[1] + '\n' + cards_html + match[3], content, flags=re.DOTALL)
+        if count != 1:
+            raise ValueError('Expected one coffee-shops.html content region')
+        commit_outputs({'coffee-shops.html': new_content}, Path.cwd())
 
         print("✅ coffee-shops.html 更新成功")
         return True
@@ -1342,7 +627,7 @@ def sync_cafe_visits():
         print(f"📍 找到 {len(shops_data)} 家已发布的咖啡馆")
     except Exception as e:
         print(f"❌ 查询探店笔记数据库失败: {e}")
-        return
+        return False
 
     shops = []
 
@@ -1373,14 +658,9 @@ def sync_cafe_visits():
             import traceback
 
             traceback.print_exc()
-            continue
+            return False
 
-    if shops:
-        print("\n📋 更新探店笔记页面...")
-        update_coffee_shops_html(shops)
-        print(f"\n🎉 探店笔记同步完成！共 {len(shops)} 家咖啡馆")
-    else:
-        print("\n⚠️  没有咖啡馆需要同步")
+    return update_coffee_shops_html(shops)
 
 
 def query_brewing_notes():
@@ -1392,13 +672,12 @@ def query_brewing_notes():
         "sorts": [{"property": "日期", "direction": "descending"}],
     }
 
-    response = requests.post(url, headers=HEADERS, json=payload)
-    response.raise_for_status()
-    return response.json()["results"]
+    return notion_query(url, payload)
 
 
 def generate_note_card_html(note):
     """生成单个日记卡片HTML（方案C：卡片式布局）"""
+    note = escape_fields(note)
     # 根据类型选择图标和颜色
     type_config = {
         "冲煮记录": {"icon": "☕", "dot_color": "coffee-dark", "bg_class": "bg-white"},
@@ -1513,10 +792,10 @@ def update_coffee_notes_html(notes):
         )
         replacement = r"\1\n" + cards_html + r"                \3"
 
-        new_content = re.sub(pattern, replacement, content, flags=re.DOTALL)
-
-        with open("coffee-notes.html", "w", encoding="utf-8") as f:
-            f.write(new_content)
+        new_content, count = re.subn(pattern, lambda match: match[1] + '\n' + cards_html + match[3], content, flags=re.DOTALL)
+        if count != 1:
+            raise ValueError('Expected one coffee-notes.html content region')
+        commit_outputs({'coffee-notes.html': new_content}, Path.cwd())
 
         print("✅ coffee-notes.html 更新成功")
         return True
@@ -1537,7 +816,7 @@ def sync_brewing_notes():
         print(f"📖 找到 {len(notes_data)} 条已发布的日记")
     except Exception as e:
         print(f"❌ 查询冲煮日记数据库失败: {e}")
-        return
+        return False
 
     notes = []
 
@@ -1580,19 +859,9 @@ def sync_brewing_notes():
             import traceback
 
             traceback.print_exc()
-            continue
+            return False
 
-    if notes:
-        print("\n📋 更新冲煮日记页面...")
-        update_coffee_notes_html(notes)
-        print(f"\n🎉 冲煮日记同步完成！共 {len(notes)} 条日记")
-    else:
-        print("\n⚠️  没有日记需要同步")
-
-
-# ================================
-# 咖啡角主页统计与预览
-# ================================
+    return update_coffee_notes_html(notes)
 
 
 def get_equipment_count():
@@ -1751,86 +1020,32 @@ def generate_cities_preview_html(cities):
 
 
 def update_coffee_html():
-    print("\n☕ 更新咖啡角主页...")
-
-    try:
-        with open("coffee.html", "r", encoding="utf-8") as f:
-            content = f.read()
-
-        stats = get_coffee_stats()
-        print(
-            f"  📊 统计: 器具 {stats['equipment']} | 豆子 {stats['beans']} | 探店 {stats['cafes']} | 日记 {stats['notes']}"
-        )
-
-        content = re.sub(
-            r'(<span[^>]*id="stat-equipment"[^>]*>)\d*(<\/span>)',
-            f"\\g<1>{stats['equipment']}\\2",
-            content,
-        )
-        content = re.sub(
-            r'(<span[^>]*id="stat-beans"[^>]*>)\d*(<\/span>)',
-            f"\\g<1>{stats['beans']}\\2",
-            content,
-        )
-        content = re.sub(
-            r'(<span[^>]*id="stat-cafes"[^>]*>)\d*(<\/span>)',
-            f"\\g<1>{stats['cafes']}\\2",
-            content,
-        )
-        content = re.sub(
-            r'(<span[^>]*id="stat-notes"[^>]*>)\d*(<\/span>)',
-            f"\\g<1>{stats['notes']}\\2",
-            content,
-        )
-
-        latest_beans = get_latest_beans_data(2)
-        latest_notes = get_latest_notes_data(3)
-        city_dist = get_city_distribution()
-
-        beans_preview_html = generate_beans_preview_html(latest_beans)
-        notes_preview_html = generate_notes_preview_html(latest_notes)
-        cities_preview_html = generate_cities_preview_html(city_dist)
-
-        content = re.sub(
-            r'(<div[^>]*id="beans-preview"[^>]*>)(.*?)(</div>\s*</div>)',
-            f"\\g<1>\n                            {beans_preview_html}                        \\3",
-            content,
-            count=1,
-            flags=re.DOTALL,
-        )
-
-        content = re.sub(
-            r'(<div[^>]*id="notes-preview"[^>]*>)(.*?)(</div>\s*</div>)',
-            f"\\g<1>\n                            {notes_preview_html}                        \\3",
-            content,
-            count=1,
-            flags=re.DOTALL,
-        )
-
-        content = re.sub(
-            r'(<div[^>]*id="cafes-preview"[^>]*>)(.*?)(</div>\s*</div>)',
-            f"\\g<1>\n                            {cities_preview_html}                        \\3",
-            content,
-            count=1,
-            flags=re.DOTALL,
-        )
-
-        with open("coffee.html", "w", encoding="utf-8") as f:
-            f.write(content)
-
-        print("  ✅ coffee.html 更新成功")
-        return True
-    except Exception as e:
-        print(f"  ❌ 更新 coffee.html 失败: {e}")
-        import traceback
-
-        traceback.print_exc()
-        return False
+    from site_builder import render_coffee
+    commit_outputs({'coffee.html': render_coffee(Path.cwd())}, Path.cwd())
+    return True
 
 
-if __name__ == "__main__":
-    main()
-    sync_coffee_beans()
-    sync_cafe_visits()
-    sync_brewing_notes()
-    update_coffee_html()
+def sync_all():
+    """Stage all APIs and generated files; publish only after every module succeeds."""
+    if not NOTION_TOKEN or not DATABASE_ID:
+        raise RuntimeError('Configure NOTION_TOKEN and NOTION_DATABASE_ID before syncing')
+    original_cwd = Path.cwd()
+    with tempfile.TemporaryDirectory(prefix='notion-build-') as folder:
+        staging = Path(folder)
+        for source in original_cwd.glob('*.html'):
+            shutil.copy2(source, staging / source.name)
+        shutil.copytree(original_cwd / 'data', staging / 'data')
+        try:
+            os.chdir(staging)
+            for task in (main, sync_coffee_beans, sync_cafe_visits, sync_brewing_notes, update_coffee_html):
+                if task() is not True:
+                    raise RuntimeError(f'{task.__name__} failed; keeping the published site')
+            outputs = {p.name: p.read_text() for p in staging.glob('*.html')}
+            outputs['data/articles.json'] = (staging / 'data/articles.json').read_text()
+        finally:
+            os.chdir(original_cwd)
+        commit_outputs(outputs, original_cwd)
+
+
+if __name__ == '__main__':
+    sync_all()

@@ -1,0 +1,18 @@
+/* Original tactile motion, scoped to interactive surfaces. */
+.opening-curtain{position:fixed;inset:0;z-index:3000;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--brand-black,#0a0a0a);color:var(--brand-white,#f4f4f0);pointer-events:none}
+.opening-curtain>span{font-size:clamp(44px,8vw,84px);font-weight:900;letter-spacing:-.05em}
+.opening-curtain i{font-style:normal;color:var(--brand-accent,#FF4D00);margin-left:8px}
+.opening-curtain small{margin-top:20px;font:12px var(--font-mono,monospace);letter-spacing:.15em}
+.motion-interactive{transition:transform .45s cubic-bezier(.16,1,.3,1),box-shadow .3s ease,background-color .2s ease}
+@media(hover:hover) and (pointer:fine){
+ .motion-interactive.pointer-engaged{transition:box-shadow .25s ease,background-color .2s ease}
+ .feature-story.motion-interactive:hover{box-shadow:8px 8px 0 var(--brand-black,#0a0a0a)}
+ .blog-card.motion-interactive:hover,.topic-link.motion-interactive:hover{background:#ecece5;box-shadow:4px 4px 0 var(--brand-black,#0a0a0a)}
+ .coffee-page .equipment-expandable-card.motion-interactive:hover{box-shadow:6px 6px 0 var(--brand-black,#0a0a0a)}
+}
+.motion-interactive:focus-visible{box-shadow:4px 4px 0 var(--brand-accent,#FF4D00)}
+@media(prefers-reduced-motion:reduce){.opening-curtain{display:none}.motion-interactive{transform:none!important;transition:none!important}}
+
+@media(hover:hover) and (pointer:fine){.motion-interactive:not(.btn):hover{box-shadow:4px 4px 0 var(--brand-black,#0a0a0a)}}
+
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1!important;transform:none!important}}
