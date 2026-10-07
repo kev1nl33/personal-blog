@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="520" viewBox="0 0 1280 520" role="img" aria-labelledby="title desc">
+<title id="title">计划李 · 一个普通人的生活实验</title>
+<desc id="desc">奶油白纸面、黑色方框和橙色圆形，延续网站的几何视觉。观察、思考、实践。</desc>
+<defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#0a0a0a" stroke-opacity=".045"/></pattern></defs>
+<path fill="#f4f4f0" d="M0 0h1280v520H0z"/><path fill="url(#grid)" d="M0 0h1280v520H0z"/>
+<g fill="#0a0a0a" font-family="'Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif">
+<text x="56" y="65" font-size="26" font-weight="800">计划李</text><path fill="#ff4d00" d="M145 49h9v9h-9z"/>
+<text x="1224" y="62" text-anchor="end" font-size="13" letter-spacing="2" font-family="'JetBrains Mono',monospace">KEVIN’S FIELD NOTES / 01</text>
+<path d="M56 90H1224" stroke="#0a0a0a"/>
+<text x="56" y="162" font-size="15" letter-spacing="3">观察 / 思考 / 实践</text>
+<text x="52" y="249" font-size="62" font-weight="800" letter-spacing="-2">一个普通人的</text>
+<text x="52" y="329" font-size="62" font-weight="800" letter-spacing="-2">生活实验。</text>
+<path d="M56 350H351" stroke="#ff4d00" stroke-width="6"/>
+<text x="56" y="403" font-size="19" fill="#4a4a4a">记录职业转型、AI 应用与日常里的小发现。</text>
+<path d="M56 450H1224" stroke="#0a0a0a"/>
+<text x="56" y="486" font-size="13" letter-spacing="2" font-family="'JetBrains Mono',monospace">PERSONAL BLOG / OPEN NOTEBOOK</text>
+<text x="1224" y="486" text-anchor="end" font-size="15">持续观察，认真生活。</text>
+</g>
+<g><path d="M820 157h139v139H820z" fill="#0a0a0a"/><path d="M812 149h139v139H812z" fill="#f4f4f0" stroke="#0a0a0a" stroke-width="2"/><circle cx="1090" cy="300" r="95" fill="#ff4d00"/><path d="M875 389l326-209M798 414h404" stroke="#0a0a0a" stroke-width="1"/><path d="M1190 120h18m-9-9v18" stroke="#ff4d00" stroke-width="2"/></g>
+</svg>
