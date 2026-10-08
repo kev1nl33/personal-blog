@@ -1,5 +1,5 @@
 module.exports = {
- content: ['./templates/*.html', './*.html', './scripts/*.js', './data/articles.json', './sync_notion.py'],
+ content: ['./templates/*.html', './*.html', './scripts/*.js', './data/articles.json'],
  corePlugins: { preflight: false },
  theme: { extend: {
   colors: { brand: {black:'#0a0a0a',white:'#f4f4f0',accent:'#FF4D00',blue:'#0047AB',green:'#059669',gray:'#4a4a4a'},

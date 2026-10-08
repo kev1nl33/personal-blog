@@ -1,63 +1,80 @@
-# 页面来源清单
+# 页面维护来源
 
-| 输出 | 来源 / 维护方式 |
+当前直接维护各 HTML 文件；旧模板与本地数据仅保留作参考。
+
+| 页面 | 维护来源 |
 | --- | --- |
-| 2025_Year_Report.html | templates/article.html + data/articles.json（Notion 同步缓存） |
-| Product-thinking.html | templates/article.html + data/articles.json（Notion 同步缓存） |
-| about.html | templates/about.html + site_builder.py |
-| ai-career-tools.html | templates/article.html + data/articles.json（Notion 同步缓存） |
-| ai-subscriptions-review.html | templates/article.html + data/articles.json（Notion 同步缓存） |
-| article1.html | 既有手工专题 / 独立页面；本轮未迁移布局，保留 URL 与内容 |
-| blog.html | templates/blog.html + site_builder.py |
-| breaking-decision-paralysis-with-ai.html | templates/article.html + data/articles.json（Notion 同步缓存） |
-| career-transition.html | templates/article.html + data/articles.json（Notion 同步缓存） |
-| chatgpt-vs-claude-communication.html | templates/article.html + data/articles.json（Notion 同步缓存） |
-| claude-skills-deep-dive.html | templates/article.html + data/articles.json（Notion 同步缓存） |
-| coffee-backup-20260109.html | 既有手工专题 / 独立页面；本轮未迁移布局，保留 URL 与内容 |
-| coffee-beans.html | 既有局部生成页面，sync_notion.py 更新数据区；同时作为咖啡主页面数据来源 |
-| coffee-equipment-brikka.html | 既有手工专题 / 独立页面；本轮未迁移布局，保留 URL 与内容 |
-| coffee-equipment-heater.html | 既有手工专题 / 独立页面；本轮未迁移布局，保留 URL 与内容 |
-| coffee-equipment-kd310gb.html | 既有手工专题 / 独立页面；本轮未迁移布局，保留 URL 与内容 |
-| coffee-equipment-scale.html | 既有手工专题 / 独立页面；本轮未迁移布局，保留 URL 与内容 |
-| coffee-equipment.html | 既有手工专题 / 独立页面；本轮未迁移布局，保留 URL 与内容 |
-| coffee-notes.html | 既有局部生成页面，sync_notion.py 更新数据区；同时作为咖啡主页面数据来源 |
-| coffee-shops.html | 既有局部生成页面，sync_notion.py 更新数据区；同时作为咖啡主页面数据来源 |
-| coffee.html | templates/coffee.html + site_builder.py |
-| cycling-weight-loss-journey.html | templates/article.html + data/articles.json（Notion 同步缓存） |
-| experience-ticket-1-two-weeks-of-magic-and-confusion.html | templates/article.html + data/articles.json（Notion 同步缓存） |
-| freelance-first-year.html | templates/article.html + data/articles.json（Notion 同步缓存） |
-| gallery.html | templates/gallery.html + site_builder.py |
-| gcdf-certification-guide.html | templates/article.html + data/articles.json（Notion 同步缓存） |
-| index.html | templates/home.html + site_builder.py |
-| knowledge-management-evolution.html | templates/article.html + data/articles.json（Notion 同步缓存） |
-| living-in-the-moment.html | templates/article.html + data/articles.json（Notion 同步缓存） |
-| minimalism-digital-life.html | templates/article.html + data/articles.json（Notion 同步缓存） |
-| name-explain.html | templates/article.html + data/articles.json（Notion 同步缓存） |
-| npc-principle.html | templates/article.html + data/articles.json（Notion 同步缓存） |
-| overcoming-instincts.html | templates/article.html + data/articles.json（Notion 同步缓存） |
-| resignation-decision-process.html | templates/article.html + data/articles.json（Notion 同步缓存） |
-| she-arrived.html | templates/article.html + data/articles.json（Notion 同步缓存） |
-| tech-stock-analysis.html | templates/article.html + data/articles.json（Notion 同步缓存） |
-| test.html | 既有手工专题 / 独立页面；本轮未迁移布局，保留 URL 与内容 |
-| the-courage-to-be-disliked-reading-notes.html | templates/article.html + data/articles.json（Notion 同步缓存） |
-| travel-australia-2026-aircraft-a330-300.html | 既有手工专题 / 独立页面；本轮未迁移布局，保留 URL 与内容 |
-| travel-australia-2026-aircraft-b777.html | 既有手工专题 / 独立页面；本轮未迁移布局，保留 URL 与内容 |
-| travel-australia-2026-hotel-four-seasons-sydney.html | 既有手工专题 / 独立页面；本轮未迁移布局，保留 URL 与内容 |
-| travel-australia-2026-hotel-marriott-melbourne.html | 既有手工专题 / 独立页面；本轮未迁移布局，保留 URL 与内容 |
-| travel-australia-2026-hotel-shangri-la-sydney.html | 既有手工专题 / 独立页面；本轮未迁移布局，保留 URL 与内容 |
-| travel-australia-2026-hotel-tower-lodge.html | 既有手工专题 / 独立页面；本轮未迁移布局，保留 URL 与内容 |
-| travel-australia-2026-spot-art-gallery-nsw.html | 既有手工专题 / 独立页面；本轮未迁移布局，保留 URL 与内容 |
-| travel-australia-2026-spot-bondi-coogee.html | 既有手工专题 / 独立页面；本轮未迁移布局，保留 URL 与内容 |
-| travel-australia-2026-spot-darling-harbour.html | 既有手工专题 / 独立页面；本轮未迁移布局，保留 URL 与内容 |
-| travel-australia-2026-spot-fitzroy.html | 既有手工专题 / 独立页面；本轮未迁移布局，保留 URL 与内容 |
-| travel-australia-2026-spot-hot-air-balloon.html | 既有手工专题 / 独立页面；本轮未迁移布局，保留 URL 与内容 |
-| travel-australia-2026-spot-opera-house.html | 既有手工专题 / 独立页面；本轮未迁移布局，保留 URL 与内容 |
-| travel-australia-2026-spot-puffing-billy.html | 既有手工专题 / 独立页面；本轮未迁移布局，保留 URL 与内容 |
-| travel-australia-2026-spot-qvb.html | 既有手工专题 / 独立页面；本轮未迁移布局，保留 URL 与内容 |
-| travel-australia-2026-spot-sea-life-aquarium.html | 既有手工专题 / 独立页面；本轮未迁移布局，保留 URL 与内容 |
-| travel-australia-2026-spot-twelve-apostles.html | 既有手工专题 / 独立页面；本轮未迁移布局，保留 URL 与内容 |
-| travel-australia-2026-spot-winery-cycling.html | 既有手工专题 / 独立页面；本轮未迁移布局，保留 URL 与内容 |
-| travel-australia-2026.html | 既有手工专题 / 独立页面；本轮未迁移布局，保留 URL 与内容 |
-| travel.html | templates/travel.html + site_builder.py |
-| vision-pro-office-experience.html | templates/article.html + data/articles.json（Notion 同步缓存） |
-| visual-design.html | templates/visual-design.html + site_builder.py |
+| 2025_Year_Report.html | 直接编辑 2025_Year_Report.html |
+| Product-thinking.html | 直接编辑 Product-thinking.html |
+| about.html | 直接编辑 about.html |
+| ai-career-tools.html | 直接编辑 ai-career-tools.html |
+| ai-subscriptions-review.html | 直接编辑 ai-subscriptions-review.html |
+| ai-tools-without-illusions.html | 直接编辑 ai-tools-without-illusions.html |
+| article1.html | 直接编辑 article1.html |
+| blog.html | 直接编辑 blog.html |
+| borrowed-uniform.html | 直接编辑 borrowed-uniform.html |
+| breaking-decision-paralysis-with-ai.html | 直接编辑 breaking-decision-paralysis-with-ai.html |
+| career-transition.html | 直接编辑 career-transition.html |
+| chatgpt-vs-claude-communication.html | 直接编辑 chatgpt-vs-claude-communication.html |
+| claude-skills-deep-dive.html | 直接编辑 claude-skills-deep-dive.html |
+| coffee-backup-20260109.html | 直接编辑 coffee-backup-20260109.html |
+| coffee-beans.html | 直接编辑 coffee-beans.html |
+| coffee-equipment-brikka.html | 直接编辑 coffee-equipment-brikka.html |
+| coffee-equipment-heater.html | 直接编辑 coffee-equipment-heater.html |
+| coffee-equipment-kd310gb.html | 直接编辑 coffee-equipment-kd310gb.html |
+| coffee-equipment-scale.html | 直接编辑 coffee-equipment-scale.html |
+| coffee-equipment.html | 直接编辑 coffee-equipment.html |
+| coffee-notes.html | 直接编辑 coffee-notes.html |
+| coffee-shops.html | 直接编辑 coffee-shops.html |
+| coffee.html | 直接编辑 coffee.html |
+| cycling-weight-loss-journey.html | 直接编辑 cycling-weight-loss-journey.html |
+| escape-mode-and-shiny-objects.html | 直接编辑 escape-mode-and-shiny-objects.html |
+| experience-ticket-1-two-weeks-of-magic-and-confusion.html | 直接编辑 experience-ticket-1-two-weeks-of-magic-and-confusion.html |
+| experience-ticket-2-from-77-posts-to-banned-account.html | 直接编辑 experience-ticket-2-from-77-posts-to-banned-account.html |
+| experience-ticket-3-toutiao-automation-daydream.html | 直接编辑 experience-ticket-3-toutiao-automation-daydream.html |
+| experience-ticket-4-thirty-days-of-honest-writing.html | 直接编辑 experience-ticket-4-thirty-days-of-honest-writing.html |
+| experience-ticket-5-family-farm-and-reality-check.html | 直接编辑 experience-ticket-5-family-farm-and-reality-check.html |
+| experience-ticket-6-stock-operator-mental-lab.html | 直接编辑 experience-ticket-6-stock-operator-mental-lab.html |
+| fable-mr-wei-kitchen.html | 直接编辑 fable-mr-wei-kitchen.html |
+| five-iron-rules-naval.html | 直接编辑 five-iron-rules-naval.html |
+| freelance-first-year.html | 直接编辑 freelance-first-year.html |
+| from-contempt-to-kline.html | 直接编辑 from-contempt-to-kline.html |
+| gallery.html | 直接编辑 gallery.html |
+| gcdf-certification-guide.html | 直接编辑 gcdf-certification-guide.html |
+| index.html | 直接编辑 index.html |
+| knowledge-management-evolution.html | 直接编辑 knowledge-management-evolution.html |
+| living-in-the-moment.html | 直接编辑 living-in-the-moment.html |
+| minimalism-digital-life.html | 直接编辑 minimalism-digital-life.html |
+| name-explain.html | 直接编辑 name-explain.html |
+| npc-principle.html | 直接编辑 npc-principle.html |
+| overcoming-instincts.html | 直接编辑 overcoming-instincts.html |
+| parking-lot-three-minutes.html | 直接编辑 parking-lot-three-minutes.html |
+| resignation-decision-process.html | 直接编辑 resignation-decision-process.html |
+| seventy-posts-dead-silence.html | 直接编辑 seventy-posts-dead-silence.html |
+| she-arrived.html | 直接编辑 she-arrived.html |
+| tech-stock-analysis.html | 直接编辑 tech-stock-analysis.html |
+| test.html | 直接编辑 test.html |
+| the-courage-to-be-disliked-reading-notes.html | 直接编辑 the-courage-to-be-disliked-reading-notes.html |
+| travel-australia-2026-aircraft-a330-300.html | 直接编辑 travel-australia-2026-aircraft-a330-300.html |
+| travel-australia-2026-aircraft-b777.html | 直接编辑 travel-australia-2026-aircraft-b777.html |
+| travel-australia-2026-hotel-four-seasons-sydney.html | 直接编辑 travel-australia-2026-hotel-four-seasons-sydney.html |
+| travel-australia-2026-hotel-marriott-melbourne.html | 直接编辑 travel-australia-2026-hotel-marriott-melbourne.html |
+| travel-australia-2026-hotel-shangri-la-sydney.html | 直接编辑 travel-australia-2026-hotel-shangri-la-sydney.html |
+| travel-australia-2026-hotel-tower-lodge.html | 直接编辑 travel-australia-2026-hotel-tower-lodge.html |
+| travel-australia-2026-spot-art-gallery-nsw.html | 直接编辑 travel-australia-2026-spot-art-gallery-nsw.html |
+| travel-australia-2026-spot-bondi-coogee.html | 直接编辑 travel-australia-2026-spot-bondi-coogee.html |
+| travel-australia-2026-spot-darling-harbour.html | 直接编辑 travel-australia-2026-spot-darling-harbour.html |
+| travel-australia-2026-spot-fitzroy.html | 直接编辑 travel-australia-2026-spot-fitzroy.html |
+| travel-australia-2026-spot-hot-air-balloon.html | 直接编辑 travel-australia-2026-spot-hot-air-balloon.html |
+| travel-australia-2026-spot-opera-house.html | 直接编辑 travel-australia-2026-spot-opera-house.html |
+| travel-australia-2026-spot-puffing-billy.html | 直接编辑 travel-australia-2026-spot-puffing-billy.html |
+| travel-australia-2026-spot-qvb.html | 直接编辑 travel-australia-2026-spot-qvb.html |
+| travel-australia-2026-spot-sea-life-aquarium.html | 直接编辑 travel-australia-2026-spot-sea-life-aquarium.html |
+| travel-australia-2026-spot-twelve-apostles.html | 直接编辑 travel-australia-2026-spot-twelve-apostles.html |
+| travel-australia-2026-spot-winery-cycling.html | 直接编辑 travel-australia-2026-spot-winery-cycling.html |
+| travel-australia-2026.html | 直接编辑 travel-australia-2026.html |
+| travel.html | 直接编辑 travel.html |
+| turning-32-mid-tier-reboot.html | 直接编辑 turning-32-mid-tier-reboot.html |
+| vision-pro-office-experience.html | 直接编辑 vision-pro-office-experience.html |
+| visual-design.html | 直接编辑 visual-design.html |
+| why-prenatal-app-succeeded.html | 直接编辑 why-prenatal-app-succeeded.html |

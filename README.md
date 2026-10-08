@@ -4,18 +4,17 @@
 
 <p align="center">
   <a href="https://aikevin.dpdns.org/"><img src="https://img.shields.io/badge/在线阅读-aikevin.dpdns.org-ff4d00?style=flat-square&amp;labelColor=0a0a0a" alt="在线阅读"></a>
-  <a href="https://github.com/kev1nl33/personal-blog/actions/workflows/sync-notion.yml"><img src="https://github.com/kev1nl33/personal-blog/actions/workflows/sync-notion.yml/badge.svg?branch=main" alt="main 分支 Notion 同步工作流状态"></a>
 </p>
 
 <p align="center">
-  <a href="#explore">从这里开始</a> · <a href="#screens">界面一览</a> · <a href="#workflow">内容如何流动</a> · <a href="#boundaries">数据边界</a> · <a href="#develop">本地运行</a>
+  <a href="#explore">从这里开始</a> · <a href="#screens">界面一览</a> · <a href="#workflow">内容如何维护</a> · <a href="#boundaries">数据边界</a> · <a href="#develop">本地运行</a>
 </p>
 
 # 计划李的生活实验
 
 这里是 Kevin 的个人博客。离开体制之后，重新学习工作与生活，把职业转型、AI 工具的实际使用、投资思考，以及咖啡和旅行中的小发现写下来。
 
-如果你也在探索工作与生活的新可能，可以从一篇文章开始；如果你想搭建自己的内容站，这个仓库展示了一种 **Notion 写作、静态页面发布** 的实现。HTML、CSS 与原生 JavaScript 负责阅读界面，Python 负责同步和生成，现有内容无需连接 Notion 就能本地浏览。
+如果你也在探索工作与生活的新可能，可以从一篇文章开始。这个仓库直接使用 HTML、CSS 和原生 JavaScript 维护页面与阅读体验。
 
 <a id="explore"></a>
 
@@ -63,39 +62,25 @@
 
 <a id="workflow"></a>
 
-## 内容如何流动
+## 内容如何维护
 
-```text
-作者在 Notion 写作，勾选「已发布」
-                    ↓
-       Python 同步文章与三类咖啡记录
-                    ↓
-       缓存内容 + HTML 模板 → 静态页面
-                    ↓
-       校验页面 → 更新搜索索引与站点地图
-                    ↓
-            提交仓库 → 站点发布
-```
-
-文章来自 Notion blocks，转换为 HTML 后存入本地缓存；咖啡数据先更新对应的数据页，再汇入咖啡角。全量同步先在临时目录执行，所有模块成功后才替换站点文件。旅行、关于与认知专题也有仓库内维护的内容，不全部来自 Notion。
-
-现有 [GitHub Actions 工作流](.github/workflows/sync-notion.yml) 在每天北京时间 **08:00**、推送到 `main` 或手动触发时执行同步与校验，再提交生成结果。工作流本身不调用 Cloudflare 部署命令，站点发布需要另行连接托管平台。
+直接编辑对应的 HTML 页面，以及 styles/ 和 scripts/ 中的样式与交互代码；本地预览并校验后，更新搜索索引和站点地图，再将静态文件发布到托管平台。
 
 <a id="boundaries"></a>
 
 ## 内容公开到哪里
 
-- **公开内容：** 同步只查询勾选「已发布」的文章与咖啡记录。生成的 HTML、`data/articles.json` 和搜索索引会进入仓库与静态站点，正文和摘要都应按公开资料维护。发布后的文章 URL 应保持稳定。
+- **公开内容：** HTML、本地数据和搜索索引都是公开站点资料，正文和摘要应按公开资料维护；发布后的文章 URL 保持稳定。
 - **搜索范围：** 当前文章列表搜索标题、摘要与标签，在浏览器内完成；不是全文搜索，也没有在线 AI 问答。
 - **图片来源：** 咖啡器具图和旅行目的地图按页面说明使用产品或目的地资料图，不代表作者实拍。回忆录会过滤静态数据中的 `demo-` 示例条目，不将它们作为已发布照片展示。
 - **服务边界：** 普通静态服务器可浏览文章与专题。回忆录 API 依赖 Cloudflare Pages Functions、KV 和 R2；API 不可用时回退到静态 JSON，隐藏管理工具。上传、删除还需要服务端 `GALLERY_API_KEY`，站点并非多用户内容管理系统。
-- **配置与授权：** Notion 密钥使用环境变量或 GitHub Secrets，不写入前端。仓库目前没有项目级 `LICENSE` 文件；文章、照片与第三方素材的使用权限需分别确认。
+- **配置与授权：** 服务端密钥使用环境变量，不写入前端。仓库目前没有项目级 `LICENSE` 文件；文章、照片与第三方素材的使用权限需分别确认。
 
 <a id="develop"></a>
 
 ## 本地运行与开发
 
-**只想看页面？** 在仓库根目录执行以下命令，然后打开 [localhost:8000](http://localhost:8000)。仓库已包含生成后的页面，此步骤不需要 Node.js、Notion 密钥或云端数据库。
+**只想看页面？** 在仓库根目录执行以下命令，然后打开 [localhost:8000](http://localhost:8000)。仓库已包含可直接浏览的 HTML 页面。
 
 ```bash
 git clone https://github.com/kev1nl33/personal-blog.git
@@ -104,7 +89,7 @@ python3 -m http.server 8000
 ```
 
 <details>
-<summary><strong>修改模板、构建与验证</strong></summary>
+<summary><strong>修改页面、构建与验证</strong></summary>
 
 需要 Python 3.10+、Node.js 与 npm。在仓库根目录执行；虚拟环境放在项目外，避免被静态服务器暴露。
 
@@ -114,10 +99,10 @@ source ../personal-blog-venv/bin/activate
 python -m pip install -r requirements.txt
 npm ci
 
-# 编译 Tailwind 工具类，再用已缓存的内容生成页面
+# 编译 Tailwind 工具类（保留手工维护的 HTML）
 npm run build
 
-# 运行现有单元测试与受管页面校验
+# 运行现有单元测试与页面校验
 npm test
 python validate_site.py
 
@@ -126,41 +111,20 @@ python generate_search_index.py
 python generate_sitemap.py
 ```
 
-修改 `templates/`、`styles/`、`scripts/` 或生成逻辑后重新构建，不要直接改生成的 HTML。开发时还应在浏览器核对文章筛选、导航、图片和移动端布局；`validate_site.py` 检查受管页面结构、必要 meta 标签与本地资源链接，不替代全站视觉验收。
+直接修改 HTML、`styles/` 或 `scripts/`；新增工具类后运行 `npm run build`。在浏览器核对文章筛选、导航、图片和移动端布局；`validate_site.py` 检查页面结构、必要 meta 标签与本地资源链接。
 
 各页面来源见 [页面来源清单](docs/qa/page-sources.md)，生活板块的内容边界见 [验收记录](docs/qa/lifestyle-implementation-2026-10-03.md)。
 
 </details>
 
-<details>
-<summary><strong>连接自己的 Notion 内容源</strong></summary>
-
-先为 Notion integration 授权相应数据库。字段名与类型需匹配 [同步脚本](sync_notion.py)：文章使用「标题」「分类」「标签」「发布日期」「摘要」「阅读时间」「URL」和「已发布」；三类咖啡数据库有各自的字段结构。
-
-```bash
-export NOTION_TOKEN="your_integration_token"
-export NOTION_DATABASE_ID="your_articles_database_id"
-export COFFEE_BEANS_DB_ID="your_beans_database_id"
-export CAFE_VISITS_DB_ID="your_cafe_visits_database_id"
-export BREWING_NOTES_DB_ID="your_brewing_notes_database_id"
-
-python sync_notion.py
-python validate_site.py
-python generate_search_index.py
-python generate_sitemap.py
-```
-
-脚本直接读取环境变量，**不会自动加载 `.env` 文件**。可参考 [.env.example](.env.example)，但要替换为自己的全部数据库 ID。同步会写入站点文件，完成后先检查差异再提交；仅浏览已有内容时无需执行。
-
-</details>
 
 <details>
 <summary><strong>项目结构与部署说明</strong></summary>
 
 ```text
 personal-blog/
-├── templates/              页面与文章模板
-├── data/                   已发布文章缓存、认知专题数据
+├── templates/              既有页面模板参考
+├── data/                   本地文章资料、认知专题数据
 ├── styles/                 共享设计系统与各板块样式
 ├── scripts/                搜索筛选、目录、专题交互与动效
 ├── projects/               独立认知专题页面
@@ -168,16 +132,15 @@ personal-blog/
 ├── gallery/                回忆录静态回退数据
 ├── assets/readme/          本 README 的封面、截图与素材说明
 ├── docs/qa/                页面来源与验收记录
-├── tests/                  生成器与同步测试
-├── site_builder.py         模板渲染与缓存构建
-├── sync_notion.py          Notion 同步入口
+├── tests/                  本地工具测试
+├── site_builder.py         可选本地模板渲染工具
 ├── validate_site.py        受管页面静态校验
 ├── generate_search_index.py
 ├── generate_sitemap.py
-└── *.html                  发布页面与既有独立页面
+└── *.html                  直接维护的网页
 ```
 
-静态部分可由普通 Web 服务器托管。使用 Cloudflare Pages 时，以仓库根目录作为站点输出目录；直接发布已生成文件可留空构建命令。若在托管阶段重新构建，构建环境需要同时安装 Python 与 npm 依赖。
+静态部分可由普通 Web 服务器托管。使用 Cloudflare Pages 时，以仓库根目录作为站点输出目录；直接发布 HTML 文件可留空构建命令；需要编译 CSS 时运行 `npm run build`。
 
 回忆录云端能力需创建自己的 `GALLERY_META` KV、`GALLERY_BUCKET` R2，配置 `GALLERY_API_KEY`；可选计数接口使用 `VISITOR_COUNTER` KV。绑定配置参考 [wrangler.toml](wrangler.toml)，其中资源标识应替换为自己的配置。
 

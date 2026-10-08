@@ -2,37 +2,20 @@
 
 本文档指导 AI 代理在个人博客项目中高效工作。
 
-## 构建与同步命令
+## 本地开发命令
 
-### 核心命令
+直接编辑根目录的 HTML 页面，以及 styles/ 和 scripts/ 中的源文件。已发布 URL 保持不变。
+
 ```bash
-# 同步所有 Notion 内容（文章、书单、咖啡数据）
-python sync_notion.py
-
-# 本地开发服务器
-python -m http.server 8000
-
-# 生成搜索索引
-python generate_search_index.py
-
-# 生成站点地图
-python generate_sitemap.py
+python3 -m http.server 8000
+npm run build
+npm test
+python3 validate_site.py
+python3 generate_search_index.py
+python3 generate_sitemap.py
 ```
 
-### 单个功能模块同步
-```bash
-# 仅同步博客文章
-python -c "from sync_notion import main; main()"
-
-# 仅同步咖啡豆档案
-python -c "from sync_notion import sync_coffee_beans; sync_coffee_beans()"
-
-# 仅同步咖啡馆探店
-python -c "from sync_notion import sync_cafe_visits; sync_cafe_visits()"
-
-# 仅同步冲煮日记
-python -c "from sync_notion import sync_brewing_notes; sync_brewing_notes()"
-```
+默认构建只编译 CSS，不重新生成 HTML。templates/ 和 data/ 保留为既有参考资料，当前 HTML 是维护来源。
 
 ## Python 代码规范
 
@@ -53,7 +36,7 @@ import requests
 ### 命名约定
 - **函数**: `snake_case` (如 `query_database`)
 - **变量**: `snake_case` (如 `article_data`)
-- **常量**: `UPPER_SNAKE_CASE` (如 `NOTION_TOKEN`)
+- **常量**: `UPPER_SNAKE_CASE` (如 `BASE_URL`)
 - **类**: `PascalCase` (如 `ArticleParser`)
 
 ### 错误处理
@@ -87,7 +70,7 @@ filename = '{}.html'.format(url)
 ```python
 def get_page_content(page_id: str) -> list:
     """获取页面内容"""
-    url = f'https://api.notion.com/v1/blocks/{page_id}/children'
+    # 从本地页面读取内容
     # ...
 ```
 
@@ -281,30 +264,17 @@ element.dataset.value = 'some-value';
 - 放在 `scripts/` 目录
 
 ### Python 文件
-- `snake_case.py` (如 `sync_notion.py`)
+- `snake_case.py` (如 `generate_sitemap.py`)
 - 放在项目根目录
 
-## Notion 数据库同步注意事项
+## 页面维护
 
-⚠️ **重要约束**
-1. 不要直接编辑生成的 HTML 文件（会被覆盖）
-2. 修改内容应该在 Notion 中进行
-3. URL 一旦发布不可修改（会破坏外部链接）
-4. 使用环境变量存储敏感信息
-
-### 模式匹配
-使用正则表达式更新 HTML 模板：
-```python
-# 查找并替换内容区域
-pattern = r'(<div class="blog-grid" id="blogGrid">)(.*?)(</div>)'
-replacement = r'\1\n' + new_content + r'\3'
-new_content = re.sub(pattern, replacement, content, flags=re.DOTALL)
-```
+直接编辑 HTML、CSS 和 JavaScript；保持文章正文、已发布 URL 和本地资源链接完整。敏感配置使用环境变量，不写入前端。
 
 ## 测试与验证
 
 ### 本地测试流程
-1. 运行 `python sync_notion.py` 同步内容
+1. 直接修改对应的 HTML、CSS 或 JavaScript 文件
 2. 运行 `python -m http.server 8000` 启动本地服务器
 3. 访问 `http://localhost:8000` 检查显示效果
 4. 测试响应式布局（调整浏览器窗口大小）
@@ -318,20 +288,6 @@ new_content = re.sub(pattern, replacement, content, flags=re.DOTALL)
 - [ ] 导航链接有效
 - [ ] SEO meta 标签完整
 
-## GitHub Actions 工作流
-
-### 自动同步
-- **触发时间**: 每日 UTC 00:00（北京时间 08:00）
-- **手动触发**: GitHub → Actions → "Sync from Notion" → Run workflow
-
-### 本地测试 Actions
-```bash
-# 提交更改后推送触发自动部署
-git add .
-git commit -m "Update content"
-git push origin main
-```
-
 ## 关键设计原则
 
 1. **Neo-Brutalism**: 硬边框、无圆角、极端对比度
@@ -342,14 +298,11 @@ git push origin main
 
 ## 常见问题
 
-**Q: 如何调试同步脚本？**
-A: 修改 `sync_notion.py` 后，本地运行 `python sync_notion.py` 查看输出。
-
 **Q: 如何添加新的 CSS 样式？**
 A: 在 `styles/main.css` 或对应的 CSS 文件中添加，遵循 Neo-Brutalism 规范。
 
 **Q: 如何修改导航栏？**
-A: 编辑 `index.html`, `blog.html` 等页面中的 `<nav>` 部分，或统一在模板中修改。
+A: 编辑 `index.html`, `blog.html` 等页面中的 `<nav>` 部分，并检查各页面导航一致性。
 
 **Q: 如何优化图片？**
 A: 运行 `node scripts/image-optimizer.js` 或手动使用工具压缩图片。

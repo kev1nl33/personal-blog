@@ -4,7 +4,7 @@ from pathlib import Path
 from site_builder import render_article, render_coffee, replace_region, safe_slug, commit_outputs, with_site_motion
 
 class GenerationTests(unittest.TestCase):
-    def test_coffee_latest_note_follows_synced_content(self):
+    def test_coffee_latest_note_follows_local_content(self):
         with tempfile.TemporaryDirectory() as folder:
             root = Path(folder)
             (root / 'coffee-beans.html').write_text('<article class="bean-card"><h3>耶加雪菲 果丁丁</h3></article>')

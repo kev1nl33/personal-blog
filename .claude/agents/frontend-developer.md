@@ -101,5 +101,3 @@ styles/
 
 - 读写: `styles/` 目录
 - 读写: HTML 模板部分
-- 禁止: 修改 `sync_notion.py` 逻辑
-- 禁止: 修改 GitHub Actions 配置

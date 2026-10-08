@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "build:css": "tailwindcss -i styles/utilities-source.css -o styles/utilities.css --minify",
-    "build": "npm run build:css && python3 site_builder.py",
+    "build": "npm run build:css",
     "test": "python3 -m unittest discover -s tests -v"
   },
   "devDependencies": {

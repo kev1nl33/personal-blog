@@ -1,4 +1,4 @@
-"""Static site rendering shared by local builds and Notion synchronization."""
+"""Optional local template rendering; maintained HTML pages are the primary source."""
 import json
 import hashlib
 import os

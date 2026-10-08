@@ -118,83 +118,6 @@ coffee.html (主页)
 
 ---
 
-### 4. 与博客系统架构不一致 ⚠️ 严重
-
-**问题描述**:
-- 博客文章使用 Notion → sync_notion.py → HTML 流程
-- 咖啡角内容完全手动管理
-
-**影响**:
-- 维护两套内容管理系统
-- 无法复用现有同步机制
-- 不符合项目"自动化"理念
-
----
-
-## 现有 Notion 数据库
-
-### 已集成数据库
-
-根据 `sync_notion.py`，项目已有：
-
-1. **Blog Posts** (NOTION_DATABASE_ID)
-   - 字段: 标题、分类、标签、发布日期、摘要、阅读时间、已发布、URL
-
-2. **Reading List** (NOTION_READING_LIST_DB_ID)
-   - 字段: 书名、作者、状态、评分、类型、推荐理由、阅读笔记、已发布、笔记链接、封面图、豆瓣链接、完成日期
-
-### 需要创建的数据库
-
-1. **Coffee Beans** (咖啡豆档案)
-   - 建议字段:
-     - 豆子名称 (Title)
-     - 产地/国家 (Select)
-     - 处理法 (Select: 日晒/水洗/蜜处理)
-     - 烘焙度 (Select: 浅烘/中烘/深烘)
-     - 烘焙商/购买渠道 (Text)
-     - 风味描述 (Text/Multi-select)
-     - 冲煮参数 (Blocks/Text)
-     - 品鉴笔记 (Text)
-     - 评分 (Select: ⭐-⭐⭐⭐⭐⭐)
-     - 购买日期 (Date)
-     - 已发布 (Checkbox)
-
-2. **Cafe Visits** (探店笔记)
-   - 建议字段:
-     - 咖啡馆名称 (Title)
-     - 城市 (Select: 深圳/广州/其他)
-     - 具体位置 (Text)
-     - 评分 (Select)
-     - 推荐单品 (Text)
-     - 环境描述 (Text)
-     - 标签 (Multi-select: 安静/适合工作/自烘豆/等)
-     - 探店日期 (Date)
-     - 已发布 (Checkbox)
-
-3. **Brewing Notes** (冲煮日记)
-   - 建议字段:
-     - 标题 (Title)
-     - 分类 (Select: 冲煮记录/实验/心情/学习)
-     - 咖啡豆 (Text - 关联豆子名称)
-     - 冲煮方式 (Select: V60/手冲壶/摩卡壶/意式)
-     - 冲煮参数 (Text)
-     - 内容 (Blocks)
-     - 日期 (Date)
-     - 已发布 (Checkbox)
-
-4. **Equipment** (器具收藏)
-   - 建议字段:
-     - 器具名称 (Title)
-     - 品牌 (Text)
-     - 类型 (Select: 咖啡机/磨豆机/手冲壶/滤杯/电子秤/其他)
-     - 型号 (Text)
-     - 评分 (Select)
-     - 使用心得 (Text)
-     - 购买日期 (Date)
-     - 已发布 (Checkbox)
-
----
-
 ## 设计模式参考
 
 ### 优秀模式
@@ -233,8 +156,6 @@ coffee.html (主页)
 
 ### 后端
 
-- **Python**: 保持与现有 sync_notion.py 一致
-- **Notion API**: 使用现有的 API 版本 (2022-06-28)
 - **JSON 输出**: 生成静态数据文件供前端使用
 
 ### 前端
@@ -244,20 +165,6 @@ coffee.html (主页)
 - **Intersection Observer**: 实现滚动动画（已有）
 
 ### 数据流
-
-```
-Notion 数据库
-  ↓ (GitHub Actions 定时触发)
-sync_coffee_data.py (Python)
-  ↓ (生成 JSON)
-coffee_data/ 目录
-  ├── beans.json
-  ├── cafes.json
-  ├── notes.json
-  └── equipment.json
-  ↓ (JavaScript 加载)
-前端页面动态渲染
-```
 
 ---
 
@@ -284,13 +191,11 @@ coffee_data/ 目录
 
 ### 项目内参考
 
-- `sync_notion.py`: 博客同步逻辑
 - `scripts/search.js`: 搜索功能实现
 - `visual-design.html`: 设计系统展示
 
 ### 外部参考
 
-- Notion API 文档
 - Neo-Brutalism 设计趋势
 - 咖啡类网站设计参考
 
@@ -496,8 +401,6 @@ document.querySelectorAll('[data-expandable]').forEach(card => {
 
 ## 下一步研究
 
-1. [x] 深入研究 sync_notion.py 的实现细节 ✅
-2. [x] 确认 Notion 集成已完善 ✅
 3. [ ] 确定最终设计方案（方案 A 或 B）
 4. [ ] 绘制详细线框图
 5. [ ] 开始实现原型
