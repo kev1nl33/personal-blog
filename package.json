@@ -4,7 +4,7 @@
   "scripts": {
     "build:css": "tailwindcss -i styles/utilities-source.css -o styles/utilities.css --minify",
     "build": "npm run build:css",
-    "test": "python3 -m unittest discover -s tests -v"
+    "test": "python3 -m unittest discover -s tests -v && node --test tests/*.test.cjs"
   },
   "devDependencies": {
     "tailwindcss": "3.4.17"
