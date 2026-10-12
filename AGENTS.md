@@ -307,6 +307,19 @@ A: 编辑 `index.html`, `blog.html` 等页面中的 `<nav>` 部分，并检查�
 **Q: 如何优化图片？**
 A: 运行 `node scripts/image-optimizer.js` 或手动使用工具压缩图片。
 
+## Cursor Cloud specific instructions
+
+This checkout is one of three repositories in the shared Cloud Agent environment, next to `ai-berkshire` and `legal-ai-toolkit`.
+
+Dependencies are already installed: `npm ci` here and in `legal-ai-toolkit`, `beautifulsoup4==4.13.4` on the system `python3` user site, and Playwright Chromium for the legal toolkit browser checks. Do not create a virtualenv inside this repository; the static server would expose it.
+
+On boot, two static servers start if their ports are free:
+
+- this site: http://127.0.0.1:8000 (tmux session `blog`)
+- Legal AI Toolkit: http://127.0.0.1:8080 (tmux session `legal`)
+
+`ai-berkshire` tools use the Python standard library. From that checkout, run `python3 tools/financial_rigor.py` and `python3 scripts/sync-codex-skills.py --check`. From `legal-ai-toolkit`, run `npm run check`. This site's checks stay `npm test`, `python3 validate_site.py`, and `npm run build` after Tailwind utility changes.
+
 ---
 
 **维护者**: Kevin
