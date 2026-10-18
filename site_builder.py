@@ -12,7 +12,8 @@ from string import Template
 ROOT = Path(__file__).resolve().parent
 BASE_URL = 'https://kev1nl33.github.io/personal-blog'
 NAV = [('index.html', '首页'), ('blog.html', '文章'), ('visual-design.html', '认知武器'),
-       ('coffee.html', '咖啡角'), ('travel.html', '看世界'), ('gallery.html', '回忆录'), ('about.html', '关于')]
+       ('coffee.html', '咖啡角'), ('travel.html', '看世界'), ('gallery.html', '回忆录'),
+       ('/second-brain/', '第二大脑'), ('about.html', '关于')]
 CATEGORY_NAMES = {'career': '职业发展', 'ai': 'AI应用', 'investment': '投资思考',
                   'personal': '个人成长', 'reading': '读书笔记'}
 
