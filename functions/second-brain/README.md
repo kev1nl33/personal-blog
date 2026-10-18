@@ -50,6 +50,7 @@ npx wrangler r2 object put second-brain-private/index.html --file /tmp/sb-seed/i
 npx wrangler pages dev . --port 8788
 
 # 4. 验收（另开终端）
+curl -i http://localhost:8788/second-brain                                   # 301 → /second-brain/（URL 规范化）
 curl -i http://localhost:8788/second-brain/                                  # 302 → /second-brain/login
 curl -i http://localhost:8788/second-brain/index.html                        # 302 → /second-brain/login
 curl -i http://localhost:8788/second-brain/private-data/demo.js              # 401

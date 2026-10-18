@@ -1,11 +1,23 @@
-// 第二大脑登录门卫 —— 纯逻辑层单元测试
-// 被测模块：functions/second-brain/_lib/auth.mjs
+// 第二大脑登录门卫 —— 单元测试
+// 被测模块：functions/second-brain/_lib/auth.mjs（纯逻辑层）
+//           functions/second-brain/[[path]].js（onRequest 门卫，直接构造 Request 调用）
 // 说明：所有密码、盐、密钥均在运行时随机生成，仓库中不存在任何真实凭据。
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const nodeCrypto = require('node:crypto');
+const { pathToFileURL } = require('node:url');
+const nodePath = require('node:path');
 
 const loadAuth = () => import('../functions/second-brain/_lib/auth.mjs');
+
+// [[path]].js 文件名含方括号，须走 pathToFileURL 转成 file:// URL 再 import
+const loadGate = () =>
+    import(pathToFileURL(nodePath.join(__dirname, '../functions/second-brain/[[path]].js')).href);
+
+const pageRequest = (pathname) =>
+    new Request(`https://example.com${pathname}`, {
+        headers: { Accept: 'text/html,application/xhtml+xml' },
+    });
 
 // 用独立实现生成 PBKDF2 哈希（与被测代码约定同一格式：pbkdf2:<iter>:<盐hex>:<哈希hex>）
 function buildHash(password, iterations = 1000, salt = nodeCrypto.randomBytes(16)) {
@@ -186,4 +198,20 @@ test('按扩展名返回正确的 Content-Type，未知扩展名回退 octet-str
     assert.match(auth.contentTypeFor('x.svg'), /^image\/svg/);
     assert.match(auth.contentTypeFor('x.png'), /^image\/png/);
     assert.equal(auth.contentTypeFor('x.unknownext'), 'application/octet-stream');
+});
+
+// ---------- 门卫 onRequest：无末尾斜杠的规范化重定向 ----------
+
+test('访问不带末尾斜杠的 /second-brain 时 301 重定向到 /second-brain/', async () => {
+    const gate = await loadGate();
+    const response = await gate.onRequest({ request: pageRequest('/second-brain'), env: {} });
+    assert.equal(response.status, 301);
+    assert.equal(response.headers.get('Location'), '/second-brain/');
+});
+
+test('带末尾斜杠的 /second-brain/ 不重定向到自身（未登录走登录页，避免循环）', async () => {
+    const gate = await loadGate();
+    const response = await gate.onRequest({ request: pageRequest('/second-brain/'), env: {} });
+    assert.equal(response.status, 302);
+    assert.equal(response.headers.get('Location'), '/second-brain/login');
 });
