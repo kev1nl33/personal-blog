@@ -1,0 +1,5 @@
+# Cloudflare Pages 静态资源排除清单（部署与 wrangler pages dev 都生效）
+# 本地密钥与状态绝不能作为静态资源被访问
+.dev.vars
+.dev.vars.*
+.wrangler

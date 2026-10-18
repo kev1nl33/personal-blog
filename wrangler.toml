@@ -14,3 +14,8 @@ id = "ab91b039fa344df88a515337f14e0672"
 [[r2_buckets]]
 binding = "GALLERY_BUCKET"
 bucket_name = "blog-gallery"
+
+# 第二大脑私有数据 R2 存储桶（/second-brain/ 登录门卫后方可访问）
+[[r2_buckets]]
+binding = "SECOND_BRAIN_BUCKET"
+bucket_name = "second-brain-private"

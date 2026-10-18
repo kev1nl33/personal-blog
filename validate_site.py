@@ -25,7 +25,8 @@ def validate(root=ROOT):
         for element in soup.select('a[href],script[src],link[rel="stylesheet"],img[src]'):
             href = element.get('href') or element.get('src')
             parts = urlsplit(href)
-            if parts.scheme or parts.netloc or not parts.path or parts.path.startswith('/api/'): continue
+            # '/api/' 与 '/second-brain/' 由 Pages Functions 在服务端提供，无对应静态文件
+            if parts.scheme or parts.netloc or not parts.path or parts.path.startswith(('/api/', '/second-brain/')): continue
             target = root / unquote(parts.path)
             if not target.exists(): errors.append(f'{filename}: missing local target {parts.path}')
         if soup.select('script[src*="cdn.tailwindcss.com"],.loader,#counter-display'):
