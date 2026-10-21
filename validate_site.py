@@ -10,7 +10,7 @@ from site_builder import ROOT
 def validate(root=ROOT):
     root = Path(root)
     articles = json.loads((root / 'data/articles.json').read_text())
-    pages = ['index.html', 'blog.html', 'about.html', 'coffee.html', 'travel.html', 'gallery.html', 'visual-design.html']
+    pages = ['index.html', 'blog.html', 'about.html', 'coffee.html', 'travel.html', 'travel-singapore-2025.html', 'gallery.html', 'visual-design.html']
     pages += [article['url'] + '.html' for article in articles]
     errors = []
     for filename in pages:
