@@ -1,0 +1,39 @@
+/* 实拍游记：沿用旅行封面，图片以完整比例展示。 */
+.singapore-page.bg-grid{background-image:linear-gradient(#e5e5e5 1px,transparent 1px),linear-gradient(90deg,#e5e5e5 1px,transparent 1px);background-size:40px 40px}
+.singapore-page .voyage-detail-cover{min-height:620px;background:var(--brand-black)}
+.singapore-page .voyage-detail-cover-copy{min-height:620px}
+.singapore-page .voyage-detail-cover>img{object-position:65% 45%}
+.singapore-page .voyage-detail-cover-shade{background:linear-gradient(90deg,#0a0a0ae6,#0a0a0a80 52%,#0a0a0a00)}
+.singapore-page .voyage-kicker{color:var(--brand-white)}
+.singapore-page .voyage-detail-start{margin-top:24px;min-height:44px;display:inline-flex;align-items:center;border-bottom:2px solid var(--brand-accent)}
+.journal-index{display:flex;flex-wrap:wrap;gap:12px 32px;padding-block:28px;border-bottom:1px solid var(--brand-black);background:var(--brand-white)}
+.journal-index a{display:inline-flex;align-items:center;gap:10px;min-height:44px;font-size:14px;font-weight:600}
+.journal-index a:hover{text-decoration:underline;text-decoration-color:var(--brand-accent);text-underline-offset:6px}
+.journal-index span,.journal-number{font:12px var(--font-mono);color:var(--brand-accent)}
+.journal-content{padding-block:64px}
+.journal-section{padding-bottom:72px;scroll-margin-top:24px}
+.journal-heading{display:grid;grid-template-columns:1fr 1fr;gap:14px 40px;align-items:end;margin-bottom:28px}
+.journal-heading .coordinate{grid-column:1/-1}
+.journal-heading h2{font-size:clamp(28px,3vw,36px);font-weight:900;letter-spacing:-.02em;line-height:1.3}
+.journal-heading>p:last-child{font-size:15px;max-width:470px}
+.journal-grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;align-items:start}
+.journal-photo.bento-card{grid-column:span 4;margin:0;padding:0;min-width:0;transition:transform .3s ease-out,box-shadow .3s ease-out}
+.journal-photo:first-child{grid-column:span 8}
+.journal-photo:hover{transform:translateY(-4px);box-shadow:8px 8px 0 var(--brand-black)}
+.journal-photo-link{display:block;background:var(--brand-white);cursor:zoom-in}
+.journal-photo img{display:block;width:100%;height:auto}
+.journal-photo figcaption{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:14px 16px;font-size:13px;line-height:1.6;border-top:1px solid var(--brand-black)}
+.journal-number{flex-shrink:0;color:var(--brand-black)}
+.journal-return{margin-bottom:12px}
+.journal-lightbox{position:fixed;inset:0;width:100%;max-width:none;height:100%;max-height:none;margin:0;border:0;padding:20px 32px;background:var(--brand-black);color:var(--brand-white)}
+.journal-lightbox:not([open]){display:none}
+.journal-lightbox[open]{display:flex;flex-direction:column;gap:12px}
+.journal-lightbox::backdrop{background:var(--brand-black)}
+.journal-lightbox-toolbar,.journal-lightbox-controls{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-shrink:0;font-size:14px}
+.journal-lightbox button{background:var(--brand-white);color:var(--brand-black);border:1px solid var(--brand-white);padding:8px 16px;min-height:44px;flex-shrink:0}
+.journal-lightbox button:hover{border-color:var(--brand-accent)}
+.journal-lightbox-image{display:block;min-height:0;width:100%;flex:1;object-fit:contain}
+.journal-lightbox-controls{justify-content:center;font-family:var(--font-mono)}
+body.journal-viewing{overflow:hidden}
+@media(max-width:900px){.journal-photo.bento-card,.journal-photo:first-child{grid-column:span 6}.journal-heading{grid-template-columns:1fr}.journal-heading .coordinate{grid-column:auto}}
+@media(max-width:540px){.singapore-page .voyage-detail-cover,.singapore-page .voyage-detail-cover-copy{min-height:560px}.journal-index{gap:0 20px;padding-block:20px}.journal-index a{font-size:13px}.journal-content{padding-top:40px}.journal-section{padding-bottom:48px}.journal-grid{grid-template-columns:1fr;gap:20px}.journal-photo.bento-card,.journal-photo:first-child{grid-column:auto}.journal-photo:hover{box-shadow:4px 4px 0 var(--brand-black)}.journal-lightbox{padding:12px}.journal-lightbox-toolbar{align-items:start}.journal-lightbox-toolbar p{font-size:13px}.journal-lightbox-controls{gap:12px}.journal-lightbox button{padding:8px 12px}}
