@@ -402,7 +402,7 @@ def generate_new_article(info, filename):
             visibility: hidden;
             transform: translateY(20px);
             transition: all 0.3s ease;
-            z-index: 1000;
+            z-index: 90;
             font-size: 1.25rem;
         }}
 
@@ -428,6 +428,11 @@ def generate_new_article(info, filename):
             }}
         }}
     </style>
+<style>
+/* 只隔离旧模板和 Tailwind 对主站导航的覆盖。 */
+.site-nav {{ font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif; line-height: 1.75; }}
+.site-nav .nav-inner {{ max-width: 1200px; }}
+</style>
 </head>
 <body class="bg-grid min-h-screen">
     <!-- 阅读进度条 -->
@@ -437,19 +442,10 @@ def generate_new_article(info, filename):
     <button class="back-to-top" id="back-to-top" title="返回顶部">↑</button>
 
     <!-- 导航栏 -->
-    <nav class="nav">
-        <div class="container">
-            <div class="nav-content">
-                <a href="index.html" class="logo">计划李</a>
-                <ul class="nav-links">
-                    <li><a href="index.html">首页</a></li>
-                    <li><a href="blog.html">文章</a></li>
-                    <li><a href="visual-design.html">认知武器</a></li>
-                    <li><a href="about.html">关于</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <nav class="site-nav" aria-label="主导航"><div class="container nav-inner">
+<a class="nav-logo" href="index.html" aria-label="计划李 首页">计划李<span aria-hidden="true">▪</span></a>
+<button class="nav-toggle" aria-controls="site-menu" aria-expanded="false" aria-label="打开菜单" hidden>菜单 <span aria-hidden="true">＋</span></button>
+<ul class="nav-links" id="site-menu"><li><a href="index.html" class="nav-link">首页</a></li><li><a href="blog.html" class="nav-link" aria-current="page">文章</a></li><li><a href="visual-design.html" class="nav-link">认知武器</a></li><li><a href="coffee.html" class="nav-link">咖啡角</a></li><li><a href="travel.html" class="nav-link">看世界</a></li><li><a href="gallery.html" class="nav-link">回忆录</a></li><li><a href="/second-brain/" class="nav-link">第二大脑</a></li><li><a href="about.html" class="nav-link">关于</a></li></ul></div></nav>
 
     <!-- 目录导航 -->
     <aside class="toc-container" id="toc">
@@ -628,6 +624,7 @@ def generate_new_article(info, filename):
         window.addEventListener('scroll', toggleBackToTop);
         toggleBackToTop();
     </script>
+<script src="scripts/main.js" defer></script>
 </body>
 </html>
 '''
