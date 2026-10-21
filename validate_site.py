@@ -10,7 +10,7 @@ from site_builder import ROOT
 def validate(root=ROOT):
     root = Path(root)
     articles = json.loads((root / 'data/articles.json').read_text())
-    pages = ['index.html', 'blog.html', 'about.html', 'coffee.html', 'travel.html', 'travel-singapore-2025.html', 'gallery.html', 'visual-design.html']
+    pages = ['index.html', 'blog.html', 'about.html', 'coffee.html', 'travel.html', 'travel-singapore-2025.html', 'travel-japan-2023.html', 'travel-australia-2026.html', 'travel-uk-2024.html', 'gallery.html', 'visual-design.html']
     pages += [article['url'] + '.html' for article in articles]
     errors = []
     for filename in pages:
@@ -25,8 +25,8 @@ def validate(root=ROOT):
         for element in soup.select('a[href],script[src],link[rel="stylesheet"],img[src]'):
             href = element.get('href') or element.get('src')
             parts = urlsplit(href)
-            # '/api/' 与 '/second-brain/' 由 Pages Functions 在服务端提供，无对应静态文件
-            if parts.scheme or parts.netloc or not parts.path or parts.path.startswith(('/api/', '/second-brain/')): continue
+            # '/api/'、'/second-brain/' 与 '/media/' 由 Pages Functions 在服务端提供，无对应静态文件
+            if parts.scheme or parts.netloc or not parts.path or parts.path.startswith(('/api/', '/second-brain/', '/media/')): continue
             target = root / unquote(parts.path)
             if not target.exists(): errors.append(f'{filename}: missing local target {parts.path}')
         if soup.select('script[src*="cdn.tailwindcss.com"],.loader,#counter-display'):

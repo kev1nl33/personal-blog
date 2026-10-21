@@ -1,0 +1,195 @@
+        .cut-root {
+          position: relative;
+          height: calc(100svh - 81px - 66px); min-height: 600px;
+          overflow: hidden;
+          background: #E7DFCE;
+          cursor: none;
+          -webkit-tap-highlight-color: transparent;
+          font-family: var(--font-mono), ui-monospace, monospace;
+        }
+        [data-theme="dark"] .cut-root { background: #191712; }
+        .cut-root[data-form="1"] { cursor: auto; }
+        .cut-root[data-form="1"] .cut-cursor { display: none; }
+        .cut-cv { position: absolute; inset: 0; display: block; }
+        /* Covers the frame until the fonts have resolved and the first
+         * layout is measured — the entrance below is what the viewer
+         * actually sees, so this only has to hide the measuring. */
+        .cut-boot {
+          position: absolute; inset: 0; background: inherit; z-index: 90;
+          animation: cutBoot .32s ease forwards;
+        }
+        @keyframes cutBoot { to { opacity: 0; } }
+
+        .cut-props { position: absolute; inset: 0; pointer-events: none; z-index: 10; }
+        /* A die-cut sticker already carries the shadow of its own lift in its
+         * pixels, so ours is only a short contact shadow seating it on the
+         * mat — a full one on top reads as two objects at two heights. */
+        .cut-prop {
+          position: absolute; top: 0; left: 0;
+          filter: drop-shadow(1px 3px 4px rgba(28,22,12,.3))
+                  brightness(calc(1 - var(--cut-dim, 0)));
+        }
+        .cut-prop img {
+          width: 100%; height: 100%; display: block; object-fit: contain;
+          user-select: none; -webkit-user-drag: none;
+          opacity: 0;
+        }
+        /* THE KIT LANDS ON THE BOARD. The entrance is on the <img>, never on
+         * the .cut-prop wrapper: the wrapper's transform is written by the
+         * engine on layout, and a CSS animation on the same property would
+         * fight it and leave the object wherever the animation stopped. */
+        .cut-root[data-laid="1"] .cut-prop img {
+          animation: cutPropIn .8s var(--d, 0s) cubic-bezier(.16,1,.3,1) both;
+        }
+        @keyframes cutPropIn {
+          from { opacity: 0; transform: scale(.88) translateY(-14px); filter: blur(7px); }
+          to   { opacity: 1; transform: none; filter: blur(0); }
+        }
+        /* THE DESK NEVER MOVES — so the sheet has to be laid OVER it rather
+         * than have it pushed aside. Objects are DOM above the canvas, so a
+         * sheet drawn under a keyboard is a sheet with a keyboard on it; the
+         * desk fades out as the paper comes down and fades back when you
+         * return to the mat. Fading is not moving. */
+        .cut-root[data-phase="sheet"] .cut-props { opacity: 0; }
+        .cut-props { transition: opacity .5s ease; }
+
+
+        .cut-hit { position: absolute; inset: 0; z-index: 20; }
+        .cut-word-hit, .cut-frame-hit {
+          position: absolute; background: none; border: 0; padding: 0;
+          cursor: none; appearance: none;
+        }
+        .cut-word-hit[aria-disabled="true"] {cursor: default;}
+.cut-word-hit:focus-visible, .cut-frame-hit:focus-visible {
+          outline: 2px dashed #F2E9CF; outline-offset: 6px;
+        }
+        .cut-sr {
+          position: absolute; width: 1px; height: 1px; overflow: hidden;
+          clip-path: inset(50%); white-space: nowrap;
+        }
+
+        .cut-skip, .cut-back, .cut-cta, .cut-send, .cut-form-x {
+          font-family: var(--font-mono), ui-monospace, monospace;
+        }
+        /* Hiding the pointer belongs ONLY to the surfaces the drawn arrow
+         * covers. The send and close buttons had it too, and they exist only
+         * inside the inquiry — where the drawn arrow is display:none — so
+         * hovering them left no pointer on screen at all.
+         *
+         * (No backticks in here: this whole block is a JSX template literal,
+         * and one closes it.) */
+        .cut-skip, .cut-back, .cut-cta { cursor: none; }
+        /* THE FORM IS REAL DOM AND USES REAL CURSORS. It is the one surface
+         * here that is a form rather than a desk, and a text field you cannot
+         * see the I-beam over is a text field you do not trust. */
+        .cut-form button,
+        .cut-form label,
+        .cut-form-x { cursor: pointer; }
+        .cut-form input,
+        .cut-form textarea { cursor: text; }
+        .cut-send:disabled { cursor: default; }
+        .cut-skip {
+          position: absolute; z-index: 60; right: 3.4vw; top: 4vh;
+          background: none; border: 0; padding: 8px 2px;
+          font-size: 12px; letter-spacing: .08em; text-transform: uppercase;
+          color: rgba(240,236,222,.62);
+        }
+        .cut-skip:hover { color: rgba(255,252,244,.95); }
+
+        .cut-bar {
+          position: absolute; z-index: 60; left: 0; right: 0; bottom: 4.2vh;
+          display: flex; align-items: center; justify-content: space-between;
+          gap: 20px; padding: 0 6vw;
+          animation: cutBarIn .5s .1s cubic-bezier(.16,1,.3,1) both;
+        }
+        @keyframes cutBarIn { from { opacity: 0; transform: translateY(14px); } }
+        /* it sits on the MAT, under the paper, so it needs its own ground */
+        .cut-back {
+          border: 0; padding: 9px 14px 8px; border-radius: 2px;
+          background: rgba(14,26,20,.62);
+          -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px);
+          font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
+          color: rgba(240,246,232,.88); white-space: nowrap; flex: 0 0 auto;
+        }
+        .cut-back:hover { color: #FFFCF4; background: rgba(14,26,20,.8); }
+        .cut-cta {
+          position: absolute; z-index: 60;
+          border: 0; border-radius: 2px;
+          transform-origin: 0 100%;
+          animation: cutBarIn .5s .15s cubic-bezier(.16,1,.3,1) both;
+          padding: 13px 20px 12px; white-space: nowrap;
+          background: #F3EDE0; color: #191510;
+          font-size: 12px; font-weight: 500; letter-spacing: .07em;
+          text-transform: uppercase;
+          box-shadow: 2px 5px 0 rgba(20,16,10,.28);
+          transition: box-shadow .16s ease, background .16s ease;
+        }
+        .cut-cta:hover { background: #FFFCF4; box-shadow: 3px 8px 0 rgba(20,16,10,.34); }
+        .cut-cta:active { box-shadow: 1px 2px 0 rgba(20,16,10,.34); }
+
+
+        .cut-cursor {
+          position: absolute; top: -2px; left: -3px; width: 26px; z-index: 80;
+          pointer-events: none; opacity: 0; transition: opacity .2s ease;
+          filter: drop-shadow(2px 3px 2px rgba(20,16,10,.4));
+          will-change: transform;
+        }
+
+        @media (max-width: 760px) {
+          /* same shape as the desk: back on the left, CTA on the right */
+          .cut-bar { justify-content: flex-start; bottom: 1.8vh; padding: 0 5vw; }
+          /* both controls stay in the bar on a phone; the back one loses its
+             label because 390px of bar cannot carry two of them */
+          .cut-back {
+            width: 40px; height: 40px; padding: 0; border-radius: 50%;
+            font-size: 0;
+          }
+          .cut-back::before { content: "←"; font-size: 15px; letter-spacing: 0; }
+          .cut-cursor { display: none; }
+          .cut-root { cursor: auto; }
+          .cut-word-hit, .cut-frame-hit, .cut-skip, .cut-back, .cut-cta { cursor: pointer; }
+          .cut-row { grid-template-columns: 1fr; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .cut-ring path, .cut-stamp, .cut-form, .cut-bar { animation-duration: .01s; }
+          .cut-root[data-laid="1"] .cut-prop img { animation-duration: .01s; animation-delay: 0s; }
+        }
+
+/* 此页按已购模板保留纸张与裁切垫视觉。 */
+.memoir-page { --font-archivo-black: 'Cutout Display', Impact, 'PingFang SC', sans-serif; }
+@font-face {font-family:'Cutout Display';src:url('../assets/memoir-archivo-black.ttf') format('truetype');font-weight:400;font-display:swap;}
+.memoir-page main {min-height:0;}
+.cut-root {--font-geist-mono:var(--font-mono);--font-archivo-black:'Cutout Display',Impact,'PingFang SC',sans-serif;}
+.cut-root:not(.is-ready) {display:none;}
+.cut-back {position:absolute;z-index:60;min-height:44px;cursor:pointer;}
+.cut-skip {min-height:44px;cursor:pointer;color:#fff;}
+.cut-cursor {width:38px;height:64px;}
+.cut-blade {position:absolute;left:0;top:0;width:58px;height:96px;z-index:30;pointer-events:none;}
+.cut-cursor svg,.cut-blade svg {width:100%;height:100%;}
+.cut-status {position:absolute;top:12px;right:4%;color:#f6f1e6;font:11px var(--font-mono);pointer-events:none;max-width:65%;text-align:right;}
+.memoir-fallback {padding:40px 24px;max-width:1200px;margin:auto;}
+.memoir-fallback h1 {font-size:40px;}
+.memoir-fallback ul {list-style:none;padding:24px 0;display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.memoir-fallback img {width:100%;}
+.memoir-filter {position:relative;z-index:70;display:flex;gap:8px;overflow-x:auto;padding:10px max(16px,6vw);background:#f4f4f0;border-bottom:1px solid #0a0a0a;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+body[data-viewer="1"] .memoir-filter {visibility:hidden;}
+.memoir-filter::-webkit-scrollbar {display:none;}
+.memoir-filter button {flex:0 0 auto;min-height:44px;padding:8px 16px;border:1px solid #0a0a0a;background:#f4f4f0;color:#0a0a0a;font:600 14px var(--font-sans);cursor:pointer;}
+.memoir-filter button[aria-pressed="true"] {background:#0a0a0a;color:#fff;}
+.memoir-filter button:hover {background:#ff4d00;color:#fff;border-color:#ff4d00;}
+.memoir-filter button[aria-pressed="true"]:hover {background:#0a0a0a;color:#fff;border-color:#0a0a0a;}
+.memoir-viewer {position:fixed;inset:0;z-index:400;background:#0a0a0a;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:64px 24px 24px;}
+.memoir-viewer:focus {outline:none;}
+.memoir-viewer[hidden] {display:none;}
+.memoir-viewer-frame {display:flex;flex-direction:column;gap:14px;width:fit-content;max-width:min(1100px,92vw);}
+.memoir-viewer img {display:block;max-height:72vh;max-width:min(1100px,92vw);width:auto;height:auto;border:2px solid #f4f4f0;}
+.memoir-viewer-bar {display:flex;align-items:center;justify-content:space-between;gap:24px;width:100%;color:#f4f4f0;}
+.memoir-viewer-meta {display:flex;flex-direction:column;gap:4px;font-size:16px;}
+.memoir-viewer-meta span {font:12px var(--font-mono);letter-spacing:.08em;color:#ff4d00;}
+.memoir-viewer-bar a {color:#0a0a0a;background:#ff4d00;padding:12px 18px;min-height:44px;display:inline-flex;align-items:center;font-weight:700;white-space:nowrap;}
+.memoir-viewer-bar a:hover {background:#f4f4f0;}
+.memoir-viewer-close {position:absolute;top:16px;right:16px;min-width:44px;min-height:44px;padding:0 16px;border:1px solid #f4f4f0;background:transparent;color:#f4f4f0;font-size:15px;cursor:pointer;}
+.memoir-viewer-close:hover {background:#ff4d00;border-color:#ff4d00;color:#fff;}
+@media(max-width:800px){.cut-root {height:calc(100svh - 69px - 62px);min-height:650px;}.cut-back {width:auto;height:44px;font-size:12px;border-radius:2px;padding:8px 12px;}.cut-back::before{content:none;}.cut-root[data-phase="mat"] .cut-status{display:none;}.memoir-fallback ul{grid-template-columns:1fr;}.memoir-filter{padding:8px 16px;}.memoir-viewer{padding:56px 12px 12px;}.memoir-viewer img{max-height:62vh;}.memoir-viewer-bar{flex-direction:column;align-items:flex-start;gap:12px;}}
+@media(pointer:coarse),(prefers-reduced-motion:reduce){.cut-cursor{display:none;}.cut-root,.cut-word-hit,.cut-frame-hit{cursor:pointer;}}
+@media(prefers-reduced-motion:reduce){.memoir-filter button,.memoir-viewer a,.memoir-viewer-close{transition:none;}}

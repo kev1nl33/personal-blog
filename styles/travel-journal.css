@@ -1,10 +1,10 @@
 /* 实拍游记：沿用旅行封面，图片以完整比例展示。 */
-.singapore-page.bg-grid{background-image:linear-gradient(#e5e5e5 1px,transparent 1px),linear-gradient(90deg,#e5e5e5 1px,transparent 1px);background-size:40px 40px}
-.singapore-page .voyage-detail-cover{min-height:620px;background:var(--brand-black)}
-.singapore-page .voyage-detail-cover-copy{min-height:620px}
+.journal-page.bg-grid{background-image:linear-gradient(#e5e5e5 1px,transparent 1px),linear-gradient(90deg,#e5e5e5 1px,transparent 1px);background-size:40px 40px}
+.journal-page .voyage-detail-cover{min-height:620px;background:var(--brand-black)}
+.journal-page .voyage-detail-cover-copy{min-height:620px}
+.journal-page .voyage-kicker{color:var(--brand-white)}
 .singapore-page .voyage-detail-cover>img{object-position:65% 45%}
 .singapore-page .voyage-detail-cover-shade{background:linear-gradient(90deg,#0a0a0ae6,#0a0a0a80 52%,#0a0a0a00)}
-.singapore-page .voyage-kicker{color:var(--brand-white)}
 .singapore-page .voyage-detail-start{margin-top:24px;min-height:44px;display:inline-flex;align-items:center;border-bottom:2px solid var(--brand-accent)}
 .journal-index{display:flex;flex-wrap:wrap;gap:12px 32px;padding-block:28px;border-bottom:1px solid var(--brand-black);background:var(--brand-white)}
 .journal-index a{display:inline-flex;align-items:center;gap:10px;min-height:44px;font-size:14px;font-weight:600}
@@ -36,4 +36,60 @@
 .journal-lightbox-controls{justify-content:center;font-family:var(--font-mono)}
 body.journal-viewing{overflow:hidden}
 @media(max-width:900px){.journal-photo.bento-card,.journal-photo:first-child{grid-column:span 6}.journal-heading{grid-template-columns:1fr}.journal-heading .coordinate{grid-column:auto}}
-@media(max-width:540px){.singapore-page .voyage-detail-cover,.singapore-page .voyage-detail-cover-copy{min-height:560px}.journal-index{gap:0 20px;padding-block:20px}.journal-index a{font-size:13px}.journal-content{padding-top:40px}.journal-section{padding-bottom:48px}.journal-grid{grid-template-columns:1fr;gap:20px}.journal-photo.bento-card,.journal-photo:first-child{grid-column:auto}.journal-photo:hover{box-shadow:4px 4px 0 var(--brand-black)}.journal-lightbox{padding:12px}.journal-lightbox-toolbar{align-items:start}.journal-lightbox-toolbar p{font-size:13px}.journal-lightbox-controls{gap:12px}.journal-lightbox button{padding:8px 12px}}
+@media(max-width:540px){.journal-page .voyage-detail-cover,.journal-page .voyage-detail-cover-copy{min-height:560px}.journal-index{gap:0 20px;padding-block:20px}.journal-index a{font-size:13px}.journal-content{padding-top:40px}.journal-section{padding-bottom:48px}.journal-grid{grid-template-columns:1fr;gap:20px}.journal-photo.bento-card,.journal-photo:first-child{grid-column:auto}.journal-photo:hover{box-shadow:4px 4px 0 var(--brand-black)}.journal-lightbox{padding:12px}.journal-lightbox-toolbar{align-items:start}.journal-lightbox-toolbar p{font-size:13px}.journal-lightbox-controls{gap:12px}.journal-lightbox button{padding:8px 12px}}
+/* 澳洲游记：六站路线保持单行，手机可横向滚动。 */
+html:has(body.australia-page){scroll-padding-top:0}
+.australia-page .journal-index-inner{flex-wrap:nowrap;gap:24px;overflow-x:auto;scrollbar-width:thin;padding-block:12px}
+.australia-page .journal-index a{flex-shrink:0;white-space:nowrap;font-size:13px}
+.australia-page .journal-section{scroll-margin-top:170px}
+.australia-page .journal-heading .coordinate{color:var(--zone-color)}
+.australia-page .journal-heading h2::before{content:"■ ";color:var(--zone-color);font-size:.55em;vertical-align:.18em;margin-right:2px}
+.australia-page .voyage-detail-cover>img{object-position:65% 45%}
+.australia-page .voyage-detail-cover-shade{background:linear-gradient(90deg,#0a0a0ae6,#0a0a0a80 52%,#0a0a0a00)}
+.australia-page .voyage-detail-start{margin-top:24px;min-height:44px;display:inline-flex;align-items:center;border-bottom:2px solid var(--brand-accent)}
+@media(max-width:800px){.australia-page .journal-section{scroll-margin-top:155px}}
+@media(prefers-reduced-motion:no-preference){html:has(body.australia-page){scroll-behavior:smooth}}
+@media(prefers-reduced-motion:reduce){html:has(body.australia-page){scroll-behavior:auto}.australia-page .reveal{opacity:1;transform:none;transition:none}.australia-page .journal-photo{transition:none}.australia-page .journal-photo:hover{transform:none}}
+/* 日本游记：滚动路线条 + 分区主色 + 顺路走走 */
+.journal-index[data-scrollspy]{position:sticky;top:80px;z-index:30;display:block;padding-block:0;background:var(--brand-white);border-top:1px solid var(--brand-black);box-shadow:0 4px 0 rgba(10,10,10,.08)}
+.journal-index-inner{display:flex;flex-wrap:wrap;gap:12px 32px;padding-block:20px}
+.journal-index[data-scrollspy] a{border-bottom:2px solid transparent;transition:border-color .3s ease-out,color .3s ease-out}
+.journal-index[data-scrollspy] a.is-active{border-bottom-color:var(--route-color,var(--brand-accent));color:var(--route-color,var(--brand-accent))}
+/* 日本页锚点偏移由下面 scroll-margin 全权控制，覆盖全站 html{scroll-padding-top:100px} */
+html:has(body.japan-page){scroll-padding-top:0}
+.japan-page .journal-section{--zone-color:var(--brand-accent);scroll-margin-top:170px}
+.japan-page .journal-section--osaka{--zone-color:#C2185B}
+.japan-page .journal-section--kyoto{--zone-color:#C3272B}
+.japan-page .journal-section--hakone{--zone-color:#059669}
+.japan-page .journal-section--tokyo{--zone-color:#0047AB}
+.japan-page .journal-heading .coordinate{color:var(--zone-color)}
+.japan-page .journal-heading h2::before{content:"■ ";color:var(--zone-color);font-size:.55em;vertical-align:.18em;margin-right:2px}
+.japan-page .journal-detour{margin-top:8px;padding-top:24px;border-top:1px dashed var(--brand-black)}
+.japan-page .journal-detour h3{font:700 12px var(--font-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--zone-color);margin-bottom:18px}
+.japan-page .journal-detour .journal-grid .journal-photo.bento-card{grid-column:span 6}
+.japan-page .journal-detour .journal-photo:first-child{grid-column:span 6}
+@media(max-width:800px){.journal-index[data-scrollspy]{top:69px}.japan-page .journal-section{scroll-margin-top:155px}}
+@media(max-width:540px){.japan-page .journal-detour .journal-grid .journal-photo.bento-card,.japan-page .journal-detour .journal-photo:first-child{grid-column:auto}}
+@media(prefers-reduced-motion:no-preference){html:has(body.japan-page){scroll-behavior:smooth}}
+@media(prefers-reduced-motion:reduce){html:has(body.japan-page){scroll-behavior:auto}.japan-page .reveal{opacity:1;transform:none;transition:none}.japan-page .journal-photo{transition:none}.japan-page .journal-photo:hover{transform:none}.journal-index[data-scrollspy] a{transition:none}}
+/* 英国游记：滚动路线条 + 分区主色 + 伦敦收尾 */
+html:has(body.uk-page){scroll-padding-top:0}
+.uk-page .voyage-detail-cover>img{object-position:50% 55%}
+.uk-page .voyage-detail-cover-shade{background:linear-gradient(90deg,#0a0a0ae6,#0a0a0a80 52%,#0a0a0a00)}
+.uk-page .voyage-detail-start{margin-top:24px;min-height:44px;display:inline-flex;align-items:center;border-bottom:2px solid var(--brand-accent)}
+.uk-page .journal-section{--zone-color:var(--brand-accent);scroll-margin-top:170px}
+.uk-page .journal-section--london{--zone-color:#FF4D00}
+.uk-page .journal-section--oxford{--zone-color:#0047AB}
+.uk-page .journal-section--studio{--zone-color:#059669}
+.uk-page .journal-section--coast{--zone-color:#0047AB}
+.uk-page .journal-section--windsor{--zone-color:#059669}
+.uk-page .journal-heading .coordinate{color:var(--zone-color)}
+.uk-page .journal-heading h2::before{content:"■ ";color:var(--zone-color);font-size:.55em;vertical-align:.18em;margin-right:2px}
+.uk-page .journal-detour{margin-top:8px;padding-top:24px;border-top:1px dashed var(--brand-black)}
+.uk-page .journal-detour h3{font:700 12px var(--font-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--zone-color);margin-bottom:18px}
+.uk-page .journal-detour .journal-grid .journal-photo.bento-card{grid-column:span 6}
+.uk-page .journal-detour .journal-photo:first-child{grid-column:span 6}
+@media(max-width:800px){.uk-page .journal-section{scroll-margin-top:155px}}
+@media(max-width:540px){.uk-page .journal-detour .journal-grid .journal-photo.bento-card,.uk-page .journal-detour .journal-photo:first-child{grid-column:auto}}
+@media(prefers-reduced-motion:no-preference){html:has(body.uk-page){scroll-behavior:smooth}}
+@media(prefers-reduced-motion:reduce){html:has(body.uk-page){scroll-behavior:auto}.uk-page .reveal{opacity:1;transform:none;transition:none}.uk-page .journal-photo{transition:none}.uk-page .journal-photo:hover{transform:none}.uk-page .journal-index[data-scrollspy] a{transition:none}}

@@ -269,9 +269,17 @@ element.dataset.value = 'some-value';
 
 ## 旅行实拍素材约定
 
-- 每次旅行的网页图片放在 `images/travel/<目的地>-<年份>/`，使用 `singapore-013.jpg` 这样的稳定编号命名，编号对应外部选片清单。
-- 仅保存页面使用的压缩图片：长边不超过 1800px、单张小于 400KB，移除 EXIF（含 GPS）；原始照片和验收截图保留在任务素材目录，不进入仓库。
+- 旅行照片存 R2 桶 `blog-gallery`（wrangler.toml 绑定 `GALLERY_BUCKET`），key 为仓库路径去掉 `images/` 前缀（如 `travel/japan-2023/osaka-248.jpg`）；页面通过 Pages Function `/media/travel/<目的地>-<年份>/<文件>` 只读引用，不提交图片文件本身。`singapore-2025` 是历史例外：图片保留在 `images/travel/singapore-2025/`，引用走本地相对路径。
+- 使用 `singapore-013.jpg` 这样的稳定编号命名，编号对应外部选片清单。
+- 仅上传页面使用的压缩图片：长边不超过 1800px、单张小于 400KB，移除 EXIF（含 GPS）；原始照片和验收截图保留在任务素材目录，不进入仓库。
 - 新增或替换图片时同步检查页面引用；删除无引用的旅行图片前先确认用途。
+
+## 旅行总览维护
+
+- `travel.html` 的 `#travel-trips` 集中维护旅行卡片，卡片顺序即展示顺序；名称、日期、简介、封面和入口均直接在 HTML 编辑，不通过旧模板生成。
+- 每张卡片以 `data-country` 标记国家，以可选的 `data-photo-directory` 指向实拍目录：R2 上的旅行写 `/media/travel/<目录>`，本地保留的写 `images/travel/<目录>`；资料图不计入收录照片。
+- 增加旅行或调整实拍素材后运行 `python3 update_travel_overview.py`，按实际素材去重统计国家和照片并更新 HTML 中的总计（本地目录按文件统计，`/media/` 目录按对应游记页收录的去重引用统计）；随后更新搜索索引并验证页面。
+- 验收截图与交付说明保存在仓库外的任务目录；任务目录先写结构约定，截图放 `verify/`，交付说明为 `delivery.md`，不进入站点仓库。
 
 ## 页面维护
 

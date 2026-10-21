@@ -1,0 +1,342 @@
+{
+  "updated": "2026-10-21",
+  "moods": [
+    {"word": "BOLD", "note": "鲜明的街头", "keywords": ["街道", "夜"]},
+    {"word": "SOFT", "note": "温柔的日常", "keywords": ["合影", "山林"]},
+    {"word": "RAW", "note": "城市的切面", "keywords": ["室内", "建筑"]},
+    {"word": "DREAMY", "note": "游走的光影", "keywords": ["云海", "海"]},
+    {"word": "CINEMATIC", "note": "像电影的一刻", "keywords": ["人物", "合影"]}
+  ],
+  "photos": [
+    {
+      "src": "images/travel/singapore-2025/singapore-013.jpg",
+      "title": "夜里的招牌",
+      "alt": "夜间街道上的停车场与酒店招牌",
+      "country": "新加坡",
+      "year": "2025",
+      "keywords": ["新加坡", "夜"],
+      "journal": "travel-singapore-2025.html#streets",
+      "journalLabel": "街巷与咖啡",
+      "note": ""
+    },
+    {
+      "src": "images/travel/singapore-2025/singapore-038.jpg",
+      "title": "长廊上的人",
+      "alt": "长廊与木地板上的人物",
+      "country": "新加坡",
+      "year": "2025",
+      "keywords": ["新加坡", "室内", "人物"],
+      "journal": "travel-singapore-2025.html#gardens",
+      "journalLabel": "植物与建筑",
+      "note": ""
+    },
+    {
+      "src": "images/travel/singapore-2025/singapore-063.jpg",
+      "title": "城市夜色",
+      "alt": "夜色中的城市楼群与道路",
+      "country": "新加坡",
+      "year": "2025",
+      "keywords": ["新加坡", "夜"],
+      "journal": "travel-singapore-2025.html#skyline",
+      "journalLabel": "滨海湾与城市天际线",
+      "note": ""
+    },
+    {
+      "src": "images/travel/singapore-2025/singapore-065.jpg",
+      "title": "窗边的城市",
+      "alt": "窗边人物与远处城市楼群",
+      "country": "新加坡",
+      "year": "2025",
+      "keywords": ["新加坡", "人物"],
+      "journal": "travel-singapore-2025.html#skyline",
+      "journalLabel": "滨海湾与城市天际线",
+      "note": ""
+    },
+    {
+      "src": "images/travel/singapore-2025/singapore-086.jpg",
+      "title": "沙滩上的两个人",
+      "alt": "沙滩上的两个人与远处海面",
+      "country": "新加坡",
+      "year": "2025",
+      "keywords": ["新加坡", "海", "人物"],
+      "journal": "travel-singapore-2025.html#seaside",
+      "journalLabel": "海边与树影",
+      "note": ""
+    },
+    {
+      "src": "images/travel/singapore-2025/singapore-096.jpg",
+      "title": "海上的帆船",
+      "alt": "海面上的白色帆船",
+      "country": "新加坡",
+      "year": "2025",
+      "keywords": ["新加坡", "海"],
+      "journal": "travel-singapore-2025.html#seaside",
+      "journalLabel": "海边与树影",
+      "note": ""
+    },
+    {
+      "src": "images/travel/singapore-2025/singapore-140.jpg",
+      "title": "穹顶下的瀑布",
+      "alt": "星耀樟宜的玻璃穹顶与室内瀑布",
+      "country": "新加坡",
+      "year": "2025",
+      "keywords": ["新加坡", "建筑", "室内"],
+      "journal": "travel-singapore-2025.html#jewel",
+      "journalLabel": "星耀樟宜",
+      "note": ""
+    },
+    {
+      "src": "images/travel/singapore-2025/singapore-145.jpg",
+      "title": "咖啡店门面",
+      "alt": "亚坤咖啡店的拱形门面",
+      "country": "新加坡",
+      "year": "2025",
+      "keywords": ["新加坡", "街道"],
+      "journal": "travel-singapore-2025.html#streets",
+      "journalLabel": "街巷与咖啡",
+      "note": ""
+    },
+    {
+      "src": "/media/travel/japan-2023/osaka-221.jpg",
+      "title": "雨夜的螃蟹招牌",
+      "alt": "梅田雨夜的蟹道乐大螃蟹招牌",
+      "country": "日本",
+      "year": "2023",
+      "keywords": ["日本", "夜"],
+      "journal": "travel-japan-2023.html#osaka",
+      "journalLabel": "大阪，夜色与霓虹",
+      "note": ""
+    },
+    {
+      "src": "/media/travel/japan-2023/osaka-230.jpg",
+      "title": "雨里撑伞的人",
+      "alt": "梅田雨夜里撑伞的行人",
+      "country": "日本",
+      "year": "2023",
+      "keywords": ["日本", "夜", "人物"],
+      "journal": "travel-japan-2023.html#osaka",
+      "journalLabel": "大阪，夜色与霓虹",
+      "note": ""
+    },
+    {
+      "src": "/media/travel/japan-2023/kyoto-273.jpg",
+      "title": "红伞下的背影",
+      "alt": "东山窄街上撑红伞的背影",
+      "country": "日本",
+      "year": "2023",
+      "keywords": ["日本", "街道", "人物"],
+      "journal": "travel-japan-2023.html#kyoto",
+      "journalLabel": "京都，老街与神社",
+      "note": ""
+    },
+    {
+      "src": "/media/travel/japan-2023/hakone-005.jpg",
+      "title": "山前的栏杆",
+      "alt": "栏杆边的身影与背后山林",
+      "country": "日本",
+      "year": "2023",
+      "keywords": ["日本", "山林", "人物"],
+      "journal": "travel-japan-2023.html#hakone",
+      "journalLabel": "箱根，山与林",
+      "note": ""
+    },
+    {
+      "src": "/media/travel/japan-2023/hakone-308.jpg",
+      "title": "山谷里的高架",
+      "alt": "箱根山间的高架桥与绿谷",
+      "country": "日本",
+      "year": "2023",
+      "keywords": ["日本", "山林"],
+      "journal": "travel-japan-2023.html#hakone",
+      "journalLabel": "箱根，山与林",
+      "note": ""
+    },
+    {
+      "src": "/media/travel/japan-2023/hakone-014.jpg",
+      "title": "灯下的合影",
+      "alt": "酒店夜里的合影与暖灯",
+      "country": "日本",
+      "year": "2023",
+      "keywords": ["日本", "合影"],
+      "journal": "travel-japan-2023.html#hakone",
+      "journalLabel": "箱根，山与林",
+      "note": ""
+    },
+    {
+      "src": "/media/travel/japan-2023/tokyo-032.jpg",
+      "title": "路口的绿色列车",
+      "alt": "江之电列车驶过街口",
+      "country": "日本",
+      "year": "2023",
+      "keywords": ["日本", "街道"],
+      "journal": "travel-japan-2023.html#tokyo",
+      "journalLabel": "东京，塔与街",
+      "note": ""
+    },
+    {
+      "src": "/media/travel/japan-2023/tokyo-132.jpg",
+      "title": "夜里的东京塔",
+      "alt": "夜色中的东京塔",
+      "country": "日本",
+      "year": "2023",
+      "keywords": ["日本", "夜", "建筑"],
+      "journal": "travel-japan-2023.html#tokyo",
+      "journalLabel": "东京，塔与街",
+      "note": ""
+    },
+    {
+      "src": "/media/travel/australia-2026/australia-0042.jpg",
+      "title": "街角的红砖建筑",
+      "alt": "墨尔本街角的红砖建筑",
+      "country": "澳大利亚",
+      "year": "2026",
+      "keywords": ["澳大利亚", "街道"],
+      "journal": "travel-australia-2026.html#melbourne",
+      "journalLabel": "墨尔本，街角与穹顶",
+      "note": ""
+    },
+    {
+      "src": "/media/travel/australia-2026/australia-0323.jpg",
+      "title": "穹顶下的阅览室",
+      "alt": "穹顶下的放射状阅览桌",
+      "country": "澳大利亚",
+      "year": "2026",
+      "keywords": ["澳大利亚", "室内"],
+      "journal": "travel-australia-2026.html#melbourne",
+      "journalLabel": "墨尔本，街角与穹顶",
+      "note": ""
+    },
+    {
+      "src": "/media/travel/australia-2026/australia-0113.jpg",
+      "title": "海边的石柱",
+      "alt": "十二门徒的海岸与石柱群",
+      "country": "澳大利亚",
+      "year": "2026",
+      "keywords": ["澳大利亚", "海"],
+      "journal": "travel-australia-2026.html#great-ocean-road",
+      "journalLabel": "大洋路，海浪与石柱",
+      "note": ""
+    },
+    {
+      "src": "/media/travel/australia-2026/australia-0839.jpg",
+      "title": "歌剧院的屋顶",
+      "alt": "悉尼歌剧院的帆形屋顶与广场",
+      "country": "澳大利亚",
+      "year": "2026",
+      "keywords": ["澳大利亚", "建筑"],
+      "journal": "travel-australia-2026.html#sydney",
+      "journalLabel": "悉尼，港湾与屋顶",
+      "note": ""
+    },
+    {
+      "src": "/media/travel/australia-2026/australia-0387.jpg",
+      "title": "阴天下的海滩",
+      "alt": "Bondi 阴云下的沙滩与海浪",
+      "country": "澳大利亚",
+      "year": "2026",
+      "keywords": ["澳大利亚", "海"],
+      "journal": "travel-australia-2026.html#beaches",
+      "journalLabel": "悉尼海滩，两种天色",
+      "note": ""
+    },
+    {
+      "src": "/media/travel/australia-2026/australia-0464.jpg",
+      "title": "葡萄园与远山",
+      "alt": "猎人谷的葡萄园与远山",
+      "country": "澳大利亚",
+      "year": "2026",
+      "keywords": ["澳大利亚", "山林"],
+      "journal": "travel-australia-2026.html#hunter-valley",
+      "journalLabel": "猎人谷，葡萄园与清晨",
+      "note": ""
+    },
+    {
+      "src": "/media/travel/australia-2026/australia-0567.jpg",
+      "title": "云上的热气球",
+      "alt": "云海上方的热气球",
+      "country": "澳大利亚",
+      "year": "2026",
+      "keywords": ["澳大利亚", "云海"],
+      "journal": "travel-australia-2026.html#hunter-valley",
+      "journalLabel": "猎人谷，葡萄园与清晨",
+      "note": ""
+    },
+    {
+      "src": "/media/travel/uk-2024/uk-2024-016.jpg",
+      "title": "红色巴士经过街口",
+      "alt": "红色双层巴士驶过街口",
+      "country": "英国",
+      "year": "2024",
+      "keywords": ["英国", "街道"],
+      "journal": "travel-uk-2024.html#london",
+      "journalLabel": "伦敦，塔桥与大本钟",
+      "note": ""
+    },
+    {
+      "src": "/media/travel/uk-2024/uk-2024-034.jpg",
+      "title": "河上的大本钟",
+      "alt": "威斯敏斯特桥上的大本钟与议会大厦",
+      "country": "英国",
+      "year": "2024",
+      "keywords": ["英国", "街道", "建筑"],
+      "journal": "travel-uk-2024.html#london",
+      "journalLabel": "伦敦，塔桥与大本钟",
+      "note": ""
+    },
+    {
+      "src": "/media/travel/uk-2024/uk-2024-072.jpg",
+      "title": "窗框里的塔桥",
+      "alt": "窗框里的伦敦塔桥",
+      "country": "英国",
+      "year": "2024",
+      "keywords": ["英国", "建筑"],
+      "journal": "travel-uk-2024.html#london",
+      "journalLabel": "伦敦，塔桥与大本钟",
+      "note": ""
+    },
+    {
+      "src": "/media/travel/uk-2024/uk-2024-441.jpg",
+      "title": "城堡模型前的合影",
+      "alt": "霍格沃茨城堡模型前合影",
+      "country": "英国",
+      "year": "2024",
+      "keywords": ["英国", "合影", "室内"],
+      "journal": "travel-uk-2024.html#studio",
+      "journalLabel": "哈利波特影城",
+      "note": ""
+    },
+    {
+      "src": "/media/travel/uk-2024/uk-2024-154.jpg",
+      "title": "白色的海崖",
+      "alt": "白色海崖与海滩",
+      "country": "英国",
+      "year": "2024",
+      "keywords": ["英国", "海"],
+      "journal": "travel-uk-2024.html#coast",
+      "journalLabel": "海岸，海崖与海湾",
+      "note": ""
+    },
+    {
+      "src": "/media/travel/uk-2024/uk-2024-192.jpg",
+      "title": "山坡上的城堡",
+      "alt": "山坡上远眺的城堡",
+      "country": "英国",
+      "year": "2024",
+      "keywords": ["英国", "山林"],
+      "journal": "travel-uk-2024.html#windsor",
+      "journalLabel": "温莎，城堡与草坪",
+      "note": ""
+    },
+    {
+      "src": "/media/travel/uk-2024/uk-2024-476.jpg",
+      "title": "夜里的合影",
+      "alt": "夜里大本钟下的合影",
+      "country": "英国",
+      "year": "2024",
+      "keywords": ["英国", "夜", "合影"],
+      "journal": "travel-uk-2024.html#london",
+      "journalLabel": "伦敦，塔桥与大本钟",
+      "note": ""
+    }
+  ]
+}
