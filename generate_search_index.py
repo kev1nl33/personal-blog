@@ -51,9 +51,11 @@ def page_text(soup: BeautifulSoup) -> str:
     for element in main.find_all(['script', 'style', 'noscript', 'nav', 'footer', 'form', 'aside']):
         element.decompose()
     # 只取可见文案，装饰性箭头、分隔符和重复的计数字样不该进入摘要。
+    # 列表页的卡片摘录是英文/长句混合，用短一点的块拼起来，摘要更好读。
     blocks = []
     for block in main.find_all(['h1', 'h2', 'h3', 'h4', 'p', 'li', 'figcaption', 'blockquote', 'dd', 'dt']):
         text = normalize_space(block.get_text(' ', strip=True))
+        text = text.rstrip('↗→↓').strip()
         if text and text not in blocks:
             blocks.append(text)
     return normalize_space(' '.join(blocks))

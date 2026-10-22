@@ -64,7 +64,9 @@
     return score;
   }
 
-  function searchEntries(entries, query, limit = 8) {
+  const RESULTS_LIMIT = 8;
+
+  function searchEntries(entries, query, limit = RESULTS_LIMIT) {
     const scored = [];
     for (const entry of entries) {
       const score = scoreEntry(entry, query);
@@ -76,21 +78,27 @@
 
   function snippetFor(entry, query) {
     const terms = termsOf(query);
+    // 优先用页面自己的摘要；摘要里没有命中词时（例如列表页）再回落到正文片段。
     const candidates = [entry.description, entry.content].filter(Boolean);
     for (const text of candidates) {
       const haystack = text.toLocaleLowerCase();
-      const hits = terms.map(term => haystack.indexOf(term)).filter(index => index >= 0);
-      if (!hits.length) continue;
-      const firstHit = Math.min(...hits);
-      let start = Math.max(0, firstHit - 16);
-      // 从最近的句子或分词边界开始，避免摘要从半个词组中间切进去。
-      const boundary = Math.max(
-        text.lastIndexOf('。', start - 1),
-        text.lastIndexOf('；', start - 1),
-        text.lastIndexOf('，', start - 1),
-        text.lastIndexOf(' ', start - 1)
+      const firstHit = Math.min(...terms.map(term => haystack.indexOf(term)).filter(index => index >= 0));
+      if (!Number.isFinite(firstHit)) continue;
+
+      // 命中词前最近的句子边界，距离不太远就从那里开始，读者能看到完整一句。
+      const sentence = Math.max(
+        text.lastIndexOf('。', firstHit - 1),
+        text.lastIndexOf('！', firstHit - 1),
+        text.lastIndexOf('？', firstHit - 1),
+        text.lastIndexOf('. ', firstHit - 1)
       );
-      if (boundary >= 0 && firstHit - boundary < 32) start = boundary + 1;
+      let start = sentence >= 0 && firstHit - sentence <= 80 ? sentence + 1 : Math.max(0, firstHit - 20);
+      // 兜底截断时退到最近的空格，避免从英文单词中间开始。
+      if (start > 0 && start < firstHit) {
+        const space = text.lastIndexOf(' ', firstHit);
+        if (space >= start && firstHit - space < 24) start = space + 1;
+      }
+
       const snippet = text.slice(start, start + MAX_SNIPPET).trim();
       return `${start > 0 ? '…' : ''}${snippet}${text.length > start + MAX_SNIPPET ? '…' : ''}`;
     }
@@ -271,6 +279,7 @@
 
     const results = searchEntries(state.entries, query);
     state.results = results;
+    state.dialog.list.scrollTop = 0;
     if (!results.length) {
       setStatus(`没有找到与「${query.trim()}」相关的页面，换个词试试。`);
       return;
@@ -317,7 +326,12 @@
     }
     const active = options[state.active];
     state.dialog.input.setAttribute('aria-activedescendant', active.id);
-    active.scrollIntoView({block: 'nearest'});
+    const list = state.dialog.list;
+    const top = active.offsetTop;
+    const bottom = top + active.offsetHeight;
+    // 列表自身滚动，避免 scrollIntoView 连带滚动背后的页面。
+    if (top < list.scrollTop) list.scrollTop = top;
+    else if (bottom > list.scrollTop + list.clientHeight) list.scrollTop = bottom - list.clientHeight;
   }
 
   function open(opener = document.activeElement) {
@@ -372,7 +386,17 @@
     return tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || element.isContentEditable;
   }
 
+  // 弹层是打开时才创建的；Esc 需要在捕获阶段处理，既不惊动页面其他监听，也能先于它们关闭。
+  function onEscape(event) {
+    if (event.key !== 'Escape') return;
+    if (!state.dialog || state.dialog.root.hidden) return;
+    event.preventDefault();
+    event.stopPropagation();
+    close();
+  }
+
   function init() {
+    document.addEventListener('keydown', onEscape, true);
     document.querySelectorAll('[data-search-open]').forEach(button => {
       button.addEventListener('click', event => {
         event.preventDefault();
@@ -381,11 +405,6 @@
     });
 
     document.addEventListener('keydown', event => {
-      if (event.key === 'Escape' && state.dialog && !state.dialog.root.hidden) {
-        event.preventDefault();
-        close();
-        return;
-      }
       if (event.key !== '/' || event.defaultPrevented) return;
       if (event.metaKey || event.ctrlKey || event.altKey) return;
       if (isEditable(event.target)) return;
