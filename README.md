@@ -150,7 +150,7 @@ personal-blog/
 
 - `functions/api/counter`：用 `VISITOR_COUNTER` KV 记一次访问并返回总数。
 - `functions/api/gallery`：用 `GALLERY_META` KV 和同一个 R2 桶列出、上传、删除回忆录照片；上传和删除需要服务端 `GALLERY_API_KEY`。
-- `functions/second-brain`：校验登录后，从私有 R2 桶 `SECOND_BRAIN_BUCKET` 读取 `/second-brain/` 下的文件。
+- `functions/second-brain`：校验登录后，从私有存储绑定读取 `/second-brain/` 下的文件。
 
 绑定名称见 [wrangler.toml](wrangler.toml)。密钥只放在 Pages 环境变量或本地 `.dev.vars`，不写入仓库。自建一份时，KV、R2 和密钥都换成自己的。
 
