@@ -55,6 +55,9 @@ html:has(body.australia-page){scroll-padding-top:0}
 .journal-index-inner{display:flex;flex-wrap:wrap;gap:12px 32px;padding-block:20px}
 .journal-index[data-scrollspy] a{border-bottom:2px solid transparent;transition:border-color .3s ease-out,color .3s ease-out}
 .journal-index[data-scrollspy] a.is-active{border-bottom-color:var(--route-color,var(--brand-accent));color:var(--route-color,var(--brand-accent))}
+/* 路线色保留在下划线，站名与序号用黑色保证小字号的 AA 对比度。 */
+.australia-page .journal-index[data-scrollspy] a{color:var(--brand-black)}
+.australia-page .journal-index[data-scrollspy] a span{color:var(--brand-black)}
 /* 日本页锚点偏移由下面 scroll-margin 全权控制，覆盖全站 html{scroll-padding-top:100px} */
 html:has(body.japan-page){scroll-padding-top:0}
 .japan-page .journal-section{--zone-color:var(--brand-accent);scroll-margin-top:170px}
