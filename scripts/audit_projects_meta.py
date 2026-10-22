@@ -30,9 +30,44 @@ def canonical_url(page, root):
     return f'{BASE_URL}/{encoded}'
 
 
+def _unwrap_wrapping_quotes(text):
+    """Drop one matching quote pair only when it wraps the whole value."""
+    pairs = (('"', '"'), ('“', '”'))
+    if len(text) >= 2 and (text[0], text[-1]) in pairs:
+        return text[1:-1]
+    return text
+
+
 def _visible_text(value):
     text = re.sub(r'<[^>]+>', '', value or '')
-    return re.sub(r'\s+', ' ', html.unescape(text)).strip().strip('"“”')
+    return _unwrap_wrapping_quotes(re.sub(r'\s+', ' ', html.unescape(text)).strip())
+
+
+def _quotes_unpaired(text):
+    """Chinese “ ” must balance; ASCII " must come in pairs."""
+    return text.count('“') != text.count('”') or text.count('"') % 2 != 0
+
+
+def quote_balance_problems(page, root):
+    """Flag title and description fields whose quotation marks do not pair."""
+    page = Path(page)
+    root = Path(root)
+    soup = BeautifulSoup(page.read_text(encoding='utf-8'), 'html.parser')
+    label = str(page.relative_to(root))
+    description = soup.find('meta', attrs={'name': 'description'})
+    og_title = soup.find('meta', property='og:title')
+    og_description = soup.find('meta', property='og:description')
+    fields = {
+        'title': soup.title.get_text() if soup.title else '',
+        'description': description.get('content', '') if description else '',
+        'og:title': og_title.get('content', '') if og_title else '',
+        'og:description': og_description.get('content', '') if og_description else '',
+    }
+    return [
+        f'{label}: unpaired quotes in {name}'
+        for name, value in fields.items()
+        if _quotes_unpaired(value)
+    ]
 
 
 def _clip(text, limit=100):
