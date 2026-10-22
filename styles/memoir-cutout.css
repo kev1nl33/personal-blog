@@ -176,6 +176,10 @@
 .memoir-fallback {padding:40px 24px;max-width:1200px;margin:auto;}
 .memoir-fallback h1 {font-size:40px;}
 .memoir-fallback ul {list-style:none;padding:24px 0;display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.memoir-fallback {transition:opacity .2s ease-out;}
+.memoir-fallback-out {opacity:0;}
+@media(prefers-reduced-motion:reduce){.memoir-fallback{transition:none;}}
+.memoir-fallback picture {display:block;}
 .memoir-fallback img {width:100%;height:auto;}
 .memoir-filter {position:relative;z-index:70;display:flex;gap:8px;overflow-x:auto;padding:10px max(16px,6vw);background:#f4f4f0;border-bottom:1px solid #0a0a0a;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
 body[data-viewer="1"] .memoir-filter {visibility:hidden;}

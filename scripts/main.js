@@ -1,5 +1,25 @@
 /* Shared navigation and restrained feedback. Content is visible before JavaScript. */
+/* WebP 变体尚未上传时，<picture> 选中的 source 会 404，浏览器不会自动回退到
+   <img> 的 JPG。加载失败时移除该 source 并重新加载 img，页面不会出现空图；
+   回退后不再重试，JPG 也失败就保持原样。
+   监听挂在 document 上并尽早注册：首屏封面可能在 DOMContentLoaded 前就已失败。 */
+document.addEventListener('error', (event) => {
+  const image = event.target;
+  if (!(image instanceof HTMLImageElement)) return;
+  const picture = image.closest('picture');
+  if (!picture || picture.dataset.jpgFallback === '1') return;
+  const source = picture.querySelector('source[type="image/webp"]');
+  const fallback = image.getAttribute('src');
+  if (!source || !fallback) return;
+  picture.dataset.jpgFallback = '1';
+  source.remove();
+  image.src = fallback;
+}, true);
 document.addEventListener('DOMContentLoaded', () => {
+  /* 脚本执行前就已失败的图不会再触发 error：启动时补扫一遍。 */
+  document.querySelectorAll('picture:not([data-jpg-fallback]) > img').forEach((image) => {
+    if (image.complete && image.naturalWidth === 0) image.dispatchEvent(new Event('error'));
+  });
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const nav = document.querySelector('.site-nav');
   const toggle = document.querySelector('.nav-toggle');

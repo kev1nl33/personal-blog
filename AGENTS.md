@@ -287,6 +287,14 @@ element.dataset.value = 'some-value';
 - 仅上传页面使用的压缩图片：长边不超过 1800px、单张小于 400KB，移除 EXIF（含 GPS）；原始照片和验收截图保留在任务素材目录，不进入仓库。
 - 新增或替换图片时同步检查页面引用；删除无引用的旅行图片前先确认用途。
 
+### 响应式 WebP 变体
+
+- 每张被页面引用的旅行照片生成两档 WebP：`<文件名>-800.webp` 与 `<文件名>-1600.webp`（质量从 78 逐级下探，仍大于原图时该档不输出、`srcset` 只给 800w）。变体只存在任务暂存目录 `~/cc-tasks/webp/out/<目的地>-<年份>/`，上传到 R2 的 `travel/<目的地>-<年份>/` 下，**不提交进仓库**，也不覆盖原图。
+- 生成用 `python3 scripts/make-webp.py`（需要 Pillow）：从 `travel.html`、游记页和 `data/memoir.json` 收集引用，R2 图按公开 URL 下载、新加坡读仓库副本；输出前剥离 EXIF/XMP/ICC 并逐张校验。脚本幂等，状态记录在 `out/.state.json`，`--only` 可只跑抽样。
+- 页面用 `<picture><source type="image/webp" srcset="…-800.webp 800w, …-1600.webp 1600w" sizes="…"><img src="原 JPG" …></picture>`，原 JPG 始终作为回退；`width`/`height`/`alt` 保留，只有首图或 hero 用 `fetchpriority="high"`，其余 `loading="lazy"`。灯箱链接继续指向原 JPG。
+- 变体与标记必须同批上线：先上传 WebP 再部署 HTML。若变体缺失，`scripts/main.js` 会在加载失败时移除 `<source>` 并回退 JPG；回忆录数据用 `"webp": {"800": …, "1600": …}` 字段，加载失败同样回退 `src`。
+- 新加坡照片仍以 `images/travel/singapore-2025/` 为原图来源，WebP 变体暂存到 `out/singapore-2025/`，上传后 key 为 `travel/singapore-2025/…`，页面 WebP 走 `/media/travel/singapore-2025/…`。
+
 ## 旅行总览维护
 
 - `travel.html` 的 `#travel-trips` 集中维护旅行卡片，卡片顺序即展示顺序；名称、日期、简介、封面和入口均直接在 HTML 编辑，不通过旧模板生成。

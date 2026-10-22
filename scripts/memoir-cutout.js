@@ -3,8 +3,15 @@
  function _nullishCoalesce(lhs, rhsFn) { if (lhs != null) { return lhs; } else { return rhsFn(); } } function _optionalChain(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
 (function () {
 'use strict';
+/* 给页面里的启动兜底看门用：脚本已接管、正在取数据，别急着放开静态列表。 */
+window.memoirBooting = true;
 const root = document.querySelector('.cut-root');
-if (!root || !window.gsap || !root.querySelector('canvas').getContext('2d')) return;
+/* 载入失败（没有 GSAP、没有 2D context）就不能再让页面等：立刻交回静态列表。 */
+if (!root || !window.gsap || !root.querySelector('canvas').getContext('2d')) {
+ window.memoirBooting = false;
+ if (window.memoirReleaseBoot) window.memoirReleaseBoot();
+ return;
+}
 const gsap = window.gsap;
 let phase = 'mat', moodIdx = null, geo = null;
 const apiRef = {current: null};
@@ -29,10 +36,28 @@ function setPhase(next) {
 function setMoodIdx(next) { if (next != null) lastChoice = next; moodIdx = next; }
 function setGeo(next) { geo = next; renderControls(); }
 function finishBoot() {
+ window.memoirBooting = false;
  clearTimeout(window.memoirBootTimeout);
  document.documentElement.classList.remove('memoir-pending');
 }
-function setReady() { root.classList.add('is-ready'); fallback.hidden = true; buildFilter(); finishBoot(); }
+function setReady() {
+ if (document.documentElement.classList.contains('memoir-pending')) {
+  root.classList.add('is-ready');
+  fallback.hidden = true;
+  buildFilter();
+  finishBoot();
+  return;
+ }
+ /* 数据晚于兜底期限才到：静态列表已经在屏幕上，先淡出再交给裁切桌，避免硬切。 */
+ fallback.classList.add('memoir-fallback-out');
+ window.setTimeout(() => {
+  fallback.hidden = true;
+  fallback.classList.remove('memoir-fallback-out');
+  root.classList.add('is-ready');
+  buildFilter();
+  finishBoot();
+ }, 200);
+}
 function setLaidOut() { root.dataset.laid = '1'; }
 function announceFrame(i) {
  if (moodIdx == null) return;
@@ -142,7 +167,27 @@ function openViewer(frame) {
  /* 大图沿用静态列表里的真实宽高，避免打开时因尺寸未知产生跳动。 */
  const source = [...fallback.querySelectorAll('img')].find(item => item.getAttribute('src') === photo.src);
  if (source) { image.width = Number(source.getAttribute('width')); image.height = Number(source.getAttribute('height')); }
- image.src = photo.src;
+ /* 大图查看优先 1600w WebP；变体缺失时 main.js 的 <picture> 回退逻辑不适用这里，
+    直接监听 error 落回原 JPG。 */
+ if (photo.webp && photo.webp['1600']) {
+  /* 换图前先摘掉上一张遗留的监听，避免旧照片的回退把手误改当前大图。 */
+  if (image.memoirFallback) {
+   image.removeEventListener('error', image.memoirFallback);
+   image.removeEventListener('load', image.memoirFallback);
+  }
+  const onViewerFallback = () => {
+   image.removeEventListener('error', onViewerFallback);
+   image.removeEventListener('load', onViewerFallback);
+   image.memoirFallback = null;
+   image.src = photo.src;
+  };
+  image.memoirFallback = onViewerFallback;
+  image.addEventListener('error', onViewerFallback);
+  image.addEventListener('load', onViewerFallback);
+  image.src = photo.webp['1600'];
+ } else {
+  image.src = photo.src;
+ }
  image.alt = photo.alt;
  viewer.querySelector('.memoir-viewer-meta span').textContent = photo.country + ' · ' + photo.year;
  viewer.querySelector('.memoir-viewer-meta strong').textContent = photo.title;
@@ -506,7 +551,10 @@ function seeded(seed) {
         loading.add(key);
         const img = new Image();
         img.decoding = "async";
-        img.src = f.src;
+        /* 数据里有 WebP 变体就优先用 800w（裁切桌调色上限 1100px），
+           解码失败一次就换回原 JPG，画布上不会留空帧。 */
+        const variant = f.photo && f.photo.webp && f.photo.webp["800"];
+        let fellBack = !variant;
         const done = () => {
           if (disposed) return;
           try {
@@ -515,7 +563,16 @@ function seeded(seed) {
           }
           loading.delete(key);
         };
-        if (img.decode) img.decode().then(done).catch(() => { loading.delete(key); });
+        let retrying = false;
+        const retryOriginal = () => {
+          if (fellBack || retrying) { if (!retrying) loading.delete(key); return; }
+          retrying = true;
+          img.src = f.src;
+          img.decode().then(done).catch(() => { loading.delete(key); });
+        };
+        img.addEventListener("error", retryOriginal);
+        img.src = variant || f.src;
+        if (img.decode) img.decode().then(done).catch(retryOriginal);
         else img.onload = done;
       }
     }

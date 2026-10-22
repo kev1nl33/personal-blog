@@ -10,12 +10,17 @@ ROOT = Path(__file__).resolve().parent
 PHOTO_EXTENSIONS = {'.jpg', '.jpeg', '.png', '.webp', '.avif', '.heic'}
 # /media/ 旅行照片存 R2，本地只剩页面引用，按游记页收录的去重引用计数
 MEDIA_PHOTO_PATTERN = r'/[A-Za-z0-9_.-]+\.(?:jpe?g|png|webp|avif|gif|heic)'
+# 响应式变体（*-800.webp / *-1600.webp）与原图共用一张照片，统计时不计入
+RESPONSIVE_VARIANT = re.compile(r'-(?:800|1600)\.webp$')
 
 
 def collect_media_photos(directory, trip):
     journal = ROOT / trip['href']
     pattern = re.compile(re.escape(directory) + MEDIA_PHOTO_PATTERN)
-    trip_photos = set(pattern.findall(journal.read_text(encoding='utf-8')))
+    trip_photos = {
+        photo for photo in pattern.findall(journal.read_text(encoding='utf-8'))
+        if not RESPONSIVE_VARIANT.search(photo)
+    }
     if not trip_photos:
         raise ValueError(f'游记页未收录任何照片：{directory} -> {trip["href"]}')
     return trip_photos

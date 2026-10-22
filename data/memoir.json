@@ -10,6 +10,7 @@
   "photos": [
     {
       "src": "images/travel/singapore-2025/singapore-013.jpg",
+      "webp": {"800": "/media/travel/singapore-2025/singapore-013-800.webp", "1600": "/media/travel/singapore-2025/singapore-013-1600.webp"},
       "title": "夜里的招牌",
       "alt": "夜间街道上的停车场与酒店招牌",
       "country": "新加坡",
@@ -21,6 +22,7 @@
     },
     {
       "src": "images/travel/singapore-2025/singapore-038.jpg",
+      "webp": {"800": "/media/travel/singapore-2025/singapore-038-800.webp", "1600": "/media/travel/singapore-2025/singapore-038-1600.webp"},
       "title": "长廊上的人",
       "alt": "长廊与木地板上的人物",
       "country": "新加坡",
@@ -32,6 +34,7 @@
     },
     {
       "src": "images/travel/singapore-2025/singapore-063.jpg",
+      "webp": {"800": "/media/travel/singapore-2025/singapore-063-800.webp", "1600": "/media/travel/singapore-2025/singapore-063-1600.webp"},
       "title": "城市夜色",
       "alt": "夜色中的城市楼群与道路",
       "country": "新加坡",
@@ -43,6 +46,7 @@
     },
     {
       "src": "images/travel/singapore-2025/singapore-065.jpg",
+      "webp": {"800": "/media/travel/singapore-2025/singapore-065-800.webp", "1600": "/media/travel/singapore-2025/singapore-065-1600.webp"},
       "title": "窗边的城市",
       "alt": "窗边人物与远处城市楼群",
       "country": "新加坡",
@@ -54,6 +58,7 @@
     },
     {
       "src": "images/travel/singapore-2025/singapore-086.jpg",
+      "webp": {"800": "/media/travel/singapore-2025/singapore-086-800.webp", "1600": "/media/travel/singapore-2025/singapore-086-1600.webp"},
       "title": "沙滩上的两个人",
       "alt": "沙滩上的两个人与远处海面",
       "country": "新加坡",
@@ -65,6 +70,7 @@
     },
     {
       "src": "images/travel/singapore-2025/singapore-096.jpg",
+      "webp": {"800": "/media/travel/singapore-2025/singapore-096-800.webp", "1600": "/media/travel/singapore-2025/singapore-096-1600.webp"},
       "title": "海上的帆船",
       "alt": "海面上的白色帆船",
       "country": "新加坡",
@@ -76,6 +82,7 @@
     },
     {
       "src": "images/travel/singapore-2025/singapore-140.jpg",
+      "webp": {"800": "/media/travel/singapore-2025/singapore-140-800.webp", "1600": "/media/travel/singapore-2025/singapore-140-1600.webp"},
       "title": "穹顶下的瀑布",
       "alt": "星耀樟宜的玻璃穹顶与室内瀑布",
       "country": "新加坡",
@@ -87,6 +94,7 @@
     },
     {
       "src": "images/travel/singapore-2025/singapore-145.jpg",
+      "webp": {"800": "/media/travel/singapore-2025/singapore-145-800.webp", "1600": "/media/travel/singapore-2025/singapore-145-1600.webp"},
       "title": "咖啡店门面",
       "alt": "亚坤咖啡店的拱形门面",
       "country": "新加坡",
@@ -98,6 +106,7 @@
     },
     {
       "src": "/media/travel/japan-2023/osaka-221.jpg",
+      "webp": {"800": "/media/travel/japan-2023/osaka-221-800.webp", "1600": "/media/travel/japan-2023/osaka-221-1600.webp"},
       "title": "雨夜的螃蟹招牌",
       "alt": "梅田雨夜的蟹道乐大螃蟹招牌",
       "country": "日本",
@@ -109,6 +118,7 @@
     },
     {
       "src": "/media/travel/japan-2023/osaka-230.jpg",
+      "webp": {"800": "/media/travel/japan-2023/osaka-230-800.webp", "1600": "/media/travel/japan-2023/osaka-230-1600.webp"},
       "title": "雨里撑伞的人",
       "alt": "梅田雨夜里撑伞的行人",
       "country": "日本",
@@ -120,6 +130,7 @@
     },
     {
       "src": "/media/travel/japan-2023/kyoto-273.jpg",
+      "webp": {"800": "/media/travel/japan-2023/kyoto-273-800.webp", "1600": "/media/travel/japan-2023/kyoto-273-1600.webp"},
       "title": "红伞下的背影",
       "alt": "东山窄街上撑红伞的背影",
       "country": "日本",
@@ -131,6 +142,7 @@
     },
     {
       "src": "/media/travel/japan-2023/hakone-005.jpg",
+      "webp": {"800": "/media/travel/japan-2023/hakone-005-800.webp", "1600": "/media/travel/japan-2023/hakone-005-1600.webp"},
       "title": "山前的栏杆",
       "alt": "栏杆边的身影与背后山林",
       "country": "日本",
@@ -142,6 +154,7 @@
     },
     {
       "src": "/media/travel/japan-2023/hakone-308.jpg",
+      "webp": {"800": "/media/travel/japan-2023/hakone-308-800.webp", "1600": "/media/travel/japan-2023/hakone-308-1600.webp"},
       "title": "山谷里的高架",
       "alt": "箱根山间的高架桥与绿谷",
       "country": "日本",
@@ -153,6 +166,7 @@
     },
     {
       "src": "/media/travel/japan-2023/hakone-014.jpg",
+      "webp": {"800": "/media/travel/japan-2023/hakone-014-800.webp", "1600": "/media/travel/japan-2023/hakone-014-1600.webp"},
       "title": "灯下的合影",
       "alt": "酒店夜里的合影与暖灯",
       "country": "日本",
@@ -164,6 +178,7 @@
     },
     {
       "src": "/media/travel/japan-2023/tokyo-032.jpg",
+      "webp": {"800": "/media/travel/japan-2023/tokyo-032-800.webp", "1600": "/media/travel/japan-2023/tokyo-032-1600.webp"},
       "title": "路口的绿色列车",
       "alt": "江之电列车驶过街口",
       "country": "日本",
@@ -175,6 +190,7 @@
     },
     {
       "src": "/media/travel/japan-2023/tokyo-132.jpg",
+      "webp": {"800": "/media/travel/japan-2023/tokyo-132-800.webp", "1600": "/media/travel/japan-2023/tokyo-132-1600.webp"},
       "title": "夜里的东京塔",
       "alt": "夜色中的东京塔",
       "country": "日本",
@@ -186,6 +202,7 @@
     },
     {
       "src": "/media/travel/australia-2026/australia-0042.jpg",
+      "webp": {"800": "/media/travel/australia-2026/australia-0042-800.webp", "1600": "/media/travel/australia-2026/australia-0042-1600.webp"},
       "title": "街角的红砖建筑",
       "alt": "墨尔本街角的红砖建筑",
       "country": "澳大利亚",
@@ -197,6 +214,7 @@
     },
     {
       "src": "/media/travel/australia-2026/australia-0323.jpg",
+      "webp": {"800": "/media/travel/australia-2026/australia-0323-800.webp", "1600": "/media/travel/australia-2026/australia-0323-1600.webp"},
       "title": "穹顶下的阅览室",
       "alt": "穹顶下的放射状阅览桌",
       "country": "澳大利亚",
@@ -208,6 +226,7 @@
     },
     {
       "src": "/media/travel/australia-2026/australia-0113.jpg",
+      "webp": {"800": "/media/travel/australia-2026/australia-0113-800.webp", "1600": "/media/travel/australia-2026/australia-0113-1600.webp"},
       "title": "海边的石柱",
       "alt": "十二门徒的海岸与石柱群",
       "country": "澳大利亚",
@@ -219,6 +238,7 @@
     },
     {
       "src": "/media/travel/australia-2026/australia-0839.jpg",
+      "webp": {"800": "/media/travel/australia-2026/australia-0839-800.webp", "1600": "/media/travel/australia-2026/australia-0839-1600.webp"},
       "title": "歌剧院的屋顶",
       "alt": "悉尼歌剧院的帆形屋顶与广场",
       "country": "澳大利亚",
@@ -230,6 +250,7 @@
     },
     {
       "src": "/media/travel/australia-2026/australia-0387.jpg",
+      "webp": {"800": "/media/travel/australia-2026/australia-0387-800.webp", "1600": "/media/travel/australia-2026/australia-0387-1600.webp"},
       "title": "阴天下的海滩",
       "alt": "Bondi 阴云下的沙滩与海浪",
       "country": "澳大利亚",
@@ -241,6 +262,7 @@
     },
     {
       "src": "/media/travel/australia-2026/australia-0464.jpg",
+      "webp": {"800": "/media/travel/australia-2026/australia-0464-800.webp", "1600": "/media/travel/australia-2026/australia-0464-1600.webp"},
       "title": "葡萄园与远山",
       "alt": "猎人谷的葡萄园与远山",
       "country": "澳大利亚",
@@ -252,6 +274,7 @@
     },
     {
       "src": "/media/travel/australia-2026/australia-0567.jpg",
+      "webp": {"800": "/media/travel/australia-2026/australia-0567-800.webp", "1600": "/media/travel/australia-2026/australia-0567-1600.webp"},
       "title": "云上的热气球",
       "alt": "云海上方的热气球",
       "country": "澳大利亚",
@@ -263,6 +286,7 @@
     },
     {
       "src": "/media/travel/uk-2024/uk-2024-016.jpg",
+      "webp": {"800": "/media/travel/uk-2024/uk-2024-016-800.webp", "1600": "/media/travel/uk-2024/uk-2024-016-1600.webp"},
       "title": "红色巴士经过街口",
       "alt": "红色双层巴士驶过街口",
       "country": "英国",
@@ -274,6 +298,7 @@
     },
     {
       "src": "/media/travel/uk-2024/uk-2024-034.jpg",
+      "webp": {"800": "/media/travel/uk-2024/uk-2024-034-800.webp", "1600": "/media/travel/uk-2024/uk-2024-034-1600.webp"},
       "title": "河上的大本钟",
       "alt": "威斯敏斯特桥上的大本钟与议会大厦",
       "country": "英国",
@@ -285,6 +310,7 @@
     },
     {
       "src": "/media/travel/uk-2024/uk-2024-072.jpg",
+      "webp": {"800": "/media/travel/uk-2024/uk-2024-072-800.webp", "1600": "/media/travel/uk-2024/uk-2024-072-1600.webp"},
       "title": "窗框里的塔桥",
       "alt": "窗框里的伦敦塔桥",
       "country": "英国",
@@ -296,6 +322,7 @@
     },
     {
       "src": "/media/travel/uk-2024/uk-2024-441.jpg",
+      "webp": {"800": "/media/travel/uk-2024/uk-2024-441-800.webp", "1600": "/media/travel/uk-2024/uk-2024-441-1600.webp"},
       "title": "城堡模型前的合影",
       "alt": "霍格沃茨城堡模型前合影",
       "country": "英国",
@@ -307,6 +334,7 @@
     },
     {
       "src": "/media/travel/uk-2024/uk-2024-154.jpg",
+      "webp": {"800": "/media/travel/uk-2024/uk-2024-154-800.webp", "1600": "/media/travel/uk-2024/uk-2024-154-1600.webp"},
       "title": "白色的海崖",
       "alt": "白色海崖与海滩",
       "country": "英国",
@@ -318,6 +346,7 @@
     },
     {
       "src": "/media/travel/uk-2024/uk-2024-192.jpg",
+      "webp": {"800": "/media/travel/uk-2024/uk-2024-192-800.webp", "1600": "/media/travel/uk-2024/uk-2024-192-1600.webp"},
       "title": "山坡上的城堡",
       "alt": "山坡上远眺的城堡",
       "country": "英国",
@@ -329,6 +358,7 @@
     },
     {
       "src": "/media/travel/uk-2024/uk-2024-476.jpg",
+      "webp": {"800": "/media/travel/uk-2024/uk-2024-476-800.webp", "1600": "/media/travel/uk-2024/uk-2024-476-1600.webp"},
       "title": "夜里的合影",
       "alt": "夜里大本钟下的合影",
       "country": "英国",

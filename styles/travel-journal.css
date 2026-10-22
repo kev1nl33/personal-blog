@@ -3,7 +3,7 @@
 .journal-page .voyage-detail-cover{min-height:620px;background:var(--brand-black)}
 .journal-page .voyage-detail-cover-copy{min-height:620px}
 .journal-page .voyage-kicker{color:var(--brand-white)}
-.singapore-page .voyage-detail-cover>img{object-position:65% 45%}
+.singapore-page .voyage-detail-cover>picture img{object-position:65% 45%}
 .singapore-page .voyage-detail-cover-shade{background:linear-gradient(90deg,#0a0a0ae6,#0a0a0a80 52%,#0a0a0a00)}
 .singapore-page .voyage-detail-start{margin-top:24px;min-height:44px;display:inline-flex;align-items:center;border-bottom:2px solid var(--brand-accent)}
 .journal-index{display:flex;flex-wrap:wrap;gap:12px 32px;padding-block:28px;border-bottom:1px solid var(--brand-black);background:var(--brand-white)}
@@ -21,6 +21,7 @@
 .journal-photo:first-child{grid-column:span 8}
 .journal-photo:hover{transform:translateY(-4px);box-shadow:8px 8px 0 var(--brand-black)}
 .journal-photo-link{display:block;background:var(--brand-white);cursor:zoom-in}
+.journal-photo picture{display:block}
 .journal-photo img{display:block;width:100%;height:auto}
 .journal-photo figcaption{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:14px 16px;font-size:13px;line-height:1.6;border-top:1px solid var(--brand-black)}
 .journal-number{flex-shrink:0;color:var(--brand-black)}
@@ -44,7 +45,7 @@ html:has(body.australia-page){scroll-padding-top:0}
 .australia-page .journal-section{scroll-margin-top:170px}
 .australia-page .journal-heading .coordinate{color:var(--zone-color)}
 .australia-page .journal-heading h2::before{content:"■ ";color:var(--zone-color);font-size:.55em;vertical-align:.18em;margin-right:2px}
-.australia-page .voyage-detail-cover>img{object-position:65% 45%}
+.australia-page .voyage-detail-cover>picture img{object-position:65% 45%}
 .australia-page .voyage-detail-cover-shade{background:linear-gradient(90deg,#0a0a0ae6,#0a0a0a80 52%,#0a0a0a00)}
 .australia-page .voyage-detail-start{margin-top:24px;min-height:44px;display:inline-flex;align-items:center;border-bottom:2px solid var(--brand-accent)}
 @media(max-width:800px){.australia-page .journal-section{scroll-margin-top:155px}}
@@ -77,7 +78,7 @@ html:has(body.japan-page){scroll-padding-top:0}
 @media(prefers-reduced-motion:reduce){html:has(body.japan-page){scroll-behavior:auto}.japan-page .reveal{opacity:1;transform:none;transition:none}.japan-page .journal-photo{transition:none}.japan-page .journal-photo:hover{transform:none}.journal-index[data-scrollspy] a{transition:none}}
 /* 英国游记：滚动路线条 + 分区主色 + 伦敦收尾 */
 html:has(body.uk-page){scroll-padding-top:0}
-.uk-page .voyage-detail-cover>img{object-position:50% 55%}
+.uk-page .voyage-detail-cover>picture img{object-position:50% 55%}
 .uk-page .voyage-detail-cover-shade{background:linear-gradient(90deg,#0a0a0ae6,#0a0a0a80 52%,#0a0a0a00)}
 .uk-page .voyage-detail-start{margin-top:24px;min-height:44px;display:inline-flex;align-items:center;border-bottom:2px solid var(--brand-accent)}
 .uk-page .journal-section{--zone-color:var(--brand-accent);scroll-margin-top:170px}
