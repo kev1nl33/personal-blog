@@ -1,105 +1,140 @@
 #!/usr/bin/env python3
-"""
-生成全站搜索索引 JSON
+"""Rebuild search-index.json from the hand-maintained root HTML pages.
+
+The site's search UI reads only this JSON file. Run after changing page text:
+
+    python3 generate_search_index.py
+
+Use --check to verify the committed index is up to date without writing:
+
+    python3 generate_search_index.py --check
 """
 
+import argparse
 import json
-import glob
 import re
+import sys
+from pathlib import Path
+
 from bs4 import BeautifulSoup
 
-def extract_text_from_html(html_content):
-    """从HTML中提取纯文本"""
-    soup = BeautifulSoup(html_content, 'html.parser')
+ROOT = Path(__file__).resolve().parent
+OUTPUT = ROOT / 'search-index.json'
 
-    # 移除script和style标签
-    for script in soup(["script", "style"]):
-        script.decompose()
+# 咖啡板块不参与全站搜索，界面也不挂搜索入口。
+EXCLUDED_EXACT = {'404.html', 'books-preview.html', 'test.html', 'article1.html'}
+EXCLUDED_PREFIXES = ('coffee',)
+CONTENT_LIMIT = 1200
+TITLE_SUFFIX = re.compile(r'\s*(?:[-–—]\s*计划李.*|[|｜]\s*计划李.*)$')
 
-    # 获取文本
-    text = soup.get_text()
 
-    # 清理文本
-    lines = (line.strip() for line in text.splitlines())
-    chunks = (phrase.strip() for line in lines for phrase in line.split("  "))
-    text = ' '.join(chunk for chunk in chunks if chunk)
+def is_indexable(path: Path) -> bool:
+    name = path.name
+    return (
+        path.is_file()
+        and name.endswith('.html')
+        and name not in EXCLUDED_EXACT
+        and not name.startswith(EXCLUDED_PREFIXES)
+        and '-backup-' not in name
+    )
 
-    return text
 
-def generate_search_index():
-    """生成搜索索引"""
-    search_index = []
+def normalize_space(text: str) -> str:
+    return ' '.join(text.split())
 
-    # 获取所有HTML文件
-    html_files = glob.glob("*.html")
 
-    # 排除不需要的文件
-    excluded_files = {'404.html', 'books-preview.html', 'test.html', 'article1.html'}
+def page_text(soup: BeautifulSoup) -> str:
+    """Return readable main-content text; navigation and footer are noise."""
+    main = soup.find('main') or soup.find('article') or soup.body
+    if main is None:
+        return ''
+    for element in main.find_all(['script', 'style', 'noscript', 'nav', 'footer', 'form', 'aside']):
+        element.decompose()
+    # 只取可见文案，装饰性箭头、分隔符和重复的计数字样不该进入摘要。
+    blocks = []
+    for block in main.find_all(['h1', 'h2', 'h3', 'h4', 'p', 'li', 'figcaption', 'blockquote', 'dd', 'dt']):
+        text = normalize_space(block.get_text(' ', strip=True))
+        if text and text not in blocks:
+            blocks.append(text)
+    return normalize_space(' '.join(blocks))
 
-    for html_file in html_files:
-        if html_file in excluded_files or '-backup-' in html_file:
-            continue
 
-        try:
-            with open(html_file, 'r', encoding='utf-8') as f:
-                content = f.read()
+def page_heading(soup: BeautifulSoup) -> str:
+    """The list/cover pages use a large display heading that <title> does not repeat."""
+    heading = soup.find('h1')
+    return normalize_space(heading.get_text(' ', strip=True)) if heading else ''
 
-            soup = BeautifulSoup(content, 'html.parser')
 
-            # 提取标题
-            title_tag = soup.find('title')
-            title = title_tag.text if title_tag else html_file.replace('.html', '')
+def page_keywords(soup: BeautifulSoup) -> str:
+    """Fold the display H1 and visible category tags into the keyword field."""
+    tags = [normalize_space(element.get_text(' ', strip=True))
+            for element in soup.select('.card-tag, .blog-tag, .article-tag')]
+    heading = page_heading(soup).rstrip('。').strip()
+    parts = [meta_content(soup, 'keywords'), heading, *tags[:12]]
+    return '，'.join(dict.fromkeys(part for part in parts if part))
 
-            # 提取meta描述
-            description_tag = soup.find('meta', {'name': 'description'})
-            description = description_tag.get('content', '') if description_tag else ''
 
-            # 提取关键词
-            keywords_tag = soup.find('meta', {'name': 'keywords'})
-            keywords = keywords_tag.get('content', '') if keywords_tag else ''
+def meta_content(soup: BeautifulSoup, name: str) -> str:
+    tag = soup.find('meta', attrs={'name': name})
+    return normalize_space(tag.get('content', '')) if tag else ''
 
-            # 提取主要内容（优先从article标签）
-            article_content = soup.find('article') or soup.find('main') or soup.find('body')
-            if article_content:
-                # 移除导航栏和页脚
-                for nav in article_content.find_all(['nav', 'footer']):
-                    nav.decompose()
 
-                content_text = extract_text_from_html(str(article_content))
-            else:
-                content_text = extract_text_from_html(content)
+def build_entry(path: Path) -> dict:
+    soup = BeautifulSoup(path.read_text(encoding='utf-8'), 'html.parser')
 
-            # 限制内容长度
-            content_preview = content_text[:500] if content_text else description
+    title_tag = soup.find('title')
+    title = normalize_space(title_tag.get_text()) if title_tag else path.stem
+    title = TITLE_SUFFIX.sub('', title).strip() or path.stem
 
-            # 提取分类（如果有）
-            category = ''
-            category_tag = soup.find(class_=['blog-tag', 'article-tag'])
-            if category_tag:
-                category = category_tag.text.strip()
+    def meta(name: str) -> str:
+        return meta_content(soup, name)
 
-            # 添加到索引
-            search_index.append({
-                'url': html_file,
-                'title': title.replace(' - 计划李', '').strip(),
-                'description': description or content_preview[:200],
-                'category': category,
-                'keywords': keywords,
-                'content': content_preview
-            })
+    description = meta('description')
+    content = page_text(soup)[:CONTENT_LIMIT]
+    category_tag = soup.find(class_=['blog-tag', 'article-tag'])
+    category = normalize_space(category_tag.get_text()) if category_tag else ''
 
-            print(f"✅ 已索引: {html_file} - {title}")
+    return {
+        'url': path.name,
+        'title': title,
+        'description': description or content[:200],
+        'category': category,
+        'keywords': page_keywords(soup),
+        'content': content,
+    }
 
-        except Exception as e:
-            print(f"❌ 处理 {html_file} 失败: {e}")
-            continue
 
-    # 保存索引
-    with open('search-index.json', 'w', encoding='utf-8') as f:
-        json.dump(search_index, f, ensure_ascii=False, indent=2)
+def build_index() -> list:
+    entries = [build_entry(path) for path in sorted(ROOT.glob('*.html')) if is_indexable(path)]
+    return sorted(entries, key=lambda entry: entry['url'])
 
-    print(f"\n🎉 搜索索引已生成，包含 {len(search_index)} 个页面")
+
+def serialize(entries: list) -> str:
+    return json.dumps(entries, ensure_ascii=False, indent=2) + '\n'
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description='重建全站搜索索引（排除咖啡页面）')
+    parser.add_argument('--check', action='store_true', help='只检查索引是否为最新，不写入文件')
+    args = parser.parse_args()
+
+    entries = build_index()
+    output = serialize(entries)
+
+    if args.check:
+        current = OUTPUT.read_text(encoding='utf-8') if OUTPUT.exists() else ''
+        if current != output:
+            print('search-index.json 已过期，请运行 python3 generate_search_index.py')
+            return 1
+        print(f'search-index.json 已是最新，共 {len(entries)} 个页面')
+        return 0
+
+    OUTPUT.write_text(output, encoding='utf-8')
+    print(f'已生成 search-index.json：{len(entries)} 个页面，{OUTPUT.stat().st_size:,} 字节')
+    for entry in entries:
+        print(f"  {entry['url']} — {entry['title']}")
+    return 0
+
 
 if __name__ == '__main__':
-    print("🚀 开始生成搜索索引...")
-    generate_search_index()
+    sys.exit(main())

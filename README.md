@@ -71,7 +71,7 @@
 ## 内容公开到哪里
 
 - **公开内容：** HTML、本地数据和搜索索引都是公开站点资料，正文和摘要应按公开资料维护；发布后的文章 URL 保持稳定。
-- **搜索范围：** 当前文章列表搜索标题、摘要与标签，在浏览器内完成；不是全文搜索，也没有在线 AI 问答。
+- **搜索范围：** 导航栏的「搜索」入口（快捷键 `/`）在全站范围内搜索 `search-index.json` 收录的页面，按标题、关键词、摘要与正文片段排序，全部在浏览器内完成，不请求外部服务；索引未收录咖啡页面。文章列表页另有独立的标题、摘要与标签筛选。没有在线 AI 问答。
 - **图片来源：** 咖啡器具图和旅行目的地图按页面说明使用产品或目的地资料图，不代表作者实拍。回忆录会过滤静态数据中的 `demo-` 示例条目，不将它们作为已发布照片展示。
 - **服务边界：** 普通静态服务器可浏览文章与专题。回忆录 API 依赖 Cloudflare Pages Functions、KV 和 R2；API 不可用时回退到静态 JSON，隐藏管理工具。上传、删除还需要服务端 `GALLERY_API_KEY`，站点并非多用户内容管理系统。
 - **配置与授权：** 服务端密钥使用环境变量，不写入前端。仓库目前没有项目级 `LICENSE` 文件；文章、照片与第三方素材的使用权限需分别确认。
@@ -112,6 +112,8 @@ python generate_sitemap.py
 ```
 
 直接修改 HTML、`styles/` 或 `scripts/`；新增工具类后运行 `npm run build`。在浏览器核对文章筛选、导航、图片和移动端布局；`validate_site.py` 检查页面结构、必要 meta 标签与本地资源链接。
+
+全站搜索的索引由 `generate_search_index.py` 从根目录 HTML 重建（自动排除 `coffee*.html`、`404.html`、`test.html` 与备份文件），结果写入 `search-index.json`，匹配逻辑在 `scripts/search.js`，测试为 `tests/search.test.cjs`（随 `npm test` 运行）。改动正文或新增页面后重建索引；`python3 generate_search_index.py --check` 可校验索引是否已过期（退出码 1 表示需要重建）。
 
 各页面来源见 [页面来源清单](docs/qa/page-sources.md)，生活板块的内容边界见 [验收记录](docs/qa/lifestyle-implementation-2026-10-03.md)。
 
