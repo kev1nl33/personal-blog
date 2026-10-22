@@ -35,10 +35,12 @@ document.documentElement.classList.add('memoir-pending');
  window.memoirBootTimeout = setTimeout(gate, 4000);
  window.memoirReleaseBoot = release;
  window.addEventListener('error', function (event) {
+  if (!document.documentElement.classList.contains('memoir-pending')) return;
   /* 只处理脚本自身的未捕获错误；图片加载失败有各自的回退逻辑。 */
   if (event.message) release();
  });
  window.addEventListener('unhandledrejection', function (event) {
+  if (!document.documentElement.classList.contains('memoir-pending')) return;
   release();
   console.warn('回忆录异步加载失败，已释放静态列表兜底。', event.reason);
   event.preventDefault();

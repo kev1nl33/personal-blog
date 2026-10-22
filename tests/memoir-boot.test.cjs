@@ -39,6 +39,25 @@ test('a rejected loading Promise releases the memoir boot fallback and warns',as
  assert.equal(warnings[0][1],reason);
 });
 
+for (const type of ['error','unhandledrejection']) {
+ for (const completion of ['ready','fallback']) {
+  test(`${type} keeps default reporting after memoir boot ${completion}`,()=>{
+   const {window,classes,warnings}=startBoot();
+   if (completion==='ready') classes.delete('memoir-pending');
+   else window.memoirReleaseBoot();
+   let releases=0;
+   classes.delete=()=>{ releases++; return false; };
+   const event=new Event(type,{cancelable:true});
+   event.message='Later script error';
+   event.reason=new Error('Later Promise rejection');
+   window.dispatchEvent(event);
+   assert.equal(event.defaultPrevented,false);
+   assert.equal(warnings.length,0);
+   assert.equal(releases,0,'completed boot must not release the fallback again');
+  });
+ }
+}
+
 test('synchronous script errors still release the memoir boot fallback',()=>{
  const {window,classes}=startBoot();
  const event=new Event('error');
