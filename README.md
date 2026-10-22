@@ -144,7 +144,7 @@ personal-blog/
 
 回忆录云端能力需创建自己的 `GALLERY_META` KV、`GALLERY_BUCKET` R2，配置 `GALLERY_API_KEY`；可选计数接口使用 `VISITOR_COUNTER` KV。绑定配置参考 [wrangler.toml](wrangler.toml)，其中资源标识应替换为自己的配置。
 
-README 使用当前在线地址 `https://aikevin.dpdns.org/`。现有生成器的 canonical 与 sitemap 基址仍为 GitHub Pages 地址，部署到新域名时需一并核对 `site_builder.py`、`generate_sitemap.py` 和 `robots.txt` 的 URL 配置。
+README 与站点元数据（canonical、og:url、og:image、sitemap、robots.txt，以及 `site_builder.py`、`generate_sitemap.py` 的基址）统一使用当前在线地址 `https://aikevin.dpdns.org/`，不再含 `/personal-blog` 路径前缀。
 
 </details>
 

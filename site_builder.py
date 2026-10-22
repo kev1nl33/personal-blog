@@ -10,7 +10,7 @@ from pathlib import Path
 from string import Template
 
 ROOT = Path(__file__).resolve().parent
-BASE_URL = 'https://kev1nl33.github.io/personal-blog'
+BASE_URL = 'https://aikevin.dpdns.org'
 NAV = [('index.html', '首页'), ('blog.html', '文章'), ('visual-design.html', '认知武器'),
        ('coffee.html', '咖啡角'), ('travel.html', '看世界'), ('gallery.html', '回忆录'),
        ('/second-brain/', '第二大脑'), ('about.html', '关于')]

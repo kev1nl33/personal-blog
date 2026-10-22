@@ -7,7 +7,7 @@ import os
 from datetime import datetime
 import glob
 
-BASE_URL = "https://kev1nl33.github.io/personal-blog"
+BASE_URL = "https://aikevin.dpdns.org"
 
 
 def generate_sitemap():
@@ -85,7 +85,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://kev1nl33.github.io/personal-blog/sitemap.xml
+Sitemap: https://aikevin.dpdns.org/sitemap.xml
 
 # 禁止访问的路径（如果有）
 Disallow: /scripts/
