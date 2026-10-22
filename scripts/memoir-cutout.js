@@ -28,7 +28,11 @@ function setPhase(next) {
 }
 function setMoodIdx(next) { if (next != null) lastChoice = next; moodIdx = next; }
 function setGeo(next) { geo = next; renderControls(); }
-function setReady() { root.classList.add('is-ready'); fallback.hidden = true; buildFilter(); }
+function finishBoot() {
+ clearTimeout(window.memoirBootTimeout);
+ document.documentElement.classList.remove('memoir-pending');
+}
+function setReady() { root.classList.add('is-ready'); fallback.hidden = true; buildFilter(); finishBoot(); }
 function setLaidOut() { root.dataset.laid = '1'; }
 function announceFrame(i) {
  if (moodIdx == null) return;
@@ -135,6 +139,9 @@ function openViewer(frame) {
   document.body.append(viewer);
  }
  const image = viewer.querySelector('img');
+ /* 大图沿用静态列表里的真实宽高，避免打开时因尺寸未知产生跳动。 */
+ const source = [...fallback.querySelectorAll('img')].find(item => item.getAttribute('src') === photo.src);
+ if (source) { image.width = Number(source.getAttribute('width')); image.height = Number(source.getAttribute('height')); }
  image.src = photo.src;
  image.alt = photo.alt;
  viewer.querySelector('.memoir-viewer-meta span').textContent = photo.country + ' · ' + photo.year;
@@ -1360,7 +1367,7 @@ function seeded(seed) {
     const face = document.fonts ? document.fonts.load('16px "Cutout Display"').then(() => document.fonts.ready) : Promise.resolve();
     const cap = new Promise((r) => window.setTimeout(r, 4000));
     Promise.all([Promise.race([face, cap]), loadMemoir()]).then(() => {
-      if (disposed || !MEMOIR.photos.length) return;
+      if (disposed || !MEMOIR.photos.length) { finishBoot(); return; }
       POOL = MEMOIR.photos.slice();
       MOODS.forEach((m, mi) => { m.frames = pickFrames(mi); });
       layout();

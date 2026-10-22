@@ -161,6 +161,12 @@
 .memoir-page main {min-height:0;}
 .cut-root {--font-geist-mono:var(--font-mono);--font-archivo-black:'Cutout Display',Impact,'PingFang SC',sans-serif;}
 .cut-root:not(.is-ready) {display:none;}
+/* 初始化期间按最终形态预留空间：筛选栏高度 + 裁切桌高度，避免照片列表闪现。 */
+.memoir-pending .memoir-fallback {display:none;}
+.memoir-pending .cut-root:not(.is-ready) {display:block;visibility:hidden;}
+.memoir-pending .memoir-page main {padding-top:65px;}
+.memoir-pending .memoir-page main .cut-root {min-height:calc(100svh - 81px - 66px);}
+@media(max-width:800px){.memoir-pending .memoir-page main{padding-top:61px;}.memoir-pending .memoir-page main .cut-root{min-height:calc(100svh - 69px - 62px);}.memoir-pending .site-nav .nav-links{display:none;}}
 .cut-back {position:absolute;z-index:60;min-height:44px;cursor:pointer;}
 .cut-skip {min-height:44px;cursor:pointer;color:#fff;}
 .cut-cursor {width:38px;height:64px;}
@@ -170,7 +176,7 @@
 .memoir-fallback {padding:40px 24px;max-width:1200px;margin:auto;}
 .memoir-fallback h1 {font-size:40px;}
 .memoir-fallback ul {list-style:none;padding:24px 0;display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
-.memoir-fallback img {width:100%;}
+.memoir-fallback img {width:100%;height:auto;}
 .memoir-filter {position:relative;z-index:70;display:flex;gap:8px;overflow-x:auto;padding:10px max(16px,6vw);background:#f4f4f0;border-bottom:1px solid #0a0a0a;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
 body[data-viewer="1"] .memoir-filter {visibility:hidden;}
 .memoir-filter::-webkit-scrollbar {display:none;}
