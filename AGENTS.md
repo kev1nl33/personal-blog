@@ -120,6 +120,11 @@ def get_page_content(page_id: str) -> list:
 - 图片必须包含 `alt` 属性
 
 ### SEO 最佳实践
+
+- 根目录页面的 canonical 与 sitemap 使用 `https://aikevin.dpdns.org` 的无 `.html` 地址，首页为 `/`；咖啡页元数据独立维护。
+- sitemap 的收录范围沿用 `generate_sitemap.py` 的排除规则，额外排除 `404.html`；`lastmod` 取对应文件最近一次 Git 提交日期，不使用文件系统时间。
+- 非咖啡页缺少 `og:image` 时复用站内新加坡滨海湾照片的绝对地址；已有游记分享图保留。
+- `404.html` 复用公共样式、导航和页脚，资源与站内链接从根路径引用，以支持任意深度的不存在地址；设置 `noindex`，不加入搜索列表或 sitemap。
 ```html
 <!-- 必需的 Meta 标签 -->
 <meta name="description" content="简洁描述，150-160字符">

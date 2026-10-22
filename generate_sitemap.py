@@ -3,9 +3,8 @@
 生成 sitemap.xml 和 robots.txt
 """
 
-import os
-from datetime import datetime
 import glob
+import subprocess
 
 BASE_URL = "https://aikevin.dpdns.org"
 
@@ -16,7 +15,7 @@ def generate_sitemap():
     html_files = glob.glob("*.html")
 
     # 排除不需要的文件
-    excluded_files = {"books-preview.html", "test.html", "article1.html", "books.html"}
+    excluded_files = {"404.html", "books-preview.html", "test.html", "article1.html", "books.html"}
     html_files = [f for f in html_files if f not in excluded_files and '-backup-' not in f]
 
     # 页面优先级设置
@@ -27,10 +26,16 @@ def generate_sitemap():
         "weekly.html": ("0.8", "weekly"),
     }
 
-    # 获取文件修改时间
+    # 使用 Git 中的真实修改日期，避免检出或复制文件改变 lastmod
     def get_lastmod(filepath):
-        timestamp = os.path.getmtime(filepath)
-        return datetime.fromtimestamp(timestamp).strftime("%Y-%m-%d")
+        date = subprocess.check_output(
+            ["git", "log", "-1", "--format=%cs", "--", filepath], text=True
+        ).strip()
+        if not date:
+            raise ValueError(f"{filepath} 尚无 Git 提交记录，无法确定 lastmod")
+        return date
+
+    page_count = len(html_files)
 
     # 生成 sitemap XML
     sitemap = ['<?xml version="1.0" encoding="UTF-8"?>']
@@ -42,7 +47,7 @@ def generate_sitemap():
         if page in html_files:
             priority, changefreq = priority_map.get(page, ("0.5", "monthly"))
             lastmod = get_lastmod(page)
-            url = f"{BASE_URL}/" if page == "index.html" else f"{BASE_URL}/{page}"
+            url = f"{BASE_URL}/" if page == "index.html" else f"{BASE_URL}/{page[:-5]}"
 
             sitemap.append("  <url>")
             sitemap.append(f"    <loc>{url}</loc>")
@@ -55,7 +60,7 @@ def generate_sitemap():
     # 添加其他文章页面
     for html_file in sorted(html_files):
         lastmod = get_lastmod(html_file)
-        url = f"{BASE_URL}/{html_file}"
+        url = f"{BASE_URL}/{html_file[:-5]}"
 
         # 文章页面默认优先级
         priority = "0.7"
@@ -74,7 +79,7 @@ def generate_sitemap():
     with open("sitemap.xml", "w", encoding="utf-8") as f:
         f.write("\n".join(sitemap))
 
-    print(f"✅ sitemap.xml 已生成，包含 {len(html_files) + len(main_pages)} 个页面")
+    print(f"✅ sitemap.xml 已生成，包含 {page_count} 个页面")
 
 
 def generate_robots():

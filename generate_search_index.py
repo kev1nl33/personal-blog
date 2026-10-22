@@ -34,7 +34,7 @@ def generate_search_index():
     html_files = glob.glob("*.html")
 
     # 排除不需要的文件
-    excluded_files = {'books-preview.html', 'test.html', 'article1.html'}
+    excluded_files = {'404.html', 'books-preview.html', 'test.html', 'article1.html'}
 
     for html_file in html_files:
         if html_file in excluded_files or '-backup-' in html_file:
