@@ -36,6 +36,9 @@ yarn-error.log*
 .dev.vars.*
 .wrangler/
 
+# 本地验证产物
+.verify/
+
 # Editor
 .vscode/
 .idea/

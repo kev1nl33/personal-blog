@@ -64,7 +64,7 @@
 
 ## 内容如何维护
 
-直接编辑对应的 HTML 页面，以及 styles/ 和 scripts/ 中的样式与交互代码；本地预览并校验后，更新搜索索引和站点地图，再将静态文件发布到托管平台。
+直接编辑对应的 HTML 页面，以及 styles/ 和 scripts/ 中的样式与交互代码。仓库里没有 Notion 或其他内容发布管线。本地预览并校验后，更新搜索索引和站点地图，再按 [上线流程](docs/RELEASE.md) 发布。
 
 <a id="boundaries"></a>
 
@@ -130,7 +130,9 @@ personal-blog/
 ├── styles/                 共享设计系统与各板块样式
 ├── scripts/                搜索筛选、目录、专题交互与动效
 ├── projects/               独立认知专题页面
-├── functions/api/          Cloudflare 计数与回忆录接口
+├── functions/api/          访客计数与回忆录接口
+├── functions/media/        旅行照片的 R2 只读代理
+├── functions/second-brain/ 登录后读取私有笔记
 ├── gallery/                回忆录静态回退数据
 ├── assets/readme/          本 README 的封面、截图与素材说明
 ├── docs/qa/                页面来源与验收记录
@@ -142,9 +144,15 @@ personal-blog/
 └── *.html                  直接维护的网页
 ```
 
-静态部分可由普通 Web 服务器托管。使用 Cloudflare Pages 时，以仓库根目录作为站点输出目录；直接发布 HTML 文件可留空构建命令；需要编译 CSS 时运行 `npm run build`。
+线上是 Cloudflare Pages 上的静态站，正式地址 [https://aikevin.dpdns.org](https://aikevin.dpdns.org)。构建输出就是仓库根目录：只改 HTML 时构建命令留空；改了 Tailwind 工具类再运行 `npm run build`。`404.html` 是自定义 404 页，`_redirects` 只做已下线旅行页的 301，两者都没有根级兜底。
 
-回忆录云端能力需创建自己的 `GALLERY_META` KV、`GALLERY_BUCKET` R2，配置 `GALLERY_API_KEY`；可选计数接口使用 `VISITOR_COUNTER` KV。绑定配置参考 [wrangler.toml](wrangler.toml)，其中资源标识应替换为自己的配置。
+照片不进 Pages 产物。旅行与回忆录图片放在 R2 桶 `GALLERY_BUCKET`（桶名 `blog-gallery`），页面通过 `functions/media` 读取，只放行 `travel/` 前缀。`functions/` 其余三处：
+
+- `functions/api/counter`：用 `VISITOR_COUNTER` KV 记一次访问并返回总数。
+- `functions/api/gallery`：用 `GALLERY_META` KV 和同一个 R2 桶列出、上传、删除回忆录照片；上传和删除需要服务端 `GALLERY_API_KEY`。
+- `functions/second-brain`：校验登录后，从私有 R2 桶 `SECOND_BRAIN_BUCKET` 读取 `/second-brain/` 下的文件。
+
+绑定名称见 [wrangler.toml](wrangler.toml)。密钥只放在 Pages 环境变量或本地 `.dev.vars`，不写入仓库。自建一份时，KV、R2 和密钥都换成自己的。
 
 README 与站点元数据（canonical、og:url、og:image、sitemap、robots.txt，以及 `site_builder.py`、`generate_sitemap.py` 的基址）统一使用当前在线地址 `https://aikevin.dpdns.org/`，不再含 `/personal-blog` 路径前缀。
 
