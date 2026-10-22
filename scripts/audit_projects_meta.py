@@ -44,8 +44,12 @@ def _visible_text(value):
 
 
 def _quotes_unpaired(text):
-    """Chinese “ ” must balance; ASCII " must come in pairs."""
-    return text.count('“') != text.count('”') or text.count('"') % 2 != 0
+    """Chinese “ ” and 「 」 must balance; ASCII " must come in pairs."""
+    return (
+        text.count('“') != text.count('”')
+        or text.count('「') != text.count('」')
+        or text.count('"') % 2 != 0
+    )
 
 
 def quote_balance_problems(page, root):
@@ -155,7 +159,7 @@ def audit_page(page, root):
     soup = BeautifulSoup(source, 'html.parser')
     expected = _metadata(page, root)
     label = str(page.relative_to(root))
-    problems = []
+    problems = quote_balance_problems(page, root)
 
     html_tag = soup.find('html')
     if not html_tag or html_tag.get('lang') != expected['lang']:

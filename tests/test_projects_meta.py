@@ -1,4 +1,8 @@
 """Every projects/ page must ship complete, consistent metadata."""
+import html
+import subprocess
+import sys
+import tempfile
 import unittest
 import xml.etree.ElementTree as ET
 from pathlib import Path
@@ -51,6 +55,44 @@ class ProjectMetaTests(unittest.TestCase):
         # 不成对的单侧引号不能再被削掉。
         self.assertEqual(_visible_text('35岁的“高薪穷人'), '35岁的“高薪穷人')
         self.assertEqual(_visible_text('好学生”的困局'), '好学生”的困局')
+
+    def test_corner_quotes_must_pair_in_each_metadata_field(self):
+        for value, unpaired in [('「完整」', False), ('「缺右侧', True), ('缺左侧」', True)]:
+            with self.subTest(value=value), tempfile.TemporaryDirectory() as directory:
+                root = Path(directory)
+                page = root / 'quotes.html'
+                escaped = html.escape(value, quote=True)
+                page.write_text(
+                    f'<title>{escaped}</title>'
+                    f'<meta name="description" content="{escaped}">'
+                    f'<meta property="og:title" content="{escaped}">'
+                    f'<meta property="og:description" content="{escaped}">',
+                    encoding='utf-8',
+                )
+                expected = [
+                    f'quotes.html: unpaired quotes in {field}'
+                    for field in ('title', 'description', 'og:title', 'og:description')
+                ] if unpaired else []
+                self.assertEqual(quote_balance_problems(page, root), expected)
+
+    def test_cli_and_report_include_quote_balance_problems(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            page = root / 'projects' / 'sample.html'
+            page.parent.mkdir()
+            source = self.pages[0].read_text(encoding='utf-8')
+            page.write_text(source.replace('<title>', '<title>“', 1), encoding='utf-8')
+            (root / 'sitemap.xml').write_text('<urlset></urlset>', encoding='utf-8')
+            report = root / 'report.md'
+            result = subprocess.run(
+                [sys.executable, str(ROOT / 'scripts/audit_projects_meta.py'),
+                 '--root', str(root), '--report', str(report)],
+                capture_output=True, text=True,
+            )
+            self.assertEqual(result.returncode, 1)
+            problem = 'projects/sample.html: unpaired quotes in title'
+            self.assertIn(problem, result.stdout)
+            self.assertIn(problem, report.read_text(encoding='utf-8'))
 
     def test_metadata_quotes_must_come_in_pairs(self):
         problems = []
