@@ -93,3 +93,16 @@ html:has(body.uk-page){scroll-padding-top:0}
 @media(max-width:540px){.uk-page .journal-detour .journal-grid .journal-photo.bento-card,.uk-page .journal-detour .journal-photo:first-child{grid-column:auto}}
 @media(prefers-reduced-motion:no-preference){html:has(body.uk-page){scroll-behavior:smooth}}
 @media(prefers-reduced-motion:reduce){html:has(body.uk-page){scroll-behavior:auto}.uk-page .reveal{opacity:1;transform:none;transition:none}.uk-page .journal-photo{transition:none}.uk-page .journal-photo:hover{transform:none}.uk-page .journal-index[data-scrollspy] a{transition:none}}
+
+/* 游记只收束文字和章节节奏，照片网格保持全宽。 */
+.journal-page .voyage-detail-cover-copy>p:not(.voyage-kicker){max-width:var(--reading-measure);line-height:var(--reading-leading)}
+.journal-page .journal-heading{gap:var(--reading-heading-gap) var(--reading-section);margin-bottom:var(--reading-block)}
+.journal-page .journal-heading h2{line-height:1.5}
+.journal-page .journal-heading>p:last-child{max-width:var(--reading-measure);font-size:17px;line-height:var(--reading-leading)}
+.journal-page .journal-photo figcaption{line-height:var(--reading-leading);padding:var(--reading-heading-gap)}
+.journal-page .journal-section{padding-bottom:calc(var(--reading-section) * 2)}
+@media(max-width:540px){
+ .journal-page{--reading-section:2rem;--reading-block:1.5rem}
+ .journal-page .journal-heading>p:last-child{font-size:16px}
+ .journal-page .journal-section{padding-bottom:calc(var(--reading-block) * 2)}
+}

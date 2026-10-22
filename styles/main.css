@@ -1,5 +1,20 @@
 @import url('./utilities.css');
 @import url('./icons.css');
+/* 中文阅读节奏：限定页面，避免影响咖啡、英文文章与回忆录。 */
+:where(html:lang(zh)) :is(.home-page,.archive-page,.about-page,.article-page,.travel-page,.journal-page) {
+ --reading-measure:37em;
+ --reading-leading:1.8;
+ --reading-paragraph:1.25em;
+ --reading-section:2.5rem;
+ --reading-heading-gap:1rem;
+ --reading-block:2rem;
+}
+@supports (text-autospace:normal) {
+ :where(html:lang(zh)) :is(.home-page,.archive-page,.about-page,.article-page,.travel-page,.journal-page) {text-autospace:normal}
+}
+@supports (text-spacing-trim:trim-start) {
+ :where(html:lang(zh)) :is(.home-page,.archive-page,.about-page,.article-page,.travel-page,.journal-page) :is(h1,h2,h3,h4,p,li,blockquote,figcaption) {text-spacing-trim:trim-start}
+}
 /* One public design system: cream paper, black geometry, orange coordinates. */
 :root {
  --brand-black:#0a0a0a;--brand-white:#f4f4f0;--brand-accent:#ff4d00;--brand-blue:#0047ab;--brand-green:#047857;--brand-gray:#4a4a4a;
@@ -30,3 +45,12 @@ h1,h2,h3,h4,p,ul,ol{margin:0}button,input,select,textarea{font:inherit}button,a{
 @media(max-width:359px){.container,.max-w-7xl{padding-inline:16px}.hero-text h1{font-size:38px}.hero-actions{gap:18px}.topic-grid{grid-template-columns:1fr}.hero-bottom>span{max-width:150px}}
 @media(prefers-reduced-motion:no-preference){.hero-text{animation:hero-enter .35s ease-out both}@keyframes hero-enter{from{opacity:.3;transform:translateY(8px)}to{opacity:1;transform:none}}html{scroll-behavior:smooth}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+/* 首页与列表沿用原有构图，只统一阅读文字的行距。 */
+:where(html:lang(zh)) :is(.home-page,.archive-page,.about-page) :is(.hero-description,.blog-card-excerpt,.about-strip p,.about-intro p,.life-timeline p,.page-header>p:last-child,.topic-link p){max-width:var(--reading-measure);line-height:var(--reading-leading)}
+:where(html:lang(zh)) .home-page .about-strip p:not(.coordinate){margin-bottom:var(--reading-paragraph)}
+/* 仅降低照片亮度，保留浅色模式原图和特殊页面的独立视觉。 */
+:root[data-theme="dark"] :is(.article-page:lang(zh) .article-content img,.travel-page img,.journal-page img){filter:brightness(.88)}
+@media(prefers-color-scheme:dark){
+ :root:not([data-theme="light"]) :is(.article-page:lang(zh) .article-content img,.travel-page img,.journal-page img){filter:brightness(.88)}
+}

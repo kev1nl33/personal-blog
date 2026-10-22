@@ -179,6 +179,14 @@ def get_page_content(page_id: str) -> list:
 @media (min-width: 1280px) { /* xl: 大屏 */ }
 ```
 
+### 中文阅读排版
+
+- 中文常规文章正文桌面宽度以 `37em` 为上限，行高 `1.8`；移动端保留现有容器边距。
+- 正文段落、列表、引用、图片和标题节奏使用 `styles/main.css` 的 `--reading-*` 变量；文章规则放 `styles/article.css`，游记规则放 `styles/travel-journal.css`。
+- 混排间距只使用 `@supports` 下的 `text-autospace` 和 `text-spacing-trim` 渐进增强，不批量改写正文字符。
+- 排版规则限定中文常规文章、首页、文章列表、关于页和旅行页面。coffee 页面、英文文章、`memoir-cutout.css` 特殊页面保持独立，不应用新的阅读规则。
+- 系统偏好深色时，常规中文文章与旅行页面的照片亮度为 `.88`；显式 `data-theme="light"` 时不降亮。不为此新增主题开关或重做页面配色。
+
 ### 字体使用
 ```css
 /* 正文: Noto Sans SC */
