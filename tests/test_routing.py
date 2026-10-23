@@ -70,10 +70,11 @@ def sitemap_problems(sitemap_path, site_root):
         url = (loc.text or "").strip()
         path = url.split("://", 1)[-1].split("/", 1)[-1].split("#", 1)[0].split("?", 1)[0]
         path = unquote(path)
-        if path.endswith(".html") or ".html" in url:
+        now_url = url == "https://aikevin.dpdns.org/now.html"
+        if (path.endswith(".html") or ".html" in url) and not now_url:
             problems.append(f"{url} contains .html")
             continue
-        filename = "index.html" if path in {"", "/"} else f"{path}.html"
+        filename = "index.html" if path in {"", "/"} else (path if now_url else f"{path}.html")
         if filename == "404.html" or path.rstrip("/") == "404":
             problems.append(f"{url} includes the 404 page")
             continue

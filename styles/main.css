@@ -49,6 +49,10 @@ h1,h2,h3,h4,p,ul,ol{margin:0}button,input,select,textarea{font:inherit}button,a{
 /* 首页与列表沿用原有构图，只统一阅读文字的行距。 */
 :where(html:lang(zh)) :is(.home-page,.archive-page,.about-page) :is(.hero-description,.blog-card-excerpt,.about-strip p,.about-intro p,.life-timeline p,.page-header>p:last-child,.topic-link p){max-width:var(--reading-measure);line-height:var(--reading-leading)}
 :where(html:lang(zh)) .home-page .about-strip p:not(.coordinate){margin-bottom:var(--reading-paragraph)}
+/* 最近在做：沿用关于页的阅读宽度与留白。 */
+.now-content{padding-top:var(--reading-block)}
+.now-content p{max-width:var(--reading-measure);line-height:var(--reading-leading);margin-bottom:var(--reading-paragraph)}
+
 /* 仅降低照片亮度，保留浅色模式原图和特殊页面的独立视觉。 */
 :root[data-theme="dark"] :is(.article-page:lang(zh) .article-content img,.travel-page img,.journal-page img){filter:brightness(.88)}
 @media(prefers-color-scheme:dark){

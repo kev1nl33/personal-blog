@@ -23,6 +23,7 @@ def generate_sitemap():
         "index.html": ("1.0", "daily"),
         "blog.html": ("0.9", "daily"),
         "about.html": ("0.8", "monthly"),
+        "now.html": ("0.8", "monthly"),
         "weekly.html": ("0.8", "weekly"),
     }
 
@@ -42,12 +43,14 @@ def generate_sitemap():
     sitemap.append('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">')
 
     # 先添加主要页面
-    main_pages = ["index.html", "blog.html", "about.html", "weekly.html"]
+    main_pages = ["index.html", "blog.html", "about.html", "now.html", "weekly.html"]
     for page in main_pages:
         if page in html_files:
             priority, changefreq = priority_map.get(page, ("0.5", "monthly"))
             lastmod = get_lastmod(page)
             url = f"{BASE_URL}/" if page == "index.html" else f"{BASE_URL}/{page[:-5]}"
+            if page == "now.html":
+                url = f"{BASE_URL}/now.html"
 
             sitemap.append("  <url>")
             sitemap.append(f"    <loc>{url}</loc>")
