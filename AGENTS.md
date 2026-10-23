@@ -123,8 +123,7 @@ def get_page_content(page_id: str) -> list:
 
 - 根目录页面的 canonical 与 sitemap 使用 `https://aikevin.dpdns.org` 的无 `.html` 地址，首页为 `/`；咖啡页元数据独立维护。`now.html` 按页面要求使用 `https://aikevin.dpdns.org/now.html`，sitemap 同步使用该地址。
 - 新增「最近在做」页沿用 about 页的公共导航、页脚和阅读变量；入口放在 about 的「现在」节点及 index/about/blog/now 的页脚，不扩充全站主导航。
-- 当前 sitemap 包含 108 条 projects 记录，而 `generate_sitemap.py` 只生成根目录页面；添加页面时仅追加对应 sitemap 条目，避免覆盖既有 projects 记录。
-- sitemap 的收录范围沿用 `generate_sitemap.py` 的排除规则，额外排除 `404.html`；`lastmod` 取对应文件最近一次 Git 提交日期，不使用文件系统时间。
+- sitemap 的根页面收录范围沿用 `generate_sitemap.py` 的排除规则，额外排除 `404.html`；根页面 `lastmod` 取对应文件最近一次 Git 提交日期，不使用文件系统时间。脚本会合并保留现有 sitemap 中 `/projects/` 条目及其元数据，不从 projects 目录重建；禁止手工删除这些条目后裸跑脚本指望自动找回。
 - 非咖啡页缺少 `og:image` 时复用站内新加坡滨海湾照片的绝对地址；已有游记分享图保留。
 - `404.html` 复用公共样式、导航和页脚，资源与站内链接从根路径引用，以支持任意深度的不存在地址；设置 `noindex`，不加入搜索列表或 sitemap。
 ```html

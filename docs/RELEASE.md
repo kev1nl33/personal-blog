@@ -29,7 +29,7 @@ npm test
 python3 validate_site.py
 ```
 
-改过正文或新增页面时，再跑 `python3 generate_search_index.py` 和 `python3 generate_sitemap.py`，并把生成结果一起提交。用 `python3 -m http.server 8000` 打开改动过的页面，核对导航、筛选、图片和窄屏布局。`npm test` 或校验有失败，停在这一步。
+改过正文或新增页面时，再跑 `python3 generate_search_index.py` 和 `python3 generate_sitemap.py`，并把生成结果一起提交。站点地图脚本会合并保留现有 `/projects/` 条目及其元数据，不从 projects 目录重建；禁止手工删除这些条目后裸跑脚本指望自动找回。用 `python3 -m http.server 8000` 打开改动过的页面，核对导航、筛选、图片和窄屏布局。`npm test` 或校验有失败，停在这一步。
 
 ## 3. 交叉复核
 

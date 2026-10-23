@@ -5,12 +5,27 @@
 
 import glob
 import subprocess
+import xml.etree.ElementTree as ET
+from pathlib import Path
+from urllib.parse import urlsplit
+
+SITEMAP_NS = "http://www.sitemaps.org/schemas/sitemap/0.9"
+ET.register_namespace("", SITEMAP_NS)
 
 BASE_URL = "https://aikevin.dpdns.org"
 
 
 def generate_sitemap():
-    """生成 sitemap.xml"""
+    """重建根页面并合并保留现有 projects 条目。"""
+    # 必须先解析旧文件；解析失败时停止，避免覆盖尚未保留的条目。
+    project_urls = []
+    if Path("sitemap.xml").exists():
+        existing = ET.parse("sitemap.xml").getroot()
+        for entry in existing.findall(f"{{{SITEMAP_NS}}}url"):
+            loc = entry.findtext(f"{{{SITEMAP_NS}}}loc", default="")
+            if urlsplit(loc).path.startswith("/projects/"):
+                project_urls.append(entry)
+
     # 获取所有 HTML 文件
     html_files = glob.glob("*.html")
 
@@ -76,13 +91,16 @@ def generate_sitemap():
         sitemap.append(f"    <priority>{priority}</priority>")
         sitemap.append("  </url>")
 
+    # 保留 projects 的原始字段值与顺序，不推断其源文件或修改日期。
+    for entry in project_urls:
+        sitemap.append("  " + ET.tostring(entry, encoding="unicode").strip())
     sitemap.append("</urlset>")
 
     # 写入文件
     with open("sitemap.xml", "w", encoding="utf-8") as f:
         f.write("\n".join(sitemap))
 
-    print(f"✅ sitemap.xml 已生成，包含 {page_count} 个页面")
+    print(f"✅ sitemap.xml 已生成，包含 {page_count + len(project_urls)} 个页面（保留 {len(project_urls)} 个 projects 条目）")
 
 
 def generate_robots():
