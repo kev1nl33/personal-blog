@@ -33,7 +33,7 @@ class NowPageTests(unittest.TestCase):
         entries = json.loads((ROOT / 'search-index.json').read_text())
         entry = next(item for item in entries if item['url'] == 'now.html')
         self.assertEqual(entry['title'], '最近在做')
-        for text in ['第二次上线批准', '正在交叉审', '已经上线', 'Pro→Pro+']:
+        for text in ['第二次上线批准', '做完并已上线', '已经上线', 'Pro→Pro+']:
             self.assertIn(text, entry['content'])
         urls = ET.parse(ROOT / 'sitemap.xml').getroot()
         now = next(item for item in urls if item.find('{*}loc').text.endswith('/now.html'))
