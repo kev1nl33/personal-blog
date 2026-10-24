@@ -1,5 +1,5 @@
 /* 实拍游记：沿用旅行封面，图片以完整比例展示。 */
-.journal-page.bg-grid{background-image:linear-gradient(#e5e5e5 1px,transparent 1px),linear-gradient(90deg,#e5e5e5 1px,transparent 1px);background-size:40px 40px}
+.journal-page.bg-grid{background-image:linear-gradient(var(--grid-line) 1px,transparent 1px),linear-gradient(90deg,var(--grid-line) 1px,transparent 1px);background-size:40px 40px}
 .journal-page .voyage-detail-cover{min-height:620px;background:var(--brand-black)}
 .journal-page .voyage-detail-cover-copy{min-height:620px}
 .journal-page .voyage-kicker{color:var(--brand-white)}

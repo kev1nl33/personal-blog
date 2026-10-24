@@ -7,7 +7,7 @@
 @media(hover:hover) and (pointer:fine){
  .motion-interactive.pointer-engaged{transition:box-shadow .25s ease,background-color .2s ease}
  .feature-story.motion-interactive:hover{box-shadow:8px 8px 0 var(--brand-black,#0a0a0a)}
- .blog-card.motion-interactive:hover,.topic-link.motion-interactive:hover{background:#ecece5;box-shadow:4px 4px 0 var(--brand-black,#0a0a0a)}
+ .blog-card.motion-interactive:hover,.topic-link.motion-interactive:hover{background:var(--hover-card);box-shadow:4px 4px 0 var(--brand-black,#0a0a0a)}
  .coffee-page .equipment-expandable-card.motion-interactive:hover{box-shadow:6px 6px 0 var(--brand-black,#0a0a0a)}
 }
 .motion-interactive:focus-visible{box-shadow:4px 4px 0 var(--brand-accent,#FF4D00)}
@@ -16,7 +16,7 @@
 @media(hover:hover) and (pointer:fine){.motion-interactive:not(.btn):hover{box-shadow:4px 4px 0 var(--brand-black,#0a0a0a)}}
 
 /* 认知武器页不加载 main.css，键盘焦点只靠这里。蓝色描边与全站 :focus-visible 一致。 */
-:focus-visible{outline:3px solid #0047ab;outline-offset:3px}
+:focus-visible{outline:3px solid var(--brand-blue);outline-offset:3px}
 /* 认知武器页的橙色小标签（症状诊断 / 实战清单 / 思维模型编号）在白底上约 3.3:1。字改黑，橙色只留一条底边，中英文案都不改。 */
 .lang-zh .font-mono.text-brand-accent,
-.lang-en .font-mono.text-brand-accent{color:#0a0a0a;box-shadow:inset 0 -2px 0 #ff4d00}
+.lang-en .font-mono.text-brand-accent{color:var(--ink);box-shadow:inset 0 -2px 0 var(--brand-accent)}
