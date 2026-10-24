@@ -11,7 +11,7 @@ const CORE_ASSETS = [
     '/styles/main.css',
     '/scripts/main.js',
     '/scripts/search.js',
-    '/scripts/theme.js',
+    '/scripts/theme-init.js',
     '/search-index.json'
 ];
 
