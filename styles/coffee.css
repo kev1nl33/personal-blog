@@ -1,949 +1,148 @@
-/* ================================
-   咖啡角页面样式
-   Coffee Corner Page Styles
-   ================================ */
-
-/* ================================
-   咖啡色系变量
-   ================================ */
+/* 咖啡角主页：纸面、日志与冲煮小票。 */
 :root {
-    --coffee-dark: #3C2415;
-    --coffee-medium: #6F4E37;
-    --coffee-light: #A67B5B;
-    --coffee-cream: #C4A484;
-    --coffee-foam: #F5E6D3;
-}
-
-/* ================================
-   页面头部
-   ================================ */
-.coffee-header {
-    padding: var(--spacing-xl) 0 var(--spacing-lg);
-}
-
-/* ================================
-   咖啡卡片样式
-   ================================ */
-.coffee-card {
-    transition: all 0.3s ease;
-}
-
-.coffee-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 8px 8px 0px var(--brand-black) !important;
-}
-
-/* 咖啡图标徽章 - Neo-Brutalism 无圆角 */
-.coffee-icon-badge {
-    width: 4rem;
-    height: 4rem;
-    background: var(--coffee-dark);
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    border: 2px solid var(--brand-black);
-}
-
-.coffee-icon-badge--light {
-    background: var(--coffee-foam);
-    color: var(--coffee-dark);
-    border-color: var(--brand-black);
-}
-
-.coffee-icon-badge--accent {
-    background: var(--brand-accent);
-    color: white;
-    border-color: var(--brand-black);
-}
-
-/* 咖啡标签 */
-.coffee-tag {
-    display: inline-block;
-    padding: 0.25rem 0.75rem;
-    background: var(--coffee-foam);
-    color: var(--coffee-dark);
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    border: 2px solid var(--coffee-dark);
-}
-
-.coffee-tag--light {
-    background: transparent;
-    color: var(--coffee-cream);
-    border-color: var(--coffee-cream);
-}
-
-.coffee-tag--dark {
-    background: var(--coffee-dark);
-    color: var(--coffee-foam);
-    border-color: var(--brand-black);
-}
-
-/* ================================
-   器具展示卡片
-   ================================ */
-.equipment-card {
-    background: white;
-    border: 2px solid var(--brand-black);
-    overflow: hidden;
-    transition: all 0.3s ease;
-}
-
-.equipment-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 8px 8px 0px var(--coffee-dark);
-}
-
-.equipment-image {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-    border-bottom: 1px solid var(--brand-black);
-}
-
-.equipment-info {
-    padding: 1.5rem;
-}
-
-.equipment-name {
-    font-size: 1.25rem;
-    font-weight: 700;
-    margin-bottom: 0.5rem;
-    color: var(--coffee-dark);
-}
-
-.equipment-brand {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    color: var(--coffee-medium);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-}
-
-/* ================================
-   豆子档案卡片
-   ================================ */
-.bean-card {
-    background: white;
-    border: 2px solid var(--brand-black);
-    padding: 1.5rem;
-    transition: all 0.3s ease;
-}
-
-.bean-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 8px 8px 0px var(--coffee-medium);
-}
-
-.bean-origin {
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    color: var(--coffee-medium);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-bottom: 0.5rem;
-}
-
-.bean-name {
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin-bottom: 0.75rem;
-    color: var(--coffee-dark);
-}
-
-.bean-notes {
-    font-family: var(--font-serif);
-    color: var(--text-secondary);
-    line-height: 1.6;
-    margin-bottom: 1rem;
-}
-
-.bean-meta {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-}
-
-.bean-meta-item {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    color: var(--coffee-light);
-}
-
-/* ================================
-   探店笔记卡片
-   ================================ */
-.shop-card {
-    background: white;
-    border: 2px solid var(--brand-black);
-    overflow: hidden;
-    transition: all 0.3s ease;
-}
-
-.shop-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 8px 8px 0px var(--brand-accent);
-}
-
-.shop-image {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-    border-bottom: 1px solid var(--brand-black);
-}
-
-.shop-info {
-    padding: 1.5rem;
-}
-
-.shop-location {
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    color: var(--coffee-medium);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-bottom: 0.5rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.shop-name {
-    font-size: 1.25rem;
-    font-weight: 700;
-    margin-bottom: 0.5rem;
-    color: var(--coffee-dark);
-}
-
-.shop-rating {
-    color: var(--brand-accent);
-    font-size: 0.875rem;
-    margin-bottom: 0.75rem;
-}
-
-.shop-highlight {
-    font-family: var(--font-serif);
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-    line-height: 1.6;
-}
-
-/* ================================
-   随手记卡片
-   ================================ */
-.note-card {
-    background: var(--coffee-foam);
-    border: 2px solid var(--brand-black);
-    padding: 1.5rem;
-    transition: all 0.3s ease;
-}
-
-.note-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 6px 6px 0px var(--coffee-dark);
-}
-
-.note-date {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    color: var(--coffee-medium);
-    margin-bottom: 0.75rem;
-}
-
-.note-content {
-    font-family: var(--font-serif);
-    font-size: 1rem;
-    line-height: 1.8;
-    color: var(--coffee-dark);
-}
-
-.note-tags {
-    margin-top: 1rem;
-    display: flex;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-}
-
-/* ================================
-   冲煮参数展示
-   ================================ */
-.brew-params {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    gap: 1rem;
-    padding: 1rem;
-    background: var(--coffee-foam);
-    border: 2px solid var(--brand-black);
-    margin: 1rem 0;
-}
-
-.brew-param {
-    text-align: center;
-}
-
-.brew-param-value {
-    font-family: var(--font-mono);
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: var(--coffee-dark);
-}
-
-.brew-param-label {
-    font-size: 0.7rem;
-    color: var(--coffee-medium);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-top: 0.25rem;
-}
-
-/* ================================
-   风味轮标签
-   ================================ */
-.flavor-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-}
-
-.flavor-tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.25rem;
-    padding: 0.25rem 0.75rem;
-    background: white;
-    border: 2px solid var(--coffee-light);
-    font-size: 0.8rem;
-    color: var(--coffee-dark);
-    transition: all 0.2s ease;
-    font-weight: 600;
-}
-
-.flavor-tag:hover {
-    background: var(--coffee-dark);
-    color: white;
-    border-color: var(--brand-black);
-    transform: translateY(-2px);
-}
-
-/* ================================
-   响应式设计
-   ================================ */
-@media (max-width: 768px) {
-    .coffee-header h1 {
-        font-size: 3rem;
-    }
-
-    .coffee-icon-badge {
-        width: 3rem;
-        height: 3rem;
-    }
-
-    .coffee-card h2 {
-        font-size: 1.5rem;
-    }
-
-    .brew-params {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 480px) {
-    .coffee-header h1 {
-        font-size: 2.5rem;
-    }
-
-    .brew-params {
-        grid-template-columns: 1fr;
-    }
-}
-
-/* ================================
-   时间线样式
-   ================================ */
-.timeline-dot {
-    transition: all 0.3s ease;
-}
-
-.note-card:hover .timeline-dot,
-.note-card.reveal.active:hover ~ .timeline-dot {
-    transform: scale(1.2);
-}
-
-/* ================================
-   卡片动画增强
-   ================================ */
-.equipment-card,
-.bean-card,
-.shop-card {
-    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-}
-
-.equipment-card:hover,
-.bean-card:hover,
-.shop-card:hover {
-    transform: translateY(-6px);
-}
-
-.equipment-card:hover {
-    box-shadow: 8px 8px 0px var(--coffee-dark);
-}
-
-.bean-card:hover {
-    box-shadow: 8px 8px 0px var(--coffee-medium);
-}
-
-.shop-card:hover {
-    box-shadow: 8px 8px 0px var(--brand-accent);
-}
-
-/* 风味标签悬浮效果 - 已合并到上方 .flavor-tag 中 */
-
-/* ================================
-   笔记卡片时间线增强
-   ================================ */
-.note-card {
-    position: relative;
-}
-
-.note-card::before {
-    content: '';
-    position: absolute;
-    left: -2rem;
-    top: 0;
-    bottom: 0;
-    width: 2px;
-    background: transparent;
-}
-
-@media (min-width: 768px) {
-    .note-card:hover::before {
-        background: linear-gradient(to bottom, var(--coffee-cream), transparent);
-    }
-}
-
-/* ================================
-   深色模式适配预留
-   ================================ */
-@media (prefers-color-scheme: dark) {
-    /* 预留深色模式样式 */
-}
-
-
-
-/* ================================
-   Statistics Cards
-   ================================ */
-.stats-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1rem;
-    margin-bottom: 2rem;
-}
-
-.stat-card {
-    background: white;
-    border: 2px solid var(--brand-black);
-    padding: 1.5rem 1rem;
-    text-align: center;
-    transition: all 0.3s ease;
-    position: relative;
-}
-
-.stat-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 4px 4px 0 var(--brand-black);
-}
-
-.stat-number {
-    display: block;
-    font-family: var(--font-mono);
-    font-size: 2.5rem;
-    font-weight: 900;
-    color: var(--coffee-dark);
-    line-height: 1;
-    margin-bottom: 0.25rem;
-}
-
-.stat-label {
-    display: block;
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    color: var(--coffee-medium);
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    font-weight: 700;
-}
-
-.stat-icon {
-    position: absolute;
-    top: 0.5rem;
-    right: 0.5rem;
-    font-size: 1rem;
-    color: var(--coffee-light);
-    opacity: 0.5;
-}
-
-/* ================================
-   Coffee Bento Grid
-   ================================ */
-.coffee-bento-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
-}
-
-.bento-card--large {
-    grid-column: span 2;
-}
-
-.bento-card--full {
-    grid-column: span 3;
-}
-
-/* Preview Cards */
-.preview-card {
-    background: white;
-    border: 2px solid var(--brand-black);
-    padding: 1.5rem;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-}
-
-.preview-card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
-    padding-bottom: 0.75rem;
-    border-bottom: 2px solid var(--brand-black);
-}
-
-.preview-card-title {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--coffee-dark);
-}
-
-.preview-card-link {
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    font-weight: 700;
-    color: var(--coffee-medium);
-    text-decoration: none;
-    transition: color 0.2s;
-}
-
-.preview-card-link:hover {
-    color: var(--brand-accent);
-}
-
-.preview-card-content {
-    flex: 1;
-}
-
-/* Bean Preview Mini Card */
-.bean-preview {
-    padding: 1rem;
-    background: var(--coffee-foam);
-    border: 1px solid var(--coffee-light);
-    margin-bottom: 0.75rem;
-}
-
-.bean-preview:last-child {
-    margin-bottom: 0;
-}
-
-.bean-preview-name {
-    font-weight: 700;
-    color: var(--brand-black);
-    margin-bottom: 0.25rem;
-}
-
-.bean-preview-meta {
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    color: var(--coffee-medium);
-    text-transform: uppercase;
-}
-
-/* Note Preview Mini Card */
-.note-preview {
-    padding: 0.75rem 0;
-    border-bottom: 1px solid var(--coffee-cream);
-}
-
-.note-preview:last-child {
-    border-bottom: none;
-}
-
-.note-preview-title {
-    font-weight: 600;
-    color: var(--brand-black);
-    font-size: 0.9rem;
-    margin-bottom: 0.25rem;
-}
-
-.note-preview-date {
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    color: var(--coffee-medium);
-}
-
-/* City Tags for Cafe */
-.city-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-}
-
-.city-tag {
-    padding: 0.5rem 1rem;
-    background: var(--coffee-foam);
-    border: 2px solid var(--coffee-dark);
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    font-weight: 700;
-    color: var(--coffee-dark);
-    transition: all 0.2s;
-}
-
-.city-tag:hover {
-    background: var(--coffee-dark);
-    color: white;
-}
-
-.city-tag-count {
-    display: inline-block;
-    margin-left: 0.5rem;
-    padding: 0.125rem 0.375rem;
-    background: var(--coffee-dark);
-    color: white;
-    font-size: 0.65rem;
-}
-
-.city-tag:hover .city-tag-count {
-    background: white;
-    color: var(--coffee-dark);
-}
-
-/* Equipment Quick View */
-.equipment-quick-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-    gap: 1rem;
-}
-
-.equipment-quick-item {
-    text-align: center;
-    padding: 1rem;
-    background: var(--coffee-foam);
-    border: 1px solid var(--coffee-light);
-    transition: all 0.2s;
-}
-
-.equipment-quick-item:hover {
-    border-color: var(--coffee-dark);
-    transform: translateY(-2px);
-}
-
-.equipment-quick-icon {
-    font-size: 2rem;
-    color: var(--coffee-dark);
-    margin-bottom: 0.5rem;
-}
-
-.equipment-quick-name {
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: var(--coffee-dark);
-}
-
-/* ================================
-   Responsive: Coffee Bento
-   ================================ */
-@media (max-width: 1024px) {
-    .coffee-bento-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    
-    .bento-card--large {
-        grid-column: span 2;
-    }
-    
-    .bento-card--full {
-        grid-column: span 2;
-    }
-}
-
-@media (max-width: 768px) {
-    .stats-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    
-    .stat-number {
-        font-size: 2rem;
-    }
-    
-    .coffee-bento-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .bento-card--large,
-    .bento-card--full {
-        grid-column: span 1;
-    }
-    
-    .equipment-quick-grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
-}
-
-@media (max-width: 480px) {
-     .stats-grid {
-         gap: 0.5rem;
-     }
-
-     .stat-card {
-         padding: 1rem 0.5rem;
-     }
-
-     .stat-number {
-         font-size: 1.5rem;
-     }
-
-     .equipment-quick-grid {
-         grid-template-columns: repeat(2, 1fr);
-     }
-
-     .coffee-tabs .tab-btn {
-         flex: 1;
-         font-size: 0.875rem;
-     }
-
-     .equipment-expandable-card .card-preview {
-         padding: 1rem;
-     }
- }
-
-.tab-content {
-     display: none;
- }
-
-.tab-content--active {
-     display: block;
- }
-
-.coffee-tabs {
-     z-index: 50;
- }
-
-.tab-btn {
-     padding: 0.75rem 1.5rem;
-     background: white;
-     border: 2px solid var(--brand-black);
-     font-family: var(--font-mono);
-     font-size: 0.875rem;
-     font-weight: 700;
-     text-transform: uppercase;
-     letter-spacing: 0.1em;
-     color: var(--coffee-medium);
-     transition: all 0.3s ease;
-     cursor: pointer;
-     display: inline-flex;
-     align-items: center;
-     gap: 0.5rem;
- }
-
-.tab-btn:hover {
-     background: var(--coffee-foam);
-     color: var(--coffee-dark);
-     transform: translateY(-2px);
- }
-
-.tab-btn--active {
-     background: var(--coffee-dark);
-     color: white;
-     border-color: var(--coffee-dark);
- }
-
-.tab-btn--active:hover {
-     background: var(--coffee-dark);
-     color: white;
- }
-
-.equipment-expandable-card {
-     background: white;
-     border: 2px solid var(--brand-black);
-     overflow: hidden;
-     transition: all 0.3s ease;
-}
-
-.equipment-expandable-card:hover {
-     box-shadow: 4px 4px 0 var(--brand-black);
-}
-
-.card-preview {
-     transition: all 0.3s ease;
-     overflow: hidden;
-}
-
-.card-preview:hover {
-     background: var(--coffee-foam);
-}
-
-.card-details {
-     display: none;
-}
-
-.card-details:not(.hidden) {
-     display: block;
-     animation: slideDown 0.3s ease;
-}
-
-.view-details-btn {
-     transition: all 0.3s ease;
-}
-
-@keyframes slideDown {
-     from {
-         opacity: 0;
-         transform: translateY(-10px);
-     }
-     to {
-         opacity: 1;
-         transform: translateY(0);
-     }
-}
-
-@media (max-width: 768px) {
-     .card-preview {
-         flex-direction: column;
-     }
-
-     .card-preview .md\\:w-5\\/12,
-     .card-preview .md\\:w-7\\/12 {
-         width: 100% !important;
-     }
-
-     .card-preview .border-r-2 {
-         border-right: none;
-         border-bottom: 2px solid var(--brand-black);
-     }
-
-     .card-preview img {
-         max-height: 200px;
-     }
-}
-
-.equipment-expandable-card:hover {
-     box-shadow: 4px 4px 0 var(--brand-black);
-}
-
-.card-preview {
-     transition: all 0.3s ease;
-     overflow: hidden;
-}
-
-.card-preview:hover {
-     background: var(--coffee-foam);
- }
-
-.card-details:not(.hidden) {
-     display: block;
-     animation: slideDown 0.3s ease;
-}
-
-.card-details.revealing {
-     background: var(--coffee-foam);
-}
-
-
-@keyframes slideDown {
-     from {
-         opacity: 0;
-         transform: translateY(-10px);
-     }
-     to {
-         opacity: 1;
-         transform: translateY(0);
-     }
- }
-
-@media (max-width: 768px) {
-     .card-preview {
-         flex-direction: column;
-     }
-
-     .card-preview .md\\:w-5\\/12,
-     .card-preview .md\\:w-7\\/12 {
-         width: 100% !important;
-     }
-
-     .card-preview .border-r-2 {
-         border-right: none;
-         border-bottom: 2px solid var(--brand-black);
-     }
-
-     .card-preview img {
-         max-height: 200px;
-     }
- }
-/* Shared design refinement, including image failure and keyboard states. */
-.coffee-page .coffee-tabs {position:static;display:flex;gap:0;border-bottom:1px solid #0a0a0a;margin-bottom:24px;overflow-x:auto;white-space:nowrap}
-.coffee-page .coffee-tabs .tab-btn {flex:1;min-width:76px;padding:12px;border:0;border-bottom:3px solid transparent;background:transparent;color:#3c2415;font-size:14px}
-.coffee-page .coffee-tabs .tab-btn--active {border-bottom-color:#3c2415;font-weight:700}
-.coffee-page .card-preview>div:first-child {min-height:210px}
-.coffee-page .equipment-photo {aspect-ratio:4/3;object-fit:contain;width:100%;height:auto}
-.equipment-photo-fallback {font-family:var(--font-mono);font-size:13px;text-align:center;align-self:center;color:#6f4e37;padding:30px;line-height:1.8}
-.coffee-page .card-details[hidden] {display:none!important}
-.coffee-page .card-preview h3 {font-size:26px}
-@media(max-width:540px){.coffee-page .card-preview h3{font-size:22px}.coffee-page .card-details .grid-cols-3{grid-template-columns:1fr}.coffee-page .card-preview>div:first-child{min-height:190px}}
-
-/* Coffee journal: editorial cover, product image labeled as source material. */
-.coffee-editorial-hero{background:#eee8dc;border-bottom:1px solid #3c2415;overflow:hidden}
-.coffee-editorial-grid{display:grid;grid-template-columns:1.03fr .97fr;min-height:580px;padding-block:44px 56px;gap:44px;align-items:stretch}
-.coffee-editorial-copy{display:flex;flex-direction:column;align-items:flex-start;padding:34px 0 16px;position:relative}
-.coffee-kicker{font:700 12px var(--font-mono);letter-spacing:.12em;color:#6f4e37;text-transform:uppercase}
-.coffee-editorial-copy h1{font-size:clamp(58px,7vw,108px);line-height:1.08;letter-spacing:-.075em;margin:54px 0 28px;color:#241c16}
-.coffee-editorial-copy h1 span{color:#4c613e}
-.coffee-intro{max-width:520px;font:19px/1.85 var(--font-serif);color:#453b32}
-.coffee-hero-link{display:inline-flex;align-items:center;gap:56px;padding:12px 0;border-bottom:2px solid #3c2415;margin-top:32px;font-weight:800;color:#241c16;min-height:48px}
-.coffee-hero-link:hover{color:#a33f18;border-color:#a33f18}
-.coffee-hero-index{font:11px var(--font-mono);letter-spacing:.08em;color:#765e4d;margin-top:auto;padding-top:36px}
-.coffee-editorial-art{margin:0;background:#d5d7c5;border:1px solid #3c2415;position:relative;display:flex;align-items:center;justify-content:center;isolation:isolate;min-height:430px}
-.coffee-editorial-art::before{content:'';position:absolute;inset:24px;border:1px solid #827f67;z-index:-1}
-.coffee-editorial-art::after{content:'';width:72%;aspect-ratio:1;border-radius:50%;background:#bbc6ad;position:absolute;z-index:-1;left:14%;top:12%}
-.coffee-editorial-art img{width:80%;height:78%;object-fit:contain;mix-blend-mode:multiply;filter:drop-shadow(14px 16px 8px #1d281d44)}
-.coffee-art-label{position:absolute;top:44px;left:44px;font:700 11px/1.7 var(--font-mono);letter-spacing:.12em;color:#313d2a}
-.coffee-editorial-art figcaption{position:absolute;right:24px;bottom:20px;font:11px var(--font-mono);color:#414b37}
-.coffee-latest{display:grid;grid-template-columns:1fr 1fr;gap:70px;padding-top:54px;padding-bottom:48px;border-bottom:1px solid #b2a79b}
-.coffee-latest h2{font-size:clamp(28px,3vw,42px);line-height:1.3;letter-spacing:-.04em;margin-top:10px}
-.coffee-latest-copy p{font:17px/1.9 var(--font-serif);color:#4b4138}
-.coffee-latest-copy a{display:inline-block;margin:18px 24px 0 0;text-decoration:underline;text-underline-offset:6px;font-weight:700;color:#3c2415}
-.coffee-page .stats-grid{margin-top:12px;margin-bottom:32px;grid-template-columns:repeat(4,1fr)}
-.coffee-page .stat-card{padding-block:12px}
-.coffee-page .stat-number{font-size:24px}
-.coffee-page .stat-icon{opacity:.5}
-.coffee-page .card-preview{position:relative}
-.coffee-page .equipment-expandable-card .card-preview:focus-visible{outline:3px solid #0047ab;outline-offset:4px}
-.coffee-page .equipment-expandable-card .card-preview+*{scroll-margin-top:100px}
-.coffee-page .equipment-expandable-card a.absolute{opacity:1;position:relative;top:auto;right:auto;display:inline-flex;margin:0 0 18px 24px}
-@media(max-width:800px){.coffee-editorial-grid{grid-template-columns:1fr;gap:20px;min-height:0;padding-block:26px 36px}.coffee-editorial-copy{padding:10px 0 0}.coffee-editorial-copy h1{margin:28px 0 18px;font-size:clamp(50px,9vw,76px)}.coffee-hero-index{padding-top:28px}.coffee-editorial-art{min-height:360px}.coffee-latest{grid-template-columns:1fr;gap:18px;padding-top:36px;padding-bottom:34px}}
-@media(max-width:540px){.coffee-editorial-copy h1{font-size:52px}.coffee-intro{font-size:17px}.coffee-editorial-art{min-height:310px}.coffee-art-label{top:24px;left:24px}.coffee-page .stats-grid{grid-template-columns:repeat(4,1fr);gap:0}.coffee-page .stat-card{padding:10px 4px}.coffee-page .stat-number{font-size:20px}.coffee-page .stat-label{font-size:10px}}
-
-/* Keep the four existing equipment reports visually connected to the coffee journal. */
-section.hero-pattern{background:#eee8dc;padding-top:66px;padding-bottom:76px;border-bottom:1px solid #3c2415}
-section.hero-pattern h1{font-size:clamp(38px,5vw,70px);line-height:1.2;letter-spacing:-.06em;color:#241c16}
-section.hero-pattern .rounded-full{border-radius:0}
-section.hero-pattern .blur-3xl{opacity:.3}
-.coffee-product-source{display:block;text-align:right;margin-top:8px;font:11px var(--font-mono);color:#54493e}
-@media(max-width:540px){section.hero-pattern{padding-top:42px;padding-bottom:48px}section.hero-pattern h1{font-size:43px}}
+    --coffee-dark: #3c2415;
+    --coffee-medium: #6f4e37;
+    --coffee-paper: #eee8dc;
+    --coffee-foam: #f5e6d3;
+    --coffee-green: #4c613e;
+}
+.coffee-page { --coffee-gap: 24px; }
+.coffee-page .site-nav { position: relative; }
+.coffee-page :is(section, article, aside)[id] { scroll-margin-top: 76px; }
+.coffee-page .coffee-kicker { color: var(--coffee-medium); font: 700 11px/1.8 var(--font-mono); letter-spacing: .08em; }
+.coffee-cover { background: var(--coffee-paper); border-bottom: 1px solid var(--brand-black); }
+.coffee-cover-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 64px; padding-block: 44px; align-items: center; }
+.coffee-cover-copy { align-self: start; }
+.coffee-cover h1 { font-size: 64px; font-weight: 900; letter-spacing: -.04em; line-height: 1.15; margin: 28px 0 22px; color: var(--coffee-dark); }
+.coffee-cover h1 span { color: var(--coffee-green); }
+.coffee-intro { font: 17px/1.85 var(--font-serif); }
+.coffee-cover-actions { display: flex; align-items: center; gap: 24px; grid-column: 1; }
+.coffee-button { display: inline-flex; align-items: center; min-height: 48px; padding: 10px 20px; background: var(--coffee-dark); color: var(--brand-white); border: 1px solid var(--brand-black); font-size: 14px; font-weight: 700; }
+.coffee-link { display: inline-flex; align-items: center; gap: 20px; min-height: 44px; font: 600 14px/1.6 var(--font-sans); }
+.coffee-link:hover { color: #a33f18; text-decoration: underline; text-underline-offset: 6px; }
+.latest-brew { grid-column: 2; grid-row: 1 / 3; background: var(--brand-white); padding: 28px; border: 1px solid var(--brand-black); }
+.ticket-heading { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; padding-bottom: 16px; margin-bottom: 20px; border-bottom: 1px solid var(--brand-black); font: 12px/1.7 var(--font-mono); color: var(--coffee-medium); }
+.latest-brew h2 { font-size: 28px; line-height: 1.4; letter-spacing: -.04em; margin: 12px 0 20px; color: var(--coffee-dark); }
+.latest-excerpt { font: 16px/1.85 var(--font-serif); margin: 18px 0 8px; }
+.brew-ticket { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); background: var(--coffee-foam); border: 1px solid var(--brand-black); margin: 20px 0; }
+.brew-ticket > div { padding: 10px 6px; text-align: center; min-width: 0; }
+.brew-ticket > div + div { border-left: 1px solid var(--brand-black); }
+.brew-ticket dt { font: 11px/1.8 var(--font-mono); color: var(--coffee-medium); }
+.brew-ticket dd { margin: 4px 0 0; font: 600 22px/1.5 var(--font-mono); font-variant-numeric: tabular-nums; }
+.coffee-index { display: grid; grid-template-columns: repeat(4, 1fr); position: sticky; top: 0; z-index: 90; background: var(--brand-white); border: 1px solid var(--brand-black); margin-top: 24px; }
+.coffee-index a { display: flex; justify-content: center; align-items: center; gap: 16px; min-height: 56px; font-size: 14px; }
+.coffee-index a + a { border-left: 1px solid var(--brand-black); }
+.coffee-index span { font: 12px var(--font-mono); color: var(--coffee-medium); }
+.coffee-index a[aria-current] { color: var(--coffee-dark); text-decoration: underline; text-underline-offset: 7px; font-weight: 700; background: var(--coffee-paper); }
+.coffee-section { padding-block: 64px; }
+.coffee-section + .coffee-section { border-top: 1px solid var(--brand-black); }
+.coffee-section-heading { margin-bottom: 32px; }
+.coffee-section-heading h2 { font-size: 36px; font-weight: 900; letter-spacing: -.04em; margin: 8px 0; }
+.coffee-section-heading > p:last-child { font: 16px/1.85 var(--font-serif); color: var(--coffee-medium); }
+.brew-entry { display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 24px; margin-top: 24px; }
+.brew-date { display: flex; flex-direction: column; gap: 8px; font: 12px/1.8 var(--font-mono); color: var(--coffee-medium); padding-top: 24px; }
+.brew-body { border: 1px solid var(--brand-black); background: #fff; padding: 28px; position: relative; }
+.brew-body::before { content: ''; position: absolute; width: 7px; height: 7px; left: -29px; top: 29px; background: var(--coffee-dark); }
+.entry-type { font: 12px/1.8 var(--font-mono); color: var(--coffee-medium); margin-bottom: 10px; }
+.coffee-page h3 { font-size: 24px; line-height: 1.5; font-weight: 700; letter-spacing: -.02em; }
+.related-chips { display: flex; flex-wrap: wrap; gap: 4px 20px; margin-block: 12px; }
+.related-chips a { display: inline-flex; align-items: center; min-height: 44px; font: 12px/1.6 var(--font-mono); text-decoration: underline; text-underline-offset: 5px; color: var(--coffee-medium); }
+.brew-prose { font: 17px/1.85 var(--font-serif); }
+.brew-prose p + p { margin-top: 16px; }
+.next-brew { border-top: 1px solid var(--brand-black); padding-top: 16px; color: var(--coffee-medium); }
+.equipment-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--coffee-gap); }
+.gear-card { border: 1px solid var(--brand-black); background: #fff; min-width: 0; }
+.gear-feature { grid-column: 1 / -1; display: grid; grid-template-columns: 5fr 7fr; }
+.gear-image { margin: 0; background: var(--coffee-paper); padding: 24px; display: flex; flex-direction: column; justify-content: center; border-bottom: 1px solid var(--brand-black); }
+.gear-feature .gear-image { border-bottom: 0; border-right: 1px solid var(--brand-black); }
+.gear-image picture { display: flex; align-items: center; justify-content: center; flex: 1; }
+.gear-image img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: contain; }
+.gear-copy { padding: 24px; }
+.gear-copy > p:not(.coffee-kicker):not(.recommendation) { font: 17px/1.85 var(--font-serif); margin-top: 16px; }
+.recommendation { font: 12px/1.8 var(--font-mono); color: var(--coffee-medium); margin-top: 16px; }
+.gear-card details { border-top: 1px solid var(--brand-black); margin-top: 20px; }
+.gear-card summary { cursor: pointer; min-height: 48px; padding-block: 12px; font-size: 14px; }
+.gear-specs { margin: 0 0 16px; }
+.gear-specs div { display: flex; justify-content: space-between; gap: 16px; border-top: 1px solid var(--coffee-paper); padding-block: 8px; font-size: 13px; }
+.gear-specs dd { margin: 0; text-align: right; }
+.gear-text-card { background: var(--coffee-paper); }
+.bean-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--coffee-gap); }
+.bean-file { background: #fff; border: 1px solid var(--brand-black); }
+.bean-band { background: var(--coffee-dark); color: var(--coffee-foam); padding: 14px 24px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; font: 12px/1.8 var(--font-mono); }
+.bean-copy { padding: 24px; }
+.bean-copy > p { font: 17px/1.85 var(--font-serif); margin-top: 16px; }
+.bean-copy .bean-source { font: 12px/1.8 var(--font-mono); color: var(--coffee-medium); }
+.bean-related { display: flex; flex-wrap: wrap; gap: 8px 20px; }
+.bean-context { margin-top: 24px; border-left: 1px solid var(--brand-black); padding: 12px 24px; }
+.bean-context h3 { font-size: 18px; }
+.bean-context p { font: 16px/1.85 var(--font-serif); margin-top: 8px; }
+.experiment-table { width: 100%; border-collapse: collapse; font: 16px/1.85 var(--font-serif); margin: 20px 0; }
+.experiment-table th, .experiment-table td { border-bottom: 1px solid var(--brand-black); padding: 12px; text-align: left; }
+.experiment-table th { font: 12px/1.8 var(--font-mono); }
+.experiment-best { border-left: 3px solid #a33f18; }
+.experiment-best strong { color: #a33f18; }
+.cafe-city { margin-bottom: 20px; font: 600 14px var(--font-mono); }
+.cafe-note { padding: 28px; background: var(--coffee-paper); border: 1px solid var(--brand-black); max-width: 760px; }
+.cafe-location { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; font: 12px/1.8 var(--font-mono); color: var(--coffee-medium); margin-bottom: 12px; }
+.cafe-location svg { width: 16px; height: 16px; }
+.cafe-location strong { margin-left: auto; color: #a33f18; }
+.cafe-note p { font: 17px/1.85 var(--font-serif); margin-top: 16px; }
+.cafe-tags { font: 12px/1.8 var(--font-mono); color: var(--coffee-medium); margin-top: 16px; }
+.equipment-photo-fallback { display: block; padding: 40px 16px; text-align: center; color: var(--coffee-medium); font: 13px/1.8 var(--font-mono); }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .coffee-page .coffee-button { transition: transform .3s ease, box-shadow .3s ease; }
+    .coffee-page .coffee-button:hover { transform: translate(-4px, -4px); box-shadow: 4px 4px 0 var(--brand-black); }
+}
+@media (max-width: 1023px) { .equipment-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 800px) {
+    .coffee-cover-grid { gap: 20px 24px; padding-block: 32px; }
+    .coffee-cover h1 { font-size: 52px; }
+    .latest-brew { padding: 20px; }
+    .latest-brew h2 { font-size: 24px; }
+    .coffee-cover-actions { gap: 12px; flex-wrap: wrap; }
+    .brew-ticket dd { font-size: 18px; }
+    .brew-entry { grid-template-columns: 96px minmax(0, 1fr); gap: 20px; }
+    .brew-body { padding: 24px; }
+    .brew-body::before { left: -25px; }
+    .gear-feature { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 540px) {
+    .coffee-cover-grid { grid-template-columns: 1fr; gap: 24px; padding-block: 28px; }
+    .coffee-cover h1 { font-size: 44px; margin: 22px 0 18px; }
+    .coffee-intro { font-size: 16px; }
+    .latest-brew { grid-column: 1; grid-row: auto; }
+    .coffee-cover-actions { gap: 20px; }
+    .coffee-index a { min-height: 48px; font-size: 13px; gap: 8px; }
+    .coffee-index span { font-size: 11px; }
+    .coffee-section { padding-block: 40px; }
+    .coffee-section-heading h2 { font-size: 28px; }
+    .brew-entry { grid-template-columns: 1fr; gap: 10px; margin-top: 28px; }
+    .brew-date { flex-direction: row; padding: 0; }
+    .brew-body { padding: 20px; }
+    .brew-body::before { display: none; }
+    .coffee-page h3 { font-size: 21px; }
+    .equipment-grid, .bean-grid, .gear-feature { grid-template-columns: 1fr; }
+    .gear-feature .gear-image { border-right: 0; border-bottom: 1px solid var(--brand-black); }
+    .gear-copy, .bean-copy, .cafe-note { padding: 20px; }
+    .bean-band { padding-inline: 20px; }
+    .experiment-table td, .experiment-table th { padding: 10px 8px; }
+}
+@media (max-width: 319px) {
+    .brew-ticket { grid-auto-flow: row; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .brew-ticket > div + div { border-left: 0; }
+    .brew-ticket > div:nth-child(even) { border-left: 1px solid var(--brand-black); }
+    .brew-ticket > div:nth-child(n+3) { border-top: 1px solid var(--brand-black); }
+}
+/* 四篇既有详情页的视觉衔接，正文保持原样。 */
+body:has(section.hero-pattern) { background: var(--brand-white); }
+body:has(section.hero-pattern) > nav { background: var(--brand-white); border-bottom: 1px solid var(--brand-black); }
+body:has(section.hero-pattern) a[href="coffee.html#equipment"] { min-height: 44px; }
+.coffee-detail-photo { display: block; object-fit: contain; }
+section.hero-pattern { background-image: none; }
+section.hero-pattern { background: var(--coffee-paper); padding-top: 108px; padding-bottom: 76px; border-bottom: 1px solid var(--brand-black); }
+section.hero-pattern h1 { font-size: clamp(38px, 5vw, 70px); line-height: 1.2; letter-spacing: -.04em; color: var(--coffee-dark); }
+section.hero-pattern .rounded-full { border-radius: 0; }
+section.hero-pattern .blur-3xl { display: none; }
+.coffee-product-source { display: block; text-align: right; margin-top: 8px; font: 11px/1.8 var(--font-mono); color: var(--coffee-medium); }
+.coffee-product-source a { display: inline-flex; align-items: center; min-height: 44px; text-decoration: underline; text-underline-offset: 4px; }
+@media (max-width: 540px) { section.hero-pattern { padding-top: 100px; padding-bottom: 48px; } section.hero-pattern h1 { font-size: 38px; } }

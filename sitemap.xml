@@ -85,12 +85,6 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://aikevin.dpdns.org/coffee-beans</loc>
-    <lastmod>2026-10-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://aikevin.dpdns.org/coffee-equipment-brikka</loc>
     <lastmod>2026-10-22</lastmod>
     <changefreq>monthly</changefreq>
@@ -110,24 +104,6 @@
   </url>
   <url>
     <loc>https://aikevin.dpdns.org/coffee-equipment-scale</loc>
-    <lastmod>2026-10-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://aikevin.dpdns.org/coffee-equipment</loc>
-    <lastmod>2026-10-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://aikevin.dpdns.org/coffee-notes</loc>
-    <lastmod>2026-10-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://aikevin.dpdns.org/coffee-shops</loc>
     <lastmod>2026-10-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>

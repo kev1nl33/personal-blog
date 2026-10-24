@@ -30,7 +30,8 @@ def generate_sitemap():
     html_files = glob.glob("*.html")
 
     # 排除不需要的文件
-    excluded_files = {"404.html", "books-preview.html", "test.html", "article1.html", "books.html"}
+    excluded_files = {"404.html", "books-preview.html", "test.html", "article1.html", "books.html",
+                      "coffee-beans.html", "coffee-notes.html", "coffee-shops.html", "coffee-equipment.html"}
     html_files = [f for f in html_files if f not in excluded_files and '-backup-' not in f]
 
     # 页面优先级设置
