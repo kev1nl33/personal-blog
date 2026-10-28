@@ -2,7 +2,7 @@
 
 ## 0. 一句话结论 + PR 链接
 
-仅执行 A1、A2：A1 已完成全文类型检查，未检出疑似密钥，但存在私有/本地 IP 与域名配置类型信息；A2 待独立提交记录。未推送、未创建 PR、未获取预览地址。
+仅执行 A1、A2：A1 已完成全文类型检查，未检出疑似密钥，但存在私有/本地 IP 与域名配置类型信息；A2 已完成引用判断，因所有候选均有引用、归档内部存在有效链接而保留文件与排除规则，清理及归档排除未实施。未推送、未创建 PR、未获取预览地址。
 
 ## 1. 最高优先级：安全检查结果（任务 A1）
 
@@ -29,8 +29,8 @@
 
 | 编号 | 任务 | 状态（✅/⚠️部分/❌） | 对应 commit | 备注 |
 | --- | --- | --- | --- | --- |
-| A1 | 八个诊断文件及部署、收录规则检查 | ✅ | 本节所在 A1 提交（以 Git 历史为准） | 只记录文件名和类型 |
-| A2 | 引用判断及根目录清理 | ⚠️部分 | 待独立提交 | 引用扫描已完成，保守处置待记录 |
+| A1 | 八个诊断文件及部署、收录规则检查 | ✅ | e6dbb74 | 只记录文件名和类型 |
+| A2 | 引用判断及根目录清理 | ⚠️部分 | 本节所在 A2 提交（以 Git 历史为准） | 引用判断完成；无满足条件的移动项；整目录排除会影响既有链接，未实施 |
 
 B–E 不在本次授权范围内，未执行。
 
@@ -38,6 +38,29 @@ B–E 不在本次授权范围内，未执行。
 
 - 只新增本复核记录，不修改八个诊断文件内容：避免泄露值或突破 HTML、保护目录边界；回退 A1 提交即可移除记录。
 - 复用既有 `docs/qa/` 验收目录，未创建新目录。若后续确需新建归档目录，必须先记录结构、命名及清理约定，再执行符合条件的 `git mv`。
+
+A2 引用判断：在新增本复核记录之前，扫描 Git 跟踪文件及未忽略的未跟踪文件，跳过非文本内容，仅输出引用文件名，不输出匹配行。覆盖 HTML、sitemap、search-index、service-worker、tests、scripts、生成及校验脚本、重定向等；即使只是文档提及，也按用户“无任何引用”边界保留。下面列出说明书之外的引用，所有候选另均被 `docs/BLOG-POLISH-BRIEF.md` 引用。
+
+| 候选文件 | 其他引用来源 | 判断 |
+| --- | --- | --- |
+| api_domain_diagnostic.py | 无 | 说明书有引用，保留 |
+| api_domain_diagnostic_report.json | api_domain_diagnostic.py | 脚本输出路径引用，保留 |
+| network_diagnostics.py | 无 | 说明书有引用，保留 |
+| network_diagnostic_report.json | network_diagnostics.py | 脚本输出路径引用，保留 |
+| opencode_update_summary.txt | 无 | 说明书有引用，保留 |
+| test.html | README.md、docs/plans/2026-10-24-dark-mode-toggle.md、docs/qa/page-sources.md、generate_search_index.py、generate_sitemap.py、site_builder.py、tests/test_theme.py | 有引用且 HTML 硬边界，保留 |
+| article1.html | docs/plans/2026-10-24-dark-mode-toggle.md、docs/qa/page-sources.md、generate_search_index.py、generate_sitemap.py、site_builder.py、tests/test_theme.py | 有引用且 HTML 硬边界，保留 |
+| coffee-backup-20260109.html | Coffee_redesign.md、docs/qa/page-sources.md、tests/test_theme.py | 有引用且 HTML 硬边界，保留 |
+| task_plan.md | progress.md | 有引用，保留 |
+| findings.md | progress.md、task_plan.md | 有引用，保留 |
+| progress.md | 无 | 说明书有引用，保留 |
+| Coffee_redesign.md | 无 | 说明书有引用，保留 |
+
+初始宽松扫描中 `test` 命中大量同名普通词，后以带词边界的完整文件名核对，表内不采用这些误报。三个 HTML 均不在当前 sitemap 和搜索索引；这不改变禁止移动任何 HTML 的硬边界。
+
+归档排除判断：已有 `archived/html/` 页面之间存在有效相对链接（books、weekly 系列互链），并非空目录。仓库外部文件未检出 `archived/` 完整路径引用（说明书任务文字除外），但不能因此忽略归档内部有效链接。整体加入 `archived/` 会让既有可访问目标失效，故未修改 `.assetsignore`，也未创建 `archived/legacy-root/`。本次零文件移动，因此不发生 `git mv`；没有用普通 mv 替代。若后续需清理，先明确允许忽略哪些文档引用及既有归档发布用途，再制定精确排除范围。
+
+做了什么：保留全部候选、保留既有归档发布规则。为什么：不存在“无任何引用”的候选，且整目录排除会影响已被引用的内容。如何回退：A2 仅追加审计说明，回退 A2 提交即可；无资源路径需要恢复。所有 HTML、保护目录、`_redirects` 均未改动。
 
 ## 4. 需要你拍板的事
 
@@ -50,7 +73,7 @@ B–E 不在本次授权范围内，未执行。
 
 ## 6. 验证结果
 
-A1 阶段末实测：`npm test` 退出码 0（Python 40 项、Node 52 项）；`python3 validate_site.py` 退出码 0；`python3 generate_search_index.py --check` 退出码 0，索引已是最新，共 53 页。未重建或修改索引。
+A1、A2 两次阶段末均实测：`npm test` 退出码 0（Python 40 项、Node 52 项，A2 Node 失败数 0）；`python3 validate_site.py` 退出码 0；`python3 generate_search_index.py --check` 退出码 0，索引已是最新，共 53 页。未重建或修改索引。最终边界检查：相对起始提交仅本复核文档有已跟踪改动，原有未跟踪的说明书保留且不纳入提交。
 
 全站 HTTP 链接检查与视觉验证：未做，本次仅执行 A1、A2，不据此声称站点可上线。
 
