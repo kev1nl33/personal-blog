@@ -303,6 +303,14 @@ element.dataset.value = 'some-value';
 - 增加旅行或调整实拍素材后运行 `python3 update_travel_overview.py`，按实际素材去重统计国家和照片并更新 HTML 中的总计（本地目录按文件统计，`/media/` 目录按对应游记页收录的去重引用统计）；随后更新搜索索引并验证页面。
 - 验收截图与交付说明保存在仓库外的任务目录；任务目录先写结构约定，截图放 `verify/`，交付说明为 `delivery.md`，不进入站点仓库。
 
+## 文章分类与元数据
+
+- 根目录文章 HTML 是唯一维护来源，不新增 frontmatter。分类保存为 `<meta property="article:section">`；`article:type`（essay / note / cheatsheet）、`article:lang`（zh / en）、`article:featured`（true / false）、`article:series`、`article:series_order`、`article:updated` 使用相同的 property/content 结构，后三项可空。
+- 分类固定为职业转型、AI 与工具、投资、自我认知、家庭与生活、读书笔记；列表 URL 值依次为 career、ai、investment、personal、life、reading。英文文章的分类显示为英文，元数据仍用统一分类值。
+- 标签存于重复的 `article:tag` meta，每篇 1–3 个。维护时同步 blog.html 卡片的 data-category、data-tags、data-type 和筛选入口；搜索索引从 HTML 派生。
+- 首页最近四篇只展示 essay；精选按首页顺序手工维护，article:featured 与精选保持一致。series 本阶段留空，后续系列维护另行安排。
+- 不通过旧模板或 data 缓存重新生成 HTML；调整分类和标签不改文章正文或 SEO 摘要。更新后运行搜索索引生成和既有测试。
+
 ## 页面维护
 
 直接编辑 HTML、CSS 和 JavaScript；保持文章正文、已发布 URL 和本地资源链接完整。敏感配置使用环境变量，不写入前端。

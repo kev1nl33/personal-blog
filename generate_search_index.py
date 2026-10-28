@@ -93,8 +93,23 @@ def build_entry(path: Path) -> dict:
 
     description = meta('description')
     content = page_text(soup)[:CONTENT_LIMIT]
+    def article_meta(field: str) -> str:
+        tag = soup.find('meta', attrs={'property': f'article:{field}'})
+        return tag.get('content', '') if tag else ''
+
     category_tag = soup.find(class_=['blog-tag', 'article-tag'])
-    category = normalize_space(category_tag.get_text()) if category_tag else ''
+    category = article_meta('section') or (normalize_space(category_tag.get_text()) if category_tag else '')
+    metadata = {}
+    if article_meta('type'):
+        metadata = {
+            'type': article_meta('type'),
+            'lang': article_meta('lang'),
+            'featured': article_meta('featured') == 'true',
+            'series': article_meta('series') or None,
+            'series_order': int(article_meta('series_order')) if article_meta('series_order') else None,
+            'updated': article_meta('updated') or None,
+            'tags': [tag.get('content', '') for tag in soup.select('meta[property="article:tag"]')],
+        }
 
     return {
         'url': path.name,
@@ -103,6 +118,7 @@ def build_entry(path: Path) -> dict:
         'category': category,
         'keywords': page_keywords(soup),
         'content': content,
+        **metadata,
     }
 
 
