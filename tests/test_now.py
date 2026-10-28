@@ -27,13 +27,17 @@ class NowPageTests(unittest.TestCase):
         self.assertEqual(now.h1.get_text(), '最近在做')
         self.assertEqual(now.select_one('link[rel="canonical"]')['href'],
                          'https://aikevin.dpdns.org/now.html')
-        self.assertEqual(len(now.select('.now-content p')), 4)
+        self.assertEqual([p.strong.get_text() for p in now.select('.now-content p')],
+                         ['在做', '在读', '在想'])
+        self.assertEqual(now.select_one('.page-header time')['datetime'], '2026-10-28')
+        home = BeautifulSoup((ROOT / 'index.html').read_text(), 'html.parser')
+        self.assertIsNotNone(home.select_one('main a[href="now.html"]'))
 
     def test_search_and_sitemap_include_now(self):
         entries = json.loads((ROOT / 'search-index.json').read_text())
         entry = next(item for item in entries if item['url'] == 'now.html')
         self.assertEqual(entry['title'], '最近在做')
-        for text in ['第二次上线批准', '做完并已上线', '已经上线', 'Pro→Pro+']:
+        for text in ['在做', '在读', '在想', '2026-10-28', 'Legal AI Toolkit', '待补']:
             self.assertIn(text, entry['content'])
         urls = ET.parse(ROOT / 'sitemap.xml').getroot()
         now = next(item for item in urls if item.find('{*}loc').text.endswith('/now.html'))
