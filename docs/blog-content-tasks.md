@@ -147,9 +147,9 @@ updated: 2026-10-28     # 可空
 
 ### 2.1 系列：人生体验券
 
-- [ ] 新建 `series/experience-tickets.html`（或按站点现有路径习惯）。
-- [ ] 顶部写 100 字左右的说明：什么是体验券、为什么做、规则是什么。
-- [ ] 按顺序列出：
+- [x] 新建 `series/experience-tickets.html`（或按站点现有路径习惯）。
+- [x] 顶部写 100 字左右的说明：什么是体验券、为什么做、规则是什么。
+- [x] 按顺序列出：
 
 | 编号 | 文件 | 日期 |
 |---|---|---|
@@ -160,19 +160,19 @@ updated: 2026-10-28     # 可空
 | 5 | `experience-ticket-5-family-farm-and-reality-check` | 2026-06-20 |
 | 6 | `experience-ticket-6-stock-operator-mental-lab` | 2026-08-22 |
 
-- [ ] 「番外」区：`seventy-posts-dead-silence`（05-08）、`ai-tools-without-illusions`（05-20）、`five-iron-rules-naval`（06-05）。
-- [ ] 为 1–6 号文章的元数据设置 `series: 人生体验券` 和 `series_order`。
-- [ ] 每篇体验券文末加「上一张 / 下一张」导航，首尾篇各去掉一侧。
-- [ ] 每篇开头加统一信息框：周期、投入、一句话结果、给生活打分 X/10（6 号已有 8 分，前 5 号需 Kevin 补）。
-- [ ] 首页「关注」区或精选区加该系列入口。
-- [ ] 验收：从系列页可一路点击 1→6，且每篇都能回到系列页。
+- [x] 「番外」区：`seventy-posts-dead-silence`（05-08）、`ai-tools-without-illusions`（05-20）、`five-iron-rules-naval`（06-05）。
+- [x] 为 1–6 号文章的元数据设置 `series: 人生体验券` 和 `series_order`。
+- [x] 每篇体验券文末加「上一张 / 下一张」导航，首尾篇各去掉一侧。
+- [x] 每篇开头加统一信息框：周期、投入、一句话结果、给生活打分 X/10（6 号沿用 8/10，前 5 号按确认写「待补」，待 Kevin 补分）。
+- [x] 首页「关注」区或精选区加该系列入口。
+- [x] 验收：从系列页可一路点击 1→6，且每篇都能回到系列页。
 
 ### 2.2 系列：离开体制
 
-- [ ] 新建 `series/leaving-the-system.html`，按时间顺序：
+- [x] 新建 `series/leaving-the-system.html`，按时间顺序：
   `resignation-decision-process` → `career-transition` → `freelance-first-year` → `2025_Year_Report` → `borrowed-uniform`
-- [ ] 同样设置 `series` / `series_order` 并添加文末上一篇/下一篇。
-- [ ] 验收：同 2.1。
+- [x] 同样设置 `series` / `series_order` 并添加文末上一篇/下一篇。
+- [x] 验收：同 2.1。
 
 ---
 
@@ -291,7 +291,7 @@ grep -nP '[\x{4e00}-\x{9fff}][,:?!][\x{4e00}-\x{9fff}A-Za-z]' *.html
 | 阶段 | 状态 | 完成日期 | 备注 |
 |---|---|---|---|
 | 1 分类、字段、标签、首页 | 完成 | 2026-10-28 | 40 篇、6 类、10 标签；可选子标签未做 |
-| 2 系列页 | ☐ | | |
+| 2 系列页 | 完成（本地） | 2026-10-28 | 两系列、11篇导航、体验券信息框；1–5号评分待 Kevin 补；未部署 |
 | 3 摘要、标点、提示、合并 | ☐ | | |
 | 4 首页文案与 meta | ☐ | | |
 | 5 风险与隐私 | ☐ | | |
