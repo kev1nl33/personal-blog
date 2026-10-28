@@ -180,55 +180,55 @@ updated: 2026-10-28     # 可空
 
 ### 3.1 重写以「…」结尾的摘要（11 篇）
 
-- [ ] 公式：**场景 → 困惑 → 结论**，两句话以内，不留省略号。
-- [ ] 范例（来自你自己的好摘要）：
+- [x] 公式：**场景 → 困惑 → 结论**，两句话以内，不留省略号。
+- [x] 范例（来自你自己的好摘要）：
   「一辆横在入口的车让我闷气了三分钟。我问自己：用今天的注意力支付一笔零回报的账单，值不值？」
-- [ ] 涉及文章：
-  - [ ] `Product-thinking`
-  - [ ] `npc-principle`
-  - [ ] `overcoming-instincts`
-  - [ ] `minimalism-digital-life`
-  - [ ] `resignation-decision-process`
-  - [ ] `career-transition`
-  - [ ] `freelance-first-year`
-  - [ ] `ai-career-tools`
-  - [ ] `living-in-the-moment`
-  - [ ] `tech-stock-analysis`
-  - [ ] `ai-subscriptions-review`
-- [ ] 流程：读取正文 → 出草稿  → 写入。
-- [ ] 验收：全站摘要无「…」「...」结尾。
+- [x] 涉及文章：
+  - [x] `Product-thinking`
+  - [x] `npc-principle`
+  - [x] `overcoming-instincts`
+  - [x] `minimalism-digital-life`
+  - [x] `resignation-decision-process`
+  - [x] `career-transition`
+  - [x] `freelance-first-year`
+  - [x] `ai-career-tools`
+  - [x] `living-in-the-moment`
+  - [x] `tech-stock-analysis`
+  - [x] `ai-subscriptions-review`
+- [x] 流程：读取正文 → 出草稿  → 写入。
+- [x] 验收：全站摘要无「…」「...」结尾。
 
 ### 3.2 全角标点修正
 
-- [ ] 先只列出命中位置，确认后再批量替换，避免误伤代码块：
+- [x] 先列出命中位置，再按本轮授权修正明确的自然语言标点，避免误伤代码块：
 
 ```bash
 grep -nP '[\x{4e00}-\x{9fff}][,:?!][\x{4e00}-\x{9fff}A-Za-z]' *.html
 ```
 
-- [ ] 已知涉及：`chatgpt-vs-claude-communication`、`vision-pro-office-experience`、`claude-skills-deep-dive`、`breaking-decision-paralysis-with-ai`、`Product-thinking`（标题或摘要里的半角 `, : ?`）。
-- [ ] 验收：标题和摘要中，汉字后不再跟半角标点；代码块内容不变。
+- [x] 已知涉及：`chatgpt-vs-claude-communication`、`vision-pro-office-experience`、`claude-skills-deep-dive`、`breaking-decision-paralysis-with-ai`、`Product-thinking`（标题或摘要里的半角 `, : ?`）。
+- [x] 验收：标题和摘要中，汉字后不再跟半角标点；代码块内容不变。
 
 ### 3.3 AI 工具类文章加「写于」提示
 
-- [ ] 在以下文章文首加一行：「写于 2025-11，工具和功能可能已变化。」
-  - [ ] `chatgpt-vs-claude-communication`
-  - [ ] `vision-pro-office-experience`
-  - [ ] `claude-skills-deep-dive`
-  - [ ] `ai-subscriptions-review`
-  - [ ] `knowledge-management-evolution`
-  - [ ] `breaking-decision-paralysis-with-ai`
-  - [ ] `ai-career-tools`
-- [ ] 【可选】Kevin 有时间时，在文末补一段「2026-10 更新」。
+- [x] 在以下文章文首加一行：「写于 2025-11，工具和功能可能已变化。」
+  - [x] `chatgpt-vs-claude-communication`
+  - [x] `vision-pro-office-experience`
+  - [x] `claude-skills-deep-dive`
+  - [x] `ai-subscriptions-review`
+  - [x] `knowledge-management-evolution`
+  - [x] `breaking-decision-paralysis-with-ai`
+  - [x] `ai-career-tools`
+- [ ] 【可选，本轮不做】Kevin 有时间时，在文末补一段「2026-10 更新」。
 
 ### 3.4 合并重叠内容
 
-- [ ] **胎教程序两篇**：保留新版 `why-prenatal-app-succeeded` 为主。在旧版 `Product-thinking` 文首加一句「更完整的版本见《为什么我做胎教程序能做完，其他十个商业项目全停了？》」并链接；
-- [ ] **体制内三篇**（`resignation-decision-process`、`career-transition`、`2025_Year_Report`）：已通过系列页串联，各自文首加一句角度说明，避免读者觉得重复。
+- [x] **胎教程序两篇**：保留新版 `why-prenatal-app-succeeded` 为主。在旧版 `Product-thinking` 文首加一句「更完整的版本见《为什么我做胎教程序能做完，其他十个商业项目全停了？》」并链接；
+- [x] **体制内三篇**（`resignation-decision-process`、`career-transition`、`2025_Year_Report`）：已通过系列页串联，各自文首加一句角度说明，避免读者觉得重复。
 
 ### 3.5 英文文章
 
-- [ ] `energy-like-tokens`：文首加两三句中文概述，`lang: en`；确认「Inspired by Tw93」处有指向原文的链接。
+- [x] `energy-like-tokens`：文首加两三句中文概述，`lang: en`；已补 Tw93 公开博客链接；未定位对应原帖，交付说明记录此限制。
 
 ---
 
@@ -279,7 +279,7 @@ grep -nP '[\x{4e00}-\x{9fff}][,:?!][\x{4e00}-\x{9fff}A-Za-z]' *.html
 - [x] 全站标签数 ≤ 12。
 - [x] 首页：精选区 → 最近的思考（仅 essay）→ 关注 → 作者。
 - [ ] 两个系列页上线，首尾可串联。
-- [ ] 无省略号摘要；标题和摘要无半角标点混用。
+- [x] 无省略号摘要；标题和摘要无半角标点混用。
 - [ ] 投资文章页脚有声明；隐私清单已由 Kevin 确认。
 - [ ] RSS 可用；回信入口上线。
 - [ ] 站内无死链（本地用链接检查脚本或手动抽查）。
@@ -292,7 +292,7 @@ grep -nP '[\x{4e00}-\x{9fff}][,:?!][\x{4e00}-\x{9fff}A-Za-z]' *.html
 |---|---|---|---|
 | 1 分类、字段、标签、首页 | 完成 | 2026-10-28 | 40 篇、6 类、10 标签；可选子标签未做 |
 | 2 系列页 | 完成（本地） | 2026-10-28 | 两系列、11篇导航、体验券信息框；1–5号评分待 Kevin 补；未部署 |
-| 3 摘要、标点、提示、合并 | ☐ | | |
+| 3 摘要、标点、提示、合并 | 完成（本地） | 2026-10-28 | 11 篇摘要、标点、7 篇时效提示、阅读角度及英文概述；Tw93 原帖未定位，已链接作者博客并在交付说明注明；未部署 |
 | 4 首页文案与 meta | ☐ | | |
 | 5 风险与隐私 | ☐ | | |
 | 6 订阅与互动 | ☐ | | |
