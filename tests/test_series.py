@@ -47,7 +47,7 @@ class SeriesTests(unittest.TestCase):
             self.assertEqual([dt.text for dt in box.select('dt')],
                              ['周期', '投入', '一句话结果', '给生活打分'])
             self.assertTrue(all(dd.text.strip() for dd in box.select('dd')))
-            self.assertEqual(box.select('dd')[-1].text, '8/10' if index == 5 else '待补')
+            self.assertEqual(box.select('dd')[-1].text, ['6/10', '5/10', '6/10', '7/10', '5/10', '8/10'][index])
         extras = parse('series/experience-tickets.html').select('ul.series-list a')
         self.assertEqual([a['href'] for a in extras], ['../' + name + '.html' for name in [
             'seventy-posts-dead-silence', 'ai-tools-without-illusions', 'five-iron-rules-naval']])
