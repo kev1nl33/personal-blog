@@ -9,8 +9,8 @@
     "type": "essay",
     "lang": "zh",
     "featured": false,
-    "series": null,
-    "series_order": null,
+    "series": "离开体制",
+    "series_order": 4,
     "updated": null,
     "tags": [
       "身份与转型",
@@ -114,8 +114,8 @@
     "type": "essay",
     "lang": "zh",
     "featured": true,
-    "series": null,
-    "series_order": null,
+    "series": "离开体制",
+    "series_order": 5,
     "updated": null,
     "tags": [
       "身份与转型"
@@ -149,8 +149,8 @@
     "type": "essay",
     "lang": "zh",
     "featured": false,
-    "series": null,
-    "series_order": null,
+    "series": "离开体制",
+    "series_order": 2,
     "updated": null,
     "tags": [
       "身份与转型"
@@ -271,8 +271,8 @@
     "type": "essay",
     "lang": "zh",
     "featured": true,
-    "series": null,
-    "series_order": null,
+    "series": "人生体验券",
+    "series_order": 1,
     "updated": null,
     "tags": [
       "AI 工具",
@@ -290,8 +290,8 @@
     "type": "essay",
     "lang": "zh",
     "featured": false,
-    "series": null,
-    "series_order": null,
+    "series": "人生体验券",
+    "series_order": 2,
     "updated": null,
     "tags": [
       "自媒体"
@@ -307,8 +307,8 @@
     "type": "essay",
     "lang": "zh",
     "featured": false,
-    "series": null,
-    "series_order": null,
+    "series": "人生体验券",
+    "series_order": 3,
     "updated": null,
     "tags": [
       "自媒体",
@@ -325,8 +325,8 @@
     "type": "essay",
     "lang": "zh",
     "featured": false,
-    "series": null,
-    "series_order": null,
+    "series": "人生体验券",
+    "series_order": 4,
     "updated": null,
     "tags": [
       "自媒体",
@@ -343,8 +343,8 @@
     "type": "essay",
     "lang": "zh",
     "featured": false,
-    "series": null,
-    "series_order": null,
+    "series": "人生体验券",
+    "series_order": 5,
     "updated": null,
     "tags": [
       "家庭",
@@ -362,8 +362,8 @@
     "type": "essay",
     "lang": "zh",
     "featured": false,
-    "series": null,
-    "series_order": null,
+    "series": "人生体验券",
+    "series_order": 6,
     "updated": null,
     "tags": [
       "投资"
@@ -415,8 +415,8 @@
     "type": "essay",
     "lang": "zh",
     "featured": false,
-    "series": null,
-    "series_order": null,
+    "series": "离开体制",
+    "series_order": 3,
     "updated": null,
     "tags": [
       "身份与转型",
@@ -615,13 +615,29 @@
     "type": "essay",
     "lang": "zh",
     "featured": false,
-    "series": null,
-    "series_order": null,
+    "series": "离开体制",
+    "series_order": 1,
     "updated": null,
     "tags": [
       "身份与转型",
       "决策与方法"
     ]
+  },
+  {
+    "url": "series/experience-tickets.html",
+    "title": "人生体验券",
+    "description": "人生体验券，是我给自己的一次次短期生活实验。离开体制后，面对太多想做的事，我决定先划定一个周期，认真投入，再看看它给生活带来了什么。从 AI 自媒体到真实写作、家族生意和炒股，这里按顺序记录六次尝试：做了什么、付出什么、结果如何。到期就复盘，值得继续就续一张，也允许自己停下来。",
+    "category": "",
+    "keywords": "人生体验券，计划李，系列，人生体验券",
+    "content": "系列 / 6 篇 人生体验券 人生体验券，是我给自己的一次次短期生活实验。离开体制后，面对太多想做的事，我决定先划定一个周期，认真投入，再看看它给生活带来了什么。从 AI 自媒体到真实写作、家族生意和炒股，这里按顺序记录六次尝试：做了什么、付出什么、结果如何。到期就复盘，值得继续就续一张，也允许自己停下来。 按顺序阅读 01 1号体验券：两周的魔法与迷茫 2026-04-11 1号体验券：两周的魔法与迷茫 02 2号体验券：三周发了77篇帖子，账号被封那天我才想明白的事 2026-04-20 2号体验券：三周发了77篇帖子，账号被封那天我才想明白的事 03 3号体验券：用 AI 搞头条全自动流量，一场看似精密的虚无实验 2026-05-02 3号体验券：用 AI 搞头条全自动流量，一场看似精密的虚无实验 04 4号体验券：30天真实写作，写那些我最不敢面对的狼狈 2026-05-30 4号体验券：30天真实写作，写那些我最不敢面对的狼狈 05 5号体验券：回内蒙古卖牛羊肉？一次家族资源的现实拷打 2026-06-20 5号体验券：回内蒙古卖牛羊肉？一次家族资源的现实拷打 06 6号体验券：全职炒股两个月，我终于找到了生活的「上班感」 2026-08-22 6号体验券：全职炒股两个月，我终于找到了生活的「上班感」 番外 ↗ 我发了 70 篇帖子，评论区安静得像一潭死水 2026-05-08 我发了 70 篇帖子，评论区安静得像一潭死水 ↗ 账号被封之后：我退订了所有幻想，才真正看懂 AI 这把工具 2026-05-20 账号被封之后：我退订了所有幻想，才真正看懂 AI 这把工具 ↗ 建资产还是逃焦虑？我和 Naval 聊完后定下的五条人生铁律 2026-06-05 建资产还是逃焦虑？我和 Naval 聊完后定下的五条人生铁律"
+  },
+  {
+    "url": "series/leaving-the-system.html",
+    "title": "离开体制",
+    "description": "从下定决心辞职，到等待、尝试和重新认识自己，离开体制并不是递出辞职信就结束的事。这五篇记录按顺序串起了我的选择、转型中的日常，以及慢慢放下旧身份的过程。",
+    "category": "",
+    "keywords": "离开体制，职业转型，计划李，离开体制",
+    "content": "系列 / 5 篇 离开体制 从下定决心辞职，到等待、尝试和重新认识自己，离开体制并不是递出辞职信就结束的事。这五篇记录按顺序串起了我的选择、转型中的日常，以及慢慢放下旧身份的过程。 按顺序阅读 01 我是如何下定决心从体制内辞职的 2025-11-15 我是如何下定决心从体制内辞职的 02 离开体制内的五年反思 2025-11-15 离开体制内的五年反思 03 辞职近一年，我是如何度过这段等待期的 2025-11-14 辞职近一年，我是如何度过这段等待期的 04 2025：身份的断裂与重建 2026-01-03 2025：身份的断裂与重建 05 脱掉那件借来的校服：辞职后，我花了一年多学穿自己的衣服 2026-09-28 脱掉那件借来的校服：辞职后，我花了一年多学穿自己的衣服"
   },
   {
     "url": "seventy-posts-dead-silence.html",

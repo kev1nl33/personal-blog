@@ -27,7 +27,7 @@ def generate_sitemap():
                 project_urls.append(entry)
 
     # 获取所有 HTML 文件
-    html_files = glob.glob("*.html")
+    html_files = glob.glob("*.html") + glob.glob("series/*.html")
 
     # 排除不需要的文件
     excluded_files = {"404.html", "books-preview.html", "test.html", "article1.html", "books.html",

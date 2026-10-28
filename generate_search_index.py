@@ -112,7 +112,7 @@ def build_entry(path: Path) -> dict:
         }
 
     return {
-        'url': path.name,
+        'url': path.relative_to(ROOT).as_posix(),
         'title': title,
         'description': description or content[:200],
         'category': category,
@@ -123,7 +123,8 @@ def build_entry(path: Path) -> dict:
 
 
 def build_index() -> list:
-    entries = [build_entry(path) for path in sorted(ROOT.glob('*.html')) if is_indexable(path)]
+    paths = [*ROOT.glob('*.html'), *ROOT.glob('series/*.html')]
+    entries = [build_entry(path) for path in sorted(paths) if is_indexable(path)]
     return sorted(entries, key=lambda entry: entry['url'])
 
 

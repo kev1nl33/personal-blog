@@ -12,6 +12,7 @@ def validate(root=ROOT):
     articles = json.loads((root / 'data/articles.json').read_text())
     pages = ['index.html', 'blog.html', 'about.html', 'now.html', 'coffee.html', 'travel.html', 'travel-singapore-2025.html', 'travel-japan-2023.html', 'travel-australia-2026.html', 'travel-uk-2024.html', 'gallery.html', 'visual-design.html']
     pages += [article['url'] + '.html' for article in articles]
+    pages += [path.relative_to(root).as_posix() for path in sorted(root.glob('series/*.html'))]
     errors = []
     for filename in pages:
         source = (root / filename).read_text()
@@ -27,7 +28,8 @@ def validate(root=ROOT):
             parts = urlsplit(href)
             # '/api/'、'/second-brain/' 与 '/media/' 由 Pages Functions 在服务端提供，无对应静态文件
             if parts.scheme or parts.netloc or not parts.path or parts.path.startswith(('/api/', '/second-brain/', '/media/')): continue
-            target = root / unquote(parts.path)
+            local_path = unquote(parts.path)
+            target = root / local_path.lstrip('/') if local_path.startswith('/') else (root / filename).parent / local_path
             if not target.exists(): errors.append(f'{filename}: missing local target {parts.path}')
         if soup.select('script[src*="cdn.tailwindcss.com"],.loader,#counter-display'):
             errors.append(f'{filename}: runtime loader or fake counter remains')

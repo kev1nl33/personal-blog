@@ -131,7 +131,7 @@
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   if (typeof document === 'undefined') return;
 
-  const INDEX_URL = 'search-index.json';
+  const INDEX_URL = '/search-index.json';
   const CACHE_KEY = 'site-search-index-v1';
   const state = {entries: [], loading: null, loaded: false, dialog: null, active: -1, results: [], opener: null};
 
@@ -227,7 +227,7 @@
         const target = state.results[state.active] || state.results[0];
         if (target) {
           event.preventDefault();
-          window.location.href = target.url;
+          window.location.href = '/' + target.url;
         }
       } else if (event.key === 'Tab') {
         const stops = [input, root.querySelector('.site-search-close')];
@@ -295,7 +295,7 @@
       item.setAttribute('aria-selected', 'false');
 
       const link = document.createElement('a');
-      link.href = entry.url;
+      link.href = '/' + entry.url;
       link.tabIndex = -1;
 
       const title = document.createElement('span');
