@@ -26,3 +26,5 @@
  :where(html:lang(zh)) .article-header h1{line-height:1.45}
  :where(html:lang(zh)) .article-content h1{font-size:28px}
 }
+
+.article-note{padding:var(--reading-heading-gap);margin-bottom:var(--reading-block);border:1px solid var(--brand-black);font-size:1rem;line-height:var(--reading-leading)}
