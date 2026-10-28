@@ -3,3 +3,6 @@
 .dev.vars
 .dev.vars.*
 .wrangler
+
+# 仅排除无运行引用的历史根目录文件，保留其他 archived 资源
+archived/legacy-root/
