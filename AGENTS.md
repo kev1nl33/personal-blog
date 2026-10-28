@@ -39,22 +39,6 @@ import requests
 - **常量**: `UPPER_SNAKE_CASE` (如 `BASE_URL`)
 - **类**: `PascalCase` (如 `ArticleParser`)
 
-### 错误处理
-```python
-try:
-    response = requests.post(url, headers=HEADERS, json=payload)
-    response.raise_for_status()
-    return response.json()['results']
-except requests.exceptions.RequestException as e:
-    print(f"❌ API 请求失败: {e}")
-    return []
-except Exception as e:
-    print(f"❌ 处理失败: {e}")
-    import traceback
-    traceback.print_exc()
-    return []
-```
-
 ### 字符串格式化
 使用 f-string（Python 3.6+）：
 ```python
@@ -321,6 +305,8 @@ element.dataset.value = 'some-value';
 
 ## 页面维护
 
+- 新增导航项或改动主导航时，先确认内容入口，再按 `id="site-menu"` 批量同步所有共享导航页并逐页核对 `aria-current` 和移动端菜单；独立导航与明确禁止修改的页面保留并记录例外。
+
 直接编辑 HTML、CSS 和 JavaScript；保持文章正文、已发布 URL 和本地资源链接完整。敏感配置使用环境变量，不写入前端。
 
 ## 测试与验证
@@ -362,5 +348,5 @@ A: 运行 `node scripts/image-optimizer.js` 或手动使用工具压缩图片。
 ---
 
 **维护者**: Kevin
-**最后更新**: 2025-01-03
+**最后更新**: 2026-10-28
 **项目主页**: https://github.com/kev1nl33/personal-blog
