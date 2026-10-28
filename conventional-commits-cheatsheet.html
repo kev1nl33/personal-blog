@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<script src="scripts/theme-init.js?v=theme-1"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Git 约定式提交（Conventional Commits）速查 - 计划李</title>
+<meta name="description" content="一句话：给 Git 提交信息加上统一的类型前缀，让人一眼看懂这次修改，也方便工具自动生成更新日志和判断版本变化。">
+<meta name="keywords" content="Git,Conventional Commits,约定式提交,开发工具,个人成长">
+<meta name="author" content="计划李">
+<meta property="og:type" content="article"><meta property="article:published_time" content="2026-10-28"><meta property="article:section" content="个人成长">
+<meta property="og:title" content="Git 约定式提交（Conventional Commits）速查 - 计划李">
+<meta property="og:description" content="一句话：给 Git 提交信息加上统一的类型前缀，让人一眼看懂这次修改，也方便工具自动生成更新日志和判断版本变化。">
+<meta property="og:url" content="https://aikevin.dpdns.org/conventional-commits-cheatsheet.html">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="canonical" href="https://aikevin.dpdns.org/conventional-commits-cheatsheet.html">
+<link rel="stylesheet" href="styles/main.css?v=theme-1">
+<link rel="stylesheet" href="styles/article.css?v=335dd96da0">
+<link rel="stylesheet" href="styles/motion.css?v=ab6622564641">
+<meta property="og:image" content="https://aikevin.dpdns.org/images/travel/singapore-2025/singapore-147.jpg">
+<link rel="stylesheet" href="styles/search.css?v=site-search-1">
+</head>
+<body class="article-page">
+<a class="skip-link" href="#main">跳到内容</a>
+<nav class="site-nav" aria-label="主导航"><div class="container nav-inner">
+<a class="nav-logo" href="index.html" aria-label="计划李 首页">计划李<span aria-hidden="true">▪</span></a>
+<button class="nav-toggle" aria-controls="site-menu" aria-expanded="false" aria-label="打开菜单" hidden>菜单 <span aria-hidden="true">＋</span></button>
+<ul class="nav-links" id="site-menu"><li><a href="index.html" class="nav-link">首页</a></li><li><a href="blog.html" class="nav-link" aria-current=page>文章</a></li><li><a href="visual-design.html" class="nav-link">认知武器</a></li><li><a href="coffee.html" class="nav-link">咖啡角</a></li><li><a href="travel.html" class="nav-link">看世界</a></li><li><a href="gallery.html" class="nav-link">回忆录</a></li><li><a href="/second-brain/" class="nav-link">第二大脑</a></li><li><a href="about.html" class="nav-link">关于</a></li></ul><button class="theme-toggle" type="button" aria-pressed="false" aria-label="切换到深色模式" hidden><svg class="theme-icon theme-icon--moon" viewBox="0 0 20 20" aria-hidden="true"><path fill="currentColor" d="M14.2 11.6A5.4 5.4 0 0 1 8.2 4.4 6.2 6.2 0 1 0 15.6 13a5.4 5.4 0 0 1-1.4-1.4Z"></path></svg></button><button class="search-trigger" type="button" data-search-open aria-label="搜索全站" aria-haspopup="dialog"><svg aria-hidden="true" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="8.5" cy="8.5" r="5.5"></circle><path d="m13 13 4 4"></path></svg><span class="search-trigger-label">搜索</span><kbd aria-hidden="true">/</kbd></button></div></nav>
+<main id="main" tabindex="-1">
+<div class="reading-progress" aria-hidden="true"><span id="reading-progress"></span></div>
+<div class="article-layout container"><article class="article-document"><header class="article-header"><a class="breadcrumb" href="blog.html">← 文章档案</a><p class="coordinate">个人成长</p><h1>Git 约定式提交（Conventional Commits）速查</h1><p class="article-deck">一句话：给 Git 提交信息加上统一的类型前缀，让人一眼看懂这次修改，也方便工具自动生成更新日志和判断版本变化。</p><div class="article-meta"><time datetime="2026-10-28">2026-10-28</time><span>8 分钟阅读</span></div></header><div class="article-content">
+<blockquote><p>一句话：给 Git 提交信息加上统一的类型前缀，让人一眼看懂这次修改，也方便工具自动生成更新日志和判断版本变化。</p></blockquote>
+<h2>一、标准格式</h2>
+<pre><code class="language-text">&lt;type&gt;[可选的(scope)][可选的!]: &lt;description&gt;
+
+[可选的正文 body]
+
+[可选的页脚 footer]
+</code></pre>
+<p>最常用的是简化版：</p>
+<pre><code class="language-text">类型(模块): 简短描述
+</code></pre>
+<p>例如：</p>
+<pre><code class="language-text">feat(today): add daily lesson
+fix(auth): resolve login redirect issue
+docs: update README
+</code></pre>
+<ul>
+<li><strong>type（类型）</strong>：这次改动属于哪一类，例如 <code>feat</code>、<code>fix</code>。</li>
+<li><strong>scope（范围）</strong>：改动涉及的模块，例如 <code>auth</code>、<code>ui</code>、<code>api</code>，可以省略。</li>
+<li><strong>description（描述）</strong>：简短说明究竟做了什么；建议具体、直接。</li>
+<li><strong>!</strong>：标记破坏性变更（Breaking Change），一般不常用。</li>
+<li><strong>body / footer</strong>：需要解释背景、迁移方法或关联 Issue 时再写。</li>
+</ul>
+<h2>二、常见提交类型</h2>
+<table><thead><tr><th>类型</th><th>英文原意</th><th>什么时候用</th><th>示例</th></tr></thead><tbody><tr><td><code>feat</code></td><td>feature</td><td>新增功能</td><td><code>feat(search): add keyword filtering</code></td></tr><tr><td><code>fix</code></td><td>fix</td><td>修复 Bug</td><td><code>fix(ui): prevent button double click</code></td></tr><tr><td><code>refactor</code></td><td>refactor</td><td>调整代码结构，但不新增功能、不修复 Bug</td><td><code>refactor(api): simplify query logic</code></td></tr><tr><td><code>docs</code></td><td>documentation</td><td>只修改文档</td><td><code>docs: update setup guide</code></td></tr><tr><td><code>test</code></td><td>test</td><td>新增或修改测试</td><td><code>test(auth): add login tests</code></td></tr><tr><td><code>style</code></td><td>style</td><td>只调整代码格式，不改变逻辑</td><td><code>style: apply code formatting</code></td></tr><tr><td><code>perf</code></td><td>performance</td><td>性能优化</td><td><code>perf(graph): reduce render time</code></td></tr><tr><td><code>build</code></td><td>build</td><td>修改构建工具、依赖和打包配置</td><td><code>build(deps): upgrade Next.js</code></td></tr><tr><td><code>ci</code></td><td>continuous integration</td><td>修改 CI/CD 自动化流程</td><td><code>ci: add GitHub Actions checks</code></td></tr><tr><td><code>chore</code></td><td>chore</td><td>其他日常维护工作</td><td><code>chore: remove obsolete scripts</code></td></tr><tr><td><code>revert</code></td><td>revert</td><td>撤销以前的提交</td><td><code>revert: revert search feature</code></td></tr></tbody></table>
+<blockquote><p>规范中有明确版本语义的是 <code>feat</code>、<code>fix</code> 和破坏性变更标记。其余类型是社区常见约定，并非官方强制的完整清单。团队可按需要扩展。</p></blockquote>
+<h3>容易混淆的几组</h3>
+<ul>
+<li><strong><code>feat</code> vs <code>fix</code></strong>：增加原先没有的能力是 <code>feat</code>；原本应该正常工作却出错了，修好它是 <code>fix</code>。</li>
+<li><strong><code>refactor</code> vs <code>feat</code></strong>：重构只改变实现方式、保持外部行为；新增用户可感知的功能用 <code>feat</code>。</li>
+<li><strong><code>style</code> vs UI 样式</strong>：这里的 <code>style</code> 通常指代码格式（空格、缩进、分号等），<strong>不是</strong>“修改页面视觉样式”的通用标签。改变用户界面行为或外观时，要根据实际改动选择 <code>feat</code>、<code>fix</code> 或 <code>refactor</code> 等。</li>
+<li><strong><code>build</code> vs <code>ci</code> vs <code>chore</code></strong>：构建与依赖用 <code>build</code>；GitHub Actions 等自动化流水线用 <code>ci</code>；其他杂项维护用 <code>chore</code>。</li>
+<li><strong><code>docs</code> vs <code>chore</code></strong>：修改 README、教程等文档时，优先用更准确的 <code>docs</code>。</li>
+</ul>
+<h2>三、在 Cyber 2nd Brain 项目里怎么写</h2>
+<pre><code class="language-text">feat(today): add daily lesson and review section
+fix(today): show correct daily review status
+feat(graph): support node filtering
+perf(graph): improve graph rendering speed
+refactor(database): extract shared query helpers
+test(graph): cover node filtering behavior
+docs(readme): explain local development setup
+build(deps): update project dependencies
+ci(github): run tests on pull requests
+chore: remove unused assets
+</code></pre>
+<p><code>today</code>、<code>graph</code>、<code>database</code> 等模块名只是示例，不是固定词汇。一个项目最好保持模块命名一致。</p>
+<p><strong>实用原则：一次提交尽量只做一类相关改动。</strong> 比如同时“新增筛选”和“修复登录问题”，如果可以独立提交，最好拆成两次，未来排查和回退会容易得多。</p>
+<h2>四、破坏性变更与版本号</h2>
+<p>如果改动会让已有接口、调用方式或配置不再兼容，可以加 <code>!</code>：</p>
+<pre><code class="language-text">feat(api)!: change authentication response format
+</code></pre>
+<p>也可以在页脚中详细说明：</p>
+<pre><code class="language-text">feat(api): change authentication response format
+
+BREAKING CHANGE: clients must now read access_token instead of token.
+</code></pre>
+<p>Conventional Commits 与语义化版本（SemVer）可以对应：</p>
+<table><thead><tr><th>提交含义</th><th>版本变化（在正式版本 1.0.0 及以上的一般规则）</th><th>举例</th></tr></thead><tbody><tr><td><code>fix</code></td><td>PATCH：修订版本</td><td><code>1.2.3</code> → <code>1.2.4</code></td></tr><tr><td><code>feat</code></td><td>MINOR：次版本</td><td><code>1.2.3</code> → <code>1.3.0</code></td></tr><tr><td><code>!</code> 或 <code>BREAKING CHANGE</code></td><td>MAJOR：主版本</td><td><code>1.2.3</code> → <code>2.0.0</code></td></tr></tbody></table>
+<p>这表示<strong>可以用自动化工具据此决定版本号</strong>，并不意味着执行 <code>git commit</code> 就会自动升级版本。低于 <code>1.0.0</code> 的版本和具体发布工具也可能有不同策略。</p>
+<h2>五、常用 Git 命令</h2>
+<p>创建提交：</p>
+<pre><code class="language-bash">git add .
+git commit -m &quot;feat(search): add keyword filtering&quot;
+</code></pre>
+<p>查看精简提交历史：</p>
+<pre><code class="language-bash">git log --oneline -20
+</code></pre>
+<p>查看带分支线的提交树：</p>
+<pre><code class="language-bash">git log --all --graph --decorate --oneline -20
+</code></pre>
+<p><code>git add .</code> 会暂存当前目录下的所有相关变更；如果只想提交部分文件，建议改用 <code>git add &lt;文件路径&gt;</code>，先检查 <code>git status</code> 和 <code>git diff --staged</code>。</p>
+<h2>六、给自己和 AI 编程助手的简单规则</h2>
+<p>个人项目没必要一开始记住全部类型。优先掌握以下六个：</p>
+<pre><code class="language-text">feat      新功能
+fix       修 Bug
+refactor  代码重构
+docs      文档
+test      测试
+chore     日常维护
+</code></pre>
+<p>可以放进 AI 编程助手的项目指令：</p>
+<blockquote><p>请使用 Conventional Commits 格式撰写 Git 提交信息：<code>type(scope): description</code>。优先使用 <code>feat</code>、<code>fix</code>、<code>refactor</code>、<code>docs</code>、<code>test</code>、<code>chore</code>；描述要具体，并基于实际代码改动选择类型。若包含不兼容变更，明确标记 <code>!</code> 或 <code>BREAKING CHANGE</code>。不要把不相关的改动混进同一次提交。</p></blockquote>
+<h2>七、来源与延伸阅读</h2>
+<p>Conventional Commits 不是 Git 或 GitHub 的强制功能。它深受 Angular 项目提交规范的影响，由开源社区协作形成独立规范，目的是让提交历史更易读、可被工具解析。</p>
+<ul>
+<li><a href="https://www.conventionalcommits.org/zh-hans/v1.0.0/">Conventional Commits 1.0.0 官方规范（中文）</a></li>
+<li><a href="https://www.conventionalcommits.org/en/about/">Conventional Commits 官方介绍（英文）</a></li>
+<li><a href="https://github.com/angular/angular/blob/main/contributing-docs/commit-message-guidelines.md">Angular 提交信息指南</a></li>
+<li><a href="https://github.com/conventional-commits/conventionalcommits.org">规范的 GitHub 仓库</a></li>
+</ul>
+<hr>
+<p><em>整理日期：2026-10-28。本文是个人速查笔记，不是对完整规范的逐字翻译。</em></p></div><footer class="article-end"><p class="coordinate">记录至此，生活继续。</p><a class="text-link" href="blog.html">继续阅读其他文章 →</a></footer></article><aside class="article-toc" aria-label="文章目录" hidden><details open><summary>本篇目录</summary><nav id="toc-list" aria-label="章节"></nav></details></aside></div>
+
+</main>
+<footer class="site-footer"><div class="container footer-inner"><a class="footer-brand" href="index.html">计划李<span aria-hidden="true">▪</span></a><p>持续观察，认真生活。<br><span class="footer-copy">© 2026 Kevin · 计划李</span></p><nav aria-label="页脚"><a href="about.html">关于</a><a href="https://www.zhihu.com/people/xia-yu-de-xia-tian-40" target="_blank" rel="noopener noreferrer">知乎 ↗</a><a href="https://github.com/kev1nl33" target="_blank" rel="noopener noreferrer">GitHub ↗</a></nav></div></footer>
+<button class="back-to-top" aria-label="回到顶部" hidden>↑</button>
+<script src="scripts/main.js?v=theme-1" defer></script>
+<script src="scripts/toc.js?v=335dd96da0" defer></script>
+<script src="scripts/motion.js?v=ab6622564641" defer></script>
+<script src="scripts/search.js?v=site-search-1" defer></script>
+</body></html>
