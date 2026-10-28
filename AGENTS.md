@@ -308,7 +308,10 @@ element.dataset.value = 'some-value';
 - 根目录文章 HTML 是唯一维护来源，不新增 frontmatter。分类保存为 `<meta property="article:section">`；`article:type`（essay / note / cheatsheet）、`article:lang`（zh / en）、`article:featured`（true / false）、`article:series`、`article:series_order`、`article:updated` 使用相同的 property/content 结构，后三项可空。
 - 分类固定为职业转型、AI 与工具、投资、自我认知、家庭与生活、读书笔记；列表 URL 值依次为 career、ai、investment、personal、life、reading。英文文章的分类显示为英文，元数据仍用统一分类值。
 - 标签存于重复的 `article:tag` meta，每篇 1–3 个。维护时同步 blog.html 卡片的 data-category、data-tags、data-type 和筛选入口；搜索索引从 HTML 派生。
-- 首页最近四篇只展示 essay；精选按首页顺序手工维护，article:featured 与精选保持一致。series 本阶段留空，后续系列维护另行安排。
+- 首页最近四篇只展示 essay；精选按首页顺序手工维护，article:featured 与精选保持一致。
+- `series/` 只放直接维护的系列索引 HTML，使用 kebab-case 命名；共享样式在 `styles/series.css`，资源和站内链接相对当前页面解析。canonical 与 sitemap 使用无 `.html` 地址，搜索索引保留实际 `.html` 路径。
+- 系列成员设置 `article:series` 与从 1 开始的 `article:series_order`；正文之外添加系列返回入口和顺序导航，首篇无上一篇、末篇无下一篇。番外仅列在索引页，不混入正篇编号。
+- 人生体验券正文之前使用统一信息框（周期、投入、一句话结果、给生活打分）；从正文提炼事实，未提供的分数写「待补」，不推测。系列页、搜索索引、sitemap 和导航检查随成员变动同步维护。
 - 不通过旧模板或 data 缓存重新生成 HTML；调整分类和标签不改文章正文或 SEO 摘要。更新后运行搜索索引生成和既有测试。
 
 ## 页面维护
