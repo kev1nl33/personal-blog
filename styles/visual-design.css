@@ -1,5 +1,11 @@
 /* The HTML problem index is the content source. Keep these styles page-scoped. */
 .visual-design-page{--tool-paper:#fffdf7;--tool-warm:#ebe9df;--tool-ink:var(--brand-black);--tool-muted:#55554c;--tool-accent:#b93600;--tool-line:#c9c8bd;--tool-gap:24px;--tool-space:48px;--tool-title:clamp(40px,7vw,82px)}
+/* 深色沿用全站语义色，反色控件的文字使用 on-ink。 */
+:root[data-theme="dark"] .visual-design-page{--tool-paper:var(--surface);--tool-warm:var(--surface-muted);--tool-muted:var(--ink-muted);--tool-accent:var(--brand-accent);--tool-line:var(--hairline)}
+:root[data-theme="dark"] .visual-design-page :is(.finder-input button,.problem-shortcut:hover,.problem-shortcut[aria-pressed=true],.topic-filters button[aria-pressed=true],.topic-filters button[aria-pressed=true] span,.more-tools button:hover,.tool-empty button:hover){color:var(--on-ink)}
+:root[data-theme="dark"] .visual-design-page :is(.problem-shortcut:hover,.problem-shortcut[aria-pressed=true]) .shortcut-number{color:var(--on-ink)}
+:root[data-theme="dark"] .visual-design-page .finder-input input::placeholder{color:var(--placeholder)}
+:root[data-theme="dark"] .visual-design-page :is(.more-tools button,.tool-empty button){color:var(--tool-ink)}
 .visual-design-page [hidden]{display:none!important}
 .cognitive-hero{padding-top:56px;padding-bottom:40px;display:grid;gap:32px}
 .cognitive-eyebrow,.finder-coordinate,.section-kicker>span,.shortcut-number,.tool-number{font-family:var(--font-mono);font-size:12px;letter-spacing:.09em}
