@@ -3,7 +3,8 @@ import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-EXCLUDED = {'test.html', 'article1.html', 'coffee-backup-20260109.html'}
+ARCHIVED_FIXTURES = ROOT / 'archived/legacy-root'
+LEGACY_PAGES = {'test.html', 'article1.html', 'coffee-backup-20260109.html'}
 
 
 def root_pages():
@@ -12,7 +13,7 @@ def root_pages():
 
 def in_scope(path):
     name = path.name
-    if name.startswith('coffee') or name in EXCLUDED:
+    if name.startswith('coffee'):
         return False
     return 'class="site-nav"' in path.read_text(encoding='utf-8')
 
@@ -30,11 +31,18 @@ class ThemeWiringTests(unittest.TestCase):
 
     def test_coffee_projects_and_fixtures_stay_light(self):
         for path in root_pages():
-            if path.name.startswith('coffee') or path.name in EXCLUDED:
+            if path.name.startswith('coffee'):
                 text = path.read_text(encoding='utf-8')
                 with self.subTest(page=path.name):
                     self.assertNotIn('theme-init.js', text)
                     self.assertNotIn('theme-toggle', text)
+        for name in sorted(LEGACY_PAGES):
+            path = ARCHIVED_FIXTURES / name
+            with self.subTest(page=str(path.relative_to(ROOT))):
+                self.assertFalse((ROOT / name).exists())
+                text = path.read_text(encoding='utf-8')
+                self.assertNotIn('theme-init.js', text)
+                self.assertNotIn('theme-toggle', text)
         for path in (ROOT / 'projects').rglob('*.html'):
             text = path.read_text(encoding='utf-8', errors='replace')
             with self.subTest(page=str(path.relative_to(ROOT))):

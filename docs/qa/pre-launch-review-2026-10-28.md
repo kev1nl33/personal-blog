@@ -11,7 +11,7 @@ PR：[草稿 PR #31](https://github.com/kev1nl33/personal-blog/pull/31)。预览
 1. 九个诊断和历史文件已归档并精确排除部署，未检出疑似密钥；已发布版本及 Git 历史中的公开情况仍需关注。
 2. 打开首页、文章列表、一篇体验券、系列页、404，并在手机宽度检查导航、整卡点击及年份筛选。
 3. 八篇新摘要见第 5 节；七篇文首提示按发布时间校正，正文其余内容保持不变。
-4. `name-explain` 保留原样、公开邮箱及三个保留的旧 HTML 是否继续公开，共 3 项拍板事项见第 4 节。
+4. `name-explain` 保留原样、公开邮箱继续公开；三个旧 HTML 已按站长决定下线，3 项确认结果见第 4 节。
 5. 仅在满意后按项目上线流程合并；D1、D2、D3 可分别回退。已有旧资料异常与动态资源未验证范围见第 6、7 节。
 
 ## 1. 最高优先级：安全检查结果（任务 A1）
@@ -30,21 +30,21 @@ PR：[草稿 PR #31](https://github.com/kev1nl33/personal-blog/pull/31)。预览
 | article1.html | 域名/网络服务配置 |
 | coffee-backup-20260109.html | 域名/网络服务配置 |
 
-部署判断（A1 原始状态）：当时 `.assetsignore` 只排除本地环境与状态文件，未排除这八个文件；根目录为静态构建输出，它们可能随部署公开。A2 修正后，五个非 HTML 诊断文件已移入精确排除的 `archived/legacy-root/`；三个 HTML 仍保留原位，可能公开。`_redirects` 没有针对它们的规则；未修改该文件。
+部署判断（A1 原始状态）：当时 `.assetsignore` 只排除本地环境与状态文件，未排除这八个文件；根目录为静态构建输出，它们可能随部署公开。A2 修正后，五个非 HTML 诊断文件已移入精确排除的 `archived/legacy-root/`；三个 HTML 当时保留原位。✅ 站长第 3 项拍板现已落地：三文件原样移入同一归档目录，根路径移除，带/不带 `.html` 的 URL 在静态服务中返回 404；部署继续精确排除该目录。`_redirects` 保持不变，使用站点已有 `404.html` 的缺页机制。
 
 收录判断：`robots.txt` 允许根目录抓取，仅限制脚本目录及 JSON URL。两个 JSON 报告受到抓取限制，但 robots 不是访问控制，也不能保证 URL 不被索引。其他六个文件没有对应禁止规则。三个 HTML 均无 noindex，且未出现在当前 sitemap 或搜索索引；未收录不等于不可公开访问。
 
 未检出疑似密钥值，因此没有已确认需要轮换的凭据；若后续人工发现疑似密钥，应轮换相应密钥，历史记录仍然存在，不改写 Git 历史。
 
 
-归档后：含网络信息的两个诊断脚本及其报告现位于 `archived/legacy-root/`，该目录加入 `.assetsignore`。已有线上部署和 Git 历史不会因本分支归档而消失。三个 HTML 按边界保留，不改变公开规则。
+归档后：含网络信息的两个诊断脚本及其报告现位于 `archived/legacy-root/`，该目录加入 `.assetsignore`。已有线上部署和 Git 历史不会因本分支归档而消失。✅ 三个 HTML 已按站长明确授权移入同目录归档，不再从根路径提供正文；此前已发布部署和 Git 历史仍需区分。
 
 ## 2. 任务完成表
 
 | 编号 | 任务 | 状态（✅/⚠️部分/❌） | 对应 commit | 备注 |
 | --- | --- | --- | --- | --- |
 | A1 | 八个诊断文件与部署、收录规则 | ✅ | e6dbb74 | 未检出疑似密钥，存在私有/本地 IP 与网络配置类型 |
-| A2 | 引用检查与根目录归档 | ✅ | 6a0db15、b5dd46a、434b6fe | 九个非 HTML 归档；三个 HTML 保留；仅排除新归档目录 |
+| A2 | 引用检查与根目录归档 | ✅ | 6a0db15、b5dd46a、434b6fe | ✅ 九个非 HTML 与三个获批下线 HTML 均已归档；仅排除该归档目录 |
 | B1 | 文首「写于」提示 | ✅ | b5dd46a | 七篇原有提示统一样式；两篇月份校正 |
 | B2 | 八篇摘要改写 | ✅ | 24c0bf2 | description、OG、deck、列表、索引同步 |
 | B3 | 标题摘要标点 | ✅ | 46b7f56、113e4a9 | living-in-the-moment 引号修正；其余标题摘要未发现指定标点问题 |
@@ -71,7 +71,7 @@ PR：[草稿 PR #31](https://github.com/kev1nl33/personal-blog/pull/31)。预览
 - B1：七篇已有提示，未重复添加；都使用最小 article-note，月份以 published_time 为准，其中 breaking-decision-paralysis-with-ai 为 2025-10、ai-career-tools 为 2025-02。原因是说明书列举月份与页面实际发布时间不一致，采用明确的日期来源。回退时只恢复七篇提示和 styles/article.css，并重建索引，不整体回退混合提交 b5dd46a。
 - 最终检查补充 404 canonical；保留 noindex、不加入 sitemap。未使用新 Tailwind 工具类，所以不运行无关 CSS 构建，不引入依赖。
 
-- 新目录结构约定（先于目录创建及移动）：`archived/legacy-root/` 仅保存本轮确认无运行引用的根目录非 HTML 历史文件，保留原文件名；诊断脚本及对应输出同目录成组存放，不修改内容。该目录精确排除出静态部署，不放新页面或生产资源；后续仅在重新检查运行引用后归档，删除或恢复须另行明确授权，不自动清理。既有 `archived/html/`、`archived/scripts/`、`archived/styles/` 保持原规则。
+- 新目录结构约定（先于目录创建及移动）：`archived/legacy-root/` 保存本轮确认无运行引用的根目录非 HTML 历史文件，以及站长明确批准下线的 `test.html`、`article1.html`、`coffee-backup-20260109.html`，保留原文件名；诊断脚本及对应输出同目录成组存放，不修改内容。该目录精确排除出静态部署，不放新页面或生产资源；后续仅在重新检查运行引用后归档，删除或恢复须另行明确授权，不自动清理。既有 `archived/html/`、`archived/scripts/`、`archived/styles/` 保持原规则。
 
 A2 引用判断（修正）：说明书和审计文档中的任务提及不构成运行引用。按指定范围扫描全部 HTML、sitemap.xml、search-index.json、service-worker.js、tests/、scripts/、根目录 generate_*.py、validate_site.py、_redirects；使用完整文件名边界匹配，仅输出引用文件名，不输出原始行。诊断脚本与输出之间的引用按成组归档处理；历史计划文件之间的文档提及不作为运行依赖。
 
@@ -82,29 +82,29 @@ A2 引用判断（修正）：说明书和审计文档中的任务提及不构�
 | network_diagnostics.py | 无 | 与输出成组 git mv 至 archived/legacy-root/ |
 | network_diagnostic_report.json | 指定运行范围无引用；诊断脚本有输出文件名引用 | 与脚本同目录归档 |
 | opencode_update_summary.txt | 无 | git mv 至 archived/legacy-root/ |
-| test.html | generate_search_index.py、generate_sitemap.py、tests/test_theme.py | 有运行引用且 HTML 硬边界，保留 |
-| article1.html | generate_search_index.py、generate_sitemap.py、tests/test_theme.py | 有运行引用且 HTML 硬边界，保留 |
-| coffee-backup-20260109.html | tests/test_theme.py | 有运行引用且 HTML 硬边界，保留 |
+| test.html | 生成脚本排除项；主题测试 | ✅ 原样归档；生成脚本保留防重新收录排除项，主题测试改读归档路径 |
+| article1.html | 生成脚本排除项；主题测试 | ✅ 原样归档；生成脚本保留防重新收录排除项，主题测试改读归档路径 |
+| coffee-backup-20260109.html | tests/test_theme.py | ✅ 原样归档；主题测试改读归档路径 |
 | task_plan.md | 无 | git mv 至 archived/legacy-root/ |
 | findings.md | 无 | git mv 至 archived/legacy-root/ |
 | progress.md | 无 | git mv 至 archived/legacy-root/ |
 | Coffee_redesign.md | 无 | git mv 至 archived/legacy-root/ |
 
-三个 HTML 均不在当前 sitemap 和搜索索引；这不改变禁止移动任何 HTML 的硬边界。此前将任务文档提及算作运行引用、以既有归档互链阻止精确排除的判断已在本次修正。
+三个 HTML 均不在当前 sitemap 和搜索索引；站长本次明确批准仅这三文件下线，其他 HTML 维护边界不变。此前将任务文档提及算作运行引用、以既有归档互链阻止精确排除的判断已在本次修正。
 
 归档排除判断：仅在 `.assetsignore` 加入 `archived/legacy-root/`，保留既有 `archived/html/` 及其链接目标的部署规则。新目录九个文件保留内容和文件名，诊断脚本及输出位于同一目录；不运行历史诊断脚本。排除部署不等于清除历史泄露或撤回既有线上内容。
 
-做了什么：使用 git mv 归档九个无运行引用的非 HTML 文件并精确排除新目录。为什么：移除根目录历史杂物及诊断公开风险，同时保护现有资源路径。提交归属：共享暂存区发生并发提交，九个移动实际进入主线程的 b5dd46a，本次 fix 只提交排除规则、结构约定及复核记录，不重写历史或重复移动。如何回退：须分别恢复九个原路径并撤销本次精确排除规则；不要整体回退 b5dd46a，因为它同时包含主线程 B1 改动。本 A2 操作没有改动任何 HTML、保护目录或 `_redirects`。
+做了什么：使用 git mv 归档九个无运行引用的非 HTML 文件并精确排除新目录。为什么：移除根目录历史杂物及诊断公开风险，同时保护现有资源路径。提交归属：共享暂存区发生并发提交，九个移动实际进入主线程的 b5dd46a，本次 fix 只提交排除规则、结构约定及复核记录，不重写历史或重复移动。如何回退：须分别恢复九个原路径并撤销本次精确排除规则；不要整体回退 b5dd46a，因为它同时包含主线程 B1 改动。原 A2 操作没有改动任何 HTML、保护目录或 `_redirects`。本次追加三份 HTML 的获批下线，内容原样保留，不改 `_redirects`。
 
 
 
-## 4. 需要你拍板的事
+## 4. 站长拍板结果（已确认）
 
-共 3 项，均不阻塞本次草稿 PR 交付：
+共 3 项已确认，第 3 项本次落地；无需重复决策：
 
-1. `name-explain.html` 中女儿名字：遵照已有决定保留原样，本次不修改标题、摘要、URL 或导航，由站长自行决定未来公开范围。
-2. AGENTS.md 的明文邮箱：站点 mailto 本来公开，本次保留，只提醒公开范围。
-3. `test.html`、`article1.html`、`coffee-backup-20260109.html`：有运行/测试引用，且禁止移动已发布 HTML，本次原路径保留；是否以后单独处理其公开访问与历史结构问题，由站长决定。
+1. ✅ `name-explain.html`：站长决定保留原样，本次不修改。
+2. ✅ 公开邮箱：站长决定继续公开，本次不修改。
+3. ✅ `test.html`、`article1.html`、`coffee-backup-20260109.html`：站长决定下线。三文件已 `git mv` 至部署排除目录 `archived/legacy-root/`，不改正文；主题测试改为归档路径并断言根文件不存在。搜索和地图生成器只扫描根目录/series，原有排除项不要求文件存在，保留作为防重新收录保护。重建索引与地图，保留全部 `/projects/` 条目。旧路径带/不带 `.html` 均应返回 404。回退仅恢复这三个根文件及相关测试，重新生成索引并验证；恢复公开须另行授权。
 
 RSS 不做、评论暂缓、不新增精选页均按已有决定执行，不重复请求决策。
 
@@ -154,6 +154,13 @@ RSS 不做、评论暂缓、不新增精选页均按已有决定执行，不重�
 
 ## 6. 验证结果
 
+### 三份旧 HTML 下线追加验证
+
+- 归档内容逐文件与移动前 Git 对象比较一致；`_redirects`、name-explain、公开邮箱及正常页面均未修改。
+- 本次 `npm test`：Python 40 项、Node 52 项全部通过；`validate_site.py`：52 个受管页面、0 错误；索引 `--check` 通过，仍为 53 页。搜索索引、sitemap 与 robots 重建后无内容差异，sitemap 仍为 166 项，108 个 projects 条目及元数据逐项一致。
+- 本地 Python HTTP 服务实测：首页 `/`、`/blog.html`、`/career-transition.html` 均为 200；`/test`、`/article1`、`/coffee-backup-20260109` 及各自 `.html` 路径均为 404。实际 Cloudflare 分支预览尚未验证，不将本地结果表述为线上结果。
+- 验收记录与提交号见仓库外 `~/cc-tasks/blog-polish/offline-3html-summary.md`；下方为此前全站复核的历史结果。
+
 - A 阶段原始两轮、B、C、D、E 及最终验证都运行 npm test、validate_site、索引 --check。A2 归档修正后的验证由主线程随 B 和后续阶段统一完成。最终 npm test：Python 40 项、Node 52 项，全部通过；validate_site：52 个受管页面、0 错误；索引：53 页，--check 退出码 0。
 - 四十篇临时审计：必需属性、标签、摘要一致性、品牌图、canonical/og:url、回信、投资声明、列表元数据、体验券框与系列入口无异常。既有系列测试验证 11 篇成员顺序、prev/next 首尾及六张体验券分数。与基线逐篇比较 article-content，排除七篇 B1 提示后无任何差异。
 - sitemap：166 项，108 个 projects 项及其元数据保留；最后在 HTML 提交后重建以匹配 Git 日期，now 保留约定的 .html 例外，404 不收录。
@@ -175,7 +182,7 @@ RSS 不做、评论暂缓、不新增精选页均按已有决定执行，不重�
 
 ## 8. 上线步骤（给站长）
 
-1. 打开 PR 与预览地址（当前未获取），看首页、文章列表、一篇体验券、系列页、404；没有预览时可先本地查看截图与页面。
+1. 打开 PR 与预览地址（当前未获取），看首页、文章列表、一篇体验券、系列页、404；预计分支预览基址为 `https://polish-pre-launch.personal-blog-7ns.pages.dev`，实际发布状态需另行核验。
 2. 在手机宽度下看导航和文章列表，并核对第 4 节三个公开范围事项。
 3. 对不满意的项按第 3 节回退对应提交，重新生成索引并验证。
 4. 按 docs/RELEASE.md 由站长完成书面复核和上线审批，再合并 PR，等待 Cloudflare Pages 部署；本任务不会代为合并或生产部署。
