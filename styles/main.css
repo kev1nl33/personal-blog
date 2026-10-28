@@ -78,3 +78,5 @@ h1,h2,h3,h4,p,ul,ol{margin:0}button,input,select,textarea{font:inherit}button,a{
 :is(.home-page,.archive-page) :is(.blog-card,.feature-story) h2 a::after{content:"";position:absolute;inset:0}
 :is(.home-page,.archive-page) :is(.blog-card,.feature-story) h2 a:focus-visible{outline:none}
 :is(.home-page,.archive-page) :is(.blog-card,.feature-story) h2 a:focus-visible::after{outline:3px solid var(--brand-blue);outline-offset:4px}
+
+.archive-year{grid-column:1/-1;font:700 24px var(--font-mono);padding-block:var(--spacing-lg) var(--spacing-sm)}

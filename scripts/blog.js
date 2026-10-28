@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   const grid = document.getElementById('blogGrid');
   if (!grid) return;
+  const years = [...grid.querySelectorAll('.archive-year')];
   const cards = [...grid.querySelectorAll('.blog-card')];
   const input = document.getElementById('searchInput');
   const tag = document.getElementById('tagFilter');
@@ -25,6 +26,9 @@ document.addEventListener('DOMContentLoaded', () => {
         (tag.value === 'all' || record.tags.includes(tag.value)) && (!query || record.text.includes(query));
       record.card.hidden = !match;
       if (match) visible++;
+    });
+    years.forEach(heading => {
+      heading.hidden = !records.some(record => !record.card.hidden && record.card.querySelector('time').dateTime.startsWith(heading.dataset.year));
     });
     buttons.forEach(button => {
       const active = button.dataset.category === category;
