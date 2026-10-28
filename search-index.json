@@ -12,7 +12,10 @@
     "series": null,
     "series_order": null,
     "updated": null,
-    "tags": []
+    "tags": [
+      "身份与转型",
+      "自我觉察"
+    ]
   },
   {
     "url": "Product-thinking.html",
@@ -27,7 +30,10 @@
     "series": null,
     "series_order": null,
     "updated": null,
-    "tags": []
+    "tags": [
+      "决策与方法",
+      "AI 工具"
+    ]
   },
   {
     "url": "about.html",
@@ -50,7 +56,10 @@
     "series": null,
     "series_order": null,
     "updated": null,
-    "tags": []
+    "tags": [
+      "AI 工具",
+      "开发工具"
+    ]
   },
   {
     "url": "ai-subscriptions-review.html",
@@ -65,7 +74,9 @@
     "series": null,
     "series_order": null,
     "updated": null,
-    "tags": []
+    "tags": [
+      "AI 工具"
+    ]
   },
   {
     "url": "ai-tools-without-illusions.html",
@@ -80,7 +91,10 @@
     "series": null,
     "series_order": null,
     "updated": null,
-    "tags": []
+    "tags": [
+      "AI 工具",
+      "自我觉察"
+    ]
   },
   {
     "url": "blog.html",
@@ -103,7 +117,9 @@
     "series": null,
     "series_order": null,
     "updated": null,
-    "tags": []
+    "tags": [
+      "身份与转型"
+    ]
   },
   {
     "url": "breaking-decision-paralysis-with-ai.html",
@@ -118,7 +134,10 @@
     "series": null,
     "series_order": null,
     "updated": null,
-    "tags": []
+    "tags": [
+      "AI 工具",
+      "决策与方法"
+    ]
   },
   {
     "url": "career-transition.html",
@@ -133,7 +152,9 @@
     "series": null,
     "series_order": null,
     "updated": null,
-    "tags": []
+    "tags": [
+      "身份与转型"
+    ]
   },
   {
     "url": "chatgpt-vs-claude-communication.html",
@@ -148,7 +169,9 @@
     "series": null,
     "series_order": null,
     "updated": null,
-    "tags": []
+    "tags": [
+      "AI 工具"
+    ]
   },
   {
     "url": "claude-skills-deep-dive.html",
@@ -163,7 +186,10 @@
     "series": null,
     "series_order": null,
     "updated": null,
-    "tags": []
+    "tags": [
+      "AI 工具",
+      "开发工具"
+    ]
   },
   {
     "url": "conventional-commits-cheatsheet.html",
@@ -178,7 +204,9 @@
     "series": null,
     "series_order": null,
     "updated": null,
-    "tags": []
+    "tags": [
+      "开发工具"
+    ]
   },
   {
     "url": "cycling-weight-loss-journey.html",
@@ -193,7 +221,9 @@
     "series": null,
     "series_order": null,
     "updated": null,
-    "tags": []
+    "tags": [
+      "自我觉察"
+    ]
   },
   {
     "url": "energy-like-tokens.html",
@@ -208,7 +238,10 @@
     "series": null,
     "series_order": null,
     "updated": null,
-    "tags": []
+    "tags": [
+      "AI 工具",
+      "自我觉察"
+    ]
   },
   {
     "url": "escape-mode-and-shiny-objects.html",
@@ -223,7 +256,10 @@
     "series": null,
     "series_order": null,
     "updated": null,
-    "tags": []
+    "tags": [
+      "自我觉察",
+      "决策与方法"
+    ]
   },
   {
     "url": "experience-ticket-1-two-weeks-of-magic-and-confusion.html",
@@ -238,7 +274,11 @@
     "series": null,
     "series_order": null,
     "updated": null,
-    "tags": []
+    "tags": [
+      "AI 工具",
+      "自媒体",
+      "一人公司"
+    ]
   },
   {
     "url": "experience-ticket-2-from-77-posts-to-banned-account.html",
@@ -253,7 +293,9 @@
     "series": null,
     "series_order": null,
     "updated": null,
-    "tags": []
+    "tags": [
+      "自媒体"
+    ]
   },
   {
     "url": "experience-ticket-3-toutiao-automation-daydream.html",
@@ -268,7 +310,10 @@
     "series": null,
     "series_order": null,
     "updated": null,
-    "tags": []
+    "tags": [
+      "自媒体",
+      "AI 工具"
+    ]
   },
   {
     "url": "experience-ticket-4-thirty-days-of-honest-writing.html",
@@ -283,7 +328,10 @@
     "series": null,
     "series_order": null,
     "updated": null,
-    "tags": []
+    "tags": [
+      "自媒体",
+      "家庭"
+    ]
   },
   {
     "url": "experience-ticket-5-family-farm-and-reality-check.html",
@@ -298,7 +346,11 @@
     "series": null,
     "series_order": null,
     "updated": null,
-    "tags": []
+    "tags": [
+      "家庭",
+      "商业认知",
+      "身份与转型"
+    ]
   },
   {
     "url": "experience-ticket-6-stock-operator-mental-lab.html",
@@ -313,7 +365,9 @@
     "series": null,
     "series_order": null,
     "updated": null,
-    "tags": []
+    "tags": [
+      "投资"
+    ]
   },
   {
     "url": "fable-mr-wei-kitchen.html",
@@ -328,7 +382,10 @@
     "series": null,
     "series_order": null,
     "updated": null,
-    "tags": []
+    "tags": [
+      "投资",
+      "商业认知"
+    ]
   },
   {
     "url": "five-iron-rules-naval.html",
@@ -343,7 +400,10 @@
     "series": null,
     "series_order": null,
     "updated": null,
-    "tags": []
+    "tags": [
+      "决策与方法",
+      "自我觉察"
+    ]
   },
   {
     "url": "freelance-first-year.html",
@@ -358,7 +418,10 @@
     "series": null,
     "series_order": null,
     "updated": null,
-    "tags": []
+    "tags": [
+      "身份与转型",
+      "一人公司"
+    ]
   },
   {
     "url": "from-contempt-to-kline.html",
@@ -373,7 +436,10 @@
     "series": null,
     "series_order": null,
     "updated": null,
-    "tags": []
+    "tags": [
+      "投资",
+      "决策与方法"
+    ]
   },
   {
     "url": "gallery.html",
@@ -396,7 +462,10 @@
     "series": null,
     "series_order": null,
     "updated": null,
-    "tags": []
+    "tags": [
+      "身份与转型",
+      "决策与方法"
+    ]
   },
   {
     "url": "index.html",
@@ -419,7 +488,10 @@
     "series": null,
     "series_order": null,
     "updated": null,
-    "tags": []
+    "tags": [
+      "AI 工具",
+      "决策与方法"
+    ]
   },
   {
     "url": "living-in-the-moment.html",
@@ -434,7 +506,9 @@
     "series": null,
     "series_order": null,
     "updated": null,
-    "tags": []
+    "tags": [
+      "自我觉察"
+    ]
   },
   {
     "url": "minimalism-digital-life.html",
@@ -449,7 +523,9 @@
     "series": null,
     "series_order": null,
     "updated": null,
-    "tags": []
+    "tags": [
+      "自我觉察"
+    ]
   },
   {
     "url": "name-explain.html",
@@ -464,7 +540,9 @@
     "series": null,
     "series_order": null,
     "updated": null,
-    "tags": []
+    "tags": [
+      "家庭"
+    ]
   },
   {
     "url": "now.html",
@@ -487,7 +565,10 @@
     "series": null,
     "series_order": null,
     "updated": null,
-    "tags": []
+    "tags": [
+      "自我觉察",
+      "决策与方法"
+    ]
   },
   {
     "url": "overcoming-instincts.html",
@@ -502,7 +583,10 @@
     "series": null,
     "series_order": null,
     "updated": null,
-    "tags": []
+    "tags": [
+      "自我觉察",
+      "决策与方法"
+    ]
   },
   {
     "url": "parking-lot-three-minutes.html",
@@ -517,7 +601,9 @@
     "series": null,
     "series_order": null,
     "updated": null,
-    "tags": []
+    "tags": [
+      "自我觉察"
+    ]
   },
   {
     "url": "resignation-decision-process.html",
@@ -532,7 +618,10 @@
     "series": null,
     "series_order": null,
     "updated": null,
-    "tags": []
+    "tags": [
+      "身份与转型",
+      "决策与方法"
+    ]
   },
   {
     "url": "seventy-posts-dead-silence.html",
@@ -547,7 +636,10 @@
     "series": null,
     "series_order": null,
     "updated": null,
-    "tags": []
+    "tags": [
+      "自媒体",
+      "AI 工具"
+    ]
   },
   {
     "url": "she-arrived.html",
@@ -562,7 +654,9 @@
     "series": null,
     "series_order": null,
     "updated": null,
-    "tags": []
+    "tags": [
+      "家庭"
+    ]
   },
   {
     "url": "tech-stock-analysis.html",
@@ -577,7 +671,9 @@
     "series": null,
     "series_order": null,
     "updated": null,
-    "tags": []
+    "tags": [
+      "投资"
+    ]
   },
   {
     "url": "the-courage-to-be-disliked-reading-notes.html",
@@ -592,7 +688,10 @@
     "series": null,
     "series_order": null,
     "updated": null,
-    "tags": []
+    "tags": [
+      "自我觉察",
+      "决策与方法"
+    ]
   },
   {
     "url": "travel-australia-2026.html",
@@ -647,7 +746,9 @@
     "series": null,
     "series_order": null,
     "updated": null,
-    "tags": []
+    "tags": [
+      "身份与转型"
+    ]
   },
   {
     "url": "vision-pro-office-experience.html",
@@ -662,7 +763,9 @@
     "series": null,
     "series_order": null,
     "updated": null,
-    "tags": []
+    "tags": [
+      "AI 工具"
+    ]
   },
   {
     "url": "visual-design.html",
@@ -685,6 +788,10 @@
     "series": null,
     "series_order": null,
     "updated": null,
-    "tags": []
+    "tags": [
+      "决策与方法",
+      "AI 工具",
+      "自我觉察"
+    ]
   }
 ]

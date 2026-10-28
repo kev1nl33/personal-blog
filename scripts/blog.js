@@ -4,6 +4,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const cards = [...grid.querySelectorAll('.blog-card')];
   const input = document.getElementById('searchInput');
   const tag = document.getElementById('tagFilter');
+  const tagButtons = [...document.querySelectorAll('.tag-btn')];
+  const moreTags = document.getElementById('moreTags');
   const clear = document.getElementById('searchClear');
   const reset = document.getElementById('resetFilters');
   const count = document.getElementById('searchCount');
@@ -26,6 +28,12 @@ document.addEventListener('DOMContentLoaded', () => {
       const active = button.dataset.category === category;
       button.classList.toggle('active',active); button.setAttribute('aria-pressed',String(active));
     });
+    tagButtons.forEach(button => {
+      const active = button.dataset.tag === tag.value;
+      button.classList.toggle('active', active);
+      button.setAttribute('aria-pressed', String(active));
+      if (active && button.closest('details')) moreTags.open = true;
+    });
     count.textContent = query || category !== 'all' || tag.value !== 'all' ? `已筛选出 ${visible} 篇相关文章` : `共 ${visible} 篇文章`;
     empty.hidden = visible !== 0;
     clear.hidden = input.value === '';
@@ -46,6 +54,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   buttons.forEach(button => button.addEventListener('click', () => {category=button.dataset.category;applyFilters(true);}));
   input.addEventListener('input', () => applyFilters(true));
+  tagButtons.forEach(button => button.addEventListener('click', () => {
+    tag.value = tag.value === button.dataset.tag ? 'all' : button.dataset.tag;
+    applyFilters(true);
+  }));
   tag.addEventListener('change', () => applyFilters(true));
   clear.addEventListener('click', () => { input.value='';applyFilters(true);input.focus(); });
   reset.addEventListener('click', () => { category='all';input.value='';tag.value='all';applyFilters(true);input.focus(); });
