@@ -86,7 +86,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const sun = '<svg class="theme-icon theme-icon--sun" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.2" fill="none" stroke="currentColor" stroke-width="1.6"></circle><path fill="none" stroke="currentColor" stroke-width="1.6" d="M10 2.2v2.1M10 15.7v2.1M2.2 10h2.1M15.7 10h2.1M4.4 4.4l1.5 1.5M14.1 14.1l1.5 1.5M15.6 4.4l-1.5 1.5M5.9 14.1l-1.5 1.5"></path></svg>';
     const moon = '<svg class="theme-icon theme-icon--moon" viewBox="0 0 20 20" aria-hidden="true"><path fill="currentColor" d="M14.2 11.6A5.4 5.4 0 0 1 8.2 4.4 6.2 6.2 0 1 0 15.6 13a5.4 5.4 0 0 1-1.4-1.4Z"></path></svg>';
     function paintTheme(theme) {
-      document.documentElement.dataset.theme = theme;
       const dark = theme === 'dark';
       themeButton.setAttribute('aria-pressed', String(dark));
       themeButton.setAttribute('aria-label', labels[theme]);
@@ -96,17 +95,8 @@ document.addEventListener('DOMContentLoaded', () => {
     paintTheme(document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light');
     themeButton.addEventListener('click', () => {
       const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
-      try { localStorage.setItem('theme', next); } catch (error) {}
-      paintTheme(next);
+      window.siteTheme.set(next);
     });
-    const scheme = window.matchMedia('(prefers-color-scheme: dark)');
-    const followSystem = (event) => {
-      let saved = null;
-      try { saved = localStorage.getItem('theme'); } catch (error) {}
-      if (saved === 'light' || saved === 'dark') return;
-      paintTheme(event.matches ? 'dark' : 'light');
-    };
-    if (scheme.addEventListener) scheme.addEventListener('change', followSystem);
-    else if (scheme.addListener) scheme.addListener(followSystem);
+    window.addEventListener('themechange', (event) => paintTheme(event.detail));
   }
 });

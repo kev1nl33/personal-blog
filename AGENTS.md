@@ -174,7 +174,7 @@ def get_page_content(page_id: str) -> list:
 - 正文段落、列表、引用、图片和标题节奏使用 `styles/main.css` 的 `--reading-*` 变量；文章规则放 `styles/article.css`，游记规则放 `styles/travel-journal.css`。
 - 混排间距只使用 `@supports` 下的 `text-autospace` 和 `text-spacing-trim` 渐进增强，不批量改写正文字符。
 - 排版规则限定中文常规文章、首页、文章列表、关于页和旅行页面。coffee 页面、英文文章、`memoir-cutout.css` 特殊页面保持独立，不应用新的阅读规则。
-- 公共页面支持深色模式。`scripts/theme-init.js` 在样式表之前同步设置 `html[data-theme]`：有 `localStorage.theme` 时用手动选择，否则跟随 `prefers-color-scheme`。导航栏 `.theme-toggle` 由 `scripts/main.js` 启用，点击后记住选择。颜色走 `styles/main.css` 的语义变量，只在 `[data-theme="dark"]` 下切换；深色时中文文章与旅行照片亮度 `.88`。咖啡角（`coffee*.html`）和 `projects/` 不接入，保持浅色、不显示主题按钮。新页面接入时，在 `<head>` 最前面加入 `<script src="scripts/theme-init.js?v=theme-1"></script>`（404 用根路径 `/scripts/theme-init.js`），并在 `.search-trigger` 前放入 `.theme-toggle` 按钮。
+- 公共页面支持深色模式。`scripts/theme-init.js` 在样式表之前同步设置 `html[data-theme]`：有 `localStorage.theme` 时用手动选择，否则跟随 `prefers-color-scheme`。系统偏好监听也由 `theme-init.js` 管理，无手动覆盖时实时跟随；存储不可用时仍检测系统，手动选择在当前会话内保持有效。导航栏 `.theme-toggle` 由 `scripts/main.js` 启用，通过 `window.siteTheme` 切换并记住选择，监听 `themechange` 更新按钮状态。颜色走 `styles/main.css` 的语义变量，只在 `[data-theme="dark"]` 下切换；深色时中文文章与旅行照片亮度 `.88`。咖啡角（`coffee*.html`）和 `projects/` 不接入，保持浅色、不显示主题按钮。新页面接入时，在 `<head>` 最前面加入 `<script src="scripts/theme-init.js?v=theme-1"></script>`（404 用根路径 `/scripts/theme-init.js`），并在 `.search-trigger` 前放入 `.theme-toggle` 按钮。
 
 ### 字体使用
 ```css
