@@ -300,6 +300,7 @@ element.dataset.value = 'some-value';
 - `series/experience-tickets.html` 与 `series/leaving-the-system.html` 的 `ol.series-list` 是正篇成员及阅读顺序的维护来源，链接内 `h3` 为导航标题；`ul.series-list` 番外不参与上一篇/下一篇。`update_reading_links.py` 从目录生成每篇唯一的 `.series-nav`，保留首尾边界及系列目录返回入口，插入正文之外、`.article-end` 之前。不得在脚本另抄成员清单，也不得为同步导航重写正文或调整成员；成员确需变动时先维护目录及相应元数据，再同步并验证。
 - 人生体验券正文之前使用统一信息框（周期、投入、一句话结果、给生活打分）；从正文提炼事实，未提供的分数写「待补」，不推测。系列页、搜索索引、sitemap 和导航检查随成员变动同步维护。
 - 不通过旧模板或 data 缓存重新生成 HTML；调整分类和标签不改文章正文或 SEO 摘要。更新后运行搜索索引生成和既有测试。
+- 中文文章的文末 `.article-end` 内使用唯一 `nav.related-reading`，标题固定为「相关阅读」，最多 3 条站内文章链接且排除本文；无相关候选不显示空区块。运行 `python3 update_related_reading.py` 局部同步，`--check` 检查是否过期。候选从根目录 HTML 的 `article:type`、`article:lang=zh`、系列、分类与标签派生，优先同系列（按编号距离），其次共同标签数、同分类，文件名作为稳定排序兜底；无任何关系不推荐。英文页、旅行、相册及正文均不在写入范围，生成区块不另维护成员清单。修改文章标题、系列、分类或标签后同步相关阅读并运行测试。
 
 ## 回信入口与近况维护
 

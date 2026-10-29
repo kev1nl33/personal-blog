@@ -28,3 +28,9 @@
 }
 
 .article-note{padding:var(--reading-heading-gap);margin-bottom:var(--reading-block);border:1px solid var(--brand-black);font-size:1rem;line-height:var(--reading-leading)}
+.related-reading{border:1px solid var(--ink);padding:var(--reading-heading-gap);margin-bottom:var(--reading-block)}
+.related-reading h2{font:700 20px/1.5 var(--font-sans);margin:0 0 var(--reading-heading-gap)}
+.related-reading ul{list-style:none;margin:0;padding:0}
+.related-reading li+li{border-top:1px solid var(--hairline)}
+.related-reading a{display:block;padding:12px 0;line-height:var(--reading-leading);overflow-wrap:anywhere;color:var(--ink)}
+.related-reading a:hover{color:var(--link);text-decoration:underline;text-underline-offset:4px}

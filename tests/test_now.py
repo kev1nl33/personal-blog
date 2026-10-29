@@ -29,7 +29,7 @@ class NowPageTests(unittest.TestCase):
                          'https://aikevin.dpdns.org/now')
         self.assertEqual([p.strong.get_text() for p in now.select('.now-content p')],
                          ['在做', '在读', '在想'])
-        self.assertEqual(now.select_one('.page-header time')['datetime'], '2026-10-28')
+        self.assertEqual(now.select_one('.page-header time')['datetime'], '2026-10-29')
         home = BeautifulSoup((ROOT / 'index.html').read_text(), 'html.parser')
         self.assertIsNotNone(home.select_one('main a[href="/now"]'))
 
@@ -37,8 +37,10 @@ class NowPageTests(unittest.TestCase):
         entries = json.loads((ROOT / 'search-index.json').read_text())
         entry = next(item for item in entries if item['url'] == 'now.html')
         self.assertEqual(entry['title'], '最近在做')
-        for text in ['在做', '在读', '在想', '2026-10-28', 'Legal AI Toolkit', '待补']:
+        for text in ['在做', '在读', '在想', '2026-10-29', 'Legal AI Toolkit', 'HBM/DRAM', '一人公司']:
             self.assertIn(text, entry['content'])
+        self.assertNotIn('待补', (ROOT / 'now.html').read_text())
+        self.assertNotIn('待补', entry['content'])
         urls = ET.parse(ROOT / 'sitemap.xml').getroot()
         now = next(item for item in urls if item.find('{*}loc').text.endswith('/now'))
         self.assertEqual(now.find('{*}priority').text, '0.8')
