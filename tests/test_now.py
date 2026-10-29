@@ -20,18 +20,18 @@ class NowPageTests(unittest.TestCase):
         for name in ['index.html', 'about.html', 'blog.html', 'now.html']:
             with self.subTest(page=name):
                 soup = BeautifulSoup((ROOT / name).read_text(), 'html.parser')
-                self.assertIsNotNone(soup.select_one('footer nav a[href="now.html"]'))
+                self.assertIsNotNone(soup.select_one('footer nav a[href="/now"]'))
         about = BeautifulSoup((ROOT / 'about.html').read_text(), 'html.parser')
-        self.assertIsNotNone(about.select_one('.life-timeline a[href="now.html"]'))
+        self.assertIsNotNone(about.select_one('.life-timeline a[href="/now"]'))
         now = BeautifulSoup((ROOT / 'now.html').read_text(), 'html.parser')
         self.assertEqual(now.h1.get_text(), '最近在做')
         self.assertEqual(now.select_one('link[rel="canonical"]')['href'],
-                         'https://aikevin.dpdns.org/now.html')
+                         'https://aikevin.dpdns.org/now')
         self.assertEqual([p.strong.get_text() for p in now.select('.now-content p')],
                          ['在做', '在读', '在想'])
         self.assertEqual(now.select_one('.page-header time')['datetime'], '2026-10-28')
         home = BeautifulSoup((ROOT / 'index.html').read_text(), 'html.parser')
-        self.assertIsNotNone(home.select_one('main a[href="now.html"]'))
+        self.assertIsNotNone(home.select_one('main a[href="/now"]'))
 
     def test_search_and_sitemap_include_now(self):
         entries = json.loads((ROOT / 'search-index.json').read_text())
@@ -40,7 +40,7 @@ class NowPageTests(unittest.TestCase):
         for text in ['在做', '在读', '在想', '2026-10-28', 'Legal AI Toolkit', '待补']:
             self.assertIn(text, entry['content'])
         urls = ET.parse(ROOT / 'sitemap.xml').getroot()
-        now = next(item for item in urls if item.find('{*}loc').text.endswith('/now.html'))
+        now = next(item for item in urls if item.find('{*}loc').text.endswith('/now'))
         self.assertEqual(now.find('{*}priority').text, '0.8')
         self.assertEqual(sum('/projects/' in item.find('{*}loc').text for item in urls), 108)
 

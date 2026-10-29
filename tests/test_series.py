@@ -29,6 +29,7 @@ class SeriesTests(unittest.TestCase):
                 page = parse(name)
                 self.assertEqual(page.select_one('meta[property="article:series"]')['content'], title)
                 self.assertEqual(page.select_one('meta[property="article:series_order"]')['content'], str(index + 1))
+                self.assertEqual(len(page.select('.series-nav')), 1)
                 nav = page.select_one('.series-nav')
                 self.assertEqual(nav.select_one('a')['href'], f'series/{slug}.html')
                 for rel, offset in [('prev', -1), ('next', 1)]:
@@ -36,6 +37,7 @@ class SeriesTests(unittest.TestCase):
                     target = index + offset
                     if 0 <= target < len(members):
                         self.assertEqual(link['href'], members[target])
+                        self.assertEqual(link.select_one('span').text, '上一篇' if rel == 'prev' else '下一篇')
                     else:
                         self.assertIsNone(link)
                 self.assertIsNone(page.select_one('.article-content .series-nav'))

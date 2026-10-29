@@ -30,6 +30,9 @@ def validate(root=ROOT):
             if parts.scheme or parts.netloc or not parts.path or parts.path.startswith(('/api/', '/second-brain/', '/media/')): continue
             local_path = unquote(parts.path)
             target = root / local_path.lstrip('/') if local_path.startswith('/') else (root / filename).parent / local_path
+            # Pages 的无扩展名 URL 对应同名 HTML，根路径对应首页。
+            if not target.exists() and not target.suffix:
+                target = target / 'index.html' if local_path.endswith('/') else target.with_suffix('.html')
             if not target.exists(): errors.append(f'{filename}: missing local target {parts.path}')
         if soup.select('script[src*="cdn.tailwindcss.com"],.loader,#counter-display'):
             errors.append(f'{filename}: runtime loader or fake counter remains')

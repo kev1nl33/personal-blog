@@ -65,8 +65,6 @@ def generate_sitemap():
             priority, changefreq = priority_map.get(page, ("0.5", "monthly"))
             lastmod = get_lastmod(page)
             url = f"{BASE_URL}/" if page == "index.html" else f"{BASE_URL}/{page[:-5]}"
-            if page == "now.html":
-                url = f"{BASE_URL}/now.html"
 
             sitemap.append("  <url>")
             sitemap.append(f"    <loc>{url}</loc>")

@@ -27,7 +27,7 @@ class GenerateSitemapTests(unittest.TestCase):
         self.folder = tempfile.TemporaryDirectory()
         self.addCleanup(self.folder.cleanup)
         self.root = Path(self.folder.name)
-        for filename in ("index.html", "blog.html", "about.html", "weekly.html", "article.html", "404.html", "books.html", "article-backup-old.html"):
+        for filename in ("index.html", "blog.html", "about.html", "now.html", "weekly.html", "article.html", "404.html", "books.html", "article-backup-old.html"):
             (self.root / filename).write_text("<html></html>", encoding="utf-8")
         self.git("init", "-q")
         self.git("add", "--", "*.html")
@@ -56,7 +56,7 @@ class GenerateSitemapTests(unittest.TestCase):
         roots = {item["loc"]: item for item in after if item not in project_entries(after)}
         self.assertEqual(set(roots), {
             f"{BASE_URL}/", f"{BASE_URL}/blog", f"{BASE_URL}/about",
-            f"{BASE_URL}/weekly", f"{BASE_URL}/article",
+            f"{BASE_URL}/now", f"{BASE_URL}/weekly", f"{BASE_URL}/article",
         })
         self.assertEqual(roots[f"{BASE_URL}/"]["priority"], "1.0")
         self.assertEqual(roots[f"{BASE_URL}/blog"]["changefreq"], "daily")
@@ -69,7 +69,7 @@ class GenerateSitemapTests(unittest.TestCase):
     def test_missing_sitemap_still_generates_root_pages(self):
         result = self.run_script()
         self.assertEqual(result.returncode, 0, result.stderr)
-        self.assertEqual(len(entries(self.root / "sitemap.xml")), 5)
+        self.assertEqual(len(entries(self.root / "sitemap.xml")), 6)
 
     def test_invalid_existing_sitemap_is_not_overwritten(self):
         sitemap = self.root / "sitemap.xml"

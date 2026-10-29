@@ -106,12 +106,18 @@ npm run build
 npm test
 python validate_site.py
 
+# 文章列表、首页精选或两个系列目录变化后，局部同步首页最近与系列导航
+python update_reading_links.py
+python update_reading_links.py --check
+
 # 内容变化后更新检索与 SEO 产物
 python generate_search_index.py
 python generate_sitemap.py
 ```
 
 直接修改 HTML、`styles/` 或 `scripts/`；新增工具类后运行 `npm run build`。在浏览器核对文章筛选、导航、图片和移动端布局；`validate_site.py` 检查页面结构、必要 meta 标签与本地资源链接。
+
+`update_reading_links.py` 以 `blog.html` 的 essay 顺序生成首页最近四篇，排除首页精选；以两张系列目录的正篇列表生成文末上一篇、下一篇与返回入口，只同步这些区块。近况页的规范地址为 `/now`；`now.html` 保留为源文件。普通 Python 静态服务器不解析无扩展名地址，本地预览近况时可访问 `/now.html`。
 
 全站搜索的索引由 `generate_search_index.py` 从根目录 HTML 重建（自动排除 `coffee*.html`、`404.html`、`test.html` 与备份文件），结果写入 `search-index.json`，匹配逻辑在 `scripts/search.js`，测试为 `tests/search.test.cjs`（随 `npm test` 运行）。改动正文或新增页面后重建索引；`python3 generate_search_index.py --check` 可校验索引是否已过期（退出码 1 表示需要重建）。
 

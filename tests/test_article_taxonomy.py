@@ -67,5 +67,9 @@ class ArticleTaxonomyTests(unittest.TestCase):
         recent = home.select('#featured article')
         self.assertEqual(len(recent), 4)
         self.assertTrue(all(card['data-type'] == 'essay' for card in recent))
-        essays = [c.select_one('h2 a')['href'] for c in self.cards if c['data-type'] == 'essay']
-        self.assertEqual([c.select_one('h2 a')['href'] for c in recent], essays[:4])
+        essays = [c.select_one('h2 a')['href'] for c in self.cards
+                  if c['data-type'] == 'essay' and c.select_one('h2 a')['href'] not in expected]
+        recent_links = [c.select_one('h2 a')['href'] for c in recent]
+        self.assertEqual(recent_links, essays[:4])
+        self.assertTrue(set(recent_links).isdisjoint(expected))
+        self.assertEqual(len(set(recent_links)), 4)

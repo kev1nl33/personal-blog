@@ -104,7 +104,7 @@ def get_page_content(page_id: str) -> list:
 
 ### SEO 最佳实践
 
-- 根目录页面的 canonical 与 sitemap 使用 `https://aikevin.dpdns.org` 的无 `.html` 地址，首页为 `/`；咖啡页元数据独立维护。`now.html` 按页面要求使用 `https://aikevin.dpdns.org/now.html`，sitemap 同步使用该地址。
+- 根目录页面的 canonical 与 sitemap 使用 `https://aikevin.dpdns.org` 的无 `.html` 地址，首页为 `/`；咖啡页元数据独立维护。近况页统一使用 `https://aikevin.dpdns.org/now`，站内近况入口使用 `/now`，`now.html` 保留为源文件及兼容访问地址。
 - 新增「最近在做」页沿用 about 页的公共导航、页脚和阅读变量；入口放在 about 的「现在」节点及 index/about/blog/now 的页脚，不扩充全站主导航。
 - sitemap 的根页面收录范围沿用 `generate_sitemap.py` 的排除规则，额外排除 `404.html`；根页面 `lastmod` 取对应文件最近一次 Git 提交日期，不使用文件系统时间。脚本会合并保留现有 sitemap 中 `/projects/` 条目及其元数据，不从 projects 目录重建；禁止手工删除这些条目后裸跑脚本指望自动找回。
 - 文章的 `meta description` 与 `og:description` 使用该文摘要；移除跨页面重复的通用 `meta keywords`，不再为新页面添加通用关键词。
@@ -174,7 +174,7 @@ def get_page_content(page_id: str) -> list:
 - 正文段落、列表、引用、图片和标题节奏使用 `styles/main.css` 的 `--reading-*` 变量；文章规则放 `styles/article.css`，游记规则放 `styles/travel-journal.css`。
 - 混排间距只使用 `@supports` 下的 `text-autospace` 和 `text-spacing-trim` 渐进增强，不批量改写正文字符。
 - 排版规则限定中文常规文章、首页、文章列表、关于页和旅行页面。coffee 页面、英文文章、`memoir-cutout.css` 特殊页面保持独立，不应用新的阅读规则。
-- 公共页面支持深色模式。`scripts/theme-init.js` 在样式表之前同步设置 `html[data-theme]`：有 `localStorage.theme` 时用手动选择，否则跟随 `prefers-color-scheme`。系统偏好监听也由 `theme-init.js` 管理，无手动覆盖时实时跟随；存储不可用时仍检测系统，手动选择在当前会话内保持有效。导航栏 `.theme-toggle` 由 `scripts/main.js` 启用，通过 `window.siteTheme` 切换并记住选择，监听 `themechange` 更新按钮状态。颜色走 `styles/main.css` 的语义变量，只在 `[data-theme="dark"]` 下切换；深色时中文文章与旅行照片亮度 `.88`。咖啡角（`coffee*.html`）和 `projects/` 不接入，保持浅色、不显示主题按钮。新页面接入时，在 `<head>` 最前面加入 `<script src="scripts/theme-init.js?v=theme-1"></script>`（404 用根路径 `/scripts/theme-init.js`），并在 `.search-trigger` 前放入 `.theme-toggle` 按钮。
+- 公共页面支持深色模式。`scripts/theme-init.js` 在样式表之前同步设置 `html[data-theme]`：有 `localStorage.theme` 时用手动选择，否则跟随 `prefers-color-scheme`。系统偏好监听也由 `theme-init.js` 管理，无手动覆盖时实时跟随；存储不可用时仍检测系统，手动选择在当前会话内保持有效。导航栏 `.theme-toggle` 由 `scripts/main.js` 启用，通过 `window.siteTheme` 切换并记住选择，监听 `themechange` 更新按钮状态。颜色走 `styles/main.css` 的语义变量，只在 `[data-theme="dark"]` 下切换；深色时中文文章与旅行照片亮度 `.88`。咖啡角（`coffee*.html`）保持浅色、不显示主题按钮。`projects/108 Cognitive Weapons/*.html` 复用 `theme-init.js`，跟随认知武器索引页（`visual-design.html`）的主题选择与系统偏好，不添加独立主题按钮；其他项目页面保持原有独立样式。新页面接入时，在 `<head>` 最前面加入 `<script src="scripts/theme-init.js?v=theme-1"></script>`（404 用根路径 `/scripts/theme-init.js`），并在 `.search-trigger` 前放入 `.theme-toggle` 按钮。
 
 ### 字体使用
 ```css
@@ -255,6 +255,8 @@ element.dataset.value = 'some-value';
 ### CSS 文件
 - `kebab-case.css` (如 `main.css`, `article.css`)
 - 放在 `styles/` 目录
+- `styles/cognitive-theme.css`：仅供 `projects/108 Cognitive Weapons/*.html` 使用的深色主题适配；颜色对齐公共站点，不引入公共布局或改变浅色页面。
+- `scripts/cognitive-theme.js`：认知武器详情页的 Chart.js 主题适配，复用 `scripts/theme-init.js` 的主题状态与事件，保留图表数据与浅色配置。
 
 ### JavaScript 文件
 - `kebab-case.js` (如 `main.js`, `search.js`)
@@ -291,9 +293,11 @@ element.dataset.value = 'some-value';
 - 根目录文章 HTML 是唯一维护来源，不新增 frontmatter。分类保存为 `<meta property="article:section">`；`article:type`（essay / note / cheatsheet）、`article:lang`（zh / en）、`article:featured`（true / false）、`article:series`、`article:series_order`、`article:updated` 使用相同的 property/content 结构，后三项可空。
 - 分类固定为职业转型、AI 与工具、投资、自我认知、家庭与生活、读书笔记；列表 URL 值依次为 career、ai、investment、personal、life、reading。英文文章的分类显示为英文，元数据仍用统一分类值。
 - 标签存于重复的 `article:tag` meta，每篇 1–3 个。维护时同步 blog.html 卡片的 data-category、data-tags、data-type 和筛选入口；搜索索引从 HTML 派生。
-- 首页最近四篇只展示 essay；精选按首页顺序手工维护，article:featured 与精选保持一致。
+- 首页精选在 `index.html` 的 `#start-here` 手工维护，顺序和短摘要保持独立，`article:featured` 与精选保持一致。最近文章固定四篇：以 `blog.html` 的 `#blogGrid` 卡片顺序为准，仅取 essay，按文章链接 slug 排除首页精选，再从后续补满；卡片标题、摘要和阅读时间复用文章列表，不从旧模板或缓存生成。
+- 更新文章列表、精选或系列目录后运行 `python3 update_reading_links.py`；可用 `python3 update_reading_links.py --check` 检查是否需要同步。该脚本仅更新首页最近文章区和下述两组正篇的系列导航，不重建整页、不更新搜索索引或 sitemap。首页其他区块与正文不在其写入范围。
 - `series/` 只放直接维护的系列索引 HTML，使用 kebab-case 命名；共享样式在 `styles/series.css`，资源和站内链接相对当前页面解析。canonical 与 sitemap 使用无 `.html` 地址，搜索索引保留实际 `.html` 路径。
 - 系列成员设置 `article:series` 与从 1 开始的 `article:series_order`；正文之外添加系列返回入口和顺序导航，首篇无上一篇、末篇无下一篇。番外仅列在索引页，不混入正篇编号。
+- `series/experience-tickets.html` 与 `series/leaving-the-system.html` 的 `ol.series-list` 是正篇成员及阅读顺序的维护来源，链接内 `h3` 为导航标题；`ul.series-list` 番外不参与上一篇/下一篇。`update_reading_links.py` 从目录生成每篇唯一的 `.series-nav`，保留首尾边界及系列目录返回入口，插入正文之外、`.article-end` 之前。不得在脚本另抄成员清单，也不得为同步导航重写正文或调整成员；成员确需变动时先维护目录及相应元数据，再同步并验证。
 - 人生体验券正文之前使用统一信息框（周期、投入、一句话结果、给生活打分）；从正文提炼事实，未提供的分数写「待补」，不推测。系列页、搜索索引、sitemap 和导航检查随成员变动同步维护。
 - 不通过旧模板或 data 缓存重新生成 HTML；调整分类和标签不改文章正文或 SEO 摘要。更新后运行搜索索引生成和既有测试。
 

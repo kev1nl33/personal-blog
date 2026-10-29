@@ -1,0 +1,58 @@
+/* Detail-page adapter. Keep legacy light styles and layout entirely intact.
+   Dark palette mirrors styles/main.css without importing its global resets. */
+:root[data-theme="dark"] {
+    color-scheme: dark;
+    --cognitive-paper: #121210;
+    --cognitive-surface: #1c1c19;
+    --cognitive-muted: #2a2a26;
+    --cognitive-ink: #ecebe4;
+    --cognitive-secondary: #b7b6ae;
+    --cognitive-line: #5c5b55;
+}
+:root[data-theme="dark"] body {
+    background-color: var(--cognitive-paper);
+    color: var(--cognitive-ink);
+}
+:root[data-theme="dark"] .bg-grid {
+    background-image: linear-gradient(#ecebe414 1px, transparent 1px),
+                      linear-gradient(90deg, #ecebe414 1px, transparent 1px);
+}
+:root[data-theme="dark"] .bento-card {
+    border-color: var(--cognitive-ink);
+}
+:root[data-theme="dark"] .bento-card:not([class*="bg-brand-"]):not(.bg-gradient-to-r),
+:root[data-theme="dark"] .bg-white,
+:root[data-theme="dark"] .lang-toggle {
+    background-color: var(--cognitive-surface);
+}
+:root[data-theme="dark"] .bg-brand-white,
+:root[data-theme="dark"] .bg-gray-50 {
+    background-color: var(--cognitive-muted);
+}
+:root[data-theme="dark"] .text-brand-black {
+    color: var(--cognitive-ink);
+}
+:root[data-theme="dark"] :is(.text-brand-gray, .text-gray-500, .text-gray-600, .text-gray-700, .text-gray-800) {
+    color: var(--cognitive-secondary);
+}
+:root[data-theme="dark"] .text-brand-blue { color: #6aa2ff; }
+:root[data-theme="dark"] .text-brand-green { color: #34d399; }
+:root[data-theme="dark"] .bg-yellow-100 { background-color: #5a2a14; }
+:root[data-theme="dark"] :is(.border-brand-black, .lang-toggle) {
+    border-color: var(--cognitive-ink);
+}
+:root[data-theme="dark"] .border-gray-200 { border-color: var(--cognitive-line); }
+:root[data-theme="dark"] .hover\:border-brand-black:hover { border-color: var(--cognitive-ink); }
+:root[data-theme="dark"] .hover\:bg-brand-white:hover { background-color: var(--cognitive-muted); }
+:root[data-theme="dark"] .bento-card:hover,
+:root[data-theme="dark"] .lang-toggle { box-shadow: 4px 4px 0 #000; }
+:root[data-theme="dark"] .bento-card::after { background: var(--cognitive-ink); }
+:root[data-theme="dark"] .lang-btn { color: var(--cognitive-ink); }
+:root[data-theme="dark"] .lang-btn.active {
+    background: var(--cognitive-ink);
+    color: var(--cognitive-paper);
+}
+:root[data-theme="dark"] .lang-btn:hover:not(.active) { background: var(--cognitive-muted); }
+:root[data-theme="dark"] ::-webkit-scrollbar-track { background: var(--cognitive-paper); }
+:root[data-theme="dark"] ::-webkit-scrollbar-thumb { background: var(--cognitive-line); }
+:root[data-theme="dark"] ::selection { background: #5a2a14; color: var(--cognitive-ink); }

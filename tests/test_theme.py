@@ -1,4 +1,4 @@
-"""深色模式接入范围：公共页有主题脚本和按钮，咖啡角与 projects 不接入。"""
+"""公共页与认知武器详情接入主题，其他项目、咖啡角和归档页保持独立。"""
 import unittest
 from pathlib import Path
 
@@ -29,7 +29,7 @@ class ThemeWiringTests(unittest.TestCase):
                 self.assertIn('class="theme-toggle"', text)
                 self.assertLess(text.index('theme-init.js'), text.index('styles/main.css'))
 
-    def test_coffee_projects_and_fixtures_stay_light(self):
+    def test_coffee_other_projects_and_fixtures_stay_light(self):
         for path in root_pages():
             if path.name.startswith('coffee'):
                 text = path.read_text(encoding='utf-8')
@@ -44,10 +44,25 @@ class ThemeWiringTests(unittest.TestCase):
                 self.assertNotIn('theme-init.js', text)
                 self.assertNotIn('theme-toggle', text)
         for path in (ROOT / 'projects').rglob('*.html'):
+            if path.parent == ROOT / 'projects/108 Cognitive Weapons':
+                continue
             text = path.read_text(encoding='utf-8', errors='replace')
             with self.subTest(page=str(path.relative_to(ROOT))):
                 self.assertNotIn('theme-init.js', text)
                 self.assertNotIn('theme-toggle', text)
+
+    def test_cognitive_details_inherit_theme_without_public_layout(self):
+        pages = sorted((ROOT / 'projects/108 Cognitive Weapons').glob('*.html'))
+        self.assertEqual(len(pages), 108)
+        for path in pages:
+            text = path.read_text(encoding='utf-8')
+            with self.subTest(page=path.name):
+                self.assertIn('../../scripts/theme-init.js?v=theme-1', text)
+                self.assertIn('../../styles/cognitive-theme.css?v=theme-1', text)
+                self.assertIn('../../scripts/cognitive-theme.js?v=theme-1', text)
+                self.assertLess(text.index('theme-init.js'), text.index('<style>'))
+                self.assertLess(text.index('npm/chart.js'), text.index('cognitive-theme.js'))
+                self.assertNotIn('styles/main.css', text)
 
     def test_dark_palette_and_photo_rule(self):
         css = (ROOT / 'styles/main.css').read_text(encoding='utf-8')
