@@ -53,3 +53,6 @@ Thumbs.db
 # Logs
 logs/
 *.log
+
+# 周记只读任务源文
+_w44_src/

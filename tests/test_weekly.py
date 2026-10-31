@@ -25,12 +25,23 @@ class WeeklyTests(unittest.TestCase):
         self.assertEqual(page.select_one('meta[property="article:series"]')['content'], '周报')
         self.assertEqual(page.select_one('meta[property="article:series_order"]')['content'], '202644')
         self.assertEqual(page.select_one('meta[property="article:published_time"]')['content'], '2026-10-30')
-        self.assertEqual(len(page.select('.article-content h2')), 5)
-        self.assertEqual(len(page.select('.article-content ol li')), 6)
+        self.assertEqual([h.get_text() for h in page.select('.article-content h2')],
+                         ['本周主线', '一件真懂了的事', '还没想通的问'])
+        self.assertEqual(len(page.select('.article-content p')), 12)
+        self.assertEqual(page.h1.get_text(), '计划李 · 周记 · W44（2026-10-24～10-30）')
         text = page.select_one('.article-content').get_text()
-        for private in ['素材来源', '[[', '现金所剩不多', '90-资料库']:
+        for private in ['素材来源', '[[', '现金所剩不多', '90-资料库', 'DeskPet', 'Almanac', 'QQQ', 'SPY',
+                        'FOMC', '+48%', '下周只盯什么', '学到什么']:
             self.assertNotIn(private, text)
         self.assertIn('But how？', text)
+        excerpt = page.select_one('.article-content p').get_text()
+        self.assertEqual(page.select_one('meta[name="description"]')['content'], excerpt)
+        self.assertEqual(links[0].select_one('p').get_text(), excerpt)
+        self.assertEqual(links[0].h3.get_text(), page.h1.get_text())
+        for name in ['index.html', 'blog.html']:
+            card_link = parse(name).select_one('h2 a[href="weekly-2026-w44.html"]')
+            self.assertEqual(card_link.get_text(), page.h1.get_text())
+            self.assertEqual(card_link.parent.find_next_sibling('p').get_text(), excerpt)
 
     def test_discovery_and_theme(self):
         entries = {entry['url']: entry for entry in build_index()}
