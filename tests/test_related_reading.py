@@ -66,12 +66,15 @@ class RelatedReadingTests(unittest.TestCase):
 
     def test_checked_in_chinese_articles_are_current(self):
         updates = related_updates(ROOT)
-        self.assertEqual(len(updates), 39)
+        self.assertEqual(len(updates), 40)
         for path, source in updates.items():
             self.assertEqual(source, path.read_text(), path.name)
             soup = BeautifulSoup(source, 'html.parser')
             links = soup.select('.related-reading a')
-            self.assertTrue(links, path.name)
+            if path.name == 'weekly-2026-w44.html':
+                self.assertFalse(links)
+            else:
+                self.assertTrue(links, path.name)
             self.assertLessEqual(len(links), 3)
             self.assertNotIn(path.name, [a['href'] for a in links])
             for link in links:

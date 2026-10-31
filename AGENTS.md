@@ -291,11 +291,12 @@ element.dataset.value = 'some-value';
 ## 文章分类与元数据
 
 - 根目录文章 HTML 是唯一维护来源，不新增 frontmatter。分类保存为 `<meta property="article:section">`；`article:type`（essay / note / cheatsheet）、`article:lang`（zh / en）、`article:featured`（true / false）、`article:series`、`article:series_order`、`article:updated` 使用相同的 property/content 结构，后三项可空。
-- 分类固定为职业转型、AI 与工具、投资、自我认知、家庭与生活、读书笔记；列表 URL 值依次为 career、ai、investment、personal、life、reading。英文文章的分类显示为英文，元数据仍用统一分类值。
+- 分类固定为职业转型、AI 与工具、投资、自我认知、家庭与生活、读书笔记、周报；列表 URL 值依次为 career、ai、investment、personal、life、reading、weekly。英文文章的分类显示为英文，元数据仍用统一分类值。
 - 标签存于重复的 `article:tag` meta，每篇 1–3 个。维护时同步 blog.html 卡片的 data-category、data-tags、data-type 和筛选入口；搜索索引从 HTML 派生。
 - 首页精选在 `index.html` 的 `#start-here` 手工维护，顺序和短摘要保持独立，`article:featured` 与精选保持一致。最近文章固定四篇：以 `blog.html` 的 `#blogGrid` 卡片顺序为准，仅取 essay，按文章链接 slug 排除首页精选，再从后续补满；卡片标题、摘要和阅读时间复用文章列表，不从旧模板或缓存生成。
 - 更新文章列表、精选或系列目录后运行 `python3 update_reading_links.py`；可用 `python3 update_reading_links.py --check` 检查是否需要同步。该脚本仅更新首页最近文章区和下述两组正篇的系列导航，不重建整页、不更新搜索索引或 sitemap。首页其他区块与正文不在其写入范围。
 - `series/` 只放直接维护的系列索引 HTML，使用 kebab-case 命名；共享样式在 `styles/series.css`，资源和站内链接相对当前页面解析。canonical 与 sitemap 使用无 `.html` 地址，搜索索引保留实际 `.html` 路径。
+- 周报系列使用根目录 `weekly.html`（复用 `styles/series.css`），`ol.series-list` 按期号倒序维护；单篇命名 `weekly-YYYY-wNN.html`，系列名为「周报」、编号用 `YYYYNN` 保持跨年连续排序，发布日期取源文覆盖期结束日。正文保留公开叙事，移除 Obsidian 内部素材来源与资金状况；不自动同步 Obsidian。单篇正文外提供返回周报入口，首篇不显示空的前后篇链接；后续新增时维护相邻期导航。相关阅读复用同系列优先规则。
 - 系列成员设置 `article:series` 与从 1 开始的 `article:series_order`；正文之外添加系列返回入口和顺序导航，首篇无上一篇、末篇无下一篇。番外仅列在索引页，不混入正篇编号。
 - `series/experience-tickets.html` 与 `series/leaving-the-system.html` 的 `ol.series-list` 是正篇成员及阅读顺序的维护来源，链接内 `h3` 为导航标题；`ul.series-list` 番外不参与上一篇/下一篇。`update_reading_links.py` 从目录生成每篇唯一的 `.series-nav`，保留首尾边界及系列目录返回入口，插入正文之外、`.article-end` 之前。不得在脚本另抄成员清单，也不得为同步导航重写正文或调整成员；成员确需变动时先维护目录及相应元数据，再同步并验证。
 - 人生体验券正文之前使用统一信息框（周期、投入、一句话结果、给生活打分）；从正文提炼事实，未提供的分数写「待补」，不推测。系列页、搜索索引、sitemap 和导航检查随成员变动同步维护。
