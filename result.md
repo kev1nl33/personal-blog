@@ -60,3 +60,46 @@ npm --prefix experiments/liquid-glass-logo run build
 - 需通过 HTTP 服务预览，不支持直接双击 HTML。现代浏览器可播放，缺少 WebGL2 时降级为静态图。
 - ReactDrops Component License 1.0 限制组件、模板、源码包再分发；本次只保留在本地实验分支。
 - 根项目原有开发依赖 npm audit 有 1 项 moderate：postcss-selector-parser <6.1.5；未改根依赖。Browserslist 另提示既有数据过期，不影响构建完成。
+
+# 第二轮：接首页顶栏与品牌文案（experiment/liquid-glass-home）
+
+## 分支与提交
+
+- 分支：experiment/liquid-glass-home（基线 fff40a2）。
+- 实现 tip SHA：df58eb1（实验 nav 产物与文档）、b80e6aa（首页接入与文案）。
+- 本节文档随后作为第 3 个提交；最终分支 tip 用 `git rev-parse --short HEAD` 查询。避免文档自引用自身提交 SHA。
+- 未 push、未合并 main、未部署、未操作 Cloudflare。其他页面未改动。
+
+## 修改路径
+
+- experiments/liquid-glass-logo/src/nav.jsx、src/nav.css：首页顶栏品牌位的第二入口，跟随站点 data-theme 与 prefers-reduced-motion。
+- experiments/liquid-glass-logo/logo-dark.svg：深色主题描边变体（#ecebe4 描边 + 橙点）。
+- experiments/liquid-glass-logo/vite.nav.config.js、package.json：追加构建 dist/liquid-logo-nav.js（382.67 kB，gzip 94.01 kB）与 .css（5.88 kB，gzip 2.55 kB）；nav 构建 emptyOutDir=false 保留主产物。
+- experiments/liquid-glass-logo/CLAUDE.md、README.md、experiments/CLAUDE.md：结构、清理与例外说明。
+- index.html：顶栏品牌位挂 #nav-liquid-logo（无 JS 时显示静态 logo.svg）并加载 nav bundle；文案按最终口径——品牌壳（nav-logo、footer-brand、© 行站名）用 AIKev1n，title/author/og:title、eyebrow「Kev1n的生活实验」、hero「认识 Kev1n」、about-strip「也叫 Kev1n」、hero-location「KEV1N'S FIELD NOTES」、© 行人名用 Kev1n；about-strip 保留「我是 Kevin」一处。无 计划李/AIKevin 残留。
+- search-index.json：首页条目标题随 title 更新（2 行差异）。
+
+## 本地预览
+
+```bash
+cd /tmp/blog-liquid-glass-home
+python3 -m http.server 8010 --bind 127.0.0.1
+```
+
+打开 http://127.0.0.1:8010/index.html 。
+
+## 验证结果
+
+- 实验构建两套 bundle 通过；liquid-logo.js 重建后与已提交版本字节一致。
+- npm test：47 项 Python + 62 项 Node 全部通过；validate_site.py：52 个受管页面，0 错误；根 npm run build 通过，utilities.css 构建噪音已还原。
+- 桌面 1280px：顶栏 liquid 标记 34px，canvas data-liquid-glass-ready=true，导航/页脚文案符合口径，无溢出。
+- 深色模式：切换后玻璃底色 #121210 与导航背景一致，标记为浅色 #ecebe4；themechange 实时生效。
+- prefers-reduced-motion：首次加载与运行中切换均为 0 Canvas，静态图按主题选 logo.svg / logo-dark.svg。
+- 390px 移动端：动画正常挂载，标记 28px，scrollWidth 恰为 390，无横向溢出。
+- 全程控制台无 error / warn。
+
+## 已知限制
+
+- 无 JavaScript 时顶栏显示静态 logo.svg（黑色描边版）：无 JS 即无 data-theme，页面恒为浅色，因此可见；该路径未在浏览器逐项复测，依据为标记位 HTML 结构与 theme-init 同为 JS 的前提。
+- WebGL2 不可用走组件内置静态图降级（素材即 logo svg），沿用第一轮已验证的组件行为，本轮未重复模拟。
+- 首页为唯一接入页；其他页面导航仍是旧文案，待后续轮次统一。动画仅播放一次，顶栏不提供重播。
