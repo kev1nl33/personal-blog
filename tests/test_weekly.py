@@ -18,10 +18,14 @@ class WeeklyTests(unittest.TestCase):
         hub = parse('weekly.html')
         links = hub.select('ol.series-list a.series-item')
         self.assertTrue(hub.select_one('ol.series-list').has_attr('reversed'))
-        self.assertEqual([a['href'] for a in links], ['weekly-2026-w44.html'])
+        self.assertEqual([a['href'] for a in links],
+                         ['weekly-2026-w44.html', 'weekly-2026-w43.html', 'weekly-2026-w42.html'])
+        self.assertEqual(hub.select_one('.coordinate').get_text(), '系列 / 3 篇')
         page = parse(links[0]['href'])
         self.assertEqual(page.select_one('.series-nav a')['href'], 'weekly.html')
-        self.assertIsNone(page.select_one('.series-nav a[rel]'))
+        self.assertEqual(page.select_one('.series-nav a[rel="prev"]')['href'],
+                         'weekly-2026-w43.html')
+        self.assertIsNone(page.select_one('.series-nav a[rel="next"]'))
         self.assertEqual(hub.h1.get_text(), '札记')
         self.assertEqual(page.select_one('.breadcrumb').get_text(), '← 札记')
         self.assertEqual(page.select_one('.series-nav')['aria-label'], '札记系列导航')
@@ -62,6 +66,51 @@ class WeeklyTests(unittest.TestCase):
         # 札记已脱离首页/文章列表；入口走桌面侧栏 + 手机汉堡（JS 注入）
         for name in ['index.html', 'blog.html']:
             self.assertIsNone(parse(name).select_one('h2 a[href="weekly-2026-w44.html"]'))
+
+    def test_w42_w43_images_metadata_and_navigation(self):
+        images = {
+            42: ['w42-trim-at-high.jpg', 'w42-rules-notebook.jpg', 'w42-second-brain.jpg'],
+            43: ['w43-writing-energy.jpg', 'w43-empty-device.jpg', 'w43-token-energy.jpg'],
+        }
+        entries = {entry['url']: entry for entry in build_index()}
+        hub = parse('weekly.html')
+        for week, names in images.items():
+            with self.subTest(week=week):
+                name = f'weekly-2026-w{week}.html'
+                page = parse(name)
+                self.assertEqual(page.h1.get_text(), f'札记 · W{week}')
+                self.assertEqual(page.select_one('.coordinate').get_text(), f'札记 · 2026-W{week}')
+                self.assertEqual(page.select_one('meta[property="article:series_order"]')['content'],
+                                 f'2026{week}')
+                date = f'2026-10-{16 if week == 42 else 23}'
+                self.assertEqual(page.select_one('.article-meta time')['datetime'], date)
+                self.assertEqual(page.select_one('meta[property="article:published_time"]')['content'], date)
+                self.assertEqual(entries[name]['category'], '札记')
+                self.assertEqual(page.select_one('link[rel="canonical"]')['href'],
+                                 'https://aikevin.dpdns.org/' + name[:-5])
+                figures = page.select('.article-content figure')
+                self.assertEqual([f.img['src'] for f in figures],
+                                 ['/assets/weekly/' + image for image in names])
+                for figure in figures:
+                    self.assertTrue((ROOT / figure.img['src'].lstrip('/')).is_file())
+                    self.assertTrue(figure.img['alt'].strip())
+                    self.assertTrue(figure.figcaption.get_text().strip())
+                    self.assertGreater(int(figure.img['width']), 0)
+                    self.assertGreater(int(figure.img['height']), 0)
+                self.assertNotIn('[[', page.select_one('.article-content').get_text())
+                excerpt = page.select_one('.article-content p').get_text()
+                self.assertEqual(page.select_one('meta[name="description"]')['content'], excerpt)
+                item = hub.select_one(f'.series-item[href="{name}"]')
+                self.assertEqual(item.time['datetime'], date)
+                self.assertEqual(item.h3.get_text(), page.h1.get_text())
+                self.assertEqual(item.p.get_text(), excerpt)
+                previous = page.select_one('.series-nav a[rel="prev"]')
+                self.assertEqual(previous['href'] if previous else None,
+                                 'weekly-2026-w42.html' if week == 43 else None)
+                self.assertEqual(page.select_one('.series-nav a[rel="next"]')['href'],
+                                 f'weekly-2026-w{week + 1}.html')
+                for excluded in ['index.html', 'blog.html']:
+                    self.assertIsNone(parse(excluded).select_one(f'a[href="{name}"]'))
 
     def test_discovery_and_theme(self):
         entries = {entry['url']: entry for entry in build_index()}
