@@ -1,6 +1,6 @@
 # Liquid Glass Logo 本地实验
 
-独立 React 小岛，用 Canvas / WebGL2 播放 ReactDrops 的液态玻璃 Logo。正式首页、文章页、根依赖与部署流程均不接入本实验。
+独立 React 小岛，用 Canvas / WebGL2 播放 ReactDrops 的液态玻璃 Logo。自 experiment/liquid-glass-home 分支起，首页顶栏品牌位加载本实验的 dist/liquid-logo-nav.js / .css（liquid-logo.js 仍只用于本预览页）；文章页、根依赖与部署流程不接入。
 
 ## 打开预览
 
@@ -12,6 +12,8 @@ python3 -m http.server 8000 --bind 127.0.0.1
 ```
 
 打开 http://127.0.0.1:8000/experiments/liquid-glass-logo/ 。需要 HTTP 服务，不能直接双击 HTML。
+
+首页顶栏接入效果在同一服务器下预览：http://127.0.0.1:8000/index.html （本轮实际使用 8010 端口验证）。
 
 重新构建时，在仓库根目录执行：
 
@@ -32,6 +34,7 @@ npm --prefix experiments/liquid-glass-logo run build
 - React、ReactDOM、Scheduler 的完整 MIT 许可与版权声明保存在 THIRD-PARTY-NOTICES.txt，构建 JS 另外保留上游 legal comments。
 - 上游仅两处适配：移除 TSX 的 `use client`（本实验纯浏览器运行）；移除 renderer 默认的演示商标图，改用博客 favicon。
 - logo.svg 源自站内 assets/favicon.svg，仅移除米白底矩形，保留原有方框和圆点。组件按 alpha 轮廓制作玻璃纹理，直接用不透明 favicon 会形成实心方块。未使用第三方演示商标。
+- logo-dark.svg 是 logo.svg 的深色描边变体（描边取深色 --ink 值 #ecebe4，圆点保持橙色），供顶栏深色主题的静态降级使用；动画轮廓染色走 logoColor 参数，两版 svg 通用。
 
 ## 动态效果与限制
 
@@ -40,7 +43,7 @@ npm --prefix experiments/liquid-glass-logo run build
 - WebGL2 不可用时使用上游组件的静态图片降级；禁用 JavaScript 时 HTML 仍显示原 favicon。
 - 组件会将图案轮廓统一染色，当前动画最终为黑色方框与圆点，静态降级仍保留橙色。
 - 需要支持 ES modules、WebGL2 的现代浏览器；低端设备运行片元着色器可能掉帧。
-- JS 约 383 kB，gzip 约 94 kB；CSS 约 7 kB，gzip 约 3 kB。仅本页加载。
+- JS 约 383 kB，gzip 约 94 kB；实验页 CSS 约 7 kB（gzip 3 kB），顶栏 CSS 约 6 kB（gzip 2.6 kB）。实验页与首页各自加载自己的 bundle，互不引另一个的 CSS。
 
 ## 已执行验证
 
@@ -51,4 +54,4 @@ npm --prefix experiments/liquid-glass-logo run build
 - 390px 移动端动画和静态模式均无横向溢出；减少动态效果首次加载与实时切换均为 0 Canvas。
 - 模拟 WebGL2 不可用时 fallback img 加载成功，控制台无 error / warn。
 
-删除本目录即可移除实验；experiments/CLAUDE.md 可随最后一个实验一并删除。node_modules 不提交、可随时清理。
+首页顶栏（experiment/liquid-glass-home 分支）已引用本目录的 dist/liquid-logo-nav.* 与 logo svg，删除本目录前需先移除首页引用；其余情况删除本目录即可移除实验。experiments/CLAUDE.md 可随最后一个实验一并删除。node_modules 不提交、可随时清理。

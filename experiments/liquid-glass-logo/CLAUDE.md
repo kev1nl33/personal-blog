@@ -8,9 +8,12 @@
 
 - src/main.jsx：React 小岛、动态偏好监听、静态降级及重播按钮。
 - src/page.css：只用于本实验的页面样式。
+- src/nav.jsx：首页顶栏品牌位的第二个小岛；跟随站点 `data-theme` 与 `prefers-reduced-motion`，深色主题换用 logo-dark.svg。
+- src/nav.css：顶栏品牌位布局（桌面 34px / ≤540px 28px），随 nav 入口编译进 dist/liquid-logo-nav.css。
+- logo-dark.svg：深色主题描边变体，取 styles/main.css 深色 --paper/--ink 值；logo.svg 保持浅色版。
 - vendor/reactdrops/：站点 registry 导出的原始组件文件与 LICENSE.txt；不混入自写代码。保留原始英文注释和许可。
-- dist/：可静态服务的构建产物，提交进 Git；不要手工修改。
-- package.json / package-lock.json / vite.config.js：独立安装及构建。
+- dist/：可静态服务的构建产物，提交进 Git；不要手工修改。liquid-logo.js / .css 供本预览页，liquid-logo-nav.js / .css 供首页顶栏。
+- package.json / package-lock.json / vite.config.js / vite.nav.config.js：独立安装及构建；build 依次产出两套 bundle，nav 配置 emptyOutDir=false 以保留主产物。
 - README.md：源码出处、预览与维护步骤。
 - node_modules/：不提交，可随时删除；重建用 npm ci。
 
@@ -24,4 +27,4 @@
 
 ## 清理
 
-删除此实验时整体删除本目录；不改正式页面或根依赖。不运行旧模板，不生成站点索引。
+首页（根目录 index.html）顶栏引用了 dist/liquid-logo-nav.js / .css 与 logo.svg、logo-dark.svg。删除本实验前，先移除首页里的 link/script、#nav-liquid-logo 标记位与相关文案提交；其余正式页面和根依赖不受影响。不运行旧模板，不生成站点索引。
