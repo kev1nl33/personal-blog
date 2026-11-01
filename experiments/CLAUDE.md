@@ -3,3 +3,4 @@
 - 每个实验使用独立的 kebab-case 子目录，不接入正式页面、导航、搜索索引或 sitemap。
 - 每个子目录先写 CLAUDE.md，说明源码、依赖、产物与清理方式。
 - 实验只在本地运行；发布或复用前单独确认许可与性能。
+- 例外（experiment/liquid-glass-home 分支，2026-11-01）：liquid-glass-logo 的 dist/liquid-logo-nav.js / .css 被根目录首页顶栏品牌位引用，属用户指定的接入验证；删除该实验前需先移除首页引用。
