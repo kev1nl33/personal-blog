@@ -349,6 +349,18 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://aikevin.dpdns.org/weekly-2026-w42</loc>
+    <lastmod>2026-11-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://aikevin.dpdns.org/weekly-2026-w43</loc>
+    <lastmod>2026-11-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://aikevin.dpdns.org/weekly-2026-w44</loc>
     <lastmod>2026-11-01</lastmod>
     <changefreq>monthly</changefreq>
