@@ -32,17 +32,32 @@ class WeeklyTests(unittest.TestCase):
         self.assertEqual(page.select_one('meta[property="article:series_order"]')['content'], '202644')
         self.assertEqual(page.select_one('meta[property="article:published_time"]')['content'], '2026-10-30')
         self.assertEqual([h.get_text() for h in page.select('.article-content h2')],
-                         ['本周主线', '一件真懂了的事', '还没想通的问'])
-        self.assertEqual(len(page.select('.article-content p')), 12)
-        self.assertEqual(page.h1.get_text(), '计划李 · 札记 · W44（2026-10-24～10-30）')
+                         ['一件具体的事', '这件事让我看见了什么', '一个没想透的问题'])
+        self.assertEqual(page.h1.get_text(), '札记 · W44')
+        self.assertEqual(page.title.get_text(), '札记 · W44')
+        self.assertEqual(page.select_one('meta[property="og:title"]')['content'], '札记 · W44')
+        figures = page.select('.article-content figure')
+        self.assertEqual([figure.img['src'] for figure in figures], [
+            'assets/weekly/w44-concert-stage.jpg',
+            'assets/weekly/w44-mainline-timeline.png',
+            'assets/weekly/w44-data-support.png',
+        ])
+        for figure in figures:
+            self.assertTrue((ROOT / figure.img['src']).is_file())
+            self.assertTrue(figure.img['alt'].strip())
+            self.assertTrue(figure.figcaption.get_text().strip())
+            self.assertGreater(int(figure.img['width']), 0)
+            self.assertGreater(int(figure.img['height']), 0)
         text = page.select_one('.article-content').get_text()
-        for private in ['素材来源', '[[', '现金所剩不多', '90-资料库', 'DeskPet', 'Almanac', 'QQQ', 'SPY',
+        for private in ['素材来源', '[[', '现金所剩不多', '90-资料库', 'DeskPet', 'QQQ', 'SPY',
                         'FOMC', '+48%', '下周只盯什么', '学到什么']:
             self.assertNotIn(private, text)
         self.assertIn('But how？', text)
         excerpt = page.select_one('.article-content p').get_text()
         self.assertEqual(page.select_one('meta[name="description"]')['content'], excerpt)
-        self.assertEqual(links[0].select_one('p').get_text(), excerpt)
+        self.assertEqual(page.select_one('meta[property="og:description"]')['content'], excerpt)
+        self.assertEqual(links[0].select_one('p').get_text(),
+                         '本周我终于听见了自己要什么；也听见了自己还不会用。')
         self.assertEqual(links[0].h3.get_text(), page.h1.get_text())
         # 札记已脱离首页/文章列表；入口走桌面侧栏 + 手机汉堡（JS 注入）
         for name in ['index.html', 'blog.html']:
