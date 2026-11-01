@@ -33,8 +33,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!document.querySelector('.weekly-rail')) {
       const rail = document.createElement('aside');
       rail.className = 'weekly-rail';
-      rail.setAttribute('aria-label', '周报');
-      rail.innerHTML = `<a class="weekly-rail-link" href="${weeklyHref}"${onWeekly ? ' aria-current="page"' : ''}>周报</a>`;
+      rail.setAttribute('aria-label', '札记');
+      rail.innerHTML = `<a class="weekly-rail-link" href="${weeklyHref}"${onWeekly ? ' aria-current="page"' : ''}>札记</a>`;
       document.body.appendChild(rail);
     }
 
@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (menu && !menu.querySelector('.nav-item-weekly')) {
       const li = document.createElement('li');
       li.className = 'nav-item-weekly';
-      li.innerHTML = `<a href="${weeklyHref}" class="nav-link"${onWeekly ? ' aria-current="page"' : ''}>周报</a>`;
+      li.innerHTML = `<a href="${weeklyHref}" class="nav-link"${onWeekly ? ' aria-current="page"' : ''}>札记</a>`;
       const about = [...menu.querySelectorAll('a')].find(a => (a.getAttribute('href') || '').includes('about'));
       if (about && about.parentElement) menu.insertBefore(li, about.parentElement);
       else menu.appendChild(li);
