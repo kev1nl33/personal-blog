@@ -38,22 +38,28 @@ class WeeklyTests(unittest.TestCase):
         self.assertEqual(page.select_one('meta[name="description"]')['content'], excerpt)
         self.assertEqual(links[0].select_one('p').get_text(), excerpt)
         self.assertEqual(links[0].h3.get_text(), page.h1.get_text())
+        # 周报已脱离首页/文章列表；入口走桌面侧栏 + 手机汉堡（JS 注入）
         for name in ['index.html', 'blog.html']:
-            card_link = parse(name).select_one('h2 a[href="weekly-2026-w44.html"]')
-            self.assertEqual(card_link.get_text(), page.h1.get_text())
-            self.assertEqual(card_link.parent.find_next_sibling('p').get_text(), excerpt)
+            self.assertIsNone(parse(name).select_one('h2 a[href="weekly-2026-w44.html"]'))
 
     def test_discovery_and_theme(self):
         entries = {entry['url']: entry for entry in build_index()}
         self.assertIn('weekly.html', entries)
         self.assertEqual(entries['weekly-2026-w44.html']['category'], '周报')
         home = parse('index.html')
-        self.assertEqual(home.select_one('#featured h2 a')['href'], 'weekly-2026-w44.html')
+        self.assertIsNone(home.select_one('#featured h2 a[href="weekly-2026-w44.html"]'))
+        self.assertNotEqual(home.select_one('#featured h2 a')['href'], 'weekly-2026-w44.html')
         self.assertEqual(len(home.select('#start-here article')), 4)
+        main_js = (ROOT / 'scripts/main.js').read_text(encoding='utf-8')
+        self.assertIn('weekly-rail inject', main_js)
+        self.assertIn('nav-item-weekly', main_js)
+        css = (ROOT / 'styles/main.css').read_text(encoding='utf-8')
+        self.assertIn('weekly-rail', css)
         for name in ['weekly.html', 'weekly-2026-w44.html']:
             page = parse(name)
             self.assertIsNotNone(page.select_one('script[src^="scripts/theme-init.js"]'))
             self.assertIsNotNone(page.select_one('.theme-toggle'))
+            # 顶栏静态 HTML 不加周报；手机项由 main.js 注入
             self.assertIsNone(page.select_one('#site-menu a[href="weekly.html"]'))
             self.assertEqual(page.select_one('link[rel="canonical"]')['href'],
                              'https://aikevin.dpdns.org/' + name[:-5])

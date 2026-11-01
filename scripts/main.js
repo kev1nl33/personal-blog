@@ -20,6 +20,35 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('picture:not([data-jpg-fallback]) > img').forEach((image) => {
     if (image.complete && image.naturalWidth === 0) image.dispatchEvent(new Event('error'));
   });
+
+  /* weekly-rail inject */
+  (function setupWeeklyEntry() {
+    const parts = location.pathname.split('/').filter(Boolean);
+    const last = parts[parts.length - 1] || '';
+    const nest = last.includes('.') ? Math.max(0, parts.length - 1) : parts.length;
+    const weeklyHref = `${'../'.repeat(nest)}weekly.html`;
+    const onWeekly = /weekly(?:\.html|-)/.test(last) || /\/weekly(?:\.html)?$/.test(location.pathname);
+
+    document.body.classList.add('has-weekly-rail');
+    if (!document.querySelector('.weekly-rail')) {
+      const rail = document.createElement('aside');
+      rail.className = 'weekly-rail';
+      rail.setAttribute('aria-label', '周报');
+      rail.innerHTML = `<a class="weekly-rail-link" href="${weeklyHref}"${onWeekly ? ' aria-current="page"' : ''}>周报</a>`;
+      document.body.appendChild(rail);
+    }
+
+    const menu = document.getElementById('site-menu');
+    if (menu && !menu.querySelector('.nav-item-weekly')) {
+      const li = document.createElement('li');
+      li.className = 'nav-item-weekly';
+      li.innerHTML = `<a href="${weeklyHref}" class="nav-link"${onWeekly ? ' aria-current="page"' : ''}>周报</a>`;
+      const about = [...menu.querySelectorAll('a')].find(a => (a.getAttribute('href') || '').includes('about'));
+      if (about && about.parentElement) menu.insertBefore(li, about.parentElement);
+      else menu.appendChild(li);
+    }
+  })();
+
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const nav = document.querySelector('.site-nav');
   const toggle = document.querySelector('.nav-toggle');

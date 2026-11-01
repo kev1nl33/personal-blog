@@ -80,3 +80,31 @@ h1,h2,h3,h4,p,ul,ol{margin:0}button,input,select,textarea{font:inherit}button,a{
 :is(.home-page,.archive-page) :is(.blog-card,.feature-story) h2 a:focus-visible::after{outline:3px solid var(--brand-blue);outline-offset:4px}
 
 .archive-year{grid-column:1/-1;font:700 24px var(--font-mono);padding-block:var(--spacing-lg) var(--spacing-sm)}
+
+
+/* weekly-rail: independent weekly entry */
+.weekly-rail{display:none}
+.nav-item-weekly{display:none}
+@media (min-width:801px){
+  body.has-weekly-rail{padding-left:64px}
+  .weekly-rail{
+    display:flex;flex-direction:column;align-items:center;justify-content:flex-start;
+    position:fixed;left:0;top:80px;bottom:0;width:64px;z-index:90;
+    border-right:1px solid var(--ink);background:var(--brand-white);padding:28px 0 24px;gap:12px
+  }
+  .weekly-rail-link{
+    writing-mode:vertical-rl;text-orientation:mixed;
+    font-size:14px;font-weight:700;letter-spacing:.18em;
+    min-height:120px;display:inline-flex;align-items:center;justify-content:center;
+    padding:12px 8px;border:1px solid var(--ink);background:var(--surface);
+    box-shadow:3px 3px 0 var(--ink)
+  }
+  .weekly-rail-link:hover{transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--brand-accent)}
+  .weekly-rail-link[aria-current="page"]{background:var(--ink);color:var(--on-ink);box-shadow:3px 3px 0 var(--brand-accent)}
+  .nav-ready .nav-item-weekly{display:none!important}
+}
+@media (max-width:800px){
+  .weekly-rail{display:none!important}
+  body.has-weekly-rail{padding-left:0}
+  .nav-ready .nav-item-weekly{display:list-item}
+}
