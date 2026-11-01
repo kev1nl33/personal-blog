@@ -1,0 +1,38 @@
+:root {
+    color: #0a0a0a;
+    background: #f4f4f0;
+    font-family: 'Noto Sans SC', sans-serif;
+    font-synthesis: none;
+}
+* { box-sizing: border-box; }
+body {
+    margin: 0;
+    min-height: 100svh;
+    background-image: linear-gradient(#e5e5e5 1px, transparent 1px), linear-gradient(90deg, #e5e5e5 1px, transparent 1px);
+    background-size: 40px 40px;
+}
+main { max-width: 1040px; margin: auto; padding: 48px 24px; }
+header { display: flex; align-items: baseline; justify-content: space-between; gap: 24px; border-bottom: 2px solid; padding-bottom: 16px; }
+.label, .edition, footer { font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: .08em; }
+.label { color: #ff4d00; }
+h1 { font-size: clamp(36px, 6vw, 64px); line-height: 1.1; letter-spacing: -.02em; margin: 36px 0 16px; font-weight: 900; }
+.intro { line-height: 1.8; margin: 0 0 32px; }
+.bento-card { border: 2px solid #0a0a0a; background: #f4f4f0; }
+.logo-stage { height: clamp(300px, 52vw, 480px); display: grid; place-items: center; overflow: hidden; }
+.logo-stage > .liquid-glass-logo { width: 100%; }
+.static-logo { width: min(184px, 60%); height: auto; }
+.playback { border-top: 1px solid; padding: 20px 24px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.playback p { margin: 0; font-size: 14px; line-height: 1.6; }
+button { cursor: pointer; color: #f4f4f0; background: #0a0a0a; border: 2px solid #0a0a0a; padding: 12px 20px; font: inherit; font-weight: 700; white-space: nowrap; }
+button:hover:enabled { background: #ff4d00; border-color: #ff4d00; }
+button:focus-visible { outline: 3px solid #ff4d00; outline-offset: 4px; }
+button:disabled { cursor: default; opacity: .5; }
+button span { margin-left: 16px; }
+footer { margin-top: 28px; line-height: 1.8; letter-spacing: 0; }
+footer a { color: inherit; text-underline-offset: 4px; }
+@media (max-width: 600px) {
+    main { padding: 24px 16px; }
+    .edition { display: none; }
+    .playback { align-items: flex-start; flex-direction: column; padding: 20px; }
+    h1 { margin-top: 28px; }
+}
