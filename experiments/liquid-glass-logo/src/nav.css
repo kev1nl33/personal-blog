@@ -1,8 +1,8 @@
 /* 首页标记的可见轮廓约为 A 字高的 1.5 倍；SVG 轮廓占 viewBox 的 48/64。 */
-.nav-logo--liquid{--nav-logo-size:52px;--nav-logo-visible-size:28px;--nav-logo-artwork-size:calc(var(--nav-logo-visible-size) * 4 / 3);--nav-logo-bleed:calc((var(--nav-logo-visible-size) - var(--nav-logo-size)) / 2);--nav-logo-optical-y:1px;display:inline-flex;align-items:center;gap:.4em;line-height:1}
-/* 画布留白用负外边距抵消，让可见轮廓贴齐容器左缘，间隙只由 gap 决定。 */
-.nav-logo--liquid .nav-logo-mark{margin-block:0;margin-inline:var(--nav-logo-bleed);translate:0 var(--nav-logo-optical-y)}
-.nav-logo--liquid>span[aria-hidden]{align-self:center;width:5px;height:5px;margin-left:-.3em;translate:0 .3em;background:var(--brand-accent)}
+.nav-logo--liquid{--nav-logo-size:52px;--nav-logo-visible-size:28px;--nav-logo-artwork-size:calc(var(--nav-logo-visible-size) * 4 / 3);--nav-logo-bleed:calc((var(--nav-logo-visible-size) - var(--nav-logo-size)) / 2);--nav-logo-optical-y:1px;display:inline-flex;align-items:center;gap:0;line-height:1}
+/* 画布留白用负外边距抵消，让可见轮廓贴齐容器左缘，右侧留白即字标间隙，画布不得压到文字。 */
+.nav-logo--liquid .nav-logo-mark{margin-block:0;margin-inline:var(--nav-logo-bleed) 0;translate:0 var(--nav-logo-optical-y)}
+.nav-logo--liquid>span[aria-hidden]{align-self:center;width:5px;height:5px;margin-left:.1em;translate:0 .3em;background:var(--brand-accent)}
 .home-page .nav-inner{min-height:76px}
 .nav-logo--liquid .nav-logo-mark{position:relative;display:grid;place-items:center;overflow:hidden;flex:none;width:var(--nav-logo-size);height:var(--nav-logo-size)}
 .nav-logo-mark .liquid-glass-logo{position:absolute;inset:0;min-height:0}
