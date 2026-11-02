@@ -18,3 +18,9 @@
 
 ## 预览
 cd /tmp/blog-liquid-glass-home && python3 -m http.server 8010 --bind 127.0.0.1 → http://127.0.0.1:8010/index.html
+
+## 全站替换「计划李」品牌位（老板追加）
+- 61 个共享导航页面的顶栏 `计划李▪` 全部替换为 liquid 标记 + AIKev1n（第二大脑 `second-brain/` 不动）。范围包括根目录页、`series/` 两页、`404.html` 和咖啡角。CSS/JS/静态图统一用根路径 `/experiments/liquid-glass-logo/...`，所以子目录页和 404 都能用；资源版本为 liquid-nav-6。
+- 页脚 `计划李▪` 文字品牌同步改为 `AIKev1n▪`，和首页页脚一致（页脚原本就没有标记）。正文和 `<title>` 里的「计划李」不动。
+- `nav.css` 里只对首页生效的 `.home-page` 选择器改为 `.site-nav:has(.nav-logo--liquid)`，各页顶栏高度和 390px 宽下的按钮间距与首页一致。
+- 验证：blog、about、文章、coffee、series、now、404、travel 在 1280 和 390 宽下都渲染出画布，或回退到静态图；无横溢，顶栏高 76/68px。travel 页的控制台报错只来自本地无法访问的 `/media/` R2 照片，和本次改动无关。`npm test` 62 项通过，`validate_site.py` 0 错误，阅读链接和相关阅读 `--check` 都已同步。

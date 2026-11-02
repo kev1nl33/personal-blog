@@ -3,7 +3,7 @@
 /* 画布留白用负外边距抵消，让可见轮廓贴齐容器左缘，右侧留白即字标间隙，画布不得压到文字；纵向让方框中心（viewBox 23.5/64）对齐字标中线。 */
 .nav-logo--liquid .nav-logo-mark{margin-block:0;margin-inline:var(--nav-logo-bleed) 0;translate:0 var(--nav-logo-optical-y)}
 .nav-logo--liquid>span[aria-hidden]{align-self:center;width:5px;height:5px;margin-left:0;translate:0 .3em;background:var(--brand-accent)}
-.home-page .nav-inner{min-height:76px}
+.site-nav:has(.nav-logo--liquid) .nav-inner{min-height:76px}
 .nav-logo--liquid .nav-logo-mark{position:relative;display:grid;place-items:center;overflow:hidden;flex:none;width:var(--nav-logo-size);height:var(--nav-logo-size)}
 .nav-logo-mark .liquid-glass-logo{position:absolute;inset:0;min-height:0}
 /* 使用真实布局尺寸补偿反射留白，让 renderer 以显示尺寸 × DPR 绘制，不能 scale 拉伸。 */
@@ -11,4 +11,4 @@
 .nav-logo-mark .liquid-glass-logo-fallback{margin:0}
 .nav-logo-mark .liquid-glass-logo-fallback>img{flex:none;width:var(--nav-logo-artwork-size)!important;height:var(--nav-logo-artwork-size)!important;max-width:none!important;max-height:none!important;object-fit:contain}
 .nav-logo-mark .nav-logo-static{position:absolute;left:50%;top:50%;display:block;width:var(--nav-logo-artwork-size);height:var(--nav-logo-artwork-size);max-width:none;object-fit:contain;transform:translate(-50%,-50%)}
-@media(max-width:540px){.nav-logo--liquid{--nav-logo-size:44px;--nav-logo-visible-size:26px;font-size:24px}.home-page .nav-inner{min-height:68px}.home-page .theme-toggle,.home-page .search-trigger{margin-left:4px}}
+@media(max-width:540px){.nav-logo--liquid{--nav-logo-size:44px;--nav-logo-visible-size:26px;font-size:24px}.site-nav:has(.nav-logo--liquid) .nav-inner{min-height:68px}.site-nav:has(.nav-logo--liquid) :is(.theme-toggle,.search-trigger){margin-left:4px}}
