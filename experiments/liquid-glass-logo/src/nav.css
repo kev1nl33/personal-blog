@@ -1,7 +1,11 @@
-/* 首页顶栏品牌位的液态玻璃标识：动画收进 34px 见方，颜色由 nav.jsx 按站点主题传入。 */
-.nav-logo--liquid{display:inline-flex;align-items:center;gap:12px}
-.nav-logo--liquid .nav-logo-mark{position:relative;flex:none;width:34px;height:34px;margin:0}
-.nav-logo-mark .liquid-glass-logo{min-height:0}
-.nav-logo-mark .liquid-glass-logo-fallback>img{width:100%;height:100%;max-width:none;max-height:none;object-fit:contain}
-.nav-logo-mark .nav-logo-static{display:block;width:100%;height:100%}
-@media(max-width:540px){.nav-logo--liquid{gap:10px}.nav-logo--liquid .nav-logo-mark{width:28px;height:28px}}
+/* 首页标记的可见轮廓约为 A 字高的 1.5 倍；SVG 轮廓占 viewBox 的 48/64。 */
+.nav-logo--liquid{--nav-logo-size:52px;--nav-logo-visible-size:28px;--nav-logo-artwork-size:calc(var(--nav-logo-visible-size) * 4 / 3);display:inline-flex;align-items:center;gap:4px}
+.home-page .nav-inner{min-height:76px}
+.nav-logo--liquid .nav-logo-mark{position:relative;display:grid;place-items:center;overflow:hidden;flex:none;width:var(--nav-logo-size);height:var(--nav-logo-size);margin:0}
+.nav-logo-mark .liquid-glass-logo{position:absolute;inset:0;min-height:0}
+/* 使用真实布局尺寸补偿反射留白，让 renderer 以显示尺寸 × DPR 绘制，不能 scale 拉伸。 */
+.nav-logo-mark .liquid-glass-logo>canvas{inset:auto;left:50%;top:50%;width:calc(var(--nav-logo-artwork-size) * 1.9);height:calc(var(--nav-logo-artwork-size) * 1.9);transform:translate(-50%,-50%)}
+.nav-logo-mark .liquid-glass-logo-fallback{margin:0}
+.nav-logo-mark .liquid-glass-logo-fallback>img{flex:none;width:var(--nav-logo-artwork-size)!important;height:var(--nav-logo-artwork-size)!important;max-width:none!important;max-height:none!important;object-fit:contain}
+.nav-logo-mark .nav-logo-static{position:absolute;left:50%;top:50%;display:block;width:var(--nav-logo-artwork-size);height:var(--nav-logo-artwork-size);max-width:none;object-fit:contain;transform:translate(-50%,-50%)}
+@media(max-width:540px){.nav-logo--liquid{--nav-logo-size:44px;--nav-logo-visible-size:26px;gap:3px;font-size:24px}.home-page .nav-inner{min-height:68px}.home-page .theme-toggle,.home-page .search-trigger{margin-left:4px}}

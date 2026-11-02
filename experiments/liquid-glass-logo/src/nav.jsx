@@ -37,7 +37,7 @@ function NavLogo() {
     const palette = PALETTES[theme];
 
     if (reducedMotion) {
-        return <img className="nav-logo-static" src={palette.logo} alt="" width="34" height="34" />;
+        return <img className="nav-logo-static" src={palette.logo} alt="" width="52" height="52" />;
     }
 
     return (
@@ -51,7 +51,11 @@ function NavLogo() {
             tileColor={palette.tileColor}
             logoColor={palette.logoColor}
             textColor={palette.logoColor}
-            maxDpr={1.5}
+            logoScale={1}
+            maxDpr={4}
+            bloom={0.12}
+            depth={0.8}
+            dispersion={0.45}
             loop={false}
             height="100%"
             aria-label="AIKev1n 标识"
