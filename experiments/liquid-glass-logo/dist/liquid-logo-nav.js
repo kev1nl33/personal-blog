@@ -11743,7 +11743,7 @@ function Ym() {
     };
   }, []);
   const _ = Lm[M];
-  return g ? /* @__PURE__ */ ft.jsx("img", { className: "nav-logo-static", src: _.logo, alt: "", width: "34", height: "34" }) : /* @__PURE__ */ ft.jsx(
+  return g ? /* @__PURE__ */ ft.jsx("img", { className: "nav-logo-static", src: _.logo, alt: "", width: "52", height: "52" }) : /* @__PURE__ */ ft.jsx(
     Hm,
     {
       logo: _.logo,
@@ -11754,7 +11754,11 @@ function Ym() {
       tileColor: _.tileColor,
       logoColor: _.logoColor,
       textColor: _.logoColor,
-      maxDpr: 1.5,
+      logoScale: 1,
+      maxDpr: 4,
+      bloom: 0.12,
+      depth: 0.8,
+      dispersion: 0.45,
       loop: !1,
       height: "100%",
       "aria-label": "AIKev1n 标识"

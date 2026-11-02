@@ -9,7 +9,7 @@
 - src/main.jsx：React 小岛、动态偏好监听、静态降级及重播按钮。
 - src/page.css：只用于本实验的页面样式。
 - src/nav.jsx：首页顶栏品牌位的第二个小岛；跟随站点 `data-theme` 与 `prefers-reduced-motion`，深色主题换用 logo-dark.svg。
-- src/nav.css：顶栏品牌位布局（桌面 34px / ≤540px 28px），随 nav 入口编译进 dist/liquid-logo-nav.css。
+- src/nav.css：顶栏品牌位以实测约 1.5 倍 A 的可见字高为准：桌面轮廓 28px / ≤540px 26px（A 约 18.3px / 17.6px）；--nav-logo-visible-size 管理轮廓，--nav-logo-size 管理挂载占位 52px / 44px，首页顶栏至少 76px / 68px。SVG 轮廓占 viewBox 的 48/64，静态图按 4/3 补偿留白；Canvas 使用真实布局尺寸（可见轮廓 × 4/3 × renderer 反射留白 1.9），仅平移居中，禁止 scale 放大低分辨率画布。nav.jsx 使用 logoScale=1、maxDpr=4（renderer 按实际 devicePixelRatio 分配，覆盖常见 DPR 1–4），适度降低 bloom/depth/dispersion；不改 vendor 或独立预览页。随 nav 入口编译进 dist/liquid-logo-nav.css。
 - logo-dark.svg：深色主题描边变体，取 styles/main.css 深色 --paper/--ink 值；logo.svg 保持浅色版。
 - vendor/reactdrops/：站点 registry 导出的原始组件文件与 LICENSE.txt；不混入自写代码。保留原始英文注释和许可。
 - dist/：可静态服务的构建产物，提交进 Git；不要手工修改。liquid-logo.js / .css 供本预览页，liquid-logo-nav.js / .css 供首页顶栏。
