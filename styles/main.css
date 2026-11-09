@@ -108,3 +108,7 @@ h1,h2,h3,h4,p,ul,ol{margin:0}button,input,select,textarea{font:inherit}button,a{
   body.has-weekly-rail{padding-left:0}
   .nav-ready .nav-item-weekly{display:list-item}
 }
+/* 手机阅读：固定「回到顶部」会盖住正文末行，小屏隐藏；桌面保持原样。 */
+@media (max-width:540px){
+  .back-to-top{display:none}
+}
