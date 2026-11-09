@@ -19,12 +19,13 @@ class WeeklyTests(unittest.TestCase):
         links = hub.select('ol.series-list a.series-item')
         self.assertTrue(hub.select_one('ol.series-list').has_attr('reversed'))
         self.assertEqual([a['href'] for a in links],
-                         ['weekly-2026-w44.html', 'weekly-2026-w43.html', 'weekly-2026-w42.html'])
-        self.assertEqual(hub.select_one('.coordinate').get_text(), '系列 / 3 篇')
+                         ['weekly-2026-w45.html', 'weekly-2026-w44.html',
+                          'weekly-2026-w43.html', 'weekly-2026-w42.html'])
+        self.assertEqual(hub.select_one('.coordinate').get_text(), '系列 / 4 篇')
         page = parse(links[0]['href'])
         self.assertEqual(page.select_one('.series-nav a')['href'], 'weekly.html')
         self.assertEqual(page.select_one('.series-nav a[rel="prev"]')['href'],
-                         'weekly-2026-w43.html')
+                         'weekly-2026-w44.html')
         self.assertIsNone(page.select_one('.series-nav a[rel="next"]'))
         self.assertEqual(hub.h1.get_text(), '札记')
         self.assertEqual(page.select_one('.breadcrumb').get_text(), '← 札记')
@@ -33,36 +34,51 @@ class WeeklyTests(unittest.TestCase):
         self.assertEqual(page.select_one('meta[property="article:section"]')['content'], '札记')
         self.assertEqual(page.select_one('meta[property="article:tag"]')['content'], '札记')
         self.assertEqual(page.select_one('meta[property="article:series"]')['content'], '札记')
-        self.assertEqual(page.select_one('meta[property="article:series_order"]')['content'], '202644')
-        self.assertEqual(page.select_one('meta[property="article:published_time"]')['content'], '2026-10-30')
+        self.assertEqual(page.select_one('meta[property="article:series_order"]')['content'], '202645')
+        self.assertEqual(page.select_one('meta[property="article:published_time"]')['content'], '2026-11-06')
         self.assertEqual([h.get_text() for h in page.select('.article-content h2')],
                          ['一件具体的事', '这件事让我看见了什么', '一个没想透的问题'])
-        self.assertEqual(page.h1.get_text(), '札记 · W44')
-        self.assertEqual(page.title.get_text(), '札记 · W44')
-        self.assertEqual(page.select_one('meta[property="og:title"]')['content'], '札记 · W44')
+        self.assertEqual(page.h1.get_text(), '札记 · W45')
+        self.assertEqual(page.title.get_text(), '札记 · W45')
+        self.assertEqual(page.select_one('meta[property="og:title"]')['content'], '札记 · W45')
         figures = page.select('.article-content figure')
         self.assertEqual([figure.img['src'] for figure in figures], [
-            'assets/weekly/w44-concert-stage.jpg',
-            'assets/weekly/w44-mainline-timeline.png',
-            'assets/weekly/w44-data-support.png',
+            'assets/weekly/w45-idle-hardware.jpg',
+            'assets/weekly/w45-focus-mainline.jpg',
+            'assets/weekly/w45-own-judgment.jpg',
         ])
         for figure in figures:
             self.assertTrue((ROOT / figure.img['src']).is_file())
             self.assertTrue(figure.img['alt'].strip())
-            self.assertTrue(figure.figcaption.get_text().strip())
+            self.assertIn('AI 生成插画', figure.figcaption.get_text())
             self.assertGreater(int(figure.img['width']), 0)
             self.assertGreater(int(figure.img['height']), 0)
         text = page.select_one('.article-content').get_text()
-        for private in ['素材来源', '[[', '现金所剩不多', '90-资料库', 'DeskPet', 'QQQ', 'SPY',
-                        'FOMC', '+48%', '下周只盯什么', '学到什么']:
+        for private in ['素材来源', '[[', '取材与核对', '周记录', '本文件为公开骨架',
+                        '02-正在关注', '90-资料库']:
             self.assertNotIn(private, text)
-        self.assertIn('But how？', text)
+        self.assertIn('《不要为了利用工具而创造需求》', text)
         excerpt = page.select_one('.article-content p').get_text()
         self.assertEqual(page.select_one('meta[name="description"]')['content'], excerpt)
         self.assertEqual(page.select_one('meta[property="og:description"]')['content'], excerpt)
-        self.assertEqual(links[0].select_one('p').get_text(),
-                         '本周我终于听见了自己要什么；也听见了自己还不会用。')
+        self.assertEqual(links[0].select_one('p').get_text(), excerpt)
         self.assertEqual(links[0].h3.get_text(), page.h1.get_text())
+
+        w44 = parse('weekly-2026-w44.html')
+        self.assertEqual(w44.h1.get_text(), '札记 · W44')
+        self.assertEqual(w44.select_one('meta[property="article:series_order"]')['content'], '202644')
+        self.assertEqual(w44.select_one('meta[property="article:published_time"]')['content'], '2026-10-30')
+        self.assertEqual(w44.select_one('.series-nav a[rel="next"]')['href'], 'weekly-2026-w45.html')
+        self.assertEqual([figure.img['src'] for figure in w44.select('.article-content figure')], [
+            'assets/weekly/w44-concert-stage.jpg',
+            'assets/weekly/w44-mainline-timeline.png',
+            'assets/weekly/w44-data-support.png',
+        ])
+        w44_text = w44.select_one('.article-content').get_text()
+        for private in ['素材来源', '[[', '现金所剩不多', '90-资料库', 'DeskPet', 'QQQ', 'SPY',
+                        'FOMC', '+48%', '下周只盯什么', '学到什么']:
+            self.assertNotIn(private, w44_text)
+        self.assertIn('But how？', w44_text)
         # 札记已脱离首页/文章列表；入口走桌面侧栏 + 手机汉堡（JS 注入）
         for name in ['index.html', 'blog.html']:
             self.assertIsNone(parse(name).select_one('h2 a[href="weekly-2026-w44.html"]'))
@@ -116,6 +132,7 @@ class WeeklyTests(unittest.TestCase):
         entries = {entry['url']: entry for entry in build_index()}
         self.assertIn('weekly.html', entries)
         self.assertEqual(entries['weekly-2026-w44.html']['category'], '札记')
+        self.assertEqual(entries['weekly-2026-w45.html']['category'], '札记')
         home = parse('index.html')
         self.assertIsNone(home.select_one('#featured h2 a[href="weekly-2026-w44.html"]'))
         self.assertNotEqual(home.select_one('#featured h2 a')['href'], 'weekly-2026-w44.html')
@@ -127,7 +144,7 @@ class WeeklyTests(unittest.TestCase):
         self.assertEqual(main_js.count('>札记</a>'), 2)
         for old_name in ['周报', '周记']:
             self.assertNotIn(old_name, main_js)
-            for name in ['weekly.html', 'weekly-2026-w44.html']:
+            for name in ['weekly.html', 'weekly-2026-w44.html', 'weekly-2026-w45.html']:
                 self.assertNotIn(old_name, (ROOT / name).read_text(encoding='utf-8'))
         css = (ROOT / 'styles/main.css').read_text(encoding='utf-8')
         self.assertIn('weekly-rail', css)
