@@ -66,7 +66,7 @@ class RelatedReadingTests(unittest.TestCase):
 
     def test_checked_in_chinese_articles_are_current(self):
         updates = related_updates(ROOT)
-        self.assertEqual(len(updates), 44)
+        self.assertEqual(len(updates), 45)
         for path, source in updates.items():
             self.assertEqual(source, path.read_text(), path.name)
             soup = BeautifulSoup(source, 'html.parser')

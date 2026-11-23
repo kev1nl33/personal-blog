@@ -20,7 +20,7 @@ class ArticleTaxonomyTests(unittest.TestCase):
                      for card in cls.cards}
 
     def test_metadata_and_category_counts(self):
-        self.assertEqual(len(self.cards), 40)
+        self.assertEqual(len(self.cards), 41)
         counts = collections.Counter()
         for card in self.cards:
             name = card.select_one('h2 a')['href']
@@ -35,7 +35,7 @@ class ArticleTaxonomyTests(unittest.TestCase):
             self.assertEqual(meta['lang'], 'en' if name == 'energy-like-tokens.html' else 'zh')
             self.assertTrue(page.html['lang'].startswith(meta['lang']))
             counts[card['data-category']] += 1
-        self.assertEqual(counts, dict(career=7, ai=13, investment=4, personal=10, life=4, reading=2))
+        self.assertEqual(counts, dict(career=7, ai=13, investment=5, personal=10, life=4, reading=2))
 
     def test_tags_are_shared_and_consistent(self):
         counts = collections.Counter()
