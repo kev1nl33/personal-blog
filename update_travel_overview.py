@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 """从总览卡片和实拍素材更新旅行统计，保留手工维护的 HTML。"""
 
+import argparse
 from pathlib import Path
 import re
+import sys
 
 from bs4 import BeautifulSoup
 
@@ -26,7 +28,7 @@ def collect_media_photos(directory, trip):
     return trip_photos
 
 
-def update_overview():
+def compute_overview():
     page = ROOT / 'travel.html'
     content = page.read_text(encoding='utf-8')
     soup = BeautifulSoup(content, 'html.parser')
@@ -49,7 +51,6 @@ def update_overview():
                 if photo.is_file() and photo.suffix.lower() in PHOTO_EXTENSIONS
             }
         photos.update(trip_photos)
-        print(f'{directory}: {len(trip_photos)} 张')
     totals = f'''<!-- travel-totals:start -->
 <dl class="travel-totals" aria-label="全部旅行合计">
 <div><dt>国家 / COUNTRIES</dt><dd>{len(countries)}</dd></div>
@@ -62,9 +63,28 @@ def update_overview():
     )
     if count != 1:
         raise ValueError('旅行统计标记必须恰好有一组')
+    return page, content, updated, len(countries), len(photos)
+
+
+def update_overview(check=False):
+    page, content, updated, n_countries, n_photos = compute_overview()
+    if check:
+        if content != updated:
+            print('travel.html 统计已过期，请运行 python3 update_travel_overview.py')
+            return 1
+        print(f'travel.html 统计已是最新：{n_countries} 个国家，{n_photos} 张收录照片')
+        return 0
     page.write_text(updated, encoding='utf-8')
-    print(f'总计：{len(countries)} 个国家，{len(photos)} 张收录照片（资料图不计入）')
+    print(f'总计：{n_countries} 个国家，{n_photos} 张收录照片（资料图不计入）')
+    return 0
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--check', action='store_true', help='只检查，不写入')
+    args = parser.parse_args()
+    return update_overview(check=args.check)
 
 
 if __name__ == '__main__':
-    update_overview()
+    sys.exit(main())

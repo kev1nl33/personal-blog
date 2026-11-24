@@ -1,21 +1,22 @@
-# Cloudflare Pages 绑定配置
-# 需要在 Cloudflare 控制台创建对应资源后填入 id
+# Cloudflare Pages 绑定配置（作为仓库内唯一配置来源）
+name = "personal-blog"
+pages_build_output_dir = "."
+compatibility_date = "2025-11-16"
 
-[[kv_namespaces]]
-binding = "VISITOR_COUNTER"
-id = "50173b8e150e485bb273b2b728dbd048"
-
-# 画廊图片元数据存储
-[[kv_namespaces]]
-binding = "GALLERY_META"
-id = "ab91b039fa344df88a515337f14e0672"
-
-# 画廊图片 R2 存储桶
+# Preview / 本地开发默认绑定
 [[r2_buckets]]
 binding = "GALLERY_BUCKET"
 bucket_name = "blog-gallery"
 
-# 第二大脑私有数据 R2 存储桶（/second-brain/ 登录门卫后方可访问）
 [[r2_buckets]]
+binding = "SECOND_BRAIN_BUCKET"
+bucket_name = "second-brain-preview"
+
+# Production 正式环境绑定（main 分支）
+[[env.production.r2_buckets]]
+binding = "GALLERY_BUCKET"
+bucket_name = "blog-gallery"
+
+[[env.production.r2_buckets]]
 binding = "SECOND_BRAIN_BUCKET"
 bucket_name = "second-brain-private"

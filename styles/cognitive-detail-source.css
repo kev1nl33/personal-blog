@@ -1,0 +1,4 @@
+/* 108 种认知武器详情页预编译 Tailwind 样式（替代运行时 cdn.tailwindcss.com）。 */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

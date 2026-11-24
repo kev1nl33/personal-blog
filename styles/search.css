@@ -147,12 +147,26 @@
   background: var(--surface);
   border-left-color: var(--brand-accent);
 }
+.site-search-result-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
 .site-search-result-title {
   display: block;
   color: var(--brand-black);
   font-size: 16px;
   font-weight: 700;
   line-height: 1.55;
+}
+.site-search-result-badge {
+  flex: none;
+  padding: 1px 6px;
+  border: 1px solid var(--hairline);
+  font: 11px/1.6 var(--font-mono);
+  color: var(--meta);
+  white-space: nowrap;
 }
 .site-search-result-desc {
   display: block;

@@ -80,7 +80,8 @@
     const terms = termsOf(query);
     // 优先用页面自己的摘要；摘要里没有命中词时（例如列表页）再回落到正文片段。
     const candidates = [entry.description, entry.content].filter(Boolean);
-    for (const text of candidates) {
+    for (const rawText of candidates) {
+      const text = String(rawText).normalize('NFKC');
       const haystack = text.toLocaleLowerCase();
       const firstHit = Math.min(...terms.map(term => haystack.indexOf(term)).filter(index => index >= 0));
       if (!Number.isFinite(firstHit)) continue;
@@ -155,7 +156,7 @@
   function loadIndex() {
     if (state.loaded) return Promise.resolve(state.entries);
     if (state.loading) return state.loading;
-    state.loading = fetch(INDEX_URL, {credentials: 'same-origin', cache: 'no-cache'})
+    state.loading = fetch(INDEX_URL, {credentials: 'same-origin'})
       .then(response => {
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         return response.json();
@@ -298,15 +299,26 @@
       link.href = '/' + entry.url;
       link.tabIndex = -1;
 
+      const head = document.createElement('span');
+      head.className = 'site-search-result-head';
+
       const title = document.createElement('span');
       title.className = 'site-search-result-title';
       highlightInto(title, entry.title, query);
+      head.append(title);
+
+      if (entry.category) {
+        const badge = document.createElement('span');
+        badge.className = 'site-search-result-badge';
+        badge.textContent = entry.category;
+        head.append(badge);
+      }
 
       const description = document.createElement('span');
       description.className = 'site-search-result-desc';
       highlightInto(description, snippetFor(entry, query), query);
 
-      link.append(title, description);
+      link.append(head, description);
       item.append(link);
       fragment.append(item);
     });
@@ -397,7 +409,10 @@
 
   function init() {
     document.addEventListener('keydown', onEscape, true);
+    const warmIndex = () => loadIndex().catch(() => {});
     document.querySelectorAll('[data-search-open]').forEach(button => {
+      button.addEventListener('pointerenter', warmIndex, {once: true});
+      button.addEventListener('focus', warmIndex, {once: true});
       button.addEventListener('click', event => {
         event.preventDefault();
         open();
@@ -412,11 +427,6 @@
       event.preventDefault();
       open();
     });
-
-    // 页面空闲时预取索引，断网后仍可搜索。
-    const prefetch = () => loadIndex().catch(() => {});
-    if ('requestIdleCallback' in window) requestIdleCallback(prefetch, {timeout: 3000});
-    else setTimeout(prefetch, 1200);
   }
 
   if (document.readyState === 'loading') {

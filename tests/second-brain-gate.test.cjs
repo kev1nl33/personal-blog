@@ -13,6 +13,8 @@ const loadAuth = () => import('../functions/second-brain/_lib/auth.mjs');
 // [[path]].js 文件名含方括号，须走 pathToFileURL 转成 file:// URL 再 import
 const loadGate = () =>
     import(pathToFileURL(nodePath.join(__dirname, '../functions/second-brain/[[path]].js')).href);
+const loadLogout = () =>
+    import(pathToFileURL(nodePath.join(__dirname, '../functions/second-brain/logout.js')).href);
 
 const pageRequest = (pathname) =>
     new Request(`https://example.com${pathname}`, {
@@ -214,4 +216,35 @@ test('带末尾斜杠的 /second-brain/ 不重定向到自身（未登录走登�
     const response = await gate.onRequest({ request: pageRequest('/second-brain/'), env: {} });
     assert.equal(response.status, 302);
     assert.equal(response.headers.get('Location'), '/second-brain/login');
+});
+
+test('包含编码斜杠的路径被拒绝', async () => {
+    const auth = await loadAuth();
+    assert.equal(auth.r2KeyFromPathname('/second-brain/a%2f..%2fb'), null);
+    assert.equal(auth.r2KeyFromPathname('/second-brain/a%5cb'), null);
+});
+
+test('门卫拒绝非 GET/HEAD 方法（返回 405）', async () => {
+    const gate = await loadGate();
+    const req = new Request('https://example.com/second-brain/', { method: 'POST' });
+    const res = await gate.onRequest({ request: req, env: {} });
+    assert.equal(res.status, 405);
+    assert.equal(res.headers.get('Allow'), 'GET, HEAD');
+});
+
+test('登出路由 POST 清除会话 Cookie 并 303 跳转登录页，GET 返回确认页', async () => {
+    const logout = await loadLogout();
+    const postRes = await logout.onRequest({
+        request: new Request('https://example.com/second-brain/logout', { method: 'POST' }),
+    });
+    assert.equal(postRes.status, 303);
+    assert.equal(postRes.headers.get('Location'), '/second-brain/login');
+    assert.match(postRes.headers.get('Set-Cookie'), /sb_auth=;/);
+    assert.match(postRes.headers.get('Set-Cookie'), /Max-Age=0/);
+
+    const getRes = await logout.onRequest({
+        request: new Request('https://example.com/second-brain/logout', { method: 'GET' }),
+    });
+    assert.equal(getRes.status, 200);
+    assert.match(await getRes.text(), /form method="post"/);
 });

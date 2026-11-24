@@ -125,3 +125,29 @@ test('R2 绑定缺失时返回 500 而非崩溃', async () => {
     const res = await media.onRequestGet(context);
     assert.equal(res.status, 500);
 });
+
+test('响应带 X-Content-Type-Options: nosniff 且拒绝 SVG 等可执行格式', async () => {
+    const media = await loadMedia();
+    const okRes = await media.onRequestGet(makeContext(['travel', 'japan-2023', 'osaka-248.jpg']));
+    assert.equal(okRes.headers.get('X-Content-Type-Options'), 'nosniff');
+
+    const svgRes = await media.onRequestGet(makeContext(['travel', 'japan-2023', 'evil.svg']));
+    assert.equal(svgRes.status, 404);
+});
+
+test('HEAD 优先调用 R2 head() 避免读取对象体', async () => {
+    const media = await loadMedia();
+    let headCalled = false;
+    let getCalled = false;
+    const context = makeContext(['travel', 'japan-2023', 'osaka-248.jpg'], { method: 'HEAD' });
+    context.env = {
+        GALLERY_BUCKET: {
+            head: async (key) => { headCalled = true; return OBJECTS.get(key) || null; },
+            get: async (key) => { getCalled = true; return OBJECTS.get(key) || null; },
+        },
+    };
+    const res = await media.onRequestHead(context);
+    assert.equal(res.status, 200);
+    assert.equal(headCalled, true);
+    assert.equal(getCalled, false);
+});

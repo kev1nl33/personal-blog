@@ -71,6 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
   reset.addEventListener('click', () => { category='all';input.value='';tag.value='all';type.value='all';applyFilters(true);input.focus(); });
   window.addEventListener('popstate', restore);
   window.addEventListener('keydown', event => {
+    if (event.defaultPrevented) return;
     if (event.key === '/' && !event.ctrlKey && !event.metaKey && !event.altKey && !event.target.closest('input,textarea,select,[contenteditable]')) {
       event.preventDefault();input.focus();
     }

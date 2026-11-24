@@ -79,6 +79,29 @@ class GenerateSitemapTests(unittest.TestCase):
         self.assertNotEqual(result.returncode, 0)
         self.assertEqual(sitemap.read_bytes(), original)
 
+    def test_uncommitted_file_falls_back_to_published_time_and_check_mode_works(self):
+        (self.root / "brand-new.html").write_text(
+            '<html><head><meta property="article:published_time" content="2026-11-22"></head></html>',
+            encoding="utf-8",
+        )
+        result = self.run_script()
+        self.assertEqual(result.returncode, 0, result.stderr)
+        roots = {item["loc"]: item for item in entries(self.root / "sitemap.xml")}
+        self.assertEqual(roots[f"{BASE_URL}/brand-new"]["lastmod"], "2026-11-22")
+
+        check_ok = subprocess.run(
+            [sys.executable, str(ROOT / "generate_sitemap.py"), "--check"],
+            cwd=self.root, capture_output=True, text=True,
+        )
+        self.assertEqual(check_ok.returncode, 0, check_ok.stdout)
+
+        (self.root / "another-new.html").write_text("<html></html>", encoding="utf-8")
+        check_stale = subprocess.run(
+            [sys.executable, str(ROOT / "generate_sitemap.py"), "--check"],
+            cwd=self.root, capture_output=True, text=True,
+        )
+        self.assertEqual(check_stale.returncode, 1)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -3,6 +3,47 @@
 .dev.vars
 .dev.vars.*
 .wrangler
+.claude
+.playwright-cli
+.ruff_cache
+.sisyphus
+.github
+__pycache__
+**/__pycache__
+.DS_Store
 
-# 仅排除无运行引用的历史根目录文件，保留其他 archived 资源
-archived/legacy-root/
+# 非站点生产目录（归档、文档、测试、旧模板）
+archived/
+docs/
+tests/
+templates/
+
+# 构建配置、脚本与仓库说明文档
+*.py
+*.md
+scripts/*.py
+scripts/generate-sb-password-hash.js
+wrangler.toml
+package.json
+package-lock.json
+requirements.txt
+tailwind.config.cjs
+tailwind.cognitive.config.cjs
+styles/utilities-source.css
+styles/cognitive-detail-source.css
+
+# 液态玻璃 Logo 实验目录仅保留运行所需的 SVG 与首页 nav bundle
+experiments/CLAUDE.md
+experiments/liquid-glass-logo/.gitignore
+experiments/liquid-glass-logo/CLAUDE.md
+experiments/liquid-glass-logo/README.md
+experiments/liquid-glass-logo/THIRD-PARTY-NOTICES.txt
+experiments/liquid-glass-logo/index.html
+experiments/liquid-glass-logo/package.json
+experiments/liquid-glass-logo/package-lock.json
+experiments/liquid-glass-logo/vite.config.js
+experiments/liquid-glass-logo/vite.nav.config.js
+experiments/liquid-glass-logo/src/
+experiments/liquid-glass-logo/vendor/
+experiments/liquid-glass-logo/dist/liquid-logo.js
+experiments/liquid-glass-logo/dist/liquid-logo.css

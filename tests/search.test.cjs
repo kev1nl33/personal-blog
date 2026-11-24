@@ -55,10 +55,25 @@ test('搜索结果附带可读摘要', () => {
     assert.ok(snippet.length <= 122);
 });
 
-test('索引覆盖核心页面且不含咖啡页', () => {
+test('索引覆盖核心页面、108 认知武器且不含咖啡页', () => {
     const indexed = new Set(entries.map(entry => entry.url));
-    for (const page of ['index.html', 'blog.html', 'travel.html', 'turning-32-mid-tier-reboot.html', 'travel-australia-2026.html']) {
+    for (const page of ['index.html', 'blog.html', 'travel.html', 'turning-32-mid-tier-reboot.html', 'travel-australia-2026.html', 'weekly.html']) {
         assert.ok(indexed.has(page), `${page} 应该出现在搜索索引中`);
     }
     assert.equal(entries.filter(entry => entry.url.startsWith('coffee')).length, 0);
+    assert.equal(entries.filter(entry => entry.category === '认知武器').length, 108);
+    assert.ok(urls('费曼').some(u => u.includes('002_Feynman')));
+    assert.ok(urls('沉没成本').some(u => u.includes('063_The Wait and See Trap')));
+});
+
+test('全角查询在摘要定位中同样正确归一化', () => {
+    const entry = {
+        url: 'x.html',
+        title: '测试',
+        description: '前文介绍。用ＡＩ写代码可以显著节省重复劳动。',
+        keywords: '',
+        content: '',
+    };
+    const snippet = snippetFor(entry, 'ai');
+    assert.ok(snippet.includes('AI写代码'));
 });

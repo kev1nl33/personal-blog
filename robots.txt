@@ -1,4 +1,4 @@
-# robots.txt for 计划李的个人博客
+# robots.txt for AIKev1n 个人博客
 
 User-agent: *
 Allow: /
@@ -6,6 +6,6 @@ Allow: /
 # Sitemap
 Sitemap: https://aikevin.dpdns.org/sitemap.xml
 
-# 禁止访问的路径（如果有）
+# 禁止访问的路径
 Disallow: /scripts/
 Disallow: /*.json$

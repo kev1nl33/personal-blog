@@ -101,6 +101,14 @@ export function buildSetCookie(value) {
     );
 }
 
+export function buildClearCookie() {
+    return (
+        `${COOKIE_NAME}=; Path=/second-brain` +
+        '; Max-Age=0; Expires=Thu, 01 Jan 1970 00:00:00 GMT' +
+        '; HttpOnly; Secure; SameSite=Lax'
+    );
+}
+
 // ---------- 密码校验：PBKDF2-HMAC-SHA256 ----------
 
 // 解析 "pbkdf2:<迭代次数>:<盐hex>:<哈希hex>"；盐就存放在这个字符串里，
@@ -212,7 +220,7 @@ export function r2KeyFromPathname(pathname) {
             return null;
         }
         if (seg === '' || seg === '.') continue;
-        if (seg === '..' || seg.startsWith('\\')) return null;
+        if (seg === '..' || seg.includes('/') || seg.includes('\\')) return null;
         segments.push(seg);
     }
     if (segments.length === 0) return 'index.html';

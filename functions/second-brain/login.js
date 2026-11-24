@@ -74,8 +74,12 @@ async function handleLoginSubmit(request, env) {
     const username = String(form?.get('username') ?? '');
     const password = String(form?.get('password') ?? '');
 
-    // 用户名或密码错误返回同一种 401，不区分哪个错了
-    const ok = username === USERNAME && (await verifyPassword(env.SB_PASSWORD_HASH, password));
+    // 限制密码长度避免超大请求消耗 PBKDF2 算力；用户名或密码错误返回同一种 401
+    const ok =
+        username === USERNAME &&
+        password.length > 0 &&
+        password.length <= 256 &&
+        (await verifyPassword(env.SB_PASSWORD_HASH, password));
     if (!ok) {
         const lockedFor = limiter.registerFailure(key);
         if (lockedFor) {
@@ -242,7 +246,7 @@ function renderLoginPage() {
             </fieldset>
         </form>
         <p class="msg" id="msg" role="alert"></p>
-        <footer>Kevin's Private Space</footer>
+        <footer>Kevin's Private Space · <a href="/" style="color:inherit;text-decoration:underline;text-underline-offset:4px;">← 返回博客</a></footer>
     </main>
     <script>
         // 渐进增强：有 JS 时就地展示错误信息，不打断输入；无 JS 时表单照常提交
@@ -256,14 +260,20 @@ function renderLoginPage() {
                     body: new FormData(this),
                     redirect: 'manual'
                 });
-                if (res.status === 401) {
+                if (res.type === 'opaqueredirect' || (res.status >= 300 && res.status < 400)) {
+                    window.location.href = '/second-brain/';
+                } else if (res.status === 401) {
                     msg.textContent = '账号或密码错误';
                     msg.classList.add('show');
                 } else if (res.status === 429) {
                     msg.textContent = '错误次数过多，已锁定，请 15 分钟后再试';
                     msg.classList.add('show');
+                } else if (res.status >= 500) {
+                    msg.textContent = '服务暂未就绪，请检查服务端环境变量配置';
+                    msg.classList.add('show');
                 } else {
-                    window.location.href = '/second-brain/';
+                    msg.textContent = '登录失败（状态码 ' + res.status + '），请重试';
+                    msg.classList.add('show');
                 }
             } catch (err) {
                 msg.textContent = '网络异常，请重试';

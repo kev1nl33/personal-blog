@@ -23,12 +23,30 @@
 .series-nav-links span { font: 12px var(--font-mono); color: var(--meta); }
 .series-nav-links a[rel="next"] { grid-column: 2; }
 .series-entry { margin-top: 24px; display: flex; flex-wrap: wrap; gap: 16px 32px; }
+.ticket-ledger-section { margin: 0 0 48px; }
+.ticket-ledger-section h2 { font-size: 20px; margin-bottom: 16px; }
+.ticket-ledger-wrap { overflow-x: auto; border: 1px solid var(--ink); background: var(--surface); }
+.ticket-ledger { width: 100%; border-collapse: collapse; font-size: 14px; line-height: 1.65; }
+.ticket-ledger th, .ticket-ledger td { padding: 12px 14px; text-align: left; border-bottom: 1px solid var(--hairline); vertical-align: top; }
+.ticket-ledger thead th { font-family: var(--font-mono); font-size: 12px; letter-spacing: .06em; background: var(--topic-band); border-bottom: 1px solid var(--ink); white-space: nowrap; }
+.ticket-ledger tbody tr:last-child td { border-bottom: 0; }
+.ticket-ledger a { font-weight: 700; text-decoration: underline; text-underline-offset: 4px; }
+.ticket-ledger a:hover { text-decoration-color: var(--brand-accent); }
+.ticket-score { font-family: var(--font-mono); font-weight: 700; color: var(--brand-accent); white-space: nowrap; }
+.weekly-open-question { border: 1px solid var(--ink); border-left: 4px solid var(--brand-accent); background: var(--surface); padding: 20px 24px; margin: 0 0 36px; }
+.weekly-open-question .coordinate { margin-bottom: 8px; }
+.weekly-open-question p:not(.coordinate) { font-family: var(--font-serif); font-size: 17px; line-height: 1.75; margin: 0 0 10px; }
+.weekly-topics { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.weekly-topic-pill { display: inline-block; padding: 2px 8px; border: 1px solid var(--hairline); font: 11px/1.6 var(--font-mono); color: var(--meta); background: var(--paper); }
 @media (max-width: 540px) {
  .series-item { grid-template-columns: 32px 1fr; gap: 12px; padding: 20px 0; }
  .series-item h3 { font-size: 18px; }
  .ticket-summary { padding: 20px; }
  .ticket-summary dl { grid-template-columns: 1fr; gap: 4px; }
  .ticket-summary dd { margin-bottom: 12px; }
+ .ticket-ledger th, .ticket-ledger td { padding: 10px; min-width: 96px; }
+ .ticket-ledger th:first-child, .ticket-ledger td:first-child { min-width: 56px; }
+ .weekly-open-question { padding: 16px 18px; }
  .series-nav-links { grid-template-columns: 1fr; gap: 16px; }
  .series-nav-links a[rel="next"] { grid-column: 1; }
 }

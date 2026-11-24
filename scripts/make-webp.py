@@ -324,13 +324,51 @@ def write_upload_manifest(out: Path, manifest: Path) -> None:
     print(f'清单：{manifest}（{len(lines)} 个文件，{total_bytes / 1024 / 1024:.2f} MB）')
 
 
+def build_local_assets(folders=('assets/weekly', 'assets/energy-ai-market-cycles')) -> int:
+    """为本地文章与札记配图就地生成同目录 .webp 变体，剥离 EXIF/XMP/ICC。"""
+    converted = 0
+    for folder in folders:
+        directory = ROOT / folder
+        if not directory.is_dir():
+            continue
+        for src in sorted(directory.iterdir()):
+            if not src.is_file() or src.suffix.lower() not in ('.jpg', '.jpeg', '.png'):
+                continue
+            dst = src.with_suffix('.webp')
+            if dst.exists() and dst.stat().st_mtime >= src.stat().st_mtime:
+                continue
+            with Image.open(src) as im:
+                im = ImageOps.exif_transpose(im)
+                if im.mode not in ('RGB', 'RGBA'):
+                    im = im.convert('RGBA' if 'A' in im.getbands() else 'RGB')
+                clean = Image.new(im.mode, im.size)
+                pixels = im.get_flattened_data() if hasattr(im, 'get_flattened_data') else list(im.getdata())
+                clean.putdata(list(pixels))
+                quality = 86 if src.suffix.lower() == '.png' else 78
+                clean.save(dst, format='WEBP', quality=quality, method=6)
+                if dst.stat().st_size >= src.stat().st_size:
+                    clean.save(dst, format='WEBP', quality=70, method=6)
+                if dst.stat().st_size < src.stat().st_size:
+                    converted += 1
+                    print(f'{src.relative_to(ROOT)} -> {dst.name} ({dst.stat().st_size // 1024}KB)')
+                else:
+                    dst.unlink(missing_ok=True)
+    print(f'本地文章配图 WebP 完成：新生成 {converted} 张')
+    return converted
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--only', help='只生成指定文件名（不含扩展名），逗号分隔')
     parser.add_argument('--out', type=Path, default=DEFAULT_OUT)
     parser.add_argument('--cache', type=Path, default=DEFAULT_CACHE)
     parser.add_argument('--manifest-only', action='store_true')
+    parser.add_argument('--local-assets', action='store_true', help='转换本地文章与札记配图为 WebP')
     args = parser.parse_args()
+
+    if args.local_assets:
+        build_local_assets()
+        return 0
 
     args.out.mkdir(parents=True, exist_ok=True)
     if args.manifest_only:

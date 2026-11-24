@@ -34,3 +34,7 @@
 .related-reading li+li{border-top:1px solid var(--hairline)}
 .related-reading a{display:block;padding:12px 0;line-height:var(--reading-leading);overflow-wrap:anywhere;color:var(--ink)}
 .related-reading a:hover{color:var(--link);text-decoration:underline;text-underline-offset:4px}
+@media (max-width:640px){
+ .article-content table :is(th,td){min-inline-size:9rem;line-height:1.5}
+ .article-content table :is(th,td):first-child{min-inline-size:6rem}
+}

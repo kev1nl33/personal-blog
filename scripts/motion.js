@@ -13,27 +13,11 @@ document.addEventListener('DOMContentLoaded', () => {
     return animation;
   }
   const hero = document.querySelector('.home-hero,.page-header,.article-header,[class*="hero"]') || document.querySelector('h1')?.parentElement;
-  let curtain;
   if (hero) {
-    let showCurtain = true;
-    try {
-      showCurtain = !sessionStorage.getItem('site-opening-seen');
-      sessionStorage.setItem('site-opening-seen', '1');
-    } catch { /* Private browsing may disallow session storage. */ }
-    if (showCurtain) {
-      curtain = document.createElement('div');
-      curtain.className = 'opening-curtain';
-      curtain.setAttribute('aria-hidden', 'true');
-      curtain.innerHTML = '<span>计划李<i>▪</i></span><small>观察 / 思考 / 实践</small>';
-      document.body.append(curtain);
-      const exit = play(curtain, [{transform:'translateY(0)'},{transform:'translateY(-100%)'}],
-        {duration:620, delay:130, easing, fill:'forwards'});
-      exit.finished.then(() => curtain.remove(), () => curtain.remove());
-    }
     const parts = [...hero.querySelectorAll('.eyebrow,h1,.hero-description,.hero-actions,.hero-mark,.hero-bottom,[class$="subtitle"]')];
     parts.forEach((element, index) => play(element,
-      [{opacity:0, transform:`translateY(${index === 1 ? 28 : 16}px)`}, {opacity:1, transform:'translateY(0)'}],
-      {duration:showCurtain ? 640 : 420, delay:(showCurtain ? 220 : 40) + index * 65, easing, fill:'backwards'}));
+      [{opacity:0, transform:`translateY(${index === 1 ? 24 : 14}px)`}, {opacity:1, transform:'translateY(0)'}],
+      {duration:380, delay:30 + index * 55, easing, fill:'backwards'}));
   }
   const targets = document.querySelectorAll('.section-heading,.feature-story,.topic-link,.blog-card,.bean-card,.shop-card,.note-card,.hotel-card,.detail-highlight-card,.equipment-card,.card-preview,.project-card,.highlight-card,.stamp-card,.bento-card,.gallery-item');
   let observer;
@@ -79,18 +63,20 @@ document.addEventListener('DOMContentLoaded', () => {
     pointer.addEventListener('change', reset);
   }
   interactive.forEach(bindInteractive);
-  // Galleries and cognitive tools render their cards after their data arrives.
-  const additions = new MutationObserver(records => records.forEach(record => record.addedNodes.forEach(node => {
-    if (!(node instanceof Element)) return;
-    const selector = '.gallery-item,.bento-card,.project-card';
-    if (node.matches(selector)) bindInteractive(node);
-    node.querySelectorAll(selector).forEach(bindInteractive);
-  })));
-  additions.observe(document.body, {childList:true,subtree:true});
+  // 仅在动态渲染卡片的页面监听新增节点，避免搜索或筛选时触发全页 MutationObserver。
+  const dynamicRoot = document.querySelector('#tool-grid, .cut-root');
+  if (dynamicRoot) {
+    const additions = new MutationObserver(records => records.forEach(record => record.addedNodes.forEach(node => {
+      if (!(node instanceof Element)) return;
+      const selector = '.gallery-item,.bento-card,.project-card';
+      if (node.matches(selector)) bindInteractive(node);
+      node.querySelectorAll(selector).forEach(bindInteractive);
+    })));
+    additions.observe(dynamicRoot, {childList:true,subtree:true});
+  }
   reduced.addEventListener('change', () => {
     if (!reduced.matches) return;
     observer?.disconnect();
     running.forEach(animation => animation.cancel());
-    curtain?.remove();
   });
 });

@@ -72,8 +72,10 @@ class ThemeWiringTests(unittest.TestCase):
             self.assertIn(token, block)
         self.assertIn(':root[data-theme="dark"]', css)
         self.assertNotIn('prefers-color-scheme:dark', css)
-        self.assertNotIn('/scripts/theme.js', (ROOT / 'service-worker.js').read_text(encoding='utf-8'))
-        self.assertIn('/scripts/theme-init.js', (ROOT / 'service-worker.js').read_text(encoding='utf-8'))
+        self.assertFalse((ROOT / 'service-worker.js').exists())
+        # 仅首页按需懒加载液态玻璃 Logo；内页一律走 204B 静态 SVG，避免 374KB JS 负担（name-explain.html 按既有边界保持原样）
+        for path in [p for p in root_pages() if in_scope(p) and p.name not in {'index.html', 'name-explain.html'}]:
+            self.assertNotIn('liquid-logo-nav.js', path.read_text(encoding='utf-8'), path.name)
 
 
 if __name__ == '__main__':

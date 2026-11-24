@@ -24,6 +24,9 @@ function isPageRequest(request, pathname) {
 
 export async function onRequest(context) {
     const { request, env } = context;
+    if (request.method !== 'GET' && request.method !== 'HEAD') {
+        return new Response(null, { status: 405, headers: { Allow: 'GET, HEAD', ...NO_STORE } });
+    }
     const { pathname } = new URL(request.url);
 
     // 无末尾斜杠的 /second-brain 先 301 到 /second-brain/：
@@ -53,7 +56,11 @@ export async function onRequest(context) {
     if (!key) return jsonResponse(400, { error: 'bad_path' });
 
     try {
-        const object = await env.SECOND_BRAIN_BUCKET.get(key);
+        const isHead = request.method === 'HEAD';
+        const object =
+            isHead && typeof env.SECOND_BRAIN_BUCKET.head === 'function'
+                ? await env.SECOND_BRAIN_BUCKET.head(key)
+                : await env.SECOND_BRAIN_BUCKET.get(key);
         if (!object) return jsonResponse(404, { error: 'not_found' });
 
         const headers = new Headers({
@@ -63,6 +70,10 @@ export async function onRequest(context) {
             'X-Content-Type-Options': 'nosniff',
         });
         if (object.etag) headers.set('ETag', object.etag);
+        if (isHead) {
+            await object.body?.cancel?.();
+            return new Response(null, { headers });
+        }
         return new Response(object.body, { headers });
     } catch (err) {
         console.error('second-brain: R2 read failed', err);

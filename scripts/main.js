@@ -21,32 +21,52 @@ document.addEventListener('DOMContentLoaded', () => {
     if (image.complete && image.naturalWidth === 0) image.dispatchEvent(new Event('error'));
   });
 
-  /* weekly-rail inject */
-  (function setupWeeklyEntry() {
-    const parts = location.pathname.split('/').filter(Boolean);
-    const last = parts[parts.length - 1] || '';
-    const nest = last.includes('.') ? Math.max(0, parts.length - 1) : parts.length;
-    const weeklyHref = `${'../'.repeat(nest)}weekly.html`;
-    const onWeekly = /weekly(?:\.html|-)/.test(last) || /\/weekly(?:\.html)?$/.test(location.pathname);
-
-    document.body.classList.add('has-weekly-rail');
-    if (!document.querySelector('.weekly-rail')) {
-      const rail = document.createElement('aside');
-      rail.className = 'weekly-rail';
-      rail.setAttribute('aria-label', '札记');
-      rail.innerHTML = `<a class="weekly-rail-link" href="${weeklyHref}"${onWeekly ? ' aria-current="page"' : ''}>札记</a>`;
-      document.body.appendChild(rail);
-    }
-
-    const menu = document.getElementById('site-menu');
-    if (menu && !menu.querySelector('.nav-item-weekly')) {
-      const li = document.createElement('li');
-      li.className = 'nav-item-weekly';
-      li.innerHTML = `<a href="${weeklyHref}" class="nav-link"${onWeekly ? ' aria-current="page"' : ''}>札记</a>`;
-      const about = [...menu.querySelectorAll('a')].find(a => (a.getAttribute('href') || '').includes('about'));
-      if (about && about.parentElement) menu.insertBefore(li, about.parentElement);
-      else menu.appendChild(li);
-    }
+  /* 回信入口渐进增强：自动预填邮件标题，并提供一键复制邮箱地址 */
+  (function setupEmailReplies() {
+    const heading = document.querySelector('main h1')?.textContent?.trim() || '';
+    document.querySelectorAll('a[href^="mailto:"]').forEach((link) => {
+      const rawHref = link.getAttribute('href') || '';
+      const email = rawHref.replace(/^mailto:/i, '').split('?')[0].trim();
+      if (!email) return;
+      if (heading && !rawHref.includes('?')) {
+        link.setAttribute('href', `mailto:${email}?subject=${encodeURIComponent(`回信：${heading}`)}`);
+      }
+      if (link.nextElementSibling?.classList.contains('copy-email-btn')) return;
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'copy-email-btn';
+      button.textContent = '复制邮箱';
+      button.setAttribute('aria-label', `复制邮箱地址 ${email}`);
+      let resetTimer = 0;
+      button.addEventListener('click', async () => {
+        let copied = false;
+        try {
+          if (navigator.clipboard?.writeText) {
+            await navigator.clipboard.writeText(email);
+            copied = true;
+          }
+        } catch {}
+        if (!copied) {
+          const area = document.createElement('textarea');
+          area.value = email;
+          area.setAttribute('readonly', '');
+          area.style.position = 'fixed';
+          area.style.opacity = '0';
+          document.body.appendChild(area);
+          area.select();
+          try { copied = document.execCommand('copy'); } catch {}
+          area.remove();
+        }
+        button.textContent = copied ? `已复制 ${email}` : email;
+        button.classList.toggle('is-copied', copied);
+        clearTimeout(resetTimer);
+        resetTimer = setTimeout(() => {
+          button.textContent = '复制邮箱';
+          button.classList.remove('is-copied');
+        }, 2400);
+      });
+      link.insertAdjacentElement('afterend', button);
+    });
   })();
 
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');

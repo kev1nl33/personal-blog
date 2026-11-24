@@ -11,7 +11,7 @@ from urllib.parse import quote, unquote, urlsplit
 from bs4 import BeautifulSoup, NavigableString
 
 BASE_URL = 'https://aikevin.dpdns.org'
-DEFAULT_OG_IMAGE = f'{BASE_URL}/images/travel/singapore-2025/singapore-147.jpg'
+DEFAULT_OG_IMAGE = f'{BASE_URL}/assets/readme/cover.png'
 SERIES_ZH = '108种认知武器'
 SERIES_EN = '108 Cognitive Weapons'
 
@@ -196,6 +196,10 @@ def audit_page(page, root):
     for href in re.findall(r'href="([^"]+)"', source):
         if not _local_target_exists(page, href, root):
             problems.append(f'{label}: broken link {href}')
+    if 'cdn.tailwindcss.com' in source:
+        problems.append(f'{label}: runtime cdn.tailwindcss.com should use precompiled cognitive-detail.css')
+    if 'visual-design.html' not in source:
+        problems.append(f'{label}: missing back-link to visual-design.html')
     return problems
 
 

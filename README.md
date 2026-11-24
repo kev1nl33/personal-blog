@@ -24,10 +24,11 @@
 <thead><tr><th width="140">阅读入口</th><th>可以在这里做什么</th></tr></thead>
 <tbody>
 <tr><td><strong><a href="https://aikevin.dpdns.org/blog.html">文章</a></strong></td><td>按职业转型、AI 与工具、投资、自我认知、家庭与生活、读书笔记浏览；组合分类、标签与关键词筛选，并分享带筛选条件的链接。</td></tr>
+<tr><td><strong><a href="https://aikevin.dpdns.org/weekly.html">札记</a></strong></td><td>每周切片：一件具体的事、这件事让我看见了什么、一个没想透的问题。</td></tr>
 <tr><td><strong><a href="https://aikevin.dpdns.org/visual-design.html">认知武器</a></strong></td><td>从拖延、选择困难、沟通和职业方向等具体问题查找 108 个思考工具；搜索模型或原文标题，展开第一步练习，再阅读完整专题。</td></tr>
 <tr><td><strong><a href="https://aikevin.dpdns.org/coffee.html">咖啡角</a></strong></td><td>在器具、豆子档案、探店记录与冲煮日记之间切换，从最近一杯回看配方与风味记录。</td></tr>
-<tr><td><strong><a href="https://aikevin.dpdns.org/travel.html">看世界</a></strong></td><td>浏览目的地与历史旅行计划，沿路线查看按天整理的行程、住宿和景点详情。</td></tr>
-<tr><td><strong><a href="https://aikevin.dpdns.org/gallery.html">回忆录</a></strong></td><td>旅途与日常影像的存放入口，支持相册与标签筛选；当前仓库的静态预览展示待整理状态。</td></tr>
+<tr><td><strong><a href="https://aikevin.dpdns.org/travel.html">看世界</a></strong></td><td>浏览目的地与实拍游记，沿世界地图与路线查看按地点整理的实拍影像。</td></tr>
+<tr><td><strong><a href="https://aikevin.dpdns.org/gallery.html">回忆录</a></strong></td><td>以互动裁切桌与静态列表双形态呈现 2023—2026 四国旅途影像，支持按心情与关键词翻阅。</td></tr>
 </tbody>
 </table>
 
@@ -71,9 +72,9 @@
 ## 内容公开到哪里
 
 - **公开内容：** HTML、本地数据和搜索索引都是公开站点资料，正文和摘要应按公开资料维护；发布后的文章 URL 保持稳定。
-- **搜索范围：** 导航栏的「搜索」入口（快捷键 `/`）在全站范围内搜索 `search-index.json` 收录的页面，按标题、关键词、摘要与正文片段排序，全部在浏览器内完成，不请求外部服务；索引未收录咖啡页面。文章列表页另有独立的标题、摘要与标签筛选。没有在线 AI 问答。
-- **图片来源：** 咖啡器具图和旅行目的地图按页面说明使用产品或目的地资料图，不代表作者实拍。回忆录会过滤静态数据中的 `demo-` 示例条目，不将它们作为已发布照片展示。
-- **服务边界：** 普通静态服务器可浏览文章与专题。回忆录 API 依赖 Cloudflare Pages Functions、KV 和 R2；API 不可用时回退到静态 JSON，隐藏管理工具。上传、删除还需要服务端 `GALLERY_API_KEY`，站点并非多用户内容管理系统。
+- **搜索范围：** 导航栏的「搜索」入口（快捷键 `/`）按需加载 `search-index.json`（覆盖公开页面、文章、系列、札记与 108 个认知武器），按标题、关键词、摘要与正文片段排序，全部在浏览器内完成，不请求外部服务；索引未收录咖啡页面。文章列表页另有独立的标题、摘要与标签筛选。没有在线 AI 问答。
+- **图片来源：** 咖啡器具图按页面说明使用产品资料图，不代表作者实拍；旅行照片存放在 R2 桶 `blog-gallery` 并通过 `/media/travel/*` 提供（新加坡实拍保留本地副本）。回忆录数据维护在 `data/memoir.json`。
+- **服务边界：** 普通静态服务器可浏览所有公开文章、游记、回忆录与认知武器专题。Cloudflare Pages Functions 仅保留 `/media/**`（R2 旅行图只读代理）与 `/second-brain/**`（私有第二大脑登录门卫）。站点并非多用户内容管理系统。
 - **配置与授权：** 服务端密钥使用环境变量，不写入前端。仓库目前没有项目级 `LICENSE` 文件；文章、照片与第三方素材的使用权限需分别确认。
 
 <a id="develop"></a>
@@ -99,20 +100,17 @@ source ../personal-blog-venv/bin/activate
 python -m pip install -r requirements.txt
 npm ci
 
-# 编译 Tailwind 工具类（保留手工维护的 HTML）
+# 编译 Tailwind 工具类与认知武器静态样式（保留手工维护的 HTML）
 npm run build
 
-# 运行现有单元测试与页面校验
-npm test
-python validate_site.py
+# 新建一篇文章或札记骨架（可选）
+python3 scripts/new_post.py my-slug --title "文章标题" --category ai --tags "AI 工具" --excerpt "一句话摘要。"
 
-# 文章列表、首页精选或两个系列目录变化后，局部同步首页最近与系列导航
-python update_reading_links.py
-python update_reading_links.py --check
+# 内容修改后一键局部同步共享导航/页脚、系列/札记导航、相关阅读、搜索索引与站点地图
+npm run sync
 
-# 内容变化后更新检索与 SEO 产物
-python generate_search_index.py
-python generate_sitemap.py
+# 一键运行全部单测、页面校验、108 元数据审计与全部 --check
+npm run check
 ```
 
 直接修改 HTML、`styles/` 或 `scripts/`；新增工具类后运行 `npm run build`。在浏览器核对文章筛选、导航、图片和移动端布局；`validate_site.py` 检查页面结构、必要 meta 标签与本地资源链接。
@@ -152,11 +150,7 @@ personal-blog/
 
 线上是 Cloudflare Pages 上的静态站，正式地址 [https://aikevin.dpdns.org](https://aikevin.dpdns.org)。构建输出就是仓库根目录：只改 HTML 时构建命令留空；改了 Tailwind 工具类再运行 `npm run build`。`404.html` 是自定义 404 页，`_redirects` 只做已下线旅行页的 301，两者都没有根级兜底。
 
-照片不进 Pages 产物。旅行与回忆录图片放在 R2 桶 `GALLERY_BUCKET`（桶名 `blog-gallery`），页面通过 `functions/media` 读取，只放行 `travel/` 前缀。`functions/` 其余三处：
-
-- `functions/api/counter`：用 `VISITOR_COUNTER` KV 记一次访问并返回总数。
-- `functions/api/gallery`：用 `GALLERY_META` KV 和同一个 R2 桶列出、上传、删除回忆录照片；上传和删除需要服务端 `GALLERY_API_KEY`。
-- `functions/second-brain`：校验登录后，从私有存储绑定读取 `/second-brain/` 下的文件。
+照片不进 Pages 产物。旅行与回忆录图片放在 R2 桶 `GALLERY_BUCKET`（桶名 `blog-gallery`），页面通过 `functions/media` 读取，只放行 `travel/` 前缀的栅格图片。`functions/` 另一处为 `functions/second-brain`（登录门卫与登出路由），校验签名 Cookie 后从私有 R2 桶 `SECOND_BRAIN_BUCKET` 读取文件。非生产目录与脚本均通过 `.assetsignore` 排除出部署产物，基础安全响应头由 `_headers` 统一管理。
 
 绑定名称见 [wrangler.toml](wrangler.toml)。密钥只放在 Pages 环境变量或本地 `.dev.vars`，不写入仓库。自建一份时，KV、R2 和密钥都换成自己的。
 
